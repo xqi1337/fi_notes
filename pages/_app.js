@@ -1,6 +1,6 @@
 import GlobalNav from '@/components/GlobalNav';
 import Sidebar from '@/components/Sidebar';
-import Topics from '@/components/Topics';
+import TableOfContents from '@/components/TableOfContents';
 import '@/styles/globals.css';
 import { useState } from 'react';
 
@@ -25,7 +25,7 @@ export default function MyApp({ Component, pageProps }) {
         {/* Hauptinhalt */}
         <Component {...pageProps} />
         {/* 🔥 Inhaltsverzeichnis statt RelatedArticles */}
-        <Topics headings={pageProps.headings || []} />
+        <TableOfContents headings={pageProps.headings || []} />
       </div>
     </>
   );
