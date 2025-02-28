@@ -33,6 +33,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.extra-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(55.55% 0 0 / 40%) transparent;
+  scrollbar-gutter: stable;
+}
+
 /* Prose-Styling für MDX */
 .prose {
   @apply max-w-none prose-lg prose-invert;
