@@ -91,34 +91,31 @@ Ein Dateisystem organisiert und strukturiert das Schreiben, Suchen, Lesen, Speic
 
 Es gibt drei Hauptarten der Formatierung:
 
-1. **High-Level Formatierung**:
+#### High-Level Formatierung
 
-   - Bei dieser wird nur der Eintrag im „Table of Content“ (Festplattenindex) gelöscht.
-   - Dies ist die Schnellformatierungsoption unter Windows.
+- Bei dieser wird nur der Eintrag im „Table of Content“ (Festplattenindex) gelöscht.
+- Dies ist die Schnellformatierungsoption unter Windows.
 
-2. **Mid-Level Formatierung**:
+#### Mid-Level Formatierung
 
-   - Es wird zunächst eine High-Level-Formatierung durchgeführt. Zusätzlich werden alle Bytes des Datenträgers mit einem bestimmten Zeichen, meistens einer Null, überschrieben.
-   - Dies entspricht der normalen Formatierungsoption (keine Schnellformatierung) unter Windows (ab Vista).
+- Es wird zunächst eine High-Level-Formatierung durchgeführt. Zusätzlich werden alle Bytes des Datenträgers mit einem bestimmten Zeichen, meistens einer Null, überschrieben.
+- Dies entspricht der normalen Formatierungsoption (keine Schnellformatierung) unter Windows (ab Vista).
 
-3. **Low-Level Formatierung**:
+#### Low-Level Formatierung
 
-   - Diese wird vom Controller durchgeführt und legt den Datenträger in physikalische Einheiten wie Spuren und Sektoren fest.
-   - Heute erfolgt diese Formatierung meist direkt beim Hersteller.
+- Diese wird vom Controller durchgeführt und legt den Datenträger in physikalische Einheiten wie Spuren und Sektoren fest.
+- Heute erfolgt diese Formatierung meist direkt beim Hersteller.
 
-**Alternative**:
+#### Alternative
 
 - **Datenlöschung (Wiping)**: Dabei wird der Datenträger mehrfach mit zufälligen 1en und 0en überschrieben, um Daten dauerhaft zu löschen.
 
 ### Dateisysteme im Zusammenhang mit Betriebssystemen
 
-**Lese- und Schreibfähigkeit eines Betriebssystems auf einem Datenträger ist vom Dateisystem abhängig**
-
-Das Betriebssystem muss das jeweilige Dateisystem unterstützen
-
-Hat bei dem Speichermedium Einfluss auf:
-
-- Maximalgrößen einer Partition/ des gesamten Datenträgers
-- Maximalgröße einer einzelnen Datei
-- Rechte- und Zugriffsverwaltung
-- Komprimierung und Verschlüsselung
+- Lese- und Schreibfähigkeit eines Betriebssystems auf einem Datenträger ist vom Dateisystem abhängig
+- Das Betriebssystem muss das jeweilige Dateisystem unterstützen
+- Hat bei dem Speichermedium Einfluss auf:
+  - Maximalgrößen einer Partition/ des gesamten Datenträgers
+  - Maximalgröße einer einzelnen Datei
+  - Rechte- und Zugriffsverwaltung
+  - Komprimierung und Verschlüsselung
