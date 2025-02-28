@@ -1,0 +1,190 @@
+---
+title: 'Lernfeld 2 Abschnitt 3'
+description: 'IT Sichertheit, Software, Hardware'
+tags: ['IT', 'Software', 'Hardware', 'IT Sicherheit']
+---
+
+# IT-Sicherheit & Rechnerarchitektur
+
+### Gemeinsame Anforderungen der IT-Sicherheit:
+
+- **Vertraulichkeit**: Daten nur für befugte Personen zugänglich.
+- **Datenintegrität**: Korrektheit der Daten, keine Manipulation.
+- **Verfügbarkeit**: Schutz der Daten vor Zerstörung oder Verlust und Sicherstellung der Wiederherstellung.
+  **Unterscheidung der Schutzbegriffe**:
+- **Datenschutz**: Schutz personenbezogener Daten (BDSG).
+- **Datensicherheit**: Schutz von Daten in Unternehmen (BSI).
+- **IT-Sicherheit**: Schutz der Vertraulichkeit, Integrität und Verfügbarkeit durch technische Maßnahmen.
+- **Informationssicherheit**: Schutz aller Informationen gemäß IT-Grundschutzkatalog des BSI.
+
+### Sicherheitsaspekte (CIA(A))
+
+- **Vertraulichkeit (Confidentiality)**: Schutz von Daten und Informationen vor unbefugtem Zugriff.
+- **Unversehrtheit (Integrity)**: Sicherstellung der Korrektheit und Vollständigkeit von Daten und Systemen.
+- **Verbindlichkeit (Authenticity)**: Bestätigung der Herkunft von Daten und Transaktionen.
+- **Verfügbarkeit (Availability)**: Sicherstellung des Zugriffs auf Daten, Dienstleistungen und Ressourcen.
+- **Verletzungen** dieser Aspekte können zu **Rechtsverletzungen**, **materiellen** und **ideellen Schäden** sowie **Gesetzesverstößen** führen.
+
+---
+
+### Cyberkriminelle Aktivitäten
+
+- Phishing
+- Keylogger
+- Nicknapping
+- Scareware
+- Malware (Malicious Software)
+- Ransomware (engl. ransom Lösegeld)
+- Botnetz
+- DoS (Denial of Service)
+- CEO-Fraud oder „Cheftrick“
+
+---
+
+### Software
+
+Firmware & Betriebssysteme inklusive:
+
+- Treiber
+- Dienste (Service- System- oder Hilfsprogramme)
+  Anwendungssoftware /-programme & Datensätze
+
+### Firmware
+
+Eine in Geräten eingebettete Software die:
+
+- Funktional fest mit der Hardware verbunden
+- Speichermedium meist ein ROM-Baustein (EEPROM /  Flash-Speicher)
+- Fungiert entweder:
+  - Als vollständiges Betriebssystem  
+    Beispiel: Handy-Betriebssysteme
+  - Zwischenebene zwischen Hardware und Betriebssystem  
+    Beispiel: BIOS / UEFI
+
+### Betriebssystem (OS; Operating System)
+
+**Ansammlung von Programmen die es ermöglichen:**
+
+- Den Rechner / die Hardware zu betreiben
+- Applikationen auf dem Rechner auszuführen (koordinieren und überwachen)
+- Dem Benutzer eine zugängliche Umgebung bereitstellt
+
+### Klassifizierung von Betriebssystemen
+
+- nach Betriebsart
+- nach Prozessanzahl
+- nach Benutzeranzahl
+- nach verwalteten Prozessoren
+
+### Aufgaben des Betriebssystems
+
+- vSpeicherverwaltung
+- Geräteverwaltung
+- Prozessverwaltung
+- Dateiverwaltung
+- Rechteverwaltung
+- Abstraktion
+
+### Speicherverwaltung
+
+- **Verwaltung des Arbeitsspeichers**: Prozesse erhalten einen bestimmten Anteil des verfügbaren Arbeitsspeichers.
+- **Notwendigkeit**: Durch immer größere und parallel laufende Applikationen reicht der verfügbare Arbeitsspeicher oft nicht aus.
+- **Lösung**: Alle benötigten Prozessteile befinden sich im Hauptspeicher, der Rest wird auf dem Sekundärspeicher ausgelagert. Haupt- und Sekundärspeicher bilden zusammen den **virtuellen Speicher**.
+
+### Geräteverwaltung
+
+- **Schnittstelle** zwischen Geräten und Betriebssystem: Optimiert die Verwaltung von Ein-/Ausgabegeräten und Vermittlungseinheiten.
+- **Ziel**: Vermeidung von Konflikten durch **Treiber**.
+- **Funktionen**: Initiierung, Überwachung, Terminierung und Unterbrechungsanforderung (IRQ) von Ein-/Ausgabevorgängen.
+
+### Gerätetreiber
+
+- **Gerätespezifische Software (Treiber)**: Teilprogramme, die die Interaktion mit angeschlossenen Geräten steuern.
+- **Hardwareseite**: Ermöglicht den Austausch von Steuersignalen und Daten.
+- **Softwareseite**: Stellt eine genormte Schnittstelle bereit, um gleichartige Geräte immer auf die gleiche Weise anzusprechen.
+
+### Prozessverwaltung
+
+**Prozessverwaltung**: Komponente des Betriebssystems, die den Ablauf der Prozesse steuert und die konfliktfreie Nutzung der Systemressourcen gewährleistet.
+**Prozesse**:
+
+- Arbeiten Programmschritte ab.
+- Können abgebrochen, angehalten und später fortgesetzt werden.
+- Kommunizieren mit anderen Prozessen.
+- Erzeugen weitere Prozesse.
+- Beenden sich nach Erfüllung ihrer Aufgaben (Terminierung)
+
+### Dateiverwaltung
+
+- **Dateiverwaltung**: Umfasst Vorgänge zur Verwaltung und Manipulation von Dateien, wie: - Erstellen, Kopieren, Umbenennen, Verschieben, Löschen
+  - Ändern von Metadaten (z. B. Dateiattribute, Rechte)
+  - Suchen von Dateien
+- **Abhängigkeit**: Die genauen Möglichkeiten hängen vom Dateisystem ab.
+- **Werkzeuge**: Benutzer können einen **Dateimanager** oder die **Befehlszeile** (Kommandos) nutzen.
+
+### Rechteverwaltung
+
+- **Rechtsverwaltung im Betriebssystem**: Verwaltung von Rechten und Einschränkungen in verschiedenen Bereichen wie Speicher-, Prozess-, Geräte- oder Dateiverwaltung.
+
+### Benutzerkonten
+
+- **Mehrbenutzerbetrieb**: Mehrere Benutzer mit gleichen oder unterschiedlichen Rechten können auf das gleiche Betriebssystem zugreifen.
+- **Datensicherheit**: Die Vertraulichkeit der Benutzerdaten wird durch Zugangspasswörter sichergestellt.
+- **Gruppenverwaltung**: Rechte können über Benutzergruppen (z. B. Admin, Gast) definiert werden.
+
+### BIOS (Basic Input Output System)
+
+- **BIOS**: Fest installierter Chip auf dem Mainboard, der die Basis-Firmware des Computers enthält.
+- **Abhängigkeit**: Die BIOS-Version ist vom Mainboard abhängig.
+- **Speicherung**: BIOS-Parameter werden im **CMOS-RAM** gespeichert
+- **BIOS-Funktionen**:
+  - Führt einen **Power On Self Test (POST)** durch.
+  - Startet die Laufwerke für den Betriebssystemstart.
+  - Legt die **Bootreihenfolge** fest.
+  - Bietet Einstellungsoptionen für Hardwarekomponenten (z. B. **CPU Overclocking**).
+  - Ermöglicht das Einsehen von PC-Informationen (z. B. **CPU-Temperatur**).
+  - **BIOS-Passwort** kann festgelegt werden.
+
+### **Power On Self Test (POST)**:
+
+- Prüft die grundlegenden Hardwarekomponenten.
+- Gibt Fehlermeldungen über **Signaltöne** aus.
+- Initialisiert die **Grafikkarte** und überprüft weitere Komponenten/Peripheriegeräte.
+- Startet anschließend das Betriebssystem gemäß der definierten **Bootreihenfolge**.
+
+### UEFI
+
+- **UEFI (Unified Extensible Firmware Interface)**:
+  - Nachfolger des BIOS.
+  - BIOS erreichte durch technische Weiterentwicklungen seine Leistungsgrenzen.
+
+### **Steuerwerk**:
+
+- Sorgt dafür, dass Befehle aus dem Speicher geladen und interpretiert werden.
+- Nutzt dafür drei Speicher, sogenannte **Register**.
+
+### Rechenwerk
+
+- Verarbeitet die Befehle des Steuerwerks.
+- Hauptbestandteil ist die **ALU (Arithmetic Logic Unit)**, die mathematische und logische Rechenoperationen ausführt.
+- **ALU-Komponenten**:
+  - **Datenregister**: Speichert die zu verarbeitenden Daten.
+  - **Akkumulator**: Speichert Zwischenergebnisse der Rechenoperationen.
+  - **Operation**: Kommt vom Steuerwerk und bestimmt, welche Rechenoperation ausgeführt wird (z. B. ADD).
+- **Ergebnis**: Wird zusammen mit dem Status zum Steuerwerk zurückgeführt.
+
+### Speichermanager
+
+- Der Speichermanager sorgt für den Austausch mit dem Arbeitsspeicher, in dem unser ausgeführtes Programm steht.
+- Da aber der Arbeitsspeicher langsamer ist, als der Prozessor, gibt es den Cache, der als Zwischenspeicher für wiederbenutzbare Befehle und Werte dient.
+- Dieser schneller Speicher ist in drei Ebenen unterteilt: Level 1, Level 2 und Level 3 Cache
+
+### Ablauf in einem Prozessor
+
+1.Nächsten Befehl laden -> Befehlsregister
+2.Befehlszähler erhöhen & Befehl dekodieren
+3.Benötigte Werte laden
+4.ALU führt Operation aus
+5.Ergebnis -> Datenregister und Statusregister
+
+Alle Aktionen auf einem PC funktioniert nur mit einfachen Additionen, vergleichen von Werten und laden und speichern von Daten.

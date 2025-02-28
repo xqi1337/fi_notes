@@ -1,0 +1,126 @@
+---
+title: 'Lernfeld 2 Abschnitt 4'
+description: 'Hardwarekomponenten eines PCs'
+tags: ['IT', 'Hardware']
+---
+
+### Volatile Memory(VM)
+
+- Datenverlust bei Stromunterbrechung
+- Schreib- und Lesespeicher
+  **Relevant für**; - SRAM(Static Random Access Memory) - DRAM(Dynamic Random Access Memory)
+
+### SRAM
+
+- speichert mittels Flipflops
+- Hohe Geschwindigkeit
+- komplexe Bauweise
+- Hohe Fertigungskosten
+- Einsatz bei Cache-Speicher
+
+### DRAM
+
+- einfache Bauweise
+- langsamer als SRAM
+- geringe Fertigungskosten
+
+### Refresh
+
+- Permanente Indizierung (Aktualisierung)
+- Entgegenwirken der Kriechstromladung des Kondensators
+- Beispiel: Ram
+
+### SIMM
+
+- Single Inline Memory Modul
+- Auf einer Seite des Moduls sind Pins
+- 32-BIt Übertragung pro Takt (Clock Cycle)
+
+### DIMM
+
+- Dual Inline Memory Modul
+- Auf beiden Seiten Pins
+- Hohe Übertaktungsrate
+- 64-bit Übertragung pro Takt(Clock Cycle)
+
+---
+
+# Arbeitsspeicher Dimm Arten
+
+### UDIMM:
+
+- ungepufferte Module ohne zusätzliche verbaute Register-Chips
+- Standard für Heim-PCs
+
+### RDIMM
+
+- RAM mit 2 Register-Chips zur Entlastung des Chipsatzes
+- Speicherplatzauswahl für geforderte Datei
+- Einsatz auf Server
+
+### FB-DIMM
+
+- AMB (Advanced Memory Buffer) steuert Kommunikation mit Speichercontroller und entlastet diesen
+- Einsatz in Server
+
+### SO-DIMM + Micro-DIMM
+
+- Arbeitsspeichermodul mit geringer Bauform
+- Strom sparend
+- Einsatz Notebooks u. kleine PCs
+
+### Arbeitsspeicher – Fehlererkennung ECC
+
+- Dient zur **Fehlererkennung** und **Fehlerkorrektur**.
+- **1-Bit Fehler** können erkannt und korrigiert werden.
+- **2-Bit Fehler** können nur erkannt werden.
+- Muss vom **Mainboard**, **Chipsatz** und **BIOS** unterstützt werden.
+- Häufige Anwendung bei **Servern**.
+- Meist in Verbindung mit **RDIMMs** oder **FB-DIMMs**.
+
+### Single Data Rate (SDR)
+
+- Übertragung der Daten bei der einer / der steigenden Flanke des Taktimpuls
+
+### Double Data Rate (DDR)
+
+- Übertragung der Daten bei steigenden und abfallenden Flanke des Taktimpulses
+
+### Arbeitsspeicher – DDR-RAM Unterschiede
+
+- Leistung
+- PIN-Anzahl
+- Bauform(Die Kerbe zwischen den Pins)
+
+### Latenzen
+
+- Zeiten / Verzögerungen zwischen einzelnen Operationen / Arbeitsschritten
+- Angaben in Nanosekunden (ns)
+- Vier Latenzen
+  ![[Pasted image 20250227150124.png]]
+
+---
+
+### Mainboard / Hauptplatine / Motherboard
+
+- Verbindet Systemkomponenten wie **Prozessor**, **Arbeitsspeicher** und Erweiterungen (z. B. **Grafikkarten**).
+- Besteht aus Bauteilen wie **Prozessorsockel**, **RAM-Steckplätzen**, **BIOS-Chip**, **Steckplätzen** und **Leiterbahnen**.
+- Entscheidet über die **Leistung**, **Erweiterbarkeit** und **Zukunftsfähigkeit** des Computers.
+- **Mainboardtypen**:
+  - Unterscheiden sich durch **CPU**- und **Arbeitsspeichertypen** sowie **Anschlüsse**.
+  - **Formfaktor** (z. B. **ATX**) definiert **Größe**, **Befestigungsmöglichkeiten**, **Komponentenanordnung** und kompatibles **Netzteil** und **Gehäuse**.
+
+![[Pasted image 20250227150322.png]]
+
+---
+
+### Netzteil
+
+- **ATX Netzteil (Standard)**: Nachfolger des **AT-Netzteils**, weit verbreitet in Desktop-Computern.
+- **Bauformen basierend auf ATX**:
+  - **SFX** (Small Form Factor)
+  - **TFX** (Thin Form Factor)
+
+### **Chipsatz**:
+
+Zentrales Element des Mainboards, sorgt für die Kommunikation der verschiedenen Komponenten. - **North-Bridge**: Verbindet CPU, RAM und Grafikkarte für schnellen Datenaustausch. - **South-Bridge**: Steuert Peripherieschnittstellen und enthält das BIOS. - **Veraltete Struktur**: Die Aufteilung in North- und South-Bridge ist obsolet, da viele Funktionen inzwischen in andere Komponenten wie CPU und Grafikkarten ausgelagert wurden.

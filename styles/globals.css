@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Prose-Styling für MDX */
+.prose {
+  @apply max-w-none prose-lg prose-invert;
+}
+
+.prose h1 {
+  @apply text-white text-4xl font-bold mt-0 mb-4;
+}
+
+.prose h2 {
+  @apply text-white text-3xl font-semibold mt-10 mb-3;
+}
+
+.prose h3 {
+  @apply text-white text-2xl font-semibold mt-6 mb-2;
+}
+
+.prose p {
+  @apply text-gray-300 leading-relaxed mb-4;
+}
+
+.prose a {
+  @apply text-blue-400 hover:text-blue-300 transition;
+}
