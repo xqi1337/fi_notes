@@ -16,7 +16,7 @@ export default function Sidebar() {
   }, []);
   const router = useRouter();
   return (
-    <aside className='p-6 border-r border-gray-700 sticky top-25 text-sm flex self-start shrink-0 flex-col'>
+    <aside className='py-6 sticky top-24 text-sm flex self-start shrink-0 flex-col max-w-54'>
       {Object.keys(navigation).length === 0 ? (
         <p className='text-gray-500'>Keine Artikel gefunden.</p>
       ) : (
@@ -24,7 +24,7 @@ export default function Sidebar() {
           <div key={index} className='mb-4 overflow-y-auto'>
             {/* 🔥 Kategorie-Überschrift */}
             <h3 className='text-md font-bold text-gray-300 mb-2'>{category}</h3>
-            <ul>
+            <ul className='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800'>
               {(Array.isArray(navigation[category])
                 ? navigation[category]
                 : []

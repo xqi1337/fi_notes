@@ -22,6 +22,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  min-height: 100vh;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -38,7 +43,7 @@ body {
 }
 
 .prose h2 {
-  @apply text-white text-3xl font-semibold mt-10 mb-3;
+  @apply text-white text-3xl font-semibold mt-10 mb-3 scroll-m-[118px];
 }
 
 .prose h3 {

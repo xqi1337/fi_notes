@@ -12,21 +12,20 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       {/* 🌎 Globale Navigation */}
-      <div className='flex sticky top-0 bg-transparent'>
+
+      <div className='fixed top-0 left-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-700 shadow-md'>
         <GlobalNav
           articles={pageProps.articles || []}
           setFilteredArticles={setFilteredArticles}
         />
       </div>
-      <div className='flex flex-col min-h-screen text-gray-300 w-7xl mx-auto relative'>
-        <div className='flex flex-grow'>
-          {/* Sidebar bleibt immer sichtbar */}
-          <Sidebar />
-          {/* Hauptinhalt */}
-          <Component {...pageProps} />
-          {/* 🔥 Inhaltsverzeichnis statt RelatedArticles */}
-          <Topics headings={pageProps.headings || []} />
-        </div>
+      <div className='flex grow-0 text-gray-300 w-7xl mx-auto mt-16 relative pt-8'>
+        {/* Sidebar bleibt immer sichtbar */}
+        <Sidebar />
+        {/* Hauptinhalt */}
+        <Component {...pageProps} />
+        {/* 🔥 Inhaltsverzeichnis statt RelatedArticles */}
+        <Topics headings={pageProps.headings || []} />
       </div>
     </>
   );

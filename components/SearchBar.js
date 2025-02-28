@@ -13,7 +13,7 @@ export default function SearchBar({ articles, setFilteredArticles }) {
   };
 
   return (
-    <div className='w-full mb-6'>
+    <>
       <input
         type='text'
         placeholder='Suche nach Artikeln oder Inhalten...'
@@ -21,6 +21,6 @@ export default function SearchBar({ articles, setFilteredArticles }) {
         onChange={handleSearch}
         className='w-full p-2 rounded-md border border-gray-200 text-gray-200'
       />
-    </div>
+    </>
   );
 }
