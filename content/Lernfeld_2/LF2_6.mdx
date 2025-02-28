@@ -4,25 +4,21 @@ description: 'Festspeichermedien und Dateisysteme'
 tags: ['IT', 'Hardware', 'Dateisysteme', 'Festplatten', 'SSD']
 ---
 
-# Festplatten & Dateisysteme
+## Festplattenlaufwerk (HDD & SSD):\*\*
 
-### **Festplattenlaufwerk (HDD & SSD):**
+### HDD (Hard Disk Drive)
 
-**HDD (Hard Disk Drive)**: - Magnetisches Speichersystem mit mechanischen Teilen. - Daten werden auf rotierenden Scheiben gespeichert, die durch einen beweglichen Arm (Aktuator) mit Magnetkopf ausgelesen werden. - Kenngrößen: Formfaktor, Umdrehungsgeschwindigkeit, Lese-/Schreibgeschwindigkeit, Zugriffszeit, Speichergröße. - Lebensdauer: 5-10 Jahre, abhängig von Nutzung und Temperatur. - Mehr Speicherplatz als angegeben für Ausfallsicherung.
-**SSD (Solid State Drive)**: - Rein elektronische Speicherung mit Flash-Speicher (NAND-Flash). - Keine beweglichen Teile, schneller und widerstandsfähiger als HDD. - Nicht flüchtiger Speicher, basierend auf Floating-Gate Transistoren.
+- Magnetisches Speichersystem mit mechanischen Teilen.
+- Daten werden auf rotierenden Scheiben gespeichert, die durch einen beweglichen Arm (Aktuator) mit Magnetkopf ausgelesen werden.
+- Kenngrößen: Formfaktor, Umdrehungsgeschwindigkeit, Lese-/Schreibgeschwindigkeit, Zugriffszeit, Speichergröße.
+- Lebensdauer: 5-10 Jahre, abhängig von Nutzung und Temperatur.
+- Mehr Speicherplatz als angegeben für Ausfallsicherung.
 
-**Formfaktoren**:
+### SSD (Solid State Drive)
 
-- 3,5 Zoll: Für Desktop-PCs.
-- 2,5 Zoll: Für Notebooks.
-- 1,8 Zoll: Für Mini-Notebooks.
-- M.2: Weitere Formfaktoren für moderne Geräte.
-
-**Weitere Datenspeicher**:
-
-- Hybrid-Festplatten, Bandspeicher, CD/DVD/Bluray.
-
-**SSD – Solid State Drive:**
+- Rein elektronische Speicherung mit Flash-Speicher (NAND-Flash).
+- Keine beweglichen Teile, schneller und widerstandsfähiger als HDD.
+- Nicht flüchtiger Speicher, basierend auf Floating-Gate Transistoren.
 
 - **Speichertechnik**: Rein elektronische Speicherung mit Flash-Speicher (NAND-Flash).
 - **Nicht flüchtiger Speicher**: Daten bleiben auch ohne Strom erhalten.
@@ -30,15 +26,26 @@ tags: ['IT', 'Hardware', 'Dateisysteme', 'Festplatten', 'SSD']
 - **Löschvorgang**: Blockweises Löschen.
 - **Aufbau**: Mehrere Flash-Chips auf einer Platine bilden die SSD.
 
+### Formfaktoren
+
+- 3,5 Zoll: Für Desktop-PCs.
+- 2,5 Zoll: Für Notebooks.
+- 1,8 Zoll: Für Mini-Notebooks.
+- M.2: Weitere Formfaktoren für moderne Geräte.
+
+### Weitere Datenspeicher
+
+- Hybrid-Festplatten, Bandspeicher, CD/DVD/Bluray.
+
 ---
 
-**ROM (Read-Only Memory)**:
+## ROM (Read-Only Memory)
 
 - **Nicht-flüchtiger Speicher**: Daten bleiben auch ohne Strom erhalten.
 - **Zugriffsart**: Nur Lesezugriff, keine Schreibvorgänge im normalen Betrieb.
 - **Verwendung**: Speicherung von grundlegenden Systeminformationen oder fest programmierten Daten.
 
-**Arten von ROM**:
+### Arten von ROM
 
 - **PROM (Programmable ROM)**:
   - Einmalig programmierbar durch Benutzer.
@@ -55,12 +62,16 @@ Der Begriff **ROM** wird heute meist verwendet, um nicht-flüchtigen Speicher vo
 
 ---
 
-**Dateisysteme**: Ein Dateisystem organisiert und strukturiert das Schreiben, Suchen, Lesen, Speichern, Verändern und Löschen von Dateien auf einem Speichermedium. Es verwendet ein Verzeichnis, das angibt, wo welche Datei gespeichert ist und welche zusammengehören.
+## Dateisysteme und Speicherstrukturen
+
+### Dateisysteme
+
+Ein Dateisystem organisiert und strukturiert das Schreiben, Suchen, Lesen, Speichern, Verändern und Löschen von Dateien auf einem Speichermedium. Es verwendet ein Verzeichnis, das angibt, wo welche Datei gespeichert ist und welche zusammengehören.
 
 - **Formatierung**: Das Dateisystem entsteht beim Formatieren einer Partition.
 - **Faktoren der Unterscheidung**: Dateisysteme unterscheiden sich z.B. in unterstützter Festplatten- und Dateigröße.
 
-**Speicherung von Daten**:
+### Speicherung von Daten
 
 - **Blockbasierte Speicherung**: Daten werden in Blöcken (meist 512 Byte) gespeichert. Mehrere Blöcke bilden einen Cluster (z.B. 4 KiB = 8 Blöcke).
 - **Logische vs. physikalische Speichergröße**:
@@ -68,17 +79,15 @@ Der Begriff **ROM** wird heute meist verwendet, um nicht-flüchtigen Speicher vo
   - **Physikalische Größe**: Die Größe, die auf der Festplatte für die Datei belegt wird.
   - **File-Slack**: Unbenutzter Speicher im Cluster.
 
-**Clustergröße**:
+### Clustergröße
 
 - Je größer der Cluster, desto schnellere Zugriffszeiten, aber auch mehr Speicherverbrauch pro Datei (mehr File-Slack).
 
-**Index-Tabelle**:
+### Index-Tabelle
 
 - Diese Tabelle legt fest, welche Blöcke zu welcher Datei gehören, welche Blöcke aufeinander folgen und welche Blöcke frei sind.
 
----
-
-### **Formatierung**:
+### Formatierung
 
 Es gibt drei Hauptarten der Formatierung:
 
@@ -100,8 +109,6 @@ Es gibt drei Hauptarten der Formatierung:
 **Alternative**:
 
 - **Datenlöschung (Wiping)**: Dabei wird der Datenträger mehrfach mit zufälligen 1en und 0en überschrieben, um Daten dauerhaft zu löschen.
-
----
 
 ### Dateisysteme im Zusammenhang mit Betriebssystemen
 
