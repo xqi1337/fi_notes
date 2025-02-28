@@ -1,4 +1,6 @@
+import { mdxComponents } from '@/components/mdxComponents'; // 🔥 Importiere benutzerdefinierte Komponenten
 import { getAllArticles } from '@/utils/articles';
+import { extractHeadings } from '@/utils/mdx';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote';
@@ -7,7 +9,7 @@ import path from 'path';
 
 const contentDir = path.join(process.cwd(), 'content');
 
-// Funktion, um den Inhalt eines einzelnen MDX-Artikels zu laden
+// 🔥 `getStaticProps` nutzt `extractHeadings()`
 export async function getStaticProps({ params }) {
   const filePath = path.join(contentDir, `${params.slug.join('/')}.mdx`);
 
@@ -19,19 +21,21 @@ export async function getStaticProps({ params }) {
   const { data, content } = matter(fileContents);
   const mdxSource = await serialize(content);
 
-  const articles = getAllArticles(); // 🔥 **Artikel-Liste aus Utility-Funktion laden**
+  const headings = extractHeadings(content) || []; // 🔥 Überschriften extrahieren
+  const articles = getAllArticles() || []; // 🔥 Artikel für Sidebar
 
   return {
     props: {
       source: mdxSource,
       meta: data,
       slug: params.slug,
-      articles, // 🔥 **Jetzt überall verfügbar**
+      headings,
+      articles,
     },
   };
 }
 
-// Alle verfügbaren Artikel als Routen generieren
+// 🔥 `getStaticPaths` wieder hinzufügen
 export async function getStaticPaths() {
   const paths = getAllArticles().map((article) => ({
     params: { slug: article.slug.split('/').slice(1) },
@@ -40,14 +44,15 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-// Die eigentliche Artikel-Seite
-export default function PostPage({ source, meta }) {
+// 🔥 Artikel-Seite anzeigen
+export default function PostPage({ source, meta, headings }) {
   return (
-    <>
+    <div className='flex min-h-screen p-6'>
       <article className='prose prose-dark max-w-none'>
         <h1>{meta.title}</h1>
-        <MDXRemote {...source} />
+        <MDXRemote {...source} components={mdxComponents} />{' '}
+        {/* 🔥 Hier werden die benutzerdefinierten Komponenten genutzt */}
       </article>
-    </>
+    </div>
   );
 }

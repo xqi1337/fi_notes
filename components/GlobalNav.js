@@ -3,17 +3,16 @@ import Link from 'next/link';
 
 export default function GlobalNav({ articles, setFilteredArticles }) {
   return (
-    <nav className='w-full bg-gray-800 text-white p-4 flex justify-between items-center shadow-md'>
-      <div className='w-1/6'></div>
+    <nav className='w-full text-white p-4 flex items-center shadow-md sticky top-0'>
       {/* 🔍 Suchfeld */}
-      <div className='w-1/3'>
+      <div className='w-full mr-8'>
         <SearchBar
           articles={articles}
           setFilteredArticles={setFilteredArticles}
         />
       </div>
       {/* 🔗 Links (Platzhalter) */}
-      <div className='flex space-x-6 mr-8'>
+      <div className='flex space-x-6 mr-8 w-64'>
         <Link href='/' className='hover:text-blue-400'>
           Home
         </Link>
