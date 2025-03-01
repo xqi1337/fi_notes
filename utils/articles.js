@@ -1,32 +1,35 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import { extractHeadings } from './mdx';
 
 const contentDir = path.join(process.cwd(), 'content');
 
-// 🔥 Funktion, um alle MDX-Artikel zu laden
-export function getAllArticles(dir = contentDir, parentSlug = []) {
-  if (!fs.existsSync(dir)) return [];
+// 🔥 Lädt alle Artikel mit `title`, `content` & `headings`
+export function getAllArticles() {
+  const articles = [];
 
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  let articles = [];
+  function readDirRecursive(dir, parentSlug = '') {
+    fs.readdirSync(dir).forEach((file) => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
 
-  entries.forEach((entry) => {
-    const fullPath = path.join(dir, entry.name);
-    const slug = [...parentSlug, entry.name.replace(/\.mdx$/, '')];
+      if (stat.isDirectory()) {
+        readDirRecursive(filePath, `${parentSlug}/${file}`);
+      } else if (file.endsWith('.mdx')) {
+        const fileContents = fs.readFileSync(filePath, 'utf8');
+        const { data, content } = matter(fileContents);
 
-    if (entry.isDirectory()) {
-      articles = [...articles, ...getAllArticles(fullPath, slug)];
-    } else if (entry.name.endsWith('.mdx')) {
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const { data } = matter(fileContents);
+        articles.push({
+          title: data.title || file.replace('.mdx', ''),
+          slug: `${parentSlug}/${file.replace('.mdx', '')}`,
+          content: content, // 🔥 Fügt den ganzen Artikeltext zur Suche hinzu
+          headings: extractHeadings(content) || [],
+        });
+      }
+    });
+  }
 
-      articles.push({
-        slug: `/${slug.join('/')}`, // URL des Artikels
-        title: data.title || slug[slug.length - 1], // Falls kein Titel existiert, nutze den Dateinamen
-      });
-    }
-  });
-
+  readDirRecursive(contentDir);
   return articles;
 }

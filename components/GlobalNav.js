@@ -5,7 +5,7 @@ export default function GlobalNav({ articles, setFilteredArticles }) {
   return (
     <nav className='w-[80vw] text-white p-4 flex items-center mx-auto justify-end h-16'>
       {/* 🔍 Suchfeld */}
-      <div className='mr-8 w-72 hidden'>
+      <div className='mr-8 w-72'>
         <SearchBar
           articles={articles}
           setFilteredArticles={setFilteredArticles}
