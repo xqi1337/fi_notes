@@ -33,12 +33,6 @@ self.onmessage = (e) => {
     const results = fuse.search(searchQuery);
     const groupedResults = groupResults(results);
 
-    // ✅ Korrektes Debugging
-    console.debug(
-      '🔥 Gruppierte Ergebnisse:',
-      JSON.stringify(groupedResults, null, 2)
-    );
-
     self.postMessage({ action: 'results', results: groupedResults });
   }
 };
