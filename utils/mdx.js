@@ -95,7 +95,7 @@ export function highlightMatch(text, query) {
     const regex = new RegExp(`(${escapedQuery})(?![^<]*>)`, 'gi'); // 🔥 Fix für Sonderzeichen
     return text.replace(
       regex,
-      `<span class="bg-yellow-400 text-black font-bold">$1</span>`
+      `<span class=" text-blue-400 font-bold">$1</span>`
     );
   } catch (error) {
     console.error('❌ Fehler in highlightMatch:', error);

@@ -1,7 +1,7 @@
 import { highlightMatch } from '@/utils/mdx';
 import { getRecentSearches, saveSearchQuery } from '@/utils/searchHistory';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SearchBar({ articles }) {
   const [query, setQuery] = useState('');
@@ -10,7 +10,11 @@ export default function SearchBar({ articles }) {
   const [workerReady, setWorkerReady] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [isFocused, setIsFocused] = useState(false); // Zeigt `recentSearches` an
+  const [hasTyped, setHasTyped] = useState(false); // Schaltet zwischen `recentSearches` & `Ergebniscontainer`
+
   const router = useRouter();
+  const searchRef = useRef(null);
 
   const handleSearch = (query) => {
     setQuery(query);
@@ -40,6 +44,18 @@ export default function SearchBar({ articles }) {
     setRecentSearches(getRecentSearches()); // 🔥 Historie aktualisieren
     router.push(slug); // 🔥 Statt `window.location.href`
   };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsFocused(false);
+        setHasTyped(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     setRecentSearches(getRecentSearches());
@@ -79,18 +95,27 @@ export default function SearchBar({ articles }) {
   }, [query, worker, workerReady]); // 🔥 `worker` hinzugefügt
 
   return (
-    <div className='relative w-full' onKeyDown={handleKeyDown} tabIndex={0}>
+    <div
+      ref={searchRef}
+      className='relative w-full'
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       {/* 🔍 Suchfeld */}
       <input
         type='text'
         placeholder='Suche nach Artikeln oder Überschriften...'
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setHasTyped(true); // 🔥 Schaltet von `recentSearches` zu `Ergebniscontainer`
+        }}
+        onFocus={() => setIsFocused(true)}
         className='w-full p-2 rounded-md border border-neutral-600 bg-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
       />
 
-      {/* 📌 Letzte Suchanfragen (falls vorhanden) */}
-      {recentSearches.length > 0 && !query && (
+      {/* 📌 Letzte Suchanfragen (werden nur gezeigt, wenn `isFocused === true` und `!hasTyped`) */}
+      {isFocused && !hasTyped && recentSearches.length > 0 && (
         <div className='absolute mt-2 w-full bg-neutral-900 border border-neutral-600 rounded-md shadow-lg z-50 p-2'>
           <p className='text-neutral-400 text-sm mb-2'>Letzte Suchanfragen:</p>
           <ul className='text-blue-400'>
@@ -98,7 +123,11 @@ export default function SearchBar({ articles }) {
               <li
                 key={idx}
                 className='cursor-pointer hover:underline p-1'
-                onClick={() => handleSearch(search)}
+                onClick={(e) => {
+                  setQuery(e.target.value);
+                  setHasTyped(true); // 🔥 Schaltet von `recentSearches` zu `Ergebniscontainer`
+                  handleSearch(search);
+                }}
               >
                 {search}
               </li>
@@ -107,14 +136,13 @@ export default function SearchBar({ articles }) {
         </div>
       )}
 
-      {/* 📌 Suchergebnisse */}
-      {query && Object.keys(results).length > 0 && (
+      {/* 📌 Suchergebnisse (werden nur gezeigt, wenn `hasTyped === true`) */}
+      {hasTyped && Object.keys(results).length > 0 && (
         <div className='absolute mt-2 w-md bg-neutral-950 border border-neutral-600 rounded-md shadow-lg z-50 right-0 overflow-y-auto extra-scrollbar max-h-96'>
           <ul className='p-1'>
             {Object.keys(results).map((articleTitle, idx) => (
               <li key={idx} className='p-2 mb-4 last-of-type:mb-0'>
                 <p className='text-neutral-200 font-bold text-sm uppercase border-b border-neutral-600'>
-                  {/* 🔥 Hier wird der Titel hervorgehoben */}
                   <span
                     dangerouslySetInnerHTML={{
                       __html: highlightMatch(articleTitle, query),
@@ -131,21 +159,19 @@ export default function SearchBar({ articles }) {
                         href={result.item.slug}
                         className='text-neutral-400 font-bold'
                       >
-                        {/* 🔥 Falls der Artikel-Titel ebenfalls ein Match enthält */}
                         <span
                           dangerouslySetInnerHTML={{
                             __html: highlightMatch(result.item.title, query),
                           }}
                         />
+                        <p className='text-neutral-400 text-xs mt-1'>
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: highlightMatch(result.match, query),
+                            }}
+                          />
+                        </p>
                       </a>
-                      <p className='text-neutral-400 text-xs mt-1'>
-                        {/* 🔥 Kontext-Highlighting */}
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: highlightMatch(result.match, query),
-                          }}
-                        />
-                      </p>
                     </li>
                   ))}
                 </ul>
