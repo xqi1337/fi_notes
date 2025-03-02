@@ -45,7 +45,7 @@ export default function Sidebar() {
               {/* 🔥 Klickbare Kategorie */}
               <button
                 onClick={() => toggleCategory(category)}
-                className='w-full text-left text-md font-bold text-gray-300 mb-2 hover:text-white focus:outline-none'
+                className='w-full text-left text-md font-bold text-gray-300 mb-2 hover:text-white cursor-pointer focus:outline-none'
               >
                 {category}
               </button>
