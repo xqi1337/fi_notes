@@ -57,7 +57,7 @@ body {
 }
 
 .prose p {
-  @apply text-gray-300 leading-relaxed mb-4;
+  @apply text-neutral-300 leading-relaxed mb-4;
 }
 
 .prose a {

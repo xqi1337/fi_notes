@@ -48,19 +48,41 @@ export function extractHeadings(mdxContent) {
   return headings;
 }
 
-export function extractContext(content, startIdx, endIdx) {
+export function extractContext(content, startIdx, endIdx, maxLength = 75) {
   if (!content) return '';
 
-  const lines = content.split('\n'); // Inhalt in Zeilen aufteilen
+  const lines = content
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0); // 🔹 Zeilen aufteilen & leere entfernen
 
-  // ✅ Die Zeile finden, die den Treffer enthält
+  // ✅ Finde die Zeile, die den Treffer enthält
   let matchedLine = lines.find((line) => {
     let lineStart = content.indexOf(line);
     let lineEnd = lineStart + line.length;
     return lineStart <= startIdx && lineEnd >= endIdx;
   });
 
-  return matchedLine ? matchedLine.trim() : 'Kein Kontext gefunden';
+  if (!matchedLine) return 'Kein Kontext gefunden';
+
+  // 🔹 Falls die Zeile länger als `maxLength`, wird sie geschnitten & mit `...` versehen
+  if (matchedLine.length > maxLength) {
+    let matchPos = matchedLine
+      .toLowerCase()
+      .indexOf(content.slice(startIdx, endIdx).toLowerCase());
+
+    let snippetStart = Math.max(0, matchPos - Math.floor(maxLength / 2));
+    let snippetEnd = Math.min(matchedLine.length, snippetStart + maxLength);
+
+    matchedLine = matchedLine.slice(snippetStart, snippetEnd).trim();
+
+    if (snippetStart > 0)
+      matchedLine = '...' + matchedLine.slice(matchedLine.indexOf(' '));
+    if (snippetEnd < content.length)
+      matchedLine = matchedLine.slice(0, matchedLine.lastIndexOf(' ')) + '...';
+  }
+
+  return matchedLine;
 }
 
 export function highlightMatch(text, query) {

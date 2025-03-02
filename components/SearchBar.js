@@ -86,13 +86,13 @@ export default function SearchBar({ articles }) {
         placeholder='Suche nach Artikeln oder Überschriften...'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className='w-full p-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
+        className='w-full p-2 rounded-md border border-neutral-600 bg-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
       />
 
       {/* 📌 Letzte Suchanfragen (falls vorhanden) */}
       {recentSearches.length > 0 && !query && (
-        <div className='absolute mt-2 w-full bg-gray-900 border border-gray-600 rounded-md shadow-lg z-50 p-2'>
-          <p className='text-gray-400 text-sm mb-2'>Letzte Suchanfragen:</p>
+        <div className='absolute mt-2 w-full bg-neutral-900 border border-neutral-600 rounded-md shadow-lg z-50 p-2'>
+          <p className='text-neutral-400 text-sm mb-2'>Letzte Suchanfragen:</p>
           <ul className='text-blue-400'>
             {recentSearches.map((search, idx) => (
               <li
@@ -109,11 +109,11 @@ export default function SearchBar({ articles }) {
 
       {/* 📌 Suchergebnisse */}
       {query && Object.keys(results).length > 0 && (
-        <div className='absolute mt-2 w-md bg-gray-900 border border-gray-600 rounded-md shadow-lg z-50 right-0 overflow-y-auto extra-scrollbar h-96'>
-          <ul className='divide-y divide-gray-700'>
+        <div className='absolute mt-2 w-md bg-neutral-950 border border-neutral-600 rounded-md shadow-lg z-50 right-0 overflow-y-auto extra-scrollbar max-h-96'>
+          <ul className='p-1'>
             {Object.keys(results).map((articleTitle, idx) => (
-              <li key={idx} className='p-2'>
-                <p className='text-white font-bold'>
+              <li key={idx} className='p-2 mb-4 last-of-type:mb-0'>
+                <p className='text-neutral-200 font-bold text-sm uppercase border-b border-neutral-600'>
                   {/* 🔥 Hier wird der Titel hervorgehoben */}
                   <span
                     dangerouslySetInnerHTML={{
@@ -125,11 +125,11 @@ export default function SearchBar({ articles }) {
                   {results[articleTitle].map((result, index) => (
                     <li
                       key={index}
-                      className='cursor-pointer hover:bg-gray-700 p-2 rounded-md'
+                      className='cursor-pointer hover:bg-neutral-900 p-2 rounded-md mt-2'
                     >
                       <a
                         href={result.item.slug}
-                        className='text-blue-400 font-bold'
+                        className='text-neutral-400 font-bold'
                       >
                         {/* 🔥 Falls der Artikel-Titel ebenfalls ein Match enthält */}
                         <span
@@ -138,7 +138,7 @@ export default function SearchBar({ articles }) {
                           }}
                         />
                       </a>
-                      <p className='text-gray-400 text-xs mt-1'>
+                      <p className='text-neutral-400 text-xs mt-1'>
                         {/* 🔥 Kontext-Highlighting */}
                         <span
                           dangerouslySetInnerHTML={{
