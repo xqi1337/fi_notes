@@ -12,6 +12,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",
+    "marked": "^15.0.7",
     "next": "15.2.0",
     "next-mdx-remote": "^5.0.0",
     "react": "^19.0.0",

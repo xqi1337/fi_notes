@@ -1,98 +1,82 @@
-import { createSearchIndex, searchArticles } from '@/utils/search';
-import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { highlightMatch } from '@/utils/mdx';
+import { getRecentSearches, saveSearchQuery } from '@/utils/searchHistory';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function SearchBar({ articles }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  const [fuse, setFuse] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(-1); // 🔥 Speichert das aktive Ergebnis
-  const resultsRef = useRef(null); // 🔥 Referenz für die Ergebnisliste
+  const [worker, setWorker] = useState(null);
+  const [workerReady, setWorkerReady] = useState(false);
+  const [recentSearches, setRecentSearches] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const router = useRouter();
 
-  useEffect(() => {
-    fetch('/search-index.json')
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Fehler beim Laden des Suchindex.');
-        }
-        return res.json();
-      })
-      .then((data) => setFuse(createSearchIndex(data)))
-      .catch((err) =>
-        console.error('Suchindex konnte nicht geladen werden:', err)
-      );
-  }, []);
+  const handleSearch = (query) => {
+    setQuery(query);
+    saveSearchQuery(query);
+    setRecentSearches(getRecentSearches()); // 🔥 Suchhistorie sofort aktualisieren
+  };
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      if (query.trim() && fuse) {
-        setResults(searchArticles(query, fuse));
-        setSelectedIndex(-1); // Reset beim neuen Suchbegriff
-      } else {
-        setResults([]);
-      }
-    }, 200); // 🔥 Debouncing: 200ms Verzögerung
-
-    return () => clearTimeout(handler);
-  }, [query, fuse]);
-
-  useEffect(() => {
-    async function fetchSearchIndex() {
-      try {
-        // 🔥 Prüfe, ob ein gespeicherter Index existiert
-        const cachedIndex = localStorage.getItem('searchIndex');
-        const cachedTimestamp = localStorage.getItem('searchIndexTimestamp');
-
-        // 🔥 Hole das letzte Änderungsdatum des Index vom Server
-        const res = await fetch('/api/search-index');
-        if (!res.ok) throw new Error('Fehler beim Laden des Suchindex.');
-        const serverIndex = await res.json();
-        const serverTimestamp = new Date(
-          res.headers.get('Last-Modified')
-        ).getTime();
-
-        // 🔥 Falls keine Änderungen → Lade gespeicherten Index
-        if (
-          cachedIndex &&
-          cachedTimestamp &&
-          serverTimestamp <= cachedTimestamp
-        ) {
-          setFuse(createSearchIndex(JSON.parse(cachedIndex)));
-          return;
-        }
-
-        // 🔥 Falls Index neu → Speichere ihn in localStorage
-        localStorage.setItem('searchIndex', JSON.stringify(serverIndex));
-        localStorage.setItem(
-          'searchIndexTimestamp',
-          serverTimestamp.toString()
-        );
-        setFuse(createSearchIndex(serverIndex));
-      } catch (err) {
-        console.error('Suchindex konnte nicht geladen werden:', err);
-      }
-    }
-
-    fetchSearchIndex();
-  }, []);
-
-  // 🔥 Keyboard-Navigation
   const handleKeyDown = (e) => {
     if (!results.length) return;
 
     if (e.key === 'ArrowDown') {
+      e.preventDefault();
       setSelectedIndex((prev) => (prev < results.length - 1 ? prev + 1 : prev));
     } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
       setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
-    } else if (e.key === 'Enter') {
-      if (selectedIndex >= 0) {
-        window.location.href = results[selectedIndex].slug; // 🔥 Direkt zum Ergebnis springen
-      }
+    } else if (e.key === 'Enter' && selectedIndex >= 0) {
+      handleSearchSelection(query, results[selectedIndex].item.slug); // 🔥 Fix: Speichert die Suche & navigiert
     } else if (e.key === 'Escape') {
       setQuery('');
       setResults([]);
     }
   };
+
+  const handleSearchSelection = (query, slug) => {
+    saveSearchQuery(query);
+    setRecentSearches(getRecentSearches()); // 🔥 Historie aktualisieren
+    router.push(slug); // 🔥 Statt `window.location.href`
+  };
+
+  useEffect(() => {
+    setRecentSearches(getRecentSearches());
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const searchWorker = new Worker(
+        new URL('../public/workers/search.worker.js', import.meta.url)
+      );
+      setWorker(searchWorker);
+
+      searchWorker.onmessage = (e) => {
+        if (e.data.action === 'ready') {
+          setWorkerReady(true);
+        }
+        if (e.data.action === 'results') {
+          setResults(() => ({ ...e.data.results }));
+        }
+      };
+
+      fetch('/search-index.json')
+        .then((res) => res.json())
+        .then((data) =>
+          searchWorker.postMessage({ action: 'loadIndex', articles: data })
+        );
+
+      return () => searchWorker.terminate();
+    }
+  }, []);
+
+  // 🔥 Suche starten
+  useEffect(() => {
+    if (!worker || !query.trim() || !workerReady) return;
+
+    worker.postMessage({ action: 'search', query });
+  }, [query, worker, workerReady]); // 🔥 `worker` hinzugefügt
 
   return (
     <div className='relative w-full' onKeyDown={handleKeyDown} tabIndex={0}>
@@ -105,40 +89,69 @@ export default function SearchBar({ articles }) {
         className='w-full p-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
       />
 
-      {/* 📌 Ergebnisse anzeigen */}
-      {query && results.length > 0 && (
-        <div
-          className='absolute mt-2 w-full bg-gray-900 border border-gray-600 rounded-md shadow-lg z-50'
-          ref={resultsRef}
-        >
-          <ul className='divide-y divide-gray-700'>
-            {results.map((result, idx) => (
+      {/* 📌 Letzte Suchanfragen (falls vorhanden) */}
+      {recentSearches.length > 0 && !query && (
+        <div className='absolute mt-2 w-full bg-gray-900 border border-gray-600 rounded-md shadow-lg z-50 p-2'>
+          <p className='text-gray-400 text-sm mb-2'>Letzte Suchanfragen:</p>
+          <ul className='text-blue-400'>
+            {recentSearches.map((search, idx) => (
               <li
-                key={result.slug}
-                className={`p-2 hover:bg-gray-700 cursor-pointer ${
-                  idx === selectedIndex ? 'bg-gray-700' : ''
-                }`}
-                onMouseEnter={() => setSelectedIndex(idx)}
-                onClick={() => (window.location.href = result.slug)}
+                key={idx}
+                className='cursor-pointer hover:underline p-1'
+                onClick={() => handleSearch(search)}
               >
-                <Link href={result.slug}>
-                  <span
-                    className='text-blue-400 font-bold'
-                    dangerouslySetInnerHTML={{
-                      __html: result.highlightedTitle,
-                    }}
-                  />
-                </Link>
+                {search}
               </li>
             ))}
           </ul>
         </div>
       )}
 
-      {/* ❌ Keine Ergebnisse */}
-      {query && results.length === 0 && (
-        <div className='absolute mt-2 w-full bg-gray-900 border border-gray-600 rounded-md p-2 text-gray-400'>
-          Keine Ergebnisse gefunden.
+      {/* 📌 Suchergebnisse */}
+      {query && Object.keys(results).length > 0 && (
+        <div className='absolute mt-2 w-md bg-gray-900 border border-gray-600 rounded-md shadow-lg z-50 right-0 overflow-y-auto extra-scrollbar h-96'>
+          <ul className='divide-y divide-gray-700'>
+            {Object.keys(results).map((articleTitle, idx) => (
+              <li key={idx} className='p-2'>
+                <p className='text-white font-bold'>
+                  {/* 🔥 Hier wird der Titel hervorgehoben */}
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: highlightMatch(articleTitle, query),
+                    }}
+                  />
+                </p>
+                <ul className='mt-1'>
+                  {results[articleTitle].map((result, index) => (
+                    <li
+                      key={index}
+                      className='cursor-pointer hover:bg-gray-700 p-2 rounded-md'
+                    >
+                      <a
+                        href={result.item.slug}
+                        className='text-blue-400 font-bold'
+                      >
+                        {/* 🔥 Falls der Artikel-Titel ebenfalls ein Match enthält */}
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: highlightMatch(result.item.title, query),
+                          }}
+                        />
+                      </a>
+                      <p className='text-gray-400 text-xs mt-1'>
+                        {/* 🔥 Kontext-Highlighting */}
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: highlightMatch(result.match, query),
+                          }}
+                        />
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
