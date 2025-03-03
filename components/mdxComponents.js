@@ -2,6 +2,7 @@ export const mdxComponents = {
   h2: ({ children, ...props }) => {
     let text = extractText(children);
     const id = generateId(text);
+
     return (
       <h2 id={id} {...props}>
         {children}
@@ -35,8 +36,10 @@ function generateId(text) {
     .replace(/\(.*?\)|\[.*?\]/g, '') // Entfernt alles in `()` oder `[]`
     .replace(/[(){}\[\]]/g, '') // Entfernt übrig gebliebene Klammern
     .replace(/<\/?[^>]+(>|$)/g, '') // Entfernt HTML-Tags
+    .replace(/&/g, '-')
     .trim()
     .toLowerCase()
+    .replace(/\s+/g, '-') // Ersetzt Leerzeichen mit `-`
     .replace(/\s+/g, '-') // Ersetzt Leerzeichen mit `-`
     .replace(/[^a-z0-9-]/g, '') // Entfernt Sonderzeichen außer `-`
     .replace(/-+$/, ''); // Entfernt `-` am Ende

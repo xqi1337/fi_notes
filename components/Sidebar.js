@@ -13,10 +13,10 @@ export default function Sidebar() {
       .then((data) => {
         setNavigation(data);
 
-        // 🔥 Standardmäßig die erste Kategorie öffnen
-        const firstCategory = Object.keys(data)[0];
-        if (firstCategory) {
-          setOpenCategories({ [firstCategory]: true });
+        // 🔥 Standardmäßig die zweite Kategorie öffnen
+        const secondCategory = Object.keys(data)[1];
+        if (secondCategory) {
+          setOpenCategories({ [secondCategory]: true });
         }
       })
       .catch((err) => console.error('Fehler beim Laden der Navigation:', err));
@@ -45,9 +45,25 @@ export default function Sidebar() {
               {/* 🔥 Klickbare Kategorie */}
               <button
                 onClick={() => toggleCategory(category)}
-                className='w-full text-left text-md font-bold text-gray-300 mb-2 hover:text-white cursor-pointer focus:outline-none'
+                className='w-full text-left text-md font-bold text-gray-300 mb-2 hover:text-white cursor-pointer focus:outline-none flex justify-between'
               >
                 {category}
+                <svg
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                  class='h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M9 5l7 7-7 7'
+                    class={`origin-center transition-transform ${
+                      isOpen ? 'rotate-90 transform' : ''
+                    }'`}
+                  ></path>
+                </svg>
               </button>
 
               {/* 🔽 Ein-/Ausklappbare Liste */}

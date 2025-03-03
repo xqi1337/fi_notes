@@ -25,15 +25,19 @@ export function extractHeadings(mdxContent) {
       let cleanText = cleanMarkdown(headingText);
 
       // 🔥 Entfernt `()` & `[]` samt Inhalt **nach** der Markdown-Bereinigung
+      console.debug(cleanText);
       cleanText = cleanText
         .replace(/\(.*?\)|\[.*?\]/g, '') // Entfernt `()` und `[]` samt Inhalt
         .replace(/[(){}\[\]]/g, '') // Entfernt übrig gebliebene Klammern
+        .replace('&amp;', '&')
         .trim();
 
       // 🔥 Erstelle eine saubere `id`
       let headingId = cleanText
         .toLowerCase()
         .replace(/\s+/g, '-') // Ersetzt Leerzeichen mit `-`
+
+        .replace(/&/g, '-')
         .replace(/[^a-z0-9-]/g, '') // Entfernt Sonderzeichen außer `-`
         .replace(/-+$/, ''); // Entfernt `-` am Ende
 

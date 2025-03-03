@@ -31,6 +31,7 @@ export default function TableOfContents({ headings }) {
   headings.forEach((heading) => {
     if (heading.level === 2) {
       lastH2 = { ...heading, subHeadings: [] };
+      //console.debug(heading);
       groupedHeadings.push(lastH2);
     } else if (heading.level === 3 && lastH2) {
       lastH2.subHeadings.push(heading);
