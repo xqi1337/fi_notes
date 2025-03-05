@@ -48,7 +48,7 @@ export async function getStaticPaths() {
 export default function PostPage({ source, meta, headings }) {
   return (
     <div className='p-6 mx-10 max-w-3xl'>
-      <article className='prose prose-darkbreak-words'>
+      <article className='prose prose-dark break-words'>
         <h1>{meta.title}</h1>
         <MDXRemote {...source} components={mdxComponents} />{' '}
         {/* 🔥 Hier werden die benutzerdefinierten Komponenten genutzt */}
