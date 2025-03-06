@@ -6,6 +6,8 @@ import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import path from 'path';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
 
 const contentDir = path.join(process.cwd(), 'content');
 
@@ -19,7 +21,13 @@ export async function getStaticProps({ params }) {
 
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
-  const mdxSource = await serialize(content);
+
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+    },
+  });
 
   const headings = extractHeadings(content) || []; // 🔥 Überschriften extrahieren
   const articles = getAllArticles() || []; // 🔥 Artikel für Sidebar

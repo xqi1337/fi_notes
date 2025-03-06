@@ -12,17 +12,21 @@
     "@tailwindcss/typography": "^0.5.16",
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",
+    "katex": "^0.16.21",
     "marked": "^15.0.7",
     "next": "15.2.0",
     "next-mdx-remote": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rehype": "^13.0.2",
+    "rehype-katex": "^7.0.1",
+    "rehype-math": "^0.2.0",
     "rehype-prism-plus": "^2.0.0",
     "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
-    "remark-html": "^16.0.1"
+    "remark-html": "^16.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
