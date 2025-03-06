@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import TableLF1_01 from './content/TableLF1_01';
+
 export const mdxComponents = {
   h2: ({ children, ...props }) => {
     let text = extractText(children);
@@ -17,6 +20,20 @@ export const mdxComponents = {
       <h3 id={id} {...props}>
         {children}
       </h3>
+    );
+  },
+
+  TableLF1_01,
+  img: ({ src, alt, ...props }) => {
+    return (
+      <Image
+        src={src}
+        alt={alt || 'Bild'}
+        width={800} // Standardgröße anpassen
+        height={450} // Seitenverhältnis beibehalten
+        style={{ maxWidth: '100%', height: 'auto' }}
+        {...props}
+      />
     );
   },
 };
