@@ -1,0 +1,183 @@
+---
+title: 'Lichtwellenleiter und Netzwerkkomponenten'
+description: 'Ein Überblick über Lichtwellenleiter, deren Typen und Netzwerkkomponenten in der IT-Infrastruktur.'
+tags: ['IT', 'Netzwerk', 'Lichtwellenleiter', 'Glasfaser']
+---
+---
+### Lichtwellenleiter / Glasfaserkabel
+
+Lichtwellenleiter umfassen alle lichtleitenden Fasern, einschließlich Glas-, Quarz- oder Kunststofffasern. Häufig wird der Begriff **Glasfaser** auch für nicht-glasige Fasern verwendet.
+
+**Funktion**: Informationen werden als **Lichtimpuls** übertragen, wobei die **Totalreflexion** den kritischen Winkel nutzt, um das Licht entlang der Faser zu leiten. 
+
+**Aufbau**: Eine Faser besteht aus einem Kern, der einen höheren **Brechungsindex** hat als der Mantel, was zu Reflexionen des Lichtstrahls führt.
+
+**Lichtimpulsgenerierung**: Zur Erzeugung von Lichtimpulsen werden häufig **LEDs** oder **Laserdioden** verwendet.
+
+**Fasertypen**:
+- **Hohlader**: Lose Fasern in einer Schutzröhre.
+- **Vollader/Festader**: Fasern sind fest miteinander verbunden.
+
+**Arten von Lichtwellenleitern**:
+- **Singlemode**: Kleiner Kerndurchmesser, geeignet für lange Distanzen.
+- **Multimode**: Größerer Kerndurchmesser, geeignet für höhere Übertragungsraten.
+
+---
+
+### Arten von Multimode-LWL
+
+- **Stufenindexprofil**: Scharfe Übergänge zwischen Kern und Mantel; schlechtere Übertragungseigenschaften.
+- **Gradientenindexprofil**: Sanfte Übergänge, bessere Übertragungseigenschaften.
+
+---
+
+### Vor- und Nachteile von LWL
+
+**Vorteile**:
+- **Geringes Kabelvolumen und Gewicht**
+- Hohe **Übertragungsraten** (Gigabit- bis Terabit-Bereich)
+- **Geringe Dämpfung** über große Distanzen (bis 120 km)
+- Hohe **Störsicherheit** und **Abhörsicherheit**
+- Keine **Erdungsprobleme**
+- Keine **elektromagnetischen Störfelder**
+
+**Nachteile**:
+- Empfindlich gegenüber **mechanischer Belastung** (Faser kann brechen)
+- Hoher **Konfektions- und Reparaturaufwand**
+- Aufwendige **Steckertechnologie** und **Signalwandler**
+- Teure **Geräte** und Installation durch Spezialfirmen
+
+---
+
+### Netzwerkkomponenten
+
+Netzwerkkomponenten lassen sich in **passive** und **aktive** Komponenten unterteilen:
+
+**Passive Komponenten**:
+- Kabel
+- Stecker
+- Patchfelder
+
+**Aktive Komponenten**:
+- Netzwerkkarten
+- Hubs
+- Repeater
+- Bridges
+- Switches
+- Router
+- Medienkonverter
+- Access Points
+- Server
+- Firewalls
+
+---
+
+### Netzwerkkarte / Netzwerkadapter
+
+Die **Netzwerkkarte** (auch Netzwerkadapter genannt) ist die physische Schnittstelle zwischen einem Computer und einem Netzwerk. Sie sorgt dafür, dass Daten übertragen und empfangen werden und wandelt diese in ein für das Netzwerk verständliches Format um. Jeder Netzwerkadapter hat eine eindeutige **MAC-Adresse**, die ihn im Netzwerk identifiziert.
+
+---
+
+### MAC-Adresse
+
+Eine **MAC-Adresse** ist eine eindeutige 48-Bit-Adresse, die zur Identifikation von Geräten in einem Netzwerk verwendet wird. Sie setzt sich aus einer Herstellerkennung und einer Adapterkennung zusammen.
+
+---
+
+### Kopplung von Netzwerken
+
+**Repeater**: Verlängert die Übertragungsstrecke und regeneriert Signale, besonders in WLAN-Netzwerken.
+
+**Hubs**: Verbinden mehrere Geräte und senden Pakete als Broadcast an alle Geräte, was zu einer hohen Netzwerkauslastung führt.
+
+**Bridges**: Verbinden zwei Netzwerke oder Segmente und arbeiten mit **MAC-Adressen**.
+
+**Switches**: Verwalten und leiten Daten an den richtigen Port basierend auf **MAC-Adressen** und einer **Source Address Table** (SAT).
+
+---
+
+### Arbeitsweise von Switches
+
+- **Lernen**: Switches speichern MAC-Adressen und deren zugehörige Ports.
+- **Weiterleiten**: Datenpakete werden an den bekannten Empfänger gesendet.
+- **Fluten**: Wenn die Ziel-MAC-Adresse unbekannt ist, wird das Paket als Broadcast weitergeleitet.
+
+**Zusammenfassung**:
+
+- **Arbeitsweise eines Switches**:
+  - **Altern**: Älteste Einträge werden gelöscht, wenn die Adresstabelle voll ist.
+  - **Filtern**: Switch verarbeitet Frames nur, wenn die Zieladresse nicht über denselben Port erreichbar ist.
+
+---
+
+### ARP – Address Resolution Protocol
+
+Das **ARP** wird verwendet, um **MAC-Adressen** anhand von **IP-Adressen** zu ermitteln. 
+
+- **ARP-Request**: Ein Broadcast zur Anforderung der MAC-Adresse.
+- **ARP-Reply**: Eine Unicast-Antwort mit der gesuchten MAC-Adresse.
+
+Jedes Gerät führt eine temporäre ARP-Tabelle, die regelmäßig aktualisiert wird.
+
+---
+
+### Switching-Verfahren
+
+- **Cut-Through**: Sofortige Weiterleitung bei Zieladresse. 
+  - **Vorteil**: Geringe Latenz.
+  - **Nachteil**: Fehlerhafte Pakete werden weitergeleitet.
+  
+- **Store-and-Forward**: Paket wird geprüft und dann weitergeleitet.
+  - **Vorteil**: Fehlerhafte Pakete werden aussortiert.
+  - **Nachteil**: Verzögerung bei der Weiterleitung.
+
+- **Error-Free-Cut-Through**: Kombination aus Cut-Through und Store-and-Forward.
+- **Fragment-Free**: Weiterleitung nach Überprüfung der ersten 64 Bytes.
+
+---
+
+### Arten von Switchen
+
+- **Unmanaged Switch**: Einfach, Plug-and-Play, keine Fernverwaltung.
+- **Web-Smart Switch**: Für mittlere Netzwerke, Verwaltung über Web-Schnittstelle.
+- **Managed Switch**: Professionelle Verwaltung, SNMP, Port-Überwachung, VLAN, QoS, etc.
+- **Industrielle Switche**: Für raue Umgebungen, z. B. in Fabriken.
+
+---
+
+### PoE (Power over Ethernet)
+
+**PoE** ermöglicht die Übertragung von Strom und Daten über dasselbe LAN-Kabel, was die Installation vereinfacht und Kosten spart.
+
+---
+
+### Gateways
+
+**Gateways** verbinden verschiedene Netzwerke und bearbeiten Daten auf unterschiedlichen OSI-Schichten. Beispiele hierfür sind **Router**, **Mediakonverter**, **Access Points** und **Firewalls**.
+
+---
+
+### Router und Routing
+
+**Router** verbinden Subnetze und steuern den Datenverkehr. Sie entscheiden, welche Routen Datenpakete nehmen.
+
+- **Statisches Routing**: Feste Routen.
+- **Dynamisches Routing**: Anpassung an die aktuelle Netzwerksituation.
+
+---
+
+### Mediakonverter
+
+Ein **Mediakonverter** wandelt Kommunikationsprotokolle zwischen verschiedenen Kabeltypen, z. B. von **Kupfer zu Glasfaser**.
+
+---
+
+### Access Points
+
+**Access Points** ermöglichen die Verbindung von Geräten mit einem WLAN und deren Integration in das lokale Netzwerk.
+
+---
+
+### IADs (Integrated Access Devices)
+
+**IADs** kombinieren mehrere Netzwerkfunktionen und werden oft als DSL- oder Kabel-Router genutzt. Sie arbeiten im **Next Generation Network (NGN)**.

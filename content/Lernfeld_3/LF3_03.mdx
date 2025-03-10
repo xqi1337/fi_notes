@@ -1,0 +1,120 @@
+---
+title: 'Ethernet, TCP/IP und Netzwerktechnologien'
+description: 'Eine Einführung in Ethernet, TCP/IP, Ports und Netzwerkkommunikation'
+tags: ['Ethernet', 'TCP/IP', 'Netzwerk', 'Protokolle', 'IT']
+---
+
+### Ethernet (IEEE 802.3)
+
+- **Paketvermittelnde Netzwerktechnik**: Definiert die Adressierung und Zugriffskontrolle auf Übertragungsmedien.
+- **Ethernetframe**: Daten werden in sogenannten Ethernetframes verpackt und übertragen.
+  
+### Bestandteile des Ethernetframes:
+
+- **Präambel**: Synchronisation (101010…)
+- **Start of Frame Delimiter**: Abgrenzung der Präambel vom Rest
+- **Zieladresse**: z.B. 00-1D-60-4A-8C-CB
+- **Quelladresse**: z.B. D4-3D-7E-38-3B-33
+- **EtherType**: Gibt das verwendete Protokoll an (z.B. 0x0800 für IPv4)
+- **Daten**: Nutzdaten
+- **Prüfsumme**: Überprüfung der Korrektheit der Übertragung
+
+---
+
+### TCP/IP
+
+**TCP/IP** ist eine Gruppe von Protokollen, die die Grundlage für das Internet und andere Netzwerke bilden. Sie setzt sich hauptsächlich aus **TCP (Transmission Control Protocol)** und **IP (Internet Protocol)** zusammen.
+
+### Internet Protocol (IP)
+
+- Primäres Protokoll für den Nachrichtenaustausch in Computernetzwerken
+- Gewährleistet den erfolgreichen Paketversand
+- Definiert das Format der Datenpakete
+
+### Transmission Control Protocol (TCP)
+
+- Vereinbarung zur Datenübertragung
+- Identifiziert eindeutige Endpunkte (IP-Adresse + Port)
+- Bildet eine Software-Schnittstelle
+
+---
+
+### User Datagram Protocol (UDP)
+
+- **Schneller als TCP**: Keine formelle Verbindung, Pakete werden ohne Reihenfolge gesendet.
+- **Fehler, Datenverluste und Duplikate** sind möglich.
+- Häufig verwendet für **Multicast**.
+- Keine erneuten Versendungen von verlorenen Paketen.
+
+---
+
+### TCP vs. UDP Kommunikation
+
+- **TCP**: Verbindungsorientiert, garantiert Reihenfolge und Zustellung.
+- **UDP**: Unverbindlich, schneller, jedoch weniger zuverlässig.
+
+---
+
+### Was ist ein Port?
+
+- **Port**: Zuordnung von UDP-/TCP-Paketen zu einer Anwendung.
+- **Vollständige Adresse**: **IP-Adresse + Port**
+- **Portbereich**: 0 bis 65535
+- **Verwaltung**: Durch **IANA** und **ICANN**.
+
+---
+
+### Port-Kategorien
+
+### Well Known Ports (0 - 1.023)
+- Standard- und Systemports, fest zugeordnet.
+- Beispiel: **HTTP** (Port 80).
+
+### Registered Ports (1.024 - 49.151)
+- Zur Registrierung freigegeben.
+- Können mehrfach belegt sein.
+
+### Dynamically Allocated Ports (49.152 - 65.535)
+- Dynamisch zugewiesen.
+
+---
+
+### Port-Zustände
+
+- **Open (Geöffnet)**: Anwendung lauscht, Verbindung möglich.
+- **Closed (Geschlossen)**: Keine Anwendung, Verbindung abgelehnt.
+- **Blocked/Filtered (Geblockt/Gefiltert)**: Verbindung blockiert, keine Rückmeldung.
+
+---
+
+### Portknocking (Anklopfen)
+
+- **Verbindungsaufbauanfrage**: An einen geschlossenen Port durch eine **definierte Klopfsequenz**.
+- **Firewall-Handling**: Anfragen werden verworfen, blockiert und protokolliert.
+- **Daemon (Software)**: Überwacht das Protokoll und ändert die Firewall-Regeln, um den Port zu öffnen, wenn die Klopfsequenz bekannt ist.
+- **Zweite Klopfsequenz**: Schließt den Port wieder.
+
+---
+
+### Häufige Protokolle und ihre Ports:
+
+- **FTP (File Transfer Protocol)**: Ports 20 + 21
+- **SMTP (Simple Mail Transfer Protocol)**: Port 25
+- **POP3 (Post Office Protocol Version 3)**: Port 110
+- **IMAP (Internet Message Access Protocol)**: Port 143
+- **DNS (Domain Name System)**: Port 53
+- **DHCP (Dynamic Host Configuration Protocol)**: Ports 67 + 68
+- **HTTP (Hypertext Transfer Protocol)**: Port 80
+- **HTTPS (Hypertext Transfer Protocol Secure)**: Port 443
+- **SNMP (Simple Network Management Protocol)**: Port 161
+- **SSH (Secure Shell)**: Port 22
+- **Telnet**: Port 23
+- **RDP (Remote Desktop Protocol)**: Port 3389
+
+---
+
+### Verwendete Ports bei der Kommunikation
+
+- **Quell-Port**: Wird vom Client zufällig aus dem Bereich über 1023 gewählt.
+- **Ziel-Port**: Entspricht der Portnummer des verwendeten Protokolls.
+  - Beispiel: **Port 80** für **HTTP** und **Port 443** für **HTTPS**.

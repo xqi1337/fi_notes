@@ -1,0 +1,134 @@
+---
+title: 'Cloud-Servicemodelle und Netzwerktechnologien'
+description: 'Ein Überblick über Cloud-Servicemodelle und Netzwerktopologien sowie deren Vorteile und Nachteile.'
+tags: ['Cloud-Computing', 'Netzwerktechnologie', 'IT-Infrastruktur']
+---
+
+## Cloud-Servicemodelle
+
+### Grundlegende Modelle
+
+- **SaaS** (Software as a Service): Software, die über das Internet bereitgestellt wird. Beispiele: E-Mail-Dienste, Cloud-Speicher.
+- **PaaS** (Platform as a Service): Bereitstellung einer vollständigen Entwicklungsumgebung in der Cloud.
+- **IaaS** (Infrastructure as a Service): Bereitstellung von virtuellen Maschinen, Speicher und Netzwerken über das Internet.
+
+**Weitere Modelle**:
+- Backup-as-a-Service, Desktop-as-a-Service und viele weitere.
+
+---
+
+### IaaS (Infrastructure as a Service)
+
+**IaaS** bietet virtuelle Computerressourcen, wie VMs, Speicher und Netzwerke, die über das Internet zugänglich sind.
+
+**Vorteile**:
+- **Skalierbarkeit**: Ressourcen können je nach Bedarf angepasst werden.
+- **Wenig Wartungsaufwand**: Keine eigene Hardware erforderlich.
+- **Geringe Anfangsinvestitionen**: Weniger Kapitalbindung.
+
+**Nachteile**:
+- **Abhängigkeit vom Anbieter**: Weniger Kontrolle über Infrastruktur.
+- **Starke Online-Abhängigkeit**: Funktioniert nur mit einer stabilen Internetverbindung.
+- **Betriebssystemvorgaben**: Einschränkungen je nach Anbieter.
+
+---
+
+### PaaS (Platform as a Service)
+
+**PaaS** stellt eine vollständige Entwicklungsumgebung in der Cloud bereit, die Entwickler für die Erstellung von Anwendungen nutzen können.
+
+**Vorteile**:
+- **Reduzierter Programmieraufwand**: Tools und Dienste erleichtern die Entwicklung.
+- **Kostengünstige Nutzung von Tools**: Keine eigenen Entwicklungsinfrastrukturen nötig.
+- **Fokus auf Anwendungsentwicklung**: Keine Notwendigkeit für Infrastrukturmanagement.
+
+**Nachteile**:
+- **Architekturvorgaben**: Muss mit der Plattform kompatibel sein.
+- **Eingeschränkte Infrastruktur-Dienste**: Weniger Flexibilität in der Wahl der Infrastruktur.
+
+---
+
+### SaaS (Software as a Service)
+
+**SaaS** bietet Softwareanwendungen, die über das Internet genutzt werden können. Beispiele: E-Mail-Dienste, Google Docs.
+
+**Vorteile**:
+- **Einfaches Abrechnungsmodell**: Meist monatliche oder jährliche Zahlungen.
+- **Keine Administration erforderlich**: Der Anbieter kümmert sich um Updates und Wartung.
+- **Fokus auf Fachlichkeit**: Nutzer müssen sich nicht um technische Details kümmern.
+
+**Nachteile**:
+- **Kaum Anpassungsmöglichkeiten**: Wenig Freiheit bei der Nutzung der Software.
+- **Starke Bindung an den Anbieter**: Schwierigkeiten beim Wechseln des Anbieters.
+- **Mögliche Datenschutzprobleme**: Daten werden meist auf den Servern des Anbieters gespeichert.
+
+---
+
+## Netzwerktopologie
+
+### Arten von Topologien
+
+- **Punkt-zu-Punkt**: Direkte Verbindung zwischen zwei Geräten.
+- **Punkt-zu-Mehrpunkt**: Ein zentrales System verbindet mehrere Hosts.
+- **Bus**: Gemeinsame Leitung für alle Hosts.
+- **Ring**: Geschlossener Kabelring.
+- **Stern**: Zentrale Netzwerk-Komponente verbindet alle Hosts.
+- **Erweiterter Stern**: Kombination mehrerer Stern-Topologien.
+- **Vollständige Masche**: Alle Hosts sind direkt miteinander verbunden.
+
+---
+
+### Strukturierte Verkabelung
+
+**Ziele der strukturierten Verkabelung**:
+- Unterstützung aktueller und zukünftiger Kommunikationssysteme.
+- Flexibilität für Erweiterungen.
+- **Ausfallsicherheit** und hohe Verfügbarkeit.
+
+**Verkabelungsebenen**:
+- **Primärverkabelung**: Für größere Entfernungen, z. B. zwischen Gebäuden.
+- **Sekundärverkabelung**: Verkabelung innerhalb von Gebäuden.
+- **Tertiärverkabelung**: Verkabelung innerhalb von Etagen.
+
+---
+
+### Netzwerk-Kabelarten
+
+**Kabeltypen**:
+- **Kupferkabel** (Twisted Pair, Koaxialkabel)
+- **Glasfaserkabel**: Höhere Übertragungsraten und größere Reichweiten.
+
+**Twisted Pair Kabel**: Bestehen aus 1–4 Aderpaaren, und es gibt verschiedene Kategorien (z. B. CAT5, CAT6, CAT7).
+
+**GG45**: Ein Stecker für CAT-7(a) mit verbesserter Abschirmung, der eine höhere Leistung bietet.
+
+---
+
+### Kabelaufbau
+
+**Abschirmung**: Schützt das Kabel vor elektromagnetischen Störungen.
+
+**Arten der Abschirmung**:
+- **Gesamtschirm**: Das gesamte Kabel ist abgeschirmt.
+- **Adernpaarschirm**: Nur die einzelnen Aderpaare sind abgeschirmt.
+
+**Abschirmungstechniken**:
+- **Drahtgeflecht**: Eine Metallhülle, die das Kabel umgibt.
+- **Folie**: Eine dünne Metallfolie, die das Kabel schützt.
+
+---
+
+### Kabelarten
+
+- **Verlegekabel**: Weniger flexibel, aber robuster, ideal für feste Installationen.
+- **Patchkabel**: Flexibel und empfindlicher, ideal für Verbindungen in Rechenzentren oder Büros.
+- **Straight-Through Kabel**: Beide Enden sind gleich verdrahtet.
+- **Crossover Kabel**: Sende- und Empfangsleitungen sind vertauscht.
+
+---
+
+### MDI / MDI-X
+
+- **MDI**: Standard-Ethernet-Verkabelung.
+- **MDI-X**: Umgekehrte Verkabelung der Sende- und Empfangsleitungen.
+- **Auto MDI-X**: Geräte können automatisch zwischen MDI und MDI-X umschalten, um die Verbindung herzustellen.
