@@ -14,9 +14,9 @@ export default function Sidebar() {
         setNavigation(data);
 
         // 🔥 Standardmäßig die zweite Kategorie öffnen
-        const secondCategory = Object.keys(data)[1];
-        if (secondCategory) {
-          setOpenCategories({ [secondCategory]: true });
+        const toOpenCategory = Object.keys(data)[2];
+        if (toOpenCategory) {
+          setOpenCategories({ [toOpenCategory]: true });
         }
       })
       .catch((err) => console.error('Fehler beim Laden der Navigation:', err));
