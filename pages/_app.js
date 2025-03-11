@@ -2,6 +2,7 @@ import GlobalNav from '@/components/GlobalNav';
 import Sidebar from '@/components/Sidebar';
 import TableOfContents from '@/components/TableOfContents';
 import '@/styles/globals.css';
+import { Analytics } from '@vercel/analytics/react';
 import 'katex/dist/katex.min.css';
 
 import { useState } from 'react';
@@ -29,6 +30,7 @@ export default function MyApp({ Component, pageProps }) {
         {/* 🔥 Inhaltsverzeichnis statt RelatedArticles */}
         <TableOfContents headings={pageProps.headings || []} />
       </div>
+      <Analytics />
     </>
   );
 }
