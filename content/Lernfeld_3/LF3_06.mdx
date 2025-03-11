@@ -1,0 +1,86 @@
+---
+title: 'OSI-Schichtenmodell & Funktechniken'
+description: 'Ein Überblick über das OSI-Schichtenmodell und verschiedene Funktechniken.'
+tags: ['Netzwerk', 'OSI-Modell', 'Funktechniken']
+---
+---
+## OSI-Schichtenmodell
+
+Das **OSI-Schichtenmodell** dient als Referenzmodell zur Verbindung von Systemen. Es besteht aus **7 Schichten**:
+
+- **Schicht 7: Application Layer** – Bereitstellung von Funktionen für Anwendungen.
+- **Schicht 6: Presentation Layer** – Protokollumwandlung, Datenübertragung und Verschlüsselung.
+- **Schicht 5: Session Layer** – Steuerung von Verbindungen und Fehlerbehebung.
+- **Schicht 4: Transport Layer** – Verbindung zwischen Anwendungs- und Transport-Schichten.
+- **Schicht 3: Network Layer** – Datenpaketübertragung und Routing.
+- **Schicht 2: Data Link Layer** – Sicherstellung der Verbindung und Fehlererkennung.
+- **Schicht 1: Physical Layer** – Physikalische Datenübertragung.
+
+### Kopplungselemente im OSI-Modell
+
+- **Schicht 1**: **Repeater**/Hubs – Verstärkung des Signals.
+- **Schicht 2**: **Bridges**/Switche – Verbindung von Netzwerkssegmenten.
+- **Schicht 3**: **Router** – Verbindung zwischen Netzwerken.
+
+---
+
+## Funktechniken
+
+### RFID (Radio Frequency Identification)
+
+- **RFID** ermöglicht die automatische Identifikation von Objekten und Lebewesen durch Radiowellen.
+- Es gibt **passive** und **aktive** Transponder, die zur Informationsübertragung durch ein Lesegerät genutzt werden.
+
+### Bluetooth
+
+**Bluetooth** ist eine Technologie für die **Kurzstrecken-Kommunikation** (2,4 GHz, ISM-Band).
+
+- **Klassen:**
+  - **Klasse 1:** Bis 100 m Reichweite.
+  - **Klasse 2:** Bis 50 m Reichweite.
+  - **Klasse 3:** Bis 10 m Reichweite.
+  
+- **Piconet/Scatternet**:
+  - Ein **Piconet** ist ein Netzwerk von bis zu 8 Geräten. Mehrere Piconetze können ein **Scatternet** bilden.
+  
+- **Frequenz-Hopping**:
+  - **Bluetooth** nutzt diese Technik, um Störungen zu vermeiden, indem es schnell zwischen verschiedenen Kanälen wechselt.
+
+### WiFi/WLAN
+
+- **WiFi** ist der Standard für drahtlose Netzwerke, der nach dem **IEEE 802.11**-Standard zertifiziert ist.
+- **Frequenzbänder**: 2,4 GHz, 5 GHz, 6 GHz und 60 GHz.
+  
+**Modi von WiFi**:
+- **Infrastrukturmodus**: Nutzung eines Access Points (AP).
+- **Ad-Hoc-Modus**: Direkte Verbindung ohne Access Point.
+
+- **PSK (Pre-Shared Key)**: Verschlüsselung durch einen bekannten Schlüssel.
+- **IEEE 802.1x**: Authentifizierung über einen RADIUS-Server.
+- **WPA2**: Sicherheitsstandard, basierend auf AES.
+- **Beamforming**: Optimierung der Signalverteilung durch Antennen.
+
+### Beamforming
+
+- **Beamforming** ist ein Leistungsmerkmal des WLAN-Standards **802.11ac**.
+- Es beschreibt, wie ein Funksignal durch die Verwendung mehrerer Antennen sozusagen **geformt** und gezielt auf einen **Client** ausgerichtet werden kann.
+- **Vorteile**:
+  - **Höhere Datenraten**.
+  - **Optimierte Reichweiten**.
+  - **Geringere Störungen**.
+- Wenn **802.11ac-Router** oder **-Access Points** sowie die **Clients** Beamforming unterstützen und aktiviert ist, erfolgt die Nutzung automatisch ohne Eingriff des Nutzers.
+
+### Signalverteilungstechniken
+
+- **Repeater**: Verstärkung des Signals.
+- **Access Points (APs)**: Erweiterung des Netzwerks durch zusätzliche Quellen.
+- **Mesh-Technologie**: Vernetzte APs für optimale Verbindungsqualität.
+
+---
+
+## Anwendungen von Funktechniken
+
+- **RFID**: Häufig genutzt für **Zugangskontrollen**, **Tieridentifikation** und **Lagerlogistik**.
+- **Bluetooth**: Drahtlose Kommunikation zwischen Geräten wie **Kopfhörern** und **Freisprecheinrichtungen**.
+- **WiFi**: **WLAN-Verbindungen** in unterschiedlichen Betriebsarten (Infrastruktur, Ad-Hoc).
+
