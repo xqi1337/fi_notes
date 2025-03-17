@@ -1,0 +1,149 @@
+---
+title: 'DNS & RAID-Systeme – Eine Einführung'
+description: 'Eine Einführung in DNS und RAID-Systeme sowie deren Vorteile, Nachteile und Einsatzmöglichkeiten.'
+tags: ['IT', 'DNS', 'RAID', 'Speichertechnologien']
+---
+
+## DNS & RAID-Systeme
+
+### DNS (Domain Name System)
+
+**DNS** ist ein System zur **Übersetzung von Domainnamen** in **IP-Adressen**, die von Computern zur Kommunikation im Internet genutzt werden.
+
+#### Problemstellung
+
+- **IP-Adressen** sind für Menschen schwer zu merken.
+- Lösung: Verwendung von **Domainnamen**, die von DNS-Servern in IP-Adressen aufgelöst werden.
+
+#### Funktionsweise
+
+- Ein **Host** ist jedes Gerät mit einem **Network Interface Controller (NIC)**.
+- **Hosts-Datei**: Eine zentralisierte Verzeichnisdatei, die IP-Adressen und zugehörige Namen enthält.
+  - Muss regelmäßig aktualisiert werden.
+  - Problem bei großen Listen und Änderungen.
+
+#### DNS-Auflösung
+
+- **DNS-Server** sind für die Übersetzung von Domainnamen in IP-Adressen verantwortlich.
+  - **Root-Server**: Wissen, wo sich TLD-Server befinden.
+  - **TLD-Server**: Verwalten Top-Level-Domains wie .com, .org.
+  - **SLD-Server**: Verwalten Second-Level-Domains.
+  - **Cache**: Speichert bereits aufgelöste Adressen zur schnelleren Antwort.
+
+#### FQDN (Fully Qualified Domain Name)
+
+- Der vollständige Domainname, z.B. **mail.daa.de**.
+
+#### DNS-Protokoll
+
+- DNS-Anfragen werden über **UDP** auf **Port 53** gesendet.
+
+#### DDNS (Dynamic DNS)
+
+- Unterstützt die Verwendung dynamischer IP-Adressen, z.B. für Router, die ihre IP regelmäßig ändern.
+
+---
+
+### RAID (Redundant Array of Independent Disks)
+
+**RAID** ist eine Technologie zur Kombination mehrerer Festplatten, um die **Datensicherheit**, **Performance** und **Speicherkapazität** zu verbessern.
+
+#### Vorteile von RAID
+
+- **Ausfallsicherheit**: Schutz vor Festplattenfehlern.
+- **Leistungssteigerung**: Schnellere Lese- und Schreibgeschwindigkeiten.
+- **Datenverfügbarkeit**: Hohe Verfügbarkeit durch redundante Speicherung.
+
+#### RAID-Implementierungen
+
+- **Hardware-RAID**: Nutzung eines eigenen RAID-Controllers.
+  - Vorteile: Höhere Performance, einfachere Migration.
+  - Nachteile: Höhere Kosten, Abhängigkeit vom RAID-Controller.
+  
+- **Software-RAID**: Implementierung über das Betriebssystem.
+  - Vorteile: Geringere Kosten, Flexibilität.
+  - Nachteile: Hohe CPU-Auslastung, geringere Performance.
+
+- **Hybrid-RAID**: Kombination von Hardware- und Software-RAID.
+  - Vorteile: Flexibilität bei geringeren Kosten.
+  - Nachteile: Mischung der Nachteile von Hardware- und Software-RAID.
+
+#### Hotspare & Hotplug
+
+- **Hotspare**: Eine ungenutzte Festplatte, die automatisch aktiviert wird, wenn eine Festplatte ausfällt.
+- **Hotplug**: Möglichkeit, Festplatten während des Betriebs zu tauschen.
+
+---
+
+### RAID-Level
+
+RAID-Level bieten unterschiedliche Kombinationen von **Redundanz** und **Performance**.
+
+#### RAID 0 – Striping
+
+- **Daten werden auf mehrere Festplatten verteilt**.
+- **Vorteil**: Hohe Geschwindigkeit.
+- **Nachteil**: Keine Redundanz.
+
+#### RAID 1 – Mirroring
+
+- **Daten werden gespiegelt** auf zwei Festplatten.
+- **Vorteil**: Hohe Ausfallsicherheit.
+- **Nachteil**: Höherer Speicherbedarf (50% der Kapazität).
+
+#### RAID 5 – Striping mit Parität
+
+- **Striping** mit zusätzlicher Parität für Redundanz.
+- **Vorteil**: Gute Balance zwischen Performance und Redundanz.
+- **Nachteil**: Paritätsberechnung belastet das System.
+
+#### RAID 6 – Doppelte Parität
+
+- **RAID 5** mit zusätzlicher Parität.
+- **Vorteil**: Höhere Ausfallsicherheit (2 Festplatten können ausfallen).
+- **Nachteil**: Geringere Schreibperformance aufgrund der doppelten Parität.
+
+#### RAID 10 – Kombination aus RAID 1 und RAID 0
+
+- **Vorteil**: Hohe Geschwindigkeit und Redundanz.
+- **Nachteil**: Niedrigere Kapazität (50% der Gesamtfestplattenkapazität).
+
+#### JBOD (Just a Bunch of Disks)
+
+- Keine RAID-Konfiguration.
+- **Vorteil**: Einfache Verwaltung.
+- **Nachteil**: Keine Redundanz oder Leistungssteigerung.
+
+---
+
+### Speicherungstechniken in RAID-Systemen
+
+#### Mirroring (RAID 1)
+
+- Daten werden auf zwei Festplatten **gespiegelt**.
+
+#### Striping (RAID 0)
+
+- Daten werden über mehrere Festplatten **verteilt**.
+
+#### Parity (RAID 5, 6)
+
+- **Parität** stellt sicher, dass Daten im Falle eines Festplattenausfalls wiederhergestellt werden können.
+
+---
+
+### Nutzung und Nettokapazität in RAID-Systemen
+
+- **RAID 0**: 100% der Festplattenkapazität wird genutzt.
+- **RAID 1**: 50% der Festplattenkapazität wird genutzt.
+- **RAID 5**: Gesamtkapazität minus einer Festplatte.
+- **RAID 6**: Gesamtkapazität minus zwei Festplatten.
+
+--- 
+
+### Häufige RAID-Level und ihre Nutzung
+
+- **RAID 0**: Häufig für hohe Geschwindigkeit ohne Redundanz.
+- **RAID 1**: Häufig für Ausfallsicherheit.
+- **RAID 5**: Häufig für eine Balance zwischen Kapazität, Leistung und Redundanz.
+- **RAID 6**: Häufig für hohe Ausfallsicherheit bei größeren Systemen.

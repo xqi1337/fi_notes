@@ -1,0 +1,99 @@
+---
+title: 'NAT & DHCP - IPv4 und Netzwerkkonfiguration'
+description: 'Eine detaillierte Übersicht zu NAT, DHCP und IPv4-Adressenverwaltung'
+tags: ['IT', 'Netzwerk', 'NAT', 'DHCP', 'IPv4']
+---
+## NAT & DHCP - IPv4 und Netzwerkkonfiguration
+
+### **IPv4 Adressen**
+
+- **Öffentlich und privat**: IP-Adressen dienen der eindeutigen Identifizierung von Geräten im Netzwerk.
+- **Ende-zu-Ende-Verbindung**: Die Quell- und Ziel-IP-Adressen ändern sich nicht, bis das Paket den Empfänger erreicht.
+
+### **Problem mit IPv4**
+- IPv4 nutzt 32 Bit, was nur **4,3 Milliarden** Adressen ermöglicht. Dies reicht nicht aus, um jedes Gerät im Internet zu adressieren.
+
+### **Lösungen**
+- **NAT (Network Address Translation)**: Kurzfristige Lösung zur Überbrückung des IPv4-Mangels.
+- **IPv6 (128 Bit Adressen)**: Langfristige Lösung mit deutlich mehr Adressen.
+
+---
+
+### **NAT (Network Address Translation)**
+
+- **Definition**: Austausch einer IP-Adresse durch eine andere, meist durch den Router.
+- **Private IP-Bereiche**:
+  - `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` sind nicht im Internet routbar.
+  - Mehrere LANs können dieselbe private IP verwenden, nur der Router im WAN (Internet) hat eine globale Adresse.
+  
+**Vorteile**:
+- Entschleunigt den IPv4-Adressenmangel.
+- Gleiche IPs in verschiedenen LANs nutzbar.
+- Verborgene Quell-IP für etwas mehr Sicherheit.
+
+**Nachteile**:
+- Bricht das Ende-zu-Ende-Design.
+- Erschwert Implementierungen (z. B. für IP-Telefonie).
+- Erhöht Latenzen und Rechenaufwand für den Router.
+
+---
+
+### **Source NAT (SNAT)**
+
+**Ablauf**:
+1. Gerät (z. B. Host A) im LAN schickt Daten mit eigener IP (z. B. `192.168.1.2`) an einen Server.
+2. Router tauscht Quell-IP gegen eigene öffentliche IP und leitet das Paket weiter.
+3. Rückantwort des Servers geht an die öffentliche IP des Routers.
+4. Router übersetzt wieder die IP und leitet das Paket an Host A weiter.
+
+---
+
+### **Gerätekonfiguration**
+
+- Jedes Gerät benötigt eine IP-Adresse, Subnetzmaske und Standardgateway.
+- **Manuelle Konfiguration**:
+  - Aufwendig, fehleranfällig, unflexibel.
+- **Automatische Konfiguration**: Vorteilhaft durch zentrale Verwaltung.
+
+---
+
+### **DHCP (Dynamic Host Configuration Protocol)**
+
+- **Protokoll**: Ein Client-Server-Protokoll, das IP-Adressen und weitere Netzwerkkonfigurationen zentral verwaltet.
+- **DHCP-Server**:
+  - Weist dynamisch IP-Adressen, Subnetzmasken, Gateway und DNS-Server zu.
+  - Zuteilung hat eine bestimmte Gültigkeitsdauer (Lease Time).
+
+**Ablauf**:
+1. **DHCP Discovery**: Client sendet Anfrage (Broadcast).
+2. **DHCP Offer**: Server sendet Angebot mit IP und Konfiguration.
+3. **DHCP Request**: Client bestätigt das Angebot.
+4. **DHCP ACK**: Server bestätigt die Zuteilung.
+
+- **Wiederholung**: Nach Ablauf der Lease Time muss der Client die Konfiguration erneuern.
+
+---
+
+### **Sonderfälle bei DHCP**
+
+- **DHCP Decline**: Adresse wird bereits verwendet.
+- **DHCP NACK**: Adresse wurde bereits vergeben.
+- **DHCP Inform**: Client hat bereits eine Adresse, benötigt aber zusätzliche Konfiguration.
+
+---
+
+### **Auto-Konfiguration ohne DHCP**
+
+- **IPAC / APIPA**: Windows nutzt den Bereich `169.254.1.0 - 169.254.254.255` für automatische IP-Adressen.
+- Wird auch als **Zero Configuration Networking (Zeroconf)** bezeichnet.
+
+---
+
+### **DHCP Netzübergreifende Konfiguration**
+
+- **DHCP-Relay-Agent**: Auf Routern, um DHCP-Anfragen zwischen verschiedenen Subnetzen zu leiten.
+- Router konvertiert Broadcast-Nachrichten in Unicast und leitet sie an den DHCP-Server weiter.
+
+---
+
+Diese Zusammenfassung deckt die wichtigsten Punkte zu **NAT**, **DHCP** und der IPv4-Adressenverwaltung ab.

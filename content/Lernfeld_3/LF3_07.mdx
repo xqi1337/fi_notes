@@ -1,0 +1,81 @@
+---
+title: 'IPv4-Adressen und ihre Bedeutung'
+description: 'Erklärung der IPv4-Adressen und ihrer verschiedenen Aspekte wie öffentliche und private Adressen, Subnetzmasken und Adressaufteilung.'
+tags: ['IP', 'IPv4', 'Netzwerk']
+---
+
+## IPv4-Adressen und ihre Bedeutung
+
+### Was sind **IP-Adressen**?
+
+**IP-Adressen** (Internet Protocol-Adressen) sind notwendig, um Geräte im Netzwerk eindeutig zu identifizieren. Es gibt zwei Versionen von IP-Adressen: **IPv4** und **IPv6**.
+
+**IPv4** hat einen Adressierungsbereich von 32 Bit und ermöglicht rund 4,3 Milliarden mögliche IP-Adressen. Diese Adressen werden oft in der **Dotted Decimal Notation** (z. B. `192.168.1.1`) dargestellt.
+
+### Statische vs. **Dynamische IP-Adressen**
+
+- **Statische IP-Adressen**: Diese IP-Adressen werden Geräten dauerhaft zugewiesen und ändern sich nicht.
+- **Dynamische IP-Adressen**: Diese Adressen werden mithilfe von **DHCP** (Dynamic Host Configuration Protocol) automatisch vergeben und können sich bei jeder Verbindung ändern.
+
+---
+
+### Die **IPv4-Adresse** im Detail
+
+- **Adressierungsbereich**: IPv4 nutzt 32 Bit für die Adressierung.
+- **Beispiel**: Eine typische IPv4-Adresse wie `192.168.1.1` besteht aus vier Oktetten (jeweils 8 Bits).
+  
+#### Zahlensystem-Umrechnung
+
+IPv4-Adressen bestehen aus **Binärzahlen**, die in **Oktette** unterteilt und in **Dezimalzahlen** umgerechnet werden. Ein Beispiel:
+
+- Binär: `11000000.10101000.01000101.00101010`
+- Dezimal: `192.168.69.42`
+
+---
+
+### Öffentliche vs. Private **IPv4-Adressen**
+
+- **Öffentliche IP-Adressen**: Diese sind direkt über das Internet erreichbar und werden vom Internet Service Provider (ISP) zugewiesen.
+- **Private IP-Adressen**: Diese sind nur innerhalb eines privaten Netzwerks sichtbar und können nicht über das Internet erreicht werden.
+
+**Beispiel private IP-Adressen**:
+
+- `10.0.0.0 – 10.255.255.255`
+- `172.16.0.0 – 172.31.255.255`
+- `192.168.0.0 – 192.168.255.255`
+
+---
+
+### Aufteilung der **IPv4-Adressen in Klassen**
+
+IPv4-Adressen sind in verschiedene Klassen unterteilt, die unterschiedliche Zwecke erfüllen:
+
+- **Klasse A**: Für große Netzwerke, beginnend mit `0.0.0.0` bis `127.255.255.255`.
+- **Klasse B**: Für mittelgroße Netzwerke, beginnend mit `128.0.0.0` bis `191.255.255.255`.
+- **Klasse C**: Für kleine Netzwerke, beginnend mit `192.0.0.0` bis `223.255.255.255`.
+
+---
+
+### **Subnetzmaske** und **Netzwerkaufteilung**
+
+Die **Subnetzmaske** wird verwendet, um den **Netzwerkanteil** und den **Hostanteil** einer IP-Adresse zu trennen. Eine Subnetzmaske besteht ebenfalls aus 32 Bits und wird üblicherweise in der Form `255.255.255.0` dargestellt.
+
+- **Beispiel Subnetzmaske**: `255.255.255.0` (auch als `/24` in der CIDR-Notation).
+- Der Netzwerkanteil identifiziert das Netzwerk, während der Hostanteil das spezifische Gerät im Netzwerk kennzeichnet.
+
+---
+
+### **Netz-ID** und **Broadcast-ID**
+
+- **Netz-ID**: Die Netz-ID ist die IP-Adresse, bei der alle **Hostbits** auf `0` gesetzt sind. Sie dient zur Identifikation des Netzwerks und kann keinem Endgerät zugewiesen werden.
+- **Broadcast-ID**: Die Broadcast-ID hat alle **Hostbits** auf `1` gesetzt und ist die letzte Adresse eines Netzes. Sie wird verwendet, um Nachrichten an alle Geräte im Netzwerk zu senden.
+
+**Beispiel für eine Broadcast-IP**:
+
+- `192.168.0.255` mit der Subnetzmaske `/24`
+
+---
+
+### Fazit
+
+**IPv4-Adressen** sind ein unverzichtbares Konzept in der Netzwerkkommunikation. Sie ermöglichen die eindeutige Adressierung von Geräten und die Kommunikation über das Internet. Das Verständnis von **statischen und dynamischen IP-Adressen**, der **Subnetzmaske**, der **Netz-ID** und der **Broadcast-ID** ist entscheidend, um Netzwerke effizient zu verwalten und zu konfigurieren.
