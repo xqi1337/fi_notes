@@ -3,26 +3,23 @@ title: 'DNS & RAID-Systeme – Eine Einführung'
 description: 'Eine Einführung in DNS und RAID-Systeme sowie deren Vorteile, Nachteile und Einsatzmöglichkeiten.'
 tags: ['IT', 'DNS', 'RAID', 'Speichertechnologien']
 ---
-
-## DNS & RAID-Systeme
-
-### DNS (Domain Name System)
+## DNS (Domain Name System)
 
 **DNS** ist ein System zur **Übersetzung von Domainnamen** in **IP-Adressen**, die von Computern zur Kommunikation im Internet genutzt werden.
 
-#### Problemstellung
+### Problemstellung
 
 - **IP-Adressen** sind für Menschen schwer zu merken.
 - Lösung: Verwendung von **Domainnamen**, die von DNS-Servern in IP-Adressen aufgelöst werden.
 
-#### Funktionsweise
+### Funktionsweise
 
 - Ein **Host** ist jedes Gerät mit einem **Network Interface Controller (NIC)**.
 - **Hosts-Datei**: Eine zentralisierte Verzeichnisdatei, die IP-Adressen und zugehörige Namen enthält.
   - Muss regelmäßig aktualisiert werden.
   - Problem bei großen Listen und Änderungen.
 
-#### DNS-Auflösung
+### DNS-Auflösung
 
 - **DNS-Server** sind für die Übersetzung von Domainnamen in IP-Adressen verantwortlich.
   - **Root-Server**: Wissen, wo sich TLD-Server befinden.
@@ -30,31 +27,31 @@ tags: ['IT', 'DNS', 'RAID', 'Speichertechnologien']
   - **SLD-Server**: Verwalten Second-Level-Domains.
   - **Cache**: Speichert bereits aufgelöste Adressen zur schnelleren Antwort.
 
-#### FQDN (Fully Qualified Domain Name)
+### FQDN (Fully Qualified Domain Name)
 
 - Der vollständige Domainname, z.B. **mail.daa.de**.
 
-#### DNS-Protokoll
+### DNS-Protokoll
 
 - DNS-Anfragen werden über **UDP** auf **Port 53** gesendet.
 
-#### DDNS (Dynamic DNS)
+### DDNS (Dynamic DNS)
 
 - Unterstützt die Verwendung dynamischer IP-Adressen, z.B. für Router, die ihre IP regelmäßig ändern.
 
 ---
 
-### RAID (Redundant Array of Independent Disks)
+## RAID (Redundant Array of Independent Disks)
 
 **RAID** ist eine Technologie zur Kombination mehrerer Festplatten, um die **Datensicherheit**, **Performance** und **Speicherkapazität** zu verbessern.
 
-#### Vorteile von RAID
+### Vorteile von RAID
 
 - **Ausfallsicherheit**: Schutz vor Festplattenfehlern.
 - **Leistungssteigerung**: Schnellere Lese- und Schreibgeschwindigkeiten.
 - **Datenverfügbarkeit**: Hohe Verfügbarkeit durch redundante Speicherung.
 
-#### RAID-Implementierungen
+### RAID-Implementierungen
 
 - **Hardware-RAID**: Nutzung eines eigenen RAID-Controllers.
   - Vorteile: Höhere Performance, einfachere Migration.
@@ -68,7 +65,7 @@ tags: ['IT', 'DNS', 'RAID', 'Speichertechnologien']
   - Vorteile: Flexibilität bei geringeren Kosten.
   - Nachteile: Mischung der Nachteile von Hardware- und Software-RAID.
 
-#### Hotspare & Hotplug
+### Hotspare & Hotplug
 
 - **Hotspare**: Eine ungenutzte Festplatte, die automatisch aktiviert wird, wenn eine Festplatte ausfällt.
 - **Hotplug**: Möglichkeit, Festplatten während des Betriebs zu tauschen.

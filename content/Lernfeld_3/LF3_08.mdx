@@ -3,23 +3,22 @@ title: 'NAT & DHCP - IPv4 und Netzwerkkonfiguration'
 description: 'Eine detaillierte Übersicht zu NAT, DHCP und IPv4-Adressenverwaltung'
 tags: ['IT', 'Netzwerk', 'NAT', 'DHCP', 'IPv4']
 ---
-## NAT & DHCP - IPv4 und Netzwerkkonfiguration
 
-### **IPv4 Adressen**
+## IPv4 Adressen
 
 - **Öffentlich und privat**: IP-Adressen dienen der eindeutigen Identifizierung von Geräten im Netzwerk.
 - **Ende-zu-Ende-Verbindung**: Die Quell- und Ziel-IP-Adressen ändern sich nicht, bis das Paket den Empfänger erreicht.
 
-### **Problem mit IPv4**
+### Problem mit IPv4
 - IPv4 nutzt 32 Bit, was nur **4,3 Milliarden** Adressen ermöglicht. Dies reicht nicht aus, um jedes Gerät im Internet zu adressieren.
 
-### **Lösungen**
+### Lösungen
 - **NAT (Network Address Translation)**: Kurzfristige Lösung zur Überbrückung des IPv4-Mangels.
 - **IPv6 (128 Bit Adressen)**: Langfristige Lösung mit deutlich mehr Adressen.
 
 ---
 
-### **NAT (Network Address Translation)**
+## NAT (Network Address Translation)
 
 - **Definition**: Austausch einer IP-Adresse durch eine andere, meist durch den Router.
 - **Private IP-Bereiche**:
@@ -38,7 +37,7 @@ tags: ['IT', 'Netzwerk', 'NAT', 'DHCP', 'IPv4']
 
 ---
 
-### **Source NAT (SNAT)**
+### Source NAT (SNAT)
 
 **Ablauf**:
 1. Gerät (z. B. Host A) im LAN schickt Daten mit eigener IP (z. B. `192.168.1.2`) an einen Server.
@@ -48,7 +47,7 @@ tags: ['IT', 'Netzwerk', 'NAT', 'DHCP', 'IPv4']
 
 ---
 
-### **Gerätekonfiguration**
+### Gerätekonfiguration
 
 - Jedes Gerät benötigt eine IP-Adresse, Subnetzmaske und Standardgateway.
 - **Manuelle Konfiguration**:
@@ -57,7 +56,7 @@ tags: ['IT', 'Netzwerk', 'NAT', 'DHCP', 'IPv4']
 
 ---
 
-### **DHCP (Dynamic Host Configuration Protocol)**
+## DHCP (Dynamic Host Configuration Protocol)
 
 - **Protokoll**: Ein Client-Server-Protokoll, das IP-Adressen und weitere Netzwerkkonfigurationen zentral verwaltet.
 - **DHCP-Server**:
@@ -74,7 +73,7 @@ tags: ['IT', 'Netzwerk', 'NAT', 'DHCP', 'IPv4']
 
 ---
 
-### **Sonderfälle bei DHCP**
+### Sonderfälle bei DHCP
 
 - **DHCP Decline**: Adresse wird bereits verwendet.
 - **DHCP NACK**: Adresse wurde bereits vergeben.
@@ -82,14 +81,14 @@ tags: ['IT', 'Netzwerk', 'NAT', 'DHCP', 'IPv4']
 
 ---
 
-### **Auto-Konfiguration ohne DHCP**
+### Auto-Konfiguration ohne DHCP
 
 - **IPAC / APIPA**: Windows nutzt den Bereich `169.254.1.0 - 169.254.254.255` für automatische IP-Adressen.
 - Wird auch als **Zero Configuration Networking (Zeroconf)** bezeichnet.
 
 ---
 
-### **DHCP Netzübergreifende Konfiguration**
+### DHCP Netzübergreifende Konfiguration
 
 - **DHCP-Relay-Agent**: Auf Routern, um DHCP-Anfragen zwischen verschiedenen Subnetzen zu leiten.
 - Router konvertiert Broadcast-Nachrichten in Unicast und leitet sie an den DHCP-Server weiter.
