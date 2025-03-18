@@ -7,6 +7,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import path from 'path';
 import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 
 const contentDir = path.join(process.cwd(), 'content');
@@ -24,7 +25,7 @@ export async function getStaticProps({ params }) {
 
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkMath, remarkGfm],
       rehypePlugins: [rehypeKatex],
     },
   });

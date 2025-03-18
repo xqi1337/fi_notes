@@ -45,21 +45,34 @@ body {
 }
 
 .prose h1 {
-  @apply text-white text-4xl font-bold mt-0 mb-4;
+  @apply text-white text-3xl font-bold mt-0 mb-6;
 }
 
 .prose h2 {
-  @apply text-white text-3xl font-semibold mt-10 mb-3 scroll-m-[118px];
+  @apply text-white text-2xl font-semibold mt-8 mb-4 scroll-m-[118px];
 }
 
 .prose h3 {
-  @apply text-white text-2xl font-semibold mt-6 mb-2 scroll-m-[118px];
+  @apply text-white text-xl font-semibold mt-8 mb-3 scroll-m-[118px];
 }
 
 .prose p {
-  @apply text-neutral-300 leading-relaxed mb-4;
+  @apply text-neutral-300 text-base leading-relaxed mb-4;
 }
 
 .prose a {
   @apply text-blue-400 hover:text-blue-300 transition;
+}
+
+.prose ul {
+  @apply list-disc pl-6 mb-4 text-base;
+}
+
+.prose table thead tr th:first-of-type,
+.prose table tbody tr td:first-of-type {
+  @apply text-nowrap
+}
+
+.prose table tr:hover {
+  @apply bg-neutral-200 cursor-pointer;
 }

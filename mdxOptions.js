@@ -1,7 +1,8 @@
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
 
 export const mdxOptions = {
-  remarkPlugins: [remarkMath], // 🔥 Unterstützt mathematische Formeln in MDX
-  rehypePlugins: [rehypeKatex], // 🔥 Wandelt Formeln in HTML mit KaTeX um
+  remarkPlugins: [remarkMath, remarkGfm],
+  rehypePlugins: [rehypeKatex],
 };

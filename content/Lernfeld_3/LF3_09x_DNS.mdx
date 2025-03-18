@@ -3,12 +3,11 @@ title: 'Domain Name System'
 description: 'Domain Name System (DNS) – Funktionsweise, Komponenten und Sicherheitsaspekte'
 tags: ['IT', 'Netzwerk', 'DNS', 'Domain Name System']
 ---
-
-## Domain Name System (DNS) – Funktionsweise, Komponenten und Sicherheitsaspekte
+## Funktionsweise, Komponenten und Sicherheitsaspekte
 
 Das **Domain Name System (DNS)** ist ein hierarchisches, verteiltes System zur Auflösung von Domainnamen in IP-Adressen. Es bildet eine essenzielle Grundlage für die Funktionsweise des Internets, da Menschen leicht verständliche Domainnamen (z. B. *example.com*) verwenden, während Computer mit numerischen IP-Adressen (z. B. *192.168.1.1* oder *2001:db8::1*) arbeiten.
 
-### 1. Ablauf einer DNS-Abfrage
+## Ablauf einer DNS-Abfrage
 Wenn ein Benutzer eine Website aufruft, läuft im Hintergrund eine DNS-Auflösung in mehreren Schritten ab:
 
 1. **Lokaler Cache-Check**
@@ -31,17 +30,18 @@ Wenn ein Benutzer eine Website aufruft, läuft im Hintergrund eine DNS-Auflösun
 6. **Antwort an den Client & Caching**
    - Die IP-Adresse wird dem Client übermittelt und zwischengespeichert.
 
-### 2. Rekursive vs. Iterative DNS-Abfragen
+## Rekursive vs. Iterative DNS-Abfragen
 
-#### Rekursive DNS-Abfrage
+### Rekursive DNS-Abfrage
 - Der Resolver kümmert sich um die gesamte Namensauflösung.
 - Der Client erhält direkt die fertige Antwort.
 
-#### Iterative DNS-Abfrage
+### Iterative DNS-Abfrage
 - Der Client fragt schrittweise verschiedene Nameserver an.
 - Jeder Server gibt nur eine Teilantwort zurück.
 
-### 3. Gängige DNS-Einträge und ihre Verwendung
+---
+## Gängige DNS-Einträge und ihre Verwendung
 
 | **DNS-Eintrag** | **Beschreibung** | **Beispiel** |
 |---------------|----------------|-------------|
@@ -51,34 +51,35 @@ Wenn ein Benutzer eine Website aufruft, läuft im Hintergrund eine DNS-Auflösun
 | **MX** | Gibt die Mailserver für eine Domain an. | `example.com → mail.example.com` |
 | **TXT** | Beliebiger Text, oft für Verifizierungen oder SPF/DKIM genutzt. | `v=spf1 include:_spf.google.com ~all` |
 
-### 4. Sicherheitsrisiken im DNS und Schutzmaßnahmen
+---
+## Sicherheitsrisiken im DNS und Schutzmaßnahmen
 
-#### 4.1 DNS-Spoofing (Man-in-the-Middle-Angriff)
+### DNS-Spoofing (Man-in-the-Middle-Angriff)
 - Angreifer manipulieren DNS-Antworten und leiten Nutzer auf gefälschte Websites um.
 - **Schutzmaßnahmen:**
   - **DNSSEC** – Signierung von DNS-Daten zur Verhinderung von Manipulation.
   - Nutzung sicherer DNS-Resolver wie Cloudflare (1.1.1.1).
 
-#### 4.2 DNS-Cache Poisoning
+### DNS-Cache Poisoning
 - Gefälschte IP-Adressen werden in den Cache eines DNS-Resolvers injiziert.
 - **Schutzmaßnahmen:**
   - **Kurze TTL-Werte** reduzieren die Angriffsdauer.
   - **Validierung der DNS-Antworten** durch den Resolver.
   - Einsatz von **DNS-over-HTTPS (DoH)** oder **DNS-over-TLS (DoT)**.
 
-#### 4.3 DNS-Amplification-Attacken
+### DNS-Amplification-Attacken
 - Angreifer nutzen DNS-Server für verstärkte DDoS-Angriffe.
 - **Schutzmaßnahmen:**
   - **Rate Limiting** auf DNS-Servern aktivieren.
   - **DNS-Server nicht rekursiv konfigurieren**, falls nicht notwendig.
 
-#### 4.4 Datenschutzrisiken bei unverschlüsseltem DNS
+### Datenschutzrisiken bei unverschlüsseltem DNS
 - Internetanbieter oder Angreifer können DNS-Anfragen überwachen.
 - **Schutzmaßnahmen:**
   - Aktivierung von **DoH** oder **DoT**.
   - Nutzung vertrauenswürdiger DNS-Resolver (z. B. Cloudflare 1.1.1.1).
 
-### Fazit
+## Fazit
 Das **Domain Name System (DNS)** ist ein essenzieller Bestandteil des Internets und ermöglicht die Übersetzung von menschenfreundlichen Namen in IP-Adressen. Es arbeitet mit einer hierarchischen Struktur aus **Root-Servern, TLD-Servern und autoritativen Nameservern**.
 
 Während das DNS eine effiziente Namensauflösung bietet, birgt es auch Sicherheitsrisiken wie **DNS-Spoofing und Cache Poisoning**. Maßnahmen wie **DNSSEC, DoH/DoT und sichere Resolver** helfen, diese Risiken zu minimieren.
