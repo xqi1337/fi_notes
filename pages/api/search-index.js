@@ -8,6 +8,7 @@ const searchIndexPath = path.join(process.cwd(), 'public', 'search-index.json');
 
 // 🔥 Lädt alle Artikel & generiert JSON-Index
 export default function handler(req, res) {
+  console.log('Generating search index...');
   let index = [];
 
   if (fs.existsSync(searchIndexPath)) {
