@@ -1,0 +1,121 @@
+---
+title: 'Sicherheitsaspekte und Firewalls'
+description: 'Überblick über Sicherheitsaspekte, Firewalls und Bedrohungen in Netzwerken.'
+tags: ['IT-Sicherheit', 'Firewall', 'Netzwerksicherheit', 'Cybersecurity']
+---
+
+## Sicherheitsaspekte und Firewalls
+
+### Sicherheitsaspekte (CIA(A))
+
+- **Vertraulichkeit**: Schutz von Daten und Informationen.
+- **Unversehrtheit**: Sicherstellung der Integrität von Daten und Systemen.
+- **Verbindlichkeit**: Authentifizierung von Daten und Transaktionen.
+- **Verfügbarkeit**: Sicherstellung der Verfügbarkeit von Daten und Diensten.
+- Verletzungen dieser Aspekte können zu **Rechtsverletzungen**, **materiellen Schäden**, **Reputationsverlust** oder **Gesetzesverstößen** führen.
+
+---
+
+### Sicherheitsmaßnahmen
+
+- **Firewalls**
+- **VPN-Verbindungen**
+- **Anti-Viren-Programme**
+- **Anti-Spam-Programme**
+- **Authentifizierungsmaßnahmen**
+- **Verschlüsselungen**
+- **Bauliche Maßnahmen**
+
+---
+
+### Bedrohungen
+
+- **Unmittelbare Bedrohungen**:
+  - Virenbefall
+  - Datendiebstahl
+  - Passwort-Kompromittierung
+  - Spionage
+  - Sabotage
+
+- **Mittelbare Bedrohungen**:
+  - Arbeitsausfall
+  - Serviceeinschränkungen
+  - Geschäftsschädigungen
+
+- **Folgewirkungen**: Gewinnausfälle, Reputationsschäden
+
+---
+
+## Firewall
+
+### Was ist eine Firewall?
+
+- Eine „**Brandschutzmauer**“, die Kommunikation zwischen Netzen trennt und nur erlaubte Kommunikation zulässt.
+- Setzt Sicherheitskonzepte (ACLs) um und wird häufig als Router-Funktion oder separate Komponente installiert.
+
+---
+
+### Gründe für den Einsatz von Firewalls
+
+- Blockieren von **unerwünschtem Datenverkehr**
+- **Traffic Shaping** (Drosselung von Datenverkehr)
+- **Protokollierung** von Datenverkehr
+- Zugangskontrolle
+- **Schutz vor Angriffen**
+- **Umleitung von Datenverkehr** an bestimmte interne Systeme
+
+---
+
+### Was kann eine Firewall nicht?
+
+- Schutz vor Verbindungen, die nicht durch sie hindurchgehen.
+- Schutz vor bösartigen **Insidern** und **neuen Gefahren**.
+- **Endgerätesicherheit** ersetzen oder sichere Kommunikationsverfahren (z. B. **Verschlüsselung**) ersetzen.
+
+---
+
+### Ports
+
+- Es können **65536 Ports** für einen PC genutzt werden.
+- Ports fungieren als „**Eingänge**“ für die Kommunikation zwischen PC und Netzwerken.
+- **Geschlossene Ports**: Senden Rückmeldungen (REJECT), **unsichtbare Ports** senden keine Rückmeldungen.
+
+---
+
+## Firewall-Lösungen
+
+### Typen von Firewalls
+
+- **Software-Firewall**: Auf Endgeräten installiert
+- **Hardware-Firewall**: Auf Routern oder als eigenständiges Gerät
+
+---
+
+### Zwei Firewall-Strategien
+
+- **Whitelisting**: Alles ist gesperrt, nur explizit erlaubte Verbindungen sind zulässig (sehr sicher, aber konfigurationsaufwendig).
+- **Blacklisting**: Alles ist freigegeben, Gefahren müssen bekannt sein (komfortabel, aber weniger sicher).
+
+---
+
+### Paketfilter und ACLs
+
+- **Stateless Paketfilter**: Prüft Pakete basierend auf vordefinierten **ACLs** ohne Verbindungsmerkmale zu speichern.
+- **Stateful Packet Inspection (SPI)**: Merkt sich die Kommunikation und ermöglicht nur Antwortpakete von einem bekannten Sender.
+- **Extended-ACLs**: Prüft zusätzlich zu Source/Destination IP auch **Ports** und **Protokolle**.
+
+---
+
+### Arten von Firewalls
+
+- **Paketfilter (Stateless)**: Untersucht Paket-Header nach Absender, Empfänger und Protokoll.
+- **Stateful Packet Inspection**: Merkt sich die Kommunikation und regelt nur Regeln für eine Richtung.
+- **Application & Proxy Firewalls**: Bieten tiefen Einblick in Layer-7-Daten, Filtern von Anwendungen und Inhalten.
+
+---
+
+### DMZ – Demilitarized Zone
+
+- Ein eigenes Netz, das Server wie **Mailserver** oder **Webserver** beherbergt, die sowohl vom **LAN** als auch vom **WAN** (Internet) erreichbar sind.
+- Ziel: **Schutz des internen LANs** durch Firewall-Regeln, indem Angriffe aus der DMZ auf das LAN verhindert werden.
+****
