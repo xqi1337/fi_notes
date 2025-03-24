@@ -1,0 +1,120 @@
+---
+title: 'Verfügbarkeit und Ausfallzeiten in IT-Systemen'
+description: 'Über die Bedeutung von Verfügbarkeit, Ausfallwahrscheinlichkeit und Maßnahmen zur Sicherstellung der Betriebsbereitschaft von IT-Systemen.'
+tags: ['IT', 'Verfügbarkeit', 'Ausfallzeiten', 'IT-Sicherheit']
+---
+
+## Verfügbarkeit und Ausfallzeiten in IT-Systemen
+
+### Verfügbarkeit von IT-Systemen
+
+- **Verfügbarkeit** ist ein zentrales Schutzziel der Informationssicherheit und beschreibt die Fähigkeit eines Systems, Dienste und Funktionen kontinuierlich und zuverlässig bereitzustellen.
+- Die Verfügbarkeit wird in Prozent berechnet: 
+
+```text
+(Betriebszeit * 100 %) / Gesamtzeit = Verfügbarkeit in %
+```
+
+- Beispiel: Eine Verfügbarkeit von 99,9 % bedeutet, dass maximal 8,76 Stunden Ausfallzeit pro Jahr akzeptiert werden.
+
+---
+
+### Verfügbarkeitsklassen
+
+- Verfügbarkeitsklassen (VK) klassifizieren die Verfügbarkeit und die maximal tolerierbare Ausfallzeit eines Systems.
+  - **VK 3**: Ausfallzeit < 5 Minuten pro Monat, mindestens 99,99 % Verfügbarkeit (Hochverfügbarkeit).
+  - **Hochverfügbarkeit** bezeichnet Systeme, die eine Verfügbarkeit von 99,9 % oder höher aufweisen.
+  
+**Beispiel**: 
+
+- **VK 3** bedeutet eine jährliche Ausfallzeit von weniger als 53 Minuten.
+
+---
+
+### Hochverfügbarkeit
+
+- **Hochverfügbarkeit** bezeichnet IT-Systeme, die auch bei Ausfall einzelner Komponenten weiterarbeiten.
+- Maßnahmen zur Gewährleistung der Hochverfügbarkeit:
+  - **Redundante Hardware**
+  - **Failover-Mechanismen**
+  - **Regelmäßige Wartung**
+  
+**Vorteile**:
+
+- Erhöhte **Betriebszeit**
+- Minimierte **Ausfallzeiten**
+
+---
+
+### Ausfallwahrscheinlichkeit
+
+- Die **Ausfallwahrscheinlichkeit** beschreibt, wie wahrscheinlich es ist, dass eine Komponente in einem IT-System ausfällt.
+  - Ohne Redundanz: Wahrscheinlichkeit `p`, dass eine einzelne Komponente ausfällt.
+  - Mit Redundanz: Wahrscheinlichkeit für den gleichzeitigen Ausfall mehrerer Komponenten ist das Produkt ihrer Ausfallwahrscheinlichkeiten.
+
+---
+
+### Maßnahmen zur Sicherstellung der Verfügbarkeit
+
+- Um die Verfügbarkeit zu sichern, sind verschiedene Maßnahmen notwendig:
+  - **Redundanz**: Mehrere Komponenten erhöhen die Ausfallsicherheit.
+  - **Failover**: Automatischer Wechsel zu einem redundanten System bei Ausfall.
+  - **Monitoring**: Überwachung der IT-Systeme zur Früherkennung von Problemen.
+  - **Wartung**: Regelmäßige Wartung und Aktualisierung von Systemen.
+
+---
+
+### Redundanz
+
+- **Redundanz** bedeutet, dass Systeme mit mehreren Komponenten ausgestattet sind, die sich gegenseitig ersetzen können.
+  - Arten von Redundanz:
+    - **Hardware-Redundanz**: Zusätzliche Hardware-Komponenten.
+    - **Software-Redundanz**: Software-Mechanismen wie Load-Balancing.
+    - **Daten-Redundanz**: Regelmäßige Backups oder RAID.
+    - **Netzwerk-Redundanz**: Sicherstellung von stabilen Netzwerkverbindungen durch alternative Netzwerkpfade.
+
+---
+
+### Failover
+
+- **Failover** bezeichnet den automatischen Wechsel zu einem redundanten System im Falle eines Ausfalls.
+  - Zwei Arten:
+    - **Automatisches Failover**: Der Wechsel erfolgt automatisch ohne menschliches Eingreifen.
+    - **Manuelles Failover**: Der Wechsel erfordert menschliches Eingreifen.
+
+---
+
+### Monitoring
+
+- **Monitoring** ist die Überwachung der IT-Systeme zur Früherkennung von Problemen.
+  - Arten des Monitorings:
+    - **Infrastruktur-Monitoring**: Überwachung von Hardware-Komponenten wie Server und Speicher.
+    - **Netzwerk-Monitoring**: Überwachung von Netzwerkverbindungen und -leistung.
+    - **Anwendungs-Monitoring**: Überwachung der Performance und Verfügbarkeit von Anwendungen.
+
+---
+
+### Wartung
+
+- **Wartung** umfasst regelmäßige Überprüfung, Aktualisierung und Instandhaltung von IT-Komponenten.
+  - Aufgaben:
+    - **Hardware-Wartung**: Regelmäßige Wartung der Hardware.
+    - **Software-Updates**: Aktualisierung von Betriebssystemen und Anwendungen.
+    - **Sicherheitsüberwachung**: Identifikation und Behebung von Sicherheitslücken.
+    - **Netzwerk-Optimierung**: Sicherstellung stabiler Netzwerkverbindungen.
+
+---
+
+### Disaster Recovery
+
+- **Disaster Recovery** umfasst Strategien zur Wiederherstellung von IT-Systemen nach einem Ausfall.
+  - **RTO** (Recovery Time Objective): Maximale Ausfallzeit, die ein System ohne Beeinträchtigung des Geschäftsprozesses tolerieren kann.
+  - **RPO** (Recovery Point Objective): Maximale Menge an Daten, die im Falle eines Ausfalls verloren gehen darf.
+
+---
+
+### Business Continuity
+
+- **Business Continuity** stellt sicher, dass ein Unternehmen seine kritischen Funktionen während und nach einer Störung fortsetzen kann.
+  - Umfasst nicht nur IT-Systeme, sondern auch Personal, Prozesse, Kommunikation und Infrastruktur.
+  - **Kritische Geschäftsprozesse** werden identifiziert und priorisiert, um die Unternehmensfortführung sicherzustellen.

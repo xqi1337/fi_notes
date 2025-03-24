@@ -1,0 +1,92 @@
+---
+title: 'USV – Unterbrechungsfreie Stromversorgung'
+description: 'USV-Systeme zur Aufrechterhaltung der Stromversorgung bei Ausfällen'
+tags: ['USV', 'Stromversorgung', 'IT-Infrastruktur']
+---
+
+## USV – Unterbrechungsfreie Stromversorgung
+
+### Was ist eine USV?
+
+- **USV** (Unterbrechungsfreie Stromversorgung) schützt vor Stromausfällen, indem sie eine Notstromversorgung bereitstellt.
+- Sie verhindert **Datenverlust**, **Geräteschäden** und reduziert die **Ausfallzeiten**.
+- **Einsatzgebiete**: Krankenhäuser, Leitstellen, Rechenzentren, und alle anderen kritischen Infrastrukturen.
+
+---
+
+### Wie sieht eine USV aus?
+
+- USVs kommen in verschiedenen **Formen** und **Größen**, je nach Akkugröße und Einsatzgebiet.
+- Die Kommunikation zwischen **Server** und **USV** erfolgt über **Ethernet**, **SNMP**, **RS-232** oder **USB**.
+
+---
+
+### Allgemeiner Aufbau einer USV
+
+- **Hauptkomponenten**:
+  - **Akkumulatoren/Batterien**: Speichern die Energie.
+  - **Stromrichter**: Wandelt die Energie.
+  - **Elektronische Regelung**: Steuert den Energiefluss.
+  - **Transformatoren**: Passen Spannung und Stromstärke an.
+  - **Schalttransistoren und Schaltrelais**: Sorgen für den Stromfluss.
+
+---
+
+### Einsatzgebiete
+
+- USVs stellen sicher, dass kritische Systeme auch während eines **Stromausfalls** weiter betrieben werden können.
+- Beispiele: **Netzwerkkomponenten**, **Alarmanlagen**, **Notbeleuchtung**.
+
+---
+
+### Störungsarten und Auswirkungen
+
+- **Störungsarten**:
+  - **Stromausfälle**, **Spannungseinbrüche**, **Überspannungen**, **Spannungsstöße**, **Unterspannung**, **Frequenzschwankungen**, **Störspannungen**.
+- **Auswirkungen**:
+  - **Systemstopps**, **Datenverluste**, **Geräteschäden**, **verminderte Lebensdauer** der Hardware.
+
+---
+
+### Ursachen für Störungen
+
+- **Naturereignisse** (z.B. Blitzeinschläge, Erdbeben)
+- **Katastrophen** oder **physikalische Schäden**
+- **Wartungsarbeiten**, **Kurzschlüsse**, **Netzüberlastungen**.
+
+---
+
+### Klassifizierung von USVs
+
+1. **Klasse 1: VFI (Online-USV)**  
+   - **Spannungs- und frequenzunabhängig**, keine Umschaltzeiten, **Wirkungsgrad** ca. **90%**.
+   
+2. **Klasse 2: VI (Line-Interactive USV)**  
+   - **Spannungsunabhängig**, geringe Umschaltzeiten (2-4 ms), **Wirkungsgrad** 95-98%.
+
+3. **Klasse 3: VFD (Offline USV)**  
+   - Nur bei **Störungen** aktiv, hohe Umschaltzeiten (4-10 ms), **Wirkungsgrad** bis **100%**.
+
+---
+
+### Fehler, Wartung und Instandsetzung
+
+- **Wartung**: Regelmäßige Wartung 4-5 Mal pro Jahr erforderlich.
+- **Prüfungen**: Umfasst Reinigung, Verbindungen, Messwerte, Batterie, Lasten und Kommunikation.
+  
+---
+
+### Dimensionierung der USV
+
+- **Berechnung der Kapazität**: Die **Scheinleistung**, **Wirkleistung** und **Blindleistung** müssen berücksichtigt werden.
+- **Berechnung der Akkukapazität (Q)**: Abhängig von der **Scheinleistung (Pschein)**, **Akkuspannung (Uakku)** und **Unterstützungszeit (tstütz)**.
+- **Beispielrechnungen**: Bestimmung der **Akkulaufzeit** und der Leistungsanforderungen des **Netzteils**.
+
+---
+
+### Wichtige Formeln
+
+- **Umrechnung von Watt (W) in VA und umgekehrt**:
+  - **1 VA = 1 W** bei einem Leistungsfaktor von **1**.
+  
+- Berechnungen zur **Akkulaufzeit**, **Kapazität** und benötigten **Leistungsanforderungen**.
