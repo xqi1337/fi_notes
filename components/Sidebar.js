@@ -14,7 +14,7 @@ export default function Sidebar() {
         setNavigation(data);
 
         // 🔥 Standardmäßig die zweite Kategorie öffnen
-        const toOpenCategory = Object.keys(data)[2];
+        const toOpenCategory = Object.keys(data)[3];
         if (toOpenCategory) {
           setOpenCategories({ [toOpenCategory]: true });
         }
