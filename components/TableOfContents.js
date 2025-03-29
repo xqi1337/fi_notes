@@ -39,7 +39,7 @@ export default function TableOfContents({ headings }) {
   });
 
   return (
-    <aside className='py-6 pr-4 sticky top-24 text-sm flex self-start shrink-0 flex-col max-w-64 overflow-y-auto extra-scrollbar overflow-x-hidden grow h-[calc(100vh-64px-3.5em)]'>
+    <aside className='py-6 pr-4 sticky top-24 text-sm flex self-start shrink-0 flex-col max-w-52 overflow-y-auto extra-scrollbar overflow-x-hidden grow h-[calc(100vh-64px-3.5em)]'>
       <h2 className='text-lg font-bold text-neutral-300 mb-4'>
         Inhaltsverzeichnis
       </h2>
@@ -52,7 +52,7 @@ export default function TableOfContents({ headings }) {
             <li key={index} className='py-2'>
               <Link
                 href={`#${heading.id}`}
-                className={`text-neutral-400 hover:text-white text-sm font-bold ${
+                className={`text-stone-500 hover:text-white text-sm font-bold ${
                   activeId === heading.id ? 'text-white' : ''
                 }`}
               >
@@ -64,7 +64,7 @@ export default function TableOfContents({ headings }) {
                     <li key={subIndex} className='py-1'>
                       <Link
                         href={`#${subHeading.id}`}
-                        className={`text-neutral-500 hover:text-white text-xs ${
+                        className={`text-stone-600 hover:text-white text-xs ${
                           activeId === subHeading.id ? 'text-white' : ''
                         }`}
                       >

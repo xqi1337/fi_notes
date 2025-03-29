@@ -33,7 +33,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className='py-6 pr-4 sticky top-24 text-sm flex self-start shrink-0 flex-col max-w-64 overflow-y-auto extra-scrollbar overflow-x-hidden grow h-[calc(100vh-64px-3.5em)]'>
+    <aside className='py-6 pr-4 sticky top-24 text-sm flex self-start shrink-0 flex-col max-w-52 overflow-y-auto extra-scrollbar overflow-x-hidden grow h-[calc(100vh-64px-3.5em)]'>
       {Object.keys(navigation).length === 0 ? (
         <p className='text-gray-500'>Keine Artikel gefunden.</p>
       ) : (
@@ -52,14 +52,14 @@ export default function Sidebar() {
                   fill='none'
                   viewBox='0 0 24 24'
                   stroke='currentColor'
-                  class='h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5'
+                  className='h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-stone-700/5 dark:hover:bg-gray-100/5'
                 >
                   <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M9 5l7 7-7 7'
-                    class={`origin-center transition-transform ${
+                    className={`origin-center transition-transform ${
                       isOpen ? 'rotate-90 transform' : ''
                     }'`}
                   ></path>
@@ -81,10 +81,10 @@ export default function Sidebar() {
                     <li key={idx} className='flex flex-col'>
                       <Link
                         href={article.slug}
-                        className={`text-gray-400 font-bold py-1 px-2 rounded-sm my-1 ${
+                        className={`font-bold py-1 px-2 rounded-sm my-1 ${
                           isActive
                             ? 'bg-gray-700 text-white'
-                            : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                            : 'text-stone-500 hover:text-white hover:bg-gray-700'
                         }`}
                       >
                         {article.title}

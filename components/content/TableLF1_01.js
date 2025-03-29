@@ -1,6 +1,6 @@
 export default function TableLF1_01() {
   return (
-    <table className=''>
+    <table className='table-auto'>
       <thead>
         <tr>
           <th>
@@ -12,7 +12,7 @@ export default function TableLF1_01() {
       </thead>
       <tbody>
         <tr>
-          <td>
+          <td className="text-wrap!">
             <strong>Ausbildungspflicht</strong>
             <br />
             Ausbildende sind verpflichtet, Auszubildende Fertigkeiten,

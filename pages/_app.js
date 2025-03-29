@@ -22,7 +22,7 @@ export default function MyApp({ Component, pageProps }) {
           setFilteredArticles={setFilteredArticles}
         />
       </div>
-      <div className='flex grow-0 text-neutral-300 w-7xl mx-auto mt-16 relative pt-8'>
+      <div className='flex grow-0 text-stone-500 w-7xl mx-auto mt-16 relative pt-8'>
         {/* Sidebar bleibt immer sichtbar */}
         <Sidebar />
         {/* Hauptinhalt */}
