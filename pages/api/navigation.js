@@ -26,8 +26,14 @@ function getNavigationStructure(dir = contentDir, parentSlug = []) {
       if (!navigation[category]) navigation[category] = []; // Falls nicht existiert, erstelle die Kategorie
 
       // 🔥 Artikel hinzufügen
+      const rawTitle = data.title || slug[slug.length - 1];
+
+      // Trenne an " – " oder " - ", aber nur wenn sinnvoller Kontext
+      const match = rawTitle.match(/^(.+?)\s+[–-]\s+.+$/);
+      const displayTitle = match ? match[1].trim() : rawTitle;
+
       navigation[category].push({
-        title: data.title || slug[slug.length - 1], // Falls kein Titel existiert, nutze den Dateinamen
+        title: displayTitle,
         slug: `/${slug.join('/')}`,
       });
     }
