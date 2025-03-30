@@ -1,0 +1,55 @@
+---
+title: 'Datentransferraten'
+description: 'Grundverständnis für Datentransferraten, deren Berechnung und Bedeutung in der Informatik.'
+tags: ['Kalkulationen', 'Datentransfer', 'Datentransferraten']
+---
+
+import { DataToolsTabs } from '../mdxComponents';
+
+## Was sind Datentransferraten?
+Datentransferraten (auch Datenübertragungsraten genannt) beschreiben, wie viele Daten pro Zeiteinheit von einem Punkt zum anderen übertragen werden – z. B. von einer Festplatte zum Arbeitsspeicher, übers Internet oder innerhalb eines Netzwerks.
+
+### Wo werden sie verwendet?
+Datentransferraten spielen in vielen Bereichen eine Rolle:
+- Internetverbindungen – z. B. 100 Mbit/s Downloadgeschwindigkeit
+- Speichergeräte – z. B. SSDs mit 500 MB/s Schreibgeschwindigkeit
+- USB-Anschlüsse – z. B. USB 3.0 mit bis zu 5 Gbit/s
+- Netzwerke – z. B. Gigabit-Ethernet mit 1 Gbit/s
+
+### In welchen Einheiten?
+Die Einheiten setzen sich aus Datenmenge und Zeit zusammen:
+
+| Einheit |	Bedeutung |
+|---------|-----------|
+| bps (bit per second) | 	kleinste Einheit |
+|Kbit/s, Mbit/s, Gbit/s	| übliche Einheiten fürs Internet |
+| B/s, KB/s, MB/s |	bei Dateitransfer oder Festplatten üblich |
+| 1 Byte = 8 bit |	Umrechnung wichtig |
+
+_Achtung: "Mbit/s" ≠ "MB/s". Beispiel:_
+$$
+\frac {100 \text{MBit/s}}{8 \text {Bit}} = 12,5 \text{MByte/s}
+$$
+
+## Einfache Beispiele
+### Beispiel 1: Umrechnung von Mbit/s in MB/s
+Ein Video wird mit 80 Mbit/s übertragen.
+Wie viele MB/s sind das?
+$$
+\frac {80 \text{MBit/s}}{8 \text {Bit}} = 10 \text{Mbit/s}
+$$
+
+
+### Beispiel 2: Dauer eines Downloads
+Eine Datei hat 1 GB (entspricht 1.000 MB).  
+Die Internetleitung hat 50 Mbit/s = 6,25 MB/s.  
+Wie lange dauert der Download?
+
+$$
+\frac {1000 \text{MB}}{6,25 \text{MB/s}} = 160 Sekunden
+$$
+
+---
+
+## Rechner
+<DataToolsTabs />

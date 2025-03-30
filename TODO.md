@@ -1,7 +1,6 @@
 # TODO-List
 
 ## Rework LF1
-- Restructure topics an content
 - upload relevant pictures
 - embed graphs
 - Link appropriate youtube videos

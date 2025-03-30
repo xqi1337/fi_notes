@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import TableLF1_01 from './content/TableLF1_01';
+import DataToolsTabs from './tools/DataToolsTabs';
 
 export const mdxComponents = {
   h2: ({ children, ...props }) => {
@@ -36,6 +37,7 @@ export const mdxComponents = {
       />
     );
   },
+  DataToolsTabs
 };
 
 // 🔥 Extrahiert reinen Text aus React-Elementen (z. B. `<a>`)
