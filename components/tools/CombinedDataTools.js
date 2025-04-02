@@ -1,18 +1,7 @@
 import { useState } from 'react'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
-import { DATA_UNITS } from '@/utils/units'
-
-const SPEED_UNITS = {
-  bps: { name: 'bit/s', factor: 1, type: 'decimal' },
-  Kbps: { name: 'Kilobit/s', factor: 1e3, type: 'decimal' },
-  Mbps: { name: 'Megabit/s', factor: 1e6, type: 'decimal' },
-  Gbps: { name: 'Gigabit/s', factor: 1e9, type: 'decimal' },
-  Bps: { name: 'Byte/s', factor: 8, type: 'decimal' },
-  KBps: { name: 'Kilobyte/s', factor: 8 * 1e3, type: 'decimal' },
-  MBps: { name: 'Megabyte/s', factor: 8 * 1e6, type: 'decimal' },
-  GBps: { name: 'Gigabyte/s', factor: 8 * 1e9, type: 'decimal' },
-}
+import { DATA_UNITS, SPEED_UNITS } from '@/utils/units'
 
 const formatTime = (seconds) => {
   const rounded = Math.ceil(seconds)
@@ -39,7 +28,7 @@ const CombinedDataTools = ({ mode }) => {
     const from = DATA_UNITS[fromUnit]
     const to = DATA_UNITS[toUnit]
     const valueInBytes = parseFloat(inputValue) * from.factor
-    const convertedValue = valueInBytes / to.factor
+    const convertedValue = (valueInBytes / to.factor).toLocaleString("de-DE", { useGrouping: true, minimumFractionDigits: 0, maximumFractionDigits: 8 })
 
     const fromPrefix = from.type === 'binary' ? '1024' : '1000'
     const toPrefix = to.type === 'binary' ? '1024' : '1000'
@@ -48,10 +37,11 @@ const CombinedDataTools = ({ mode }) => {
 
 
     const conceptual = `\\text{Formel:}\\ (\\text{Dateigröße} \\times \\text{${fromPrefix}}^${fromPower}) \\div \\text{${toPrefix}}^${toPower} \\\\`
-    const symbolic = `(${inputValue}\\times${fromPrefix}^{${fromPower}})\\div${toPrefix}^{${toPower}}=${convertedValue.toFixed(8)}\\ \\text{${toUnit}}`
+    const symbolic = `(${inputValue}\\times${fromPrefix}^{${fromPower}})\\div${toPrefix}^{${toPower}}=${convertedValue}\\ \\text{${toUnit}}`
+    console.log(symbolic);
 
     return {
-      result: `${convertedValue.toFixed(8)} ${toUnit}`,
+      result: `${convertedValue} ${toUnit}`,
       formula: katex.renderToString(`${conceptual} ${symbolic}`, { throwOnError: false })
     }
   }
@@ -85,7 +75,7 @@ const CombinedDataTools = ({ mode }) => {
     <div className="flex flex-col gap-4">
       {mode === 'download' ? (
         <>
-          <div class="flex w-full gap-4">
+          <div className="flex w-full gap-4">
             <div className="flex flex-col gap-2 w-1/2">
               <label className="font-medium">Dateigröße</label>
               <div className="flex gap-2">
@@ -141,7 +131,7 @@ const CombinedDataTools = ({ mode }) => {
         <>
           <div className="flex flex-col gap-2">
             <label className="font-medium">Dateigröße</label>
-            <div class="w-full flex gap-2">
+            <div className="w-full flex gap-2">
               <input
                 type="number"
                 value={inputValue}

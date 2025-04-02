@@ -22,7 +22,9 @@ There are a lot of calculations across the different LFs
 Embed calculators/converters with explanations
 
 ### Calculations that are definitely needed
-- Datentransferrate
+- Datentransferrate 󰄬
+- Datenuebertragung 󰄬 Need to check again though
+- Bit/Byte conversion 󰄬
 - Druckkostenvergleich
 - Netzplan
 - Darlehen
@@ -36,8 +38,6 @@ Embed calculators/converters with explanations
 - ROI
 - Angebotsvergleich
 - Nutzwertanalyse
-- Datenuebertragung
-- Bit/Byte conversion
 - 
 - IP Address calculation
   - Calculate NetID, 1st/last Host, Broadcast
@@ -59,14 +59,6 @@ Rework the app to work on the website or simply link it.
 
 ## Add mobile layout
 Layout must be easily accessible from mobile
-
-## change layout to be a little bit more fluid/useful
-Currently the middle section doesn't have much space.
-Font sizes might be a little to big, which makes the design feel cramped
-
-On 1920x1080 the middle section should at least be 1280 wide, maybe even around 1500 wide
-Menu on the left should always be visible, but not sure for the right menu. Does it always need to be visible, 
-or should you be able to toggle it?
 
 ## Search optimizations
 Check the algorithm again and fix indexing.
