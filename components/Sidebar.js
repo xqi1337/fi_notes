@@ -13,8 +13,8 @@ export default function Sidebar() {
       .then((data) => {
         setNavigation(data);
 
-        // 🔥 Standardmäßig die zweite Kategorie öffnen
-        const toOpenCategory = Object.keys(data)[3];
+        // 🔥 Standardmäßig die fünfte Kategorie öffnen
+        const toOpenCategory = Object.keys(data)[4];
         if (toOpenCategory) {
           setOpenCategories({ [toOpenCategory]: true });
         }
@@ -59,18 +59,16 @@ export default function Sidebar() {
                     strokeLinejoin='round'
                     strokeWidth='2'
                     d='M9 5l7 7-7 7'
-                    className={`origin-center transition-transform ${
-                      isOpen ? 'rotate-90 transform' : ''
-                    }'`}
+                    className={`origin-center transition-transform ${isOpen ? 'rotate-90 transform' : ''
+                      }'`}
                   ></path>
                 </svg>
               </button>
 
               {/* 🔽 Ein-/Ausklappbare Liste */}
               <ul
-                className={`relative flex flex-col gap-1 overflow-hidden transition-all duration-300 ${
-                  isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-                }`}
+                className={`relative flex flex-col gap-1 overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+                  }`}
               >
                 {(Array.isArray(navigation[category])
                   ? navigation[category]
@@ -81,11 +79,10 @@ export default function Sidebar() {
                     <li key={idx} className='flex flex-col'>
                       <Link
                         href={article.slug}
-                        className={`font-bold py-1 px-2 rounded-sm my-1 ${
-                          isActive
+                        className={`font-bold py-1 px-2 rounded-sm my-1 ${isActive
                             ? 'bg-gray-700 text-white'
                             : 'text-stone-500 hover:text-white hover:bg-gray-700'
-                        }`}
+                          }`}
                       >
                         {article.title}
                       </Link>
