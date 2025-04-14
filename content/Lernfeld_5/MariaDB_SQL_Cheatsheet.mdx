@@ -1,0 +1,293 @@
+---
+title: "MariaDB SQL Cheatsheet"
+---
+
+In diesem Cheatsheet werden die grundlegenden SQL-Befehle dargestellt – angepasst für MariaDB. Viele Befehle bleiben identisch zu MySQL, jedoch sind zusätzliche Einstellungen wie Zeichensatz, Kollation und Storage Engine empfehlenswert.
+
+---
+
+## Datentypen
+
+| Typ                            | Beschreibung                                                                                                               |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| INT, INTEGER                   | Ganze Zahlen, 32 Bit, -2 Mrd. bis +2 Mrd. (MariaDB unterstützt außerdem erweiterte Ganzzahltypen, falls benötigt)          |
+| SMALLINT                       | Ganze Zahlen, 16 Bit, -32768 bis 32767                                                                                     |
+| BIGINT                         | Ganze Zahlen, 64 Bit (bis zu ±9,22×10¹⁸)                                                                                   |
+| DECIMAL(p,s)                   | Festkommatyp (p Gesamtanzahl der Ziffern, s Nachkommastellen)                                                                |
+| FLOAT                          | Gleitkommatyp, 32 Bit                                                                                                       |
+| DOUBLE                         | Gleitkommatyp, 64 Bit                                                                                                       |
+| BOOLEAN                        | Wird in MariaDB als Synonym für **TINYINT(1)** verwendet (0 = false, 1 = true)                                             |
+| BLOB, (LONG BLOB, MEDIUM BLOB) | Binäre Daten (z. B. Bilder, Audiodateien)                                                                                   |
+| DATE                           | Datum (z. B. YYYY-MM-DD, z. B. 2021-12-31)                                                                                   |
+| DATETIME                       | Datum und Uhrzeit                                                                                                          |
+| TIMESTAMP                      | Datum und Uhrzeit (intern als Unix-Zeitstempel gespeichert; Zeitwert bis ca. 2038, exaktere Variante: DATETIME verwenden)     |
+| CHAR(s)                        | Zeichenkette mit fixer Länge s (wird rechts mit Leerzeichen aufgefüllt)                                                    |
+| VARCHAR(s)                     | Variable Länge mit maximal s Zeichen                                                                                       |
+| TEXT                           | Große Textfelder                                                                                                           |
+
+---
+
+## Datenbanken verwalten
+
+### Datenbank anlegen
+
+Es empfiehlt sich, zusätzlich den Standardzeichensatz und die Kollation zu definieren:
+
+```sql
+CREATE DATABASE IF NOT EXISTS <Datenbankname>
+  DEFAULT CHARACTER SET utf8mb4
+  DEFAULT COLLATE utf8mb4_unicode_ci;
+```
+
+### Datenbank auswählen
+
+```sql
+USE <Datenbankname>;
+```
+
+### Datenbanken auflisten
+
+```sql
+SHOW DATABASES;
+```
+
+### Datenbank löschen
+
+Zum sicheren Löschen kann auch `IF EXISTS` verwendet werden:
+
+```sql
+DROP DATABASE IF EXISTS <Datenbankname>;
+```
+
+---
+
+## Tabellen verwalten
+
+### Tabellen auflisten
+
+```sql
+SHOW TABLES;
+```
+
+### Tabellenaufbau anzeigen
+
+```sql
+DESC <Tabellenname>;
+```
+
+### Tabelle anlegen
+
+Es empfiehlt sich, zusätzlich zur Spaltendefinition die Storage Engine und den Zeichensatz anzugeben:
+
+```sql
+CREATE TABLE <Tabellenname> (
+    <Attributname> <Datentyp> [PRIMARY KEY] [AUTO_INCREMENT] [NOT NULL] [DEFAULT <Wert>],
+    ... -- weitere Spalten
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4;
+```
+
+#### Beispiel für eine Attributdefinition
+
+```sql
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+```
+
+| Option         | Beschreibung                                                          |
+| -------------- | --------------------------------------------------------------------- |
+| NOT NULL       | Der Wert darf nicht NULL sein                                         |
+| PRIMARY KEY    | Der Primärschlüssel für die Tabelle                                   |
+| AUTO_INCREMENT | Automatische Erhöhung des Zahlenwerts (gilt meist für Primärschlüssel) |
+| DEFAULT        | Setzt einen Standardwert, falls kein anderer Wert angegeben wird        |
+
+### Tabelle löschen
+
+```sql
+DROP TABLE <Tabellenname>;
+```
+
+---
+
+## Bestehende Tabellen ändern
+
+### Spalte hinzufügen
+
+```sql
+ALTER TABLE <Tabellenname> ADD <Attributdefinition>;
+```
+
+### Spalte löschen
+
+```sql
+ALTER TABLE <Tabellenname> DROP COLUMN <Attributname>;
+```
+
+> **Hinweis:** Die Verwendung von `COLUMN` kann Syntaxkonflikte vermeiden.
+
+### Spalte ändern
+
+```sql
+ALTER TABLE <Tabellenname> MODIFY <Attributdefinition>;
+```
+
+---
+
+## Daten bearbeiten
+
+### Daten einfügen
+
+Die übliche Syntax:
+
+```sql
+INSERT INTO <Tabellenname> (Spalte1, Spalte2, ...)
+VALUES (Wert1, Wert2, ...);
+```
+
+### Daten löschen
+
+Alle Daten aus einer Tabelle löschen (ohne WHERE-Klausel):
+
+```sql
+DELETE FROM <Tabellenname>;
+```
+
+### Daten aktualisieren
+
+```sql
+UPDATE <Tabellenname>
+SET <Datenfeld1> = <neuer Wert1>, <Datenfeld2> = <neuer Wert2>
+WHERE <Bedingung>;
+```
+
+> **Tipp:** Immer eine **WHERE**-Bedingung angeben, um unbeabsichtigte Aktualisierungen zu vermeiden.
+
+---
+
+## WHERE-Bedingungen
+
+Die Filterbedingungen werden wie folgt spezifiziert:
+
+- **Mathematische Operatoren:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `+`, `-`, `*`, `/`
+- **Boolesche Operatoren:** `AND`, `OR`, `NOT`
+- **Textmuster:** `LIKE` (mit `%` als Wildcard für beliebige Zeichen und `_` für ein einzelnes Zeichen, z. B.: `name LIKE 'H%'`)
+- **Bereichsoperator:** `BETWEEN x AND y`
+- **Mengenvergleich:** `IN (wert1, wert2, …)`
+
+---
+
+## Einfache Datenabfragen
+
+MariaDB nutzt weitgehend dieselbe Syntax wie MySQL:
+
+```sql
+SELECT * | Spaltenliste | Berechnungen [LIMIT anzahl | start, anzahl]
+FROM <Tabelle>
+[WHERE <Bedingung>]
+[GROUP BY <Spalte(n)>]
+[HAVING <Bedingung>]
+[ORDER BY <Spalte(n)> [ASC | DESC]];
+```
+
+> **Hinweis:** Das optionale `TOP anzahl` ist in MariaDB unüblich – hier wird die `LIMIT`-Klausel verwendet.
+
+---
+
+## Funktionen in Abfragen
+
+### Normale Funktionen
+
+| Funktion                   | Beschreibung                                         |
+| -------------------------- | ---------------------------------------------------- |
+| CURDATE()                  | Gibt das aktuelle Datum zurück                       |
+| DATEDIFF(datum1, datum2)   | Berechnet die Differenz in Tagen                     |
+| YEAR(datum)                | Extrahiert das Jahr                                  |
+| MONTH(datum)               | Extrahiert den Monat                                 |
+| DAY(datum)                 | Extrahiert den Tag                                   |
+| DATE_ADD(datum, intervall) | Fügt dem Datum ein Intervall hinzu                   |
+
+### Aggregatsfunktionen
+
+Diese Funktionen verarbeiten mehrere Datensätze zu einem zusammengefassten Wert:
+
+| Funktion    | Beschreibung                                                            |
+| ----------- | ----------------------------------------------------------------------- |
+| COUNT(feld) | Zählt alle nicht-NULL-Werte in einer Spalte                             |
+| COUNT(*)    | Zählt alle Zeilen                                                       |
+| SUM(feld)   | Bildet die Summe der Werte in einer Spalte                              |
+| AVG(feld)   | Berechnet den Durchschnitt (NULL-Werte werden ignoriert)                |
+| MIN(feld)   | Ermittelt den kleinsten Wert                                              |
+| MAX(feld)   | Ermittelt den größten Wert                                                |
+
+---
+
+## Gruppierungen
+
+Beispiele:
+
+```sql
+SELECT ort, COUNT(ort)
+FROM kunde
+GROUP BY ort;
+
+SELECT ort, COUNT(ort)
+FROM kunde
+GROUP BY ort
+HAVING COUNT(ort) > 100;
+```
+
+---
+
+## Abfragen über mehrere Tabellen (Joins)
+
+MariaDB unterstützt sämtliche gängigen Join-Operationen, ähnlich wie MySQL:
+
+- **Inner Join:** Gibt nur Datensätze zurück, deren Verbundspalte in beiden Tabellen vorkommt.
+- **Left Join:** Gibt alle Datensätze der linken Tabelle und die passenden Datensätze der rechten Tabelle zurück.
+- **Right Join:** Entsprechend alle Datensätze der rechten Tabelle mit den passenden Werten der linken.
+- **Full Outer Join:** Gibt alle Datensätze beider Tabellen zurück (Hinweis: MariaDB bietet nativ nur eingeschränkte Unterstützung für FULL OUTER JOIN; alternative Ansätze können erforderlich sein).
+
+Allgemeine Join-Syntax:
+
+```sql
+SELECT a.spalte, b.spalte
+FROM tabelle_a a
+JOIN tabelle_b b ON a.gemeinsame_spalte = b.gemeinsame_spalte;
+```
+
+---
+
+## Index
+
+Indexe können die Performance von Abfragen deutlich verbessern:
+
+### Einfachen Index erstellen
+
+```sql
+CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+```
+
+### Einzigartigen Index erstellen
+
+```sql
+CREATE UNIQUE INDEX index_name
+ON table_name (column1, column2, ...);
+```
+
+---
+
+## Zusammenfassung und Empfehlungen
+
+- **Zeichensatz und Kollation:**  
+  Es empfiehlt sich, beim Anlegen von Datenbanken und Tabellen explizit den Zeichensatz (z. B. `utf8mb4`) sowie die Kollation (z. B. `utf8mb4_unicode_ci`) festzulegen – besonders bei mehrsprachigen Anwendungen.
+
+- **Storage Engine:**  
+  MariaDB setzt standardmäßig auf InnoDB, was positive Auswirkungen auf Performance und Transaktionssicherheit hat. Es ist sinnvoll, diese Option explizit anzugeben, um zukünftigen Änderungen an der Default-Engine entgegenzuwirken.
+
+- **Syntaxkompatibilität:**  
+  Viele SQL-Befehle in MySQL funktionieren in MariaDB nahezu identisch. Dennoch lohnt sich ein Blick in die [MariaDB-Dokumentation](https://mariadb.com/kb/en/sql-statements-structure/), um versionsspezifische Besonderheiten zu berücksichtigen.
+
+---
+
