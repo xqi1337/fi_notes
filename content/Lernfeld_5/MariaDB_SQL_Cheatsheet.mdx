@@ -5,7 +5,6 @@ title: "MariaDB SQL Cheatsheet"
 In diesem Cheatsheet werden die grundlegenden SQL-Befehle dargestellt – angepasst für MariaDB. Viele Befehle bleiben identisch zu MySQL, jedoch sind zusätzliche Einstellungen wie Zeichensatz, Kollation und Storage Engine empfehlenswert.
 
 ---
-
 ## Datentypen
 
 | Typ                            | Beschreibung                                                                                                               |
@@ -24,6 +23,74 @@ In diesem Cheatsheet werden die grundlegenden SQL-Befehle dargestellt – angepa
 | CHAR(s)                        | Zeichenkette mit fixer Länge s (wird rechts mit Leerzeichen aufgefüllt)                                                    |
 | VARCHAR(s)                     | Variable Länge mit maximal s Zeichen                                                                                       |
 | TEXT                           | Große Textfelder                                                                                                           |
+
+---
+
+## Erweiterte Datentypen in MariaDB
+
+### Numerische Datentypen
+
+| Datentyp   | Beschreibung                                                                 |
+|------------|------------------------------------------------------------------------------|
+| TINYINT    | Ganze Zahlen von -128 bis 127                                                |
+| SMALLINT   | Ganze Zahlen von -32768 bis 32767                                            |
+| MEDIUMINT  | Ganze Zahlen von -8388608 bis 8388607                                        |
+| INT        | Ganze Zahlen von -2147483648 bis 2147483647                                  |
+| BIGINT     | Ganze Zahlen von -9223372036854775808 bis 9223372036854775807                |
+| BOOLEAN    | Die booleschen Werte „wahr“ (true) oder „unwahr“ (false); Synonym für TINYINT(1) |
+| DECIMAL    | Dezimalzahlen mit bis zu 65 Stellen                                          |
+| FLOAT      | Gleitkommazahlen im Bereich ±3.402823466E+38 bis ±1.175494351E-38 oder 0     |
+| DOUBLE     | Gleitkommazahlen im Bereich ±1.7976931348623157E+308 bis ±2.2250738585072014E-308 oder 0 |
+| BIT        | Ein Bit                                                                      |
+
+### Zeit- und Datumsangaben
+
+| Datentyp   | Beschreibung                                                                 |
+|------------|------------------------------------------------------------------------------|
+| DATE       | Datumsangabe im Format JJJJ-MM-TT, 1000-01-01 bis 9999-12-31                 |
+| TIME       | Zeitangabe von -838:59:59.999999 bis 838:59:59.999999                        |
+| DATETIME   | Datums- und Zeitangabe mit Mikrosekunden, z. B. 2025-04-14 15:00:00.000000   |
+| TIMESTAMP  | Zeitstempel im Format JJJJ-MM-TT SS:MM:SS mit Mikrosekunden                 |
+| YEAR       | Vierstellige Jahresangabe (1901–2155 oder 0000)                              |
+
+### Strings
+
+| Datentyp     | Beschreibung                                                                |
+|--------------|-----------------------------------------------------------------------------|
+| CHAR         | Feste Zeichenkette (0–255 Zeichen)                                          |
+| VARCHAR      | Variable Zeichenkette (0–65.535 Zeichen)                                    |
+| BINARY       | Feste Länge binärer Daten                                                   |
+| VARBINARY    | Variable Länge binärer Daten                                                |
+| TINYBLOB     | Binärobjekt bis 255 Bytes                                                   |
+| BLOB         | Binärobjekt bis 65.535 Bytes                                                |
+| MEDIUMBLOB   | Binärobjekt bis 16.777.215 Bytes                                            |
+| LONGBLOB     | Binärobjekt bis 4.294.967.295 Bytes                                         |
+| TINYTEXT     | Text bis 255 Zeichen                                                        |
+| TEXT         | Text bis 65.535 Zeichen                                                     |
+| MEDIUMTEXT   | Text bis 16.777.215 Zeichen                                                 |
+| LONGTEXT     | Text bis 4.294.967.295 Zeichen                                              |
+| ENUM         | Aufzählungstyp                                                              |
+| SET          | Menge unterschiedlicher Zeichenketten                                       |
+
+### Räumliche Datentypen
+
+| Datentyp           | Beschreibung                                  |
+|--------------------|-----------------------------------------------|
+| GEOMETRY           | Geometrischer Wert                            |
+| POINT              | Punkt mit X- und Y-Koordinaten                |
+| LINESTRING         | Kurve aus mehreren Punkten                    |
+| POLYGON            | Fläche mit geschlossenen Kanten               |
+| GEOMETRYCOLLECTION | Sammlung mehrerer GEOMETRY-Elemente           |
+| MULTILINESTRING    | Mehrere LINESTRING-Elemente                   |
+| MULTIPOINT         | Mehrere Punkte                                |
+| MULTIPOLYGON       | Mehrere Polygone                              |
+
+### Weitere Typen
+
+| Datentyp       | Beschreibung                                             |
+|----------------|----------------------------------------------------------|
+| AUTO_INCREMENT | Automatische Zählung für Primärschlüssel                 |
+| NULL           | Kein Wert vorhanden (kein eigener Datentyp)             |
 
 ---
 
