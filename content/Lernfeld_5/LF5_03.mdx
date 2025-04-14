@@ -1,0 +1,264 @@
+---
+
+## title: 'Softwareentwicklung & IT-Übersicht' description: 'Ein umfassender Überblick über Softwareentwicklung, Programmiersprachen, Berufsbilder und Softwareklassifikationen.' tags: ['Softwareentwicklung', 'IT', 'Programmiersprachen', 'Projektmanagement']
+---
+## Softwareentwicklung & IT-Übersicht
+
+### Digitalisierung von Audio
+
+#### Grundlagen
+
+- Töne werden durch Schallwellen erzeugt und als elektrische Schwingungen (Signale) dargestellt.
+    
+
+#### Sampling-Rate
+
+- Gibt an, wie oft ein analoges Signal pro Sekunde digital abgetastet wird
+    
+- Beispiel: 6 Hz = 6 Messungen/Sekunde
+    
+- Übliche Samplingrate: z. B. 44.100 Hz (44,1 kHz)
+    
+
+#### Sampling-Tiefe (Bit-Tiefe)
+
+- Bestimmt, wie genau die Amplituden (Tonhöhen) erfasst werden
+    
+- Begrenzte Anzahl speicherbarer Werte
+    
+- Beispiel: 3 Bit → 8 Werte möglich
+    
+- Üblich: 16 Bit → 65.536 Werte
+    
+
+#### Analog-Digital-Wandlung (AD-Wandlung)
+
+- Wandelt kontinuierliche analoge Signale in diskrete digitale Werte um
+    
+- Höhere Samplingrate und Bit-Tiefe verbessern die Qualität
+    
+- Beispiel: 6 Werte/s * 3 Bit = 18 Bit/s
+    
+
+#### Datenrate & Datenmenge
+
+- **Datenrate** = Samplingrate × Bit-Tiefe × Kanäle
+    
+- **Datenmenge** = Datenrate × Dauer
+    
+- Beispiel: 3 min, 18 Bit/s → 3240 Bit = 405 Byte
+    
+
+#### Beispiel Studioaufnahme
+
+- 24 Bit * 48.000 Hz * 60 s * 30 min = 2.073.600.000 Bit = ca. 259,2 MB
+    
+- Datenrate: 144 kB/s
+    
+
+#### Beispiel Codec G.711 (VoIP)
+
+- Samplingtiefe: 8 Bit, Datenrate: 64 kBit/s
+    
+- Samplingrate: 64.000 Bit/s / 8 Bit = 8.000 Hz (8 kHz)
+    
+
+---
+
+### Algorithmen & Programme
+
+- **Algorithmus:** Schrittweise Anleitung zur Lösung eines Problems
+    
+- Beispiel: Euklidischer Algorithmus zur Berechnung des größten gemeinsamen Teilers (ggT)
+    
+- Umsetzung: Algorithmus → Quellcode → Übersetzung durch Compiler → Maschinencode (Binär)
+    
+
+---
+
+### Datenrepräsentation
+
+- **Analog**: Kontinuierlich
+    
+- **Digital**: Diskret (0 und 1)
+    
+- **Struktur**: strukturiert / semi-strukturiert / unstrukturiert
+    
+- **Sicherheitsstufen**: öffentlich / intern / vertraulich / geheim
+    
+- **Beständigkeit**: dauerhaft / flüchtig (z. B. RAM)
+    
+
+---
+
+### Informationsbeschaffung & Datenquellen
+
+- **Interne Quellen:** Mitarbeitende, Statistiken, Unternehmensdaten
+    
+- **Externe Quellen:** Kunden, öffentliche Datenbanken, Marktanalysen
+    
+- **Datenarten:**
+    
+    - **Primärdaten** → neu erhoben (z. B. durch Umfragen)
+        
+    - **Sekundärdaten** → bereits vorhanden (z. B. Berichte)
+        
+
+---
+
+### Datenschutz
+
+- Schutz personenbezogener Daten vor Missbrauch
+    
+- Recht auf informationelle Selbstbestimmung
+    
+- Themen: Zweckbindung, Einwilligung, Datenminimierung, Löschung
+    
+
+### Datensicherheit
+
+- Schutz aller Daten (personenbezogen oder nicht) vor:
+    
+    - Manipulation
+        
+    - Verlust
+        
+    - unbefugtem Zugriff
+        
+
+### Informationssicherheit
+
+- Schutzziele:
+    
+    - **Vertraulichkeit** – Nur Berechtigte haben Zugriff
+        
+    - **Integrität** – Daten bleiben unverändert korrekt
+        
+    - **Verfügbarkeit** – Daten sind zugänglich, wenn benötigt
+        
+
+---
+
+### Speicherbedarf berechnen
+
+**Beispiel:** 500 Bilder
+
+- Auflösung: 1500 × 2000 Pixel
+    
+- Farbkanäle: RGB = 3 Kanäle
+    
+- Farbtiefe: 8 Bit/Kanal = 24 Bit = 3 Byte/Pixel
+    
+- Speicher pro Bild: 1500 × 2000 × 3 = 9.000.000 Byte
+    
+- Gesamt: 500 × 9.000.000 = 4.500.000.000 Byte ≈ 4,19 GiB
+    
+
+---
+
+### Speicherlösungen
+
+- **Cloud-Storage** – Speicherung & Zugriff über das Internet
+    
+- **Full-Flash-Storage** – Ausschließlich SSDs, schnell & robust
+    
+- **All-Flash vs. Hybrid-Flash:**
+    
+    - All-Flash = nur SSDs
+        
+    - Hybrid = Kombination aus SSD & HDD
+        
+- **File-Storage** – Hierarchische Dateiablage (wie Ordnerstruktur)
+    
+- **Block-Storage** – Speicherung in Blöcken, direkt adressierbar
+    
+- **Object-Storage** – Speicherung als Objekte mit Metadaten & eindeutiger ID
+    
+
+---
+
+### Software Engineering
+
+- Ziel: Entwicklung hochwertiger, wartbarer & effizienter Software
+    
+- Fokus: Qualitätssicherung, Fehlervermeidung, Kundenzufriedenheit
+    
+
+#### Phasen des Softwarelebenszyklus
+
+1. **Anforderungsanalyse** – Was soll die Software leisten?
+    
+2. **Entwurf** – Struktur & Architektur planen
+    
+3. **Implementierung** – Quellcode schreiben
+    
+4. **Testen** – Funktionsprüfung & Qualitätssicherung
+    
+5. **Dokumentation** – Laufende Beschreibung des Prozesses
+    
+6. **Auslieferung** – Bereitstellung der Software
+    
+7. **Wartung & Support** – Fehlerbehebung & Weiterentwicklung
+    
+
+---
+
+### Projektmanagement
+
+- Ziel: Planung, Steuerung und Abschluss von Projekten
+    
+- Aufgaben:
+    
+    - Definition von Zielen, Budget und Zeitrahmen
+        
+    - Ressourcenplanung (Personal, Technik, Zeit)
+        
+    - Risikomanagement
+        
+    - Kommunikation & Qualitätssicherung
+        
+
+#### Mögliche Risiken
+
+- Unklare Anforderungen
+    
+- Technische Probleme
+    
+- Sicherheitslücken
+    
+- Mangelhafte Kommunikation
+    
+- Abhängigkeiten von Drittanbietern
+    
+
+---
+
+### Agile Vorgehensmodelle
+
+- **Iterativ:** Entwicklung in kurzen Zyklen (Sprints)
+    
+- **Inkrementell:** Schrittweise funktionale Erweiterung
+    
+- **Kundenfokus:** Regelmäßiges Feedback und Anpassung
+    
+- **Teamorientiert:** Selbstorganisierte, interdisziplinäre Teams
+    
+- **Kontinuierliche Verbesserung** durch Retrospektiven
+    
+
+#### Scrum
+
+- **Product Owner:** Verantwortlich für Anforderungen & Priorisierung
+    
+- **Scrum Team:** 5–9 Personen, arbeitet selbstorganisiert
+    
+- **Scrum Master:** Unterstützt das Team, beseitigt Hindernisse
+    
+
+#### DevOps
+
+- Integration von **Development** & **Operations**
+    
+- Enge Zusammenarbeit von Entwicklung & IT-Betrieb
+    
+- Ziel: Schnellere & zuverlässigere Softwarebereitstellung

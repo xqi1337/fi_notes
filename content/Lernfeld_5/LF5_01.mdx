@@ -1,0 +1,246 @@
+---
+
+## title: 'Softwareentwicklung & IT-Übersicht' description: 'Ein umfassender Überblick über Softwareentwicklung, Programmiersprachen, Berufsbilder und Softwareklassifikationen.' tags: ['Softwareentwicklung', 'IT', 'Programmiersprachen', 'Projektmanagement']
+---
+## Softwareentwicklung & IT-Übersicht
+
+### Digitalisierung von Audio (Stichpunkte)
+
+#### Grundlagen
+
+- Töne werden als Schwingungslinien dargestellt → Signal
+    
+
+#### Sampling-Rate
+
+- Gibt an, wie oft ein Signal pro Sekunde abgetastet wird
+    
+- Beispiel: 6 Hz = 6 Abtastungen/Sekunde
+    
+- Übliche Samplingrate: z. B. 44.100 Hz (44,1 kHz)
+    
+
+#### Sampling-Tiefe
+
+- y-Achse: Tonhöhe
+    
+- Nur begrenzte Anzahl speicherbarer Werte (gerundet)
+    
+- Beispiel: 3 Bit → 8 Werte möglich
+    
+- Üblich: 16 Bit → 65.536 Werte
+    
+
+#### Diskretisierung / AD-Wandlung
+
+- Analog-Digital-Wandler überträgt analoge Signale ins digitale Raster
+    
+- Höhere Samplingrate & -tiefe → höhere Qualität
+    
+- Beispiel: 6 Werte/s * 3 Bit = 18 Bit/s
+    
+
+#### Datenrate & Datenmenge
+
+- Datenrate = Samplingtiefe * Samplingrate
+    
+- Datenmenge = Datenrate * Aufnahmezeit
+    
+- Beispiel: 3 min, 18 bit/s → 3240 Bit = 405 Byte
+    
+
+#### Beispiel Studioaufnahme
+
+- 24 Bit * 48.000 Hz * 60 s * 30 min = 259,2 MB
+    
+- Datenrate: 144 kB/s
+    
+
+#### Beispiel Codec G.711 (VoIP)
+
+- Samplingtiefe: 8 Bit, Datenrate: 64 kBit/s
+    
+- Samplingrate: 64.000 Bit/s / 8 Bit = 8.000 Hz = 8 kHz
+    
+
+---
+
+### Algorithmen & Programme
+
+- Algorithmus = Handlungsvorschrift zur Problemlösung in Schritten
+    
+- Beispiel: Euklidischer Algorithmus (ggT)
+    
+- Umsetzung: Algorithmus → Quellcode → Compiler → Maschinenbefehl (Binärcode)
+    
+
+---
+
+### Datenrepräsentation
+
+- Analog / Digital
+    
+- Struktur: (semi-)strukturiert / unstrukturiert
+    
+- Sicherheitsstufen: öffentlich / intern / vertraulich / geheim
+    
+- Beständigkeit: dauerhaft / flüchtig
+    
+
+---
+
+### Informationsbeschaffung & Datenquellen
+
+- **Interne Quellen:** Mitarbeiter, Statistiken, Bestandsdaten, Berichte
+    
+- **Externe Quellen:** Kunden, Drittanbieter, Umfragen
+    
+- **Datenarten:**
+    
+    - Primärdaten → neu erhoben
+        
+    - Sekundärdaten → bereits vorhanden (evtl. veraltet)
+        
+
+---
+
+### Datenschutz
+
+- Regelung der Sammlung, Nutzung, Speicherung, Löschung personenbezogener Daten
+    
+- Ziel: Recht auf informationelle Selbstbestimmung, Schutz vor Missbrauch
+    
+
+### Datensicherheit
+
+- Schutz aller Daten vor Manipulation, Verlust, unberechtigtem Zugriff
+    
+
+### Informationssicherheit
+
+- Vertraulichkeit → Zugriff nur für Berechtigte
+    
+- Integrität → Daten bleiben korrekt & unverändert
+    
+- Verfügbarkeit → Daten jederzeit zugänglich
+    
+
+---
+
+### Speicherbedarf berechnen
+
+**Beispielaufgabe: 500 Bilder**
+
+- Auflösung: 1500x2000 Pixel
+    
+- Farbkanäle: 3 (RGB)
+    
+- Farbtiefe: 8 Bit pro Kanal = 3 Byte/Pixel
+    
+- Speicher pro Bild: 1500 * 2000 * 3 = 9.000.000 Byte
+    
+- Gesamt: 500 Bilder = 4.500.000.000 Byte = 4,19 GiB
+    
+
+---
+
+### Speicherlösungen
+
+- **Cloud-Storage:** Speicherung & Zugriff über Internet
+    
+- **Full-Flash-Storage:** Nur SSDs, keine beweglichen Teile → schnell
+    
+- **All-Flash- vs. Hybrid-Flash:**
+    
+    - All-Flash = nur SSD
+        
+    - Hybrid = SSD + HDD
+        
+- **File-Storage:** Hierarchische Dateiablage
+    
+- **Block-Storage:** Daten in Blöcken → direkt adressierbar
+    
+- **Object-Storage:** Speicherung als Objekte mit Metadaten
+    
+
+---
+
+### Software Engineering
+
+- Ziel: Qualitativ hochwertige Software effizient entwickeln
+    
+- Fokus: Fehlervermeidung, Aufwand minimieren, Kundenwert maximieren
+    
+
+#### Phasen (Softwarelebenszyklus)
+
+1. **Anforderungsanalyse** – Anforderungen erfassen
+    
+2. **Entwurf** – Modelle & Struktur erstellen
+    
+3. **Implementierung** – Programmierung
+    
+4. **Testen** – Anforderungen überprüfen
+    
+5. **Dokumentation** – laufend während des Prozesses
+    
+6. **Auslieferung** – Softwarebereitstellung
+    
+7. **Wartung & Support** – Fehlerbehebung, Anpassungen
+    
+
+---
+
+### Projektmanagement
+
+- Koordination aller Projektphasen (Planung, Durchführung, Abschluss)
+    
+- Aufgaben:
+    
+    - Ziel-, Kosten- und Zeitdefinition
+        
+    - Ressourcenplanung
+        
+    - Risikoanalyse
+        
+    - Kommunikation & Qualitätsmanagement
+        
+
+#### Risiken
+
+- Schlechte Anforderungsanalyse, technische Probleme
+    
+- Sicherheitslücken, mangelnde Dokumentation
+    
+- Kommunikationsprobleme, Abhängigkeit von Dritten
+    
+
+---
+
+### Agile Vorgehensmodelle
+
+- **Iterativ:** Kurze Zyklen (Sprints)
+    
+- **Inkrementell:** Funktionierende Teile schrittweise liefern
+    
+- **Kundenorientierung:** Feedback & Anpassungen laufend
+    
+- **Selbstorganisierte Teams**
+    
+- **Kontinuierliche Verbesserung**
+    
+
+#### Scrum
+
+- **Product Owner:** Zielvorgabe, Kundenkontakt
+    
+- **Scrum Team:** 5–9 Personen, selbstorganisiert
+    
+- **Scrum Master:** Unterstützung, Hindernisse beseitigen
+    
+
+#### DevOps
+
+- Kombination von **Development** & **Operations**
+    
+- Entwickler & Betriebsteam arbeiten eng zusammen
