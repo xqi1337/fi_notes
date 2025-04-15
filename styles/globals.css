@@ -78,10 +78,19 @@ body {
 }
 
 .prose :where(tbody tr):not(:where([class~="not-prose"], [class~="not-prose"] *)),
-.prose :where(thead):not(:where([class~="not-prose"], [class~="not-prose"] *)){
+.prose :where(thead):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply border-b-1 border-stone-500;
 }
 
 .prose table tr:hover {
   @apply bg-stone-600 cursor-pointer text-neutral-100;
+}
+
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre > code):before,
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre > code):after {
+  content: "" !important;
+}
+
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre > code) {
+  @apply bg-stone-800 p-1 rounded-md text-stone-200 font-mono text-sm;
 }
