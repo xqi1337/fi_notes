@@ -14,7 +14,7 @@ export default function Sidebar() {
         setNavigation(data);
 
         // 🔥 Standardmäßig die fünfte Kategorie öffnen
-        const toOpenCategory = Object.keys(data)[4];
+        const toOpenCategory = Object.keys(data)[5];
         if (toOpenCategory) {
           setOpenCategories({ [toOpenCategory]: true });
         }
@@ -80,8 +80,8 @@ export default function Sidebar() {
                       <Link
                         href={article.slug}
                         className={`font-bold py-1 px-2 rounded-sm my-1 ${isActive
-                            ? 'bg-gray-700 text-white'
-                            : 'text-stone-500 hover:text-white hover:bg-gray-700'
+                          ? 'bg-gray-700 text-white'
+                          : 'text-stone-500 hover:text-white hover:bg-gray-700'
                           }`}
                       >
                         {article.title}
