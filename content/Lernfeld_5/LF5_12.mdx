@@ -1,0 +1,149 @@
+---
+title: "SQL: Tabellen erstellen, ändern und löschen"
+description: "Anwendung von DDL-Kommandos in SQL: CREATE, ALTER und DROP für Datenbanken und Tabellen mit Beispielen und Datentypen."
+tags: ["LF5", "SQL", "CREATE", "ALTER", "DROP", "Datentypen", "Datenbankstruktur"]
+---
+
+
+## SQL – Datenbanksprachen im Überblick
+
+**SQL** (Structured Query Language) ist die Standardsprache für relationale Datenbanken.
+
+---
+
+## Kategorien von SQL-Anweisungen
+
+| Kategorie | Bedeutung                     | Beispiele                          |
+|-----------|-------------------------------|------------------------------------|
+| **DDL**   | Strukturdefinition            | `CREATE`, `ALTER`, `DROP`          |
+| **DML**   | Datenmanipulation             | `SELECT`, `INSERT`, `UPDATE`, `DELETE` |
+| **DCL**   | Rechteverwaltung              | `GRANT`, `REVOKE`, `DENY`          |
+| **TCL**   | Transaktionskontrolle         | `COMMIT`, `ROLLBACK`               |
+
+---
+
+## CREATE DATABASE
+
+```sql
+CREATE DATABASE testdatenbank;
+```
+
+- Legt eine neue Datenbank an
+- Erfordert Administratorrechte
+
+---
+
+## CREATE TABLE
+
+```sql
+CREATE TABLE Kunden (
+    KundenID int,
+    Nachname varchar(255),
+    Vorname varchar(255)
+);
+```
+
+- Erstellt eine neue Tabelle mit Spaltenname und Datentyp
+
+---
+
+## SQL-Datentypen (Auswahl)
+
+| Datentyp     | Beschreibung                                      |
+|--------------|---------------------------------------------------|
+| `CHAR`       | Fester Zeichentyp                                 |
+| `VARCHAR(n)` | Variable Länge bis `n` Zeichen                    |
+| `DECIMAL`    | Gleitkommazahl mit definierter Genauigkeit        |
+| `DOUBLE`     | Doppelt genaue Fließkommazahl                     |
+| `INTEGER`    | Ganzzahl                                           |
+| `DATE`       | Datum (`YYYY-MM-DD`)                              |
+| `TIMESTAMP`  | Zeitstempel (`YYYY-MM-DD hh:mm:ss`)              |
+| `BLOB`       | Binäres Objekt, z. B. Bilder, Dateien (bis 64 KB) |
+
+> Hinweis: Je nach Datenbanksystem können Bezeichner leicht variieren.
+
+---
+
+## Weitere SQL-Befehle
+
+### SHOW DATABASES
+
+```sql
+SHOW DATABASES;
+```
+
+- Zeigt alle verfügbaren Datenbanken
+
+### USE
+
+```sql
+USE testdatenbank;
+```
+
+- Aktiviert eine bestimmte Datenbank
+
+### EXPLAIN
+
+```sql
+EXPLAIN Kunden;
+```
+
+- Zeigt die Struktur einer Tabelle
+
+---
+
+## ALTER TABLE – Tabellenstruktur ändern
+
+### Spalte hinzufügen
+
+```sql
+ALTER TABLE Kunden ADD Email varchar(30);
+```
+
+---
+
+### Spaltentyp ändern
+
+```sql
+ALTER TABLE Kunden MODIFY COLUMN Email varchar(255);
+```
+
+---
+
+### Spalte umbenennen
+
+```sql
+ALTER TABLE Kunden CHANGE Email Emailadresse varchar(255);
+```
+
+---
+
+### Spalte löschen
+
+```sql
+ALTER TABLE Kunden DROP COLUMN Emailadresse;
+```
+
+---
+
+## DROP – Tabellen oder Datenbanken löschen
+
+### Tabelle löschen
+
+```sql
+DROP TABLE Kunden;
+```
+
+### Datenbank löschen
+
+```sql
+DROP DATABASE testdatenbank;
+```
+
+⚠️ **Achtung:** Diese Befehle löschen Daten **unwiderruflich** – kein automatisches Backup.
+
+---
+
+## Fazit
+
+Mit SQL-DDL-Kommandos wie `CREATE`, `ALTER` und `DROP` lassen sich Datenbanken und Tabellen strukturell definieren, verändern und löschen. Die Wahl passender Datentypen ist dabei genauso wichtig wie der verantwortungsvolle Umgang mit löschenden Befehlen – besonders im Produktivsystem.

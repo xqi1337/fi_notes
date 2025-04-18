@@ -1,0 +1,114 @@
+---
+title: "5.8 – Software testen"
+description: "Testziele, Testarten, statische und dynamische Verfahren, Qualitätsmerkmale – inkl. Testabdeckung und Testphasen"
+tags: ["LF5", "Softwaretest", "Testverfahren", "Qualität", "Blackbox", "Whitebox", "Review", "Testabdeckung"]
+---
+
+## Warum Software testen?
+
+Softwarefehler können schwerwiegende Folgen haben:
+
+| Beispiel                        | Folge                       |
+|---------------------------------|-----------------------------|
+| China Airlines Flug 140 (1994)  | 264 Tote                    |
+| Strahlentherapiegerät Kanada    | 3 Tote, 3 Schwerverletzte   |
+| Militärsatellit 1999            | 1,2 Mrd. Dollar Schaden     |
+
+---
+
+## Was ist ein Fehler? Was ist ein Mangel?
+
+- **Fehler:** Abweichung zwischen dem Ist- und Soll-Zustand einer Systemspezifikation
+- **Mangel:** Eine Anforderung oder berechtigte Erwartung wird nicht erfüllt
+
+---
+
+## Arten von Tests im Entwicklungsprozess
+
+| Testart         | Beschreibung                                                                 |
+|------------------|------------------------------------------------------------------------------|
+| **Modul-/Unit-Test** | Test einzelner Programmteile (Funktionen, Klassen)                          |
+| **Integrationstest** | Test von Zusammenspiel mehrerer Komponenten/Schnittstellen                  |
+| **Systemtest**       | Test des Gesamtsystems auf funktionale und nicht-funktionale Anforderungen |
+| **Abnahmetest**      | Kundenprüfung zur Abnahmeentscheidung                                     |
+
+---
+
+## Testkosten vs. Fehlerkosten
+
+Zwischen **80–90 %** optimaler Testaufwand (laut Präsentation)
+
+**Hinweis:**  
+Die Angabe von **80–90 % Testaufwand** stammt ausschließlich aus der Präsentation und dient vermutlich der Veranschaulichung.  
+Das Lehrbuch nennt **keinen konkreten Prozentwert**, betont jedoch die Wirtschaftlichkeit frühen Testens.  
+In der Fachliteratur liegt der übliche Aufwand bei **30–50 %**, abhängig vom Projektkontext. Höhere Werte sind typisch für sicherheitskritische Software.
+
+---
+
+## Übersicht: Testverfahren
+
+### Statische Testverfahren
+
+| Verfahren        | Beschreibung                                                                 |
+|------------------|------------------------------------------------------------------------------|
+| **Codeanalyse**  | Technologische Analyse ohne Programmausführung (z. B. Wartbarkeit, Security) |
+| **Inspektion**   | Prüfung durch Gutachterteam; erkennt bis zu 75 % der Entwurfsfehler          |
+| **Review**       | Prüfung durch anderen Entwickler; 60–70 % Fehlererkennung                    |
+| **Walkthrough**  | Entwickler präsentiert; Feedback mit Protokoll                               |
+| **Audit**        | Unabhängige Bewertung bzgl. Konformität, Dokumentation, Risikomanagement     |
+
+---
+
+## Dynamische Testverfahren
+
+### White-Box-Test
+
+```text
+Testart:           White-Box
+Code sichtbar:     Ja
+Testbasis:         Quellcode
+Abdeckung:         Anweisungen, Zweige, Pfade
+```
+
+### Black-Box-Test
+
+```text
+Testart:           Black-Box
+Code sichtbar:     Nein
+Testbasis:         Anforderungen
+Verfahren:         Äquivalenzklassen, Grenzwertanalyse
+```
+
+**Beispiel:**  
+```python
+bool isTemperatureOK(double temp)
+=> True, falls gemessene Temperatur <= 30 Grad
+```
+
+---
+
+## Qualität & Reifestufen
+
+### Qualitätsmerkmale
+
+- Funktionalität
+- Zuverlässigkeit
+- Benutzbarkeit
+- Effizienz
+- Wartbarkeit
+- Übertragbarkeit
+
+### Nach Entwicklungsstand
+
+| Phase             | Beschreibung                                                  |
+|-------------------|---------------------------------------------------------------|
+| **Alphatest**     | Erste Phase – internes Testteam oder Entwickler               |
+| **Betatest**      | Zweite Phase – ausgewählte externe Benutzer                   |
+| **Release Candidate** | Letzte Phase – potenziell finale Version für Öffentlichkeit |
+
+---
+
+## Fazit
+
+Softwaretests sind essenziell für Qualität und Sicherheit.  
+Statische und dynamische Testverfahren decken unterschiedliche Fehlertypen auf, während strukturierte Testphasen und Abdeckungsstrategien die **Effizienz und Wirkung** der Tests maximieren. Frühes Testen spart Kosten und erhöht die Zuverlässigkeit erheblich.

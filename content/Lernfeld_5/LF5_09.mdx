@@ -1,0 +1,144 @@
+---
+title: "Dateizugriffe in Python"
+description: "Datenströme, Dateiformate und das Lesen und Schreiben von Text- und CSV-Dateien in Python."
+tags: ["LF5", "Python", "Dateien", "Textdateien", "CSV", "open", "IOError"]
+---
+
+
+## Datenstrom (Data Stream)
+
+Ein Datenstrom beschreibt den **Fluss von Daten** zwischen einer Quelle und einem Ziel.
+
+### Eigenschaften
+
+- Die Länge ist in der Regel **nicht bekannt**
+- Zwei Hauptarten:
+  - **Input-Stream** (eingehend)
+  - **Output-Stream** (ausgehend)
+
+### Typen
+
+- **Binärstrom:**  
+  Folge von Bytes – **nicht direkt lesbar**
+
+- **Textstrom:**  
+  Folge von Unicode-Zeichen – **lesbar**
+
+---
+
+## Dateien – Grundlagen
+
+Eine Datei ist eine Sammlung logisch zusammengehöriger Daten.
+
+### Merkmale
+
+- Sequenzielle Anordnung
+- Identifizierbar durch **Name + Endung**
+- Struktur durch Dateiendung erkennbar (z. B. `.txt`)
+- Wird **persistent** gespeichert (nicht-flüchtig)
+
+---
+
+### Dateinamen und -formate
+
+- Format: `name.endung`  
+- Die **Endung** (Extension) gibt Auskunft über:
+  - Inhalt und Bedeutung
+  - Datenstruktur
+  - Kompatibilität mit Software
+
+---
+
+## Übersicht: Dateiformate
+
+### Videoformate
+
+- `.mpg`, `.mpeg`  
+- `.mp4`, `.mov`, `.mkv`  
+- `.avi`, `.3gp`, `.3gpp`
+
+### Audioformate
+
+- **Verlustfrei:**  
+  `.flac`, `.wv`, `.wvc`, `.wav`, `.aiff`
+
+- **Verlustbehaftet:**  
+  `.mp3`, `.wv` (je nach Modus)
+
+### Textformate
+
+- `.txt`, `.rtf`, `.pdf`, `.doc`, `.docx`
+
+### Grafikformate
+
+- `.bmp`, `.svg`, `.gif`, `.jpg`, `.jpeg`  
+- `.png`, `.psd`, `.tif`, `.tiff`
+
+---
+
+## Dateizugriff in Python
+
+### Allgemeiner Ablauf
+
+```python
+try:
+    file = open("beispiel.txt", "r")  # oder "w", "a", "r+"
+    # Dateioperationen
+except IOError as e:
+    print("Dateifehler:", e)
+finally:
+    file.close()
+```
+
+- **open()** – Datei öffnen
+- **IOError** – Fehlerbehandlung
+- **close()** – Datei schließen
+
+---
+
+### Textdateien schreiben
+
+```python
+f = open("daten.txt", "w")
+f.write("Hallo Welt!
+")
+f.close()
+```
+
+---
+
+### Textdateien lesen
+
+```python
+f = open("daten.txt", "r")
+inhalt = f.read()
+print(inhalt)
+f.close()
+```
+
+---
+
+## CSV-Dateien (Comma Separated Values)
+
+CSV-Dateien speichern **tabellarische Daten**, bei denen:
+
+- Jede **Zeile** einen Datensatz enthält
+- **Felder** durch **Kommas** getrennt sind
+- Ideal für **Datenbanken, Tabellenkalkulation, Schnittstellen**
+
+### Beispiel:
+
+```
+Meier,Hans,47,2542.67,True
+```
+
+### Verwendung:
+
+- Einfaches Format für Im- und Export
+- Wird von vielen Programmen unterstützt
+
+---
+
+## Fazit
+
+Der Zugriff auf Dateien – ob **Text, Binär oder CSV** – ist ein zentrales Thema in der Softwareentwicklung. Python bietet mit `open()`, `read()`, `write()` und Exception Handling einfache und effektive Werkzeuge, um **Daten sicher und strukturiert** zu verarbeiten.

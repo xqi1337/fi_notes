@@ -1,0 +1,161 @@
+---
+title: "Funktionen und Fehlerbehandlung in Python"
+description: "Benutzerdefinierte Funktionen mit Parametern und Rückgabewerten sowie Fehlerbehandlung mit try-except-finally."
+tags: ["LF5", "Python", "Funktionen", "Fehler", "try", "except", "return"]
+---
+
+
+## Funktionen in Python
+
+Funktionen dienen dazu, **Codeblöcke wiederverwendbar** zu machen und logisch zu strukturieren.
+
+---
+
+### Allgemeiner Aufbau
+
+```python
+def funktionsName(parameter):
+    # Anweisungsblock
+    return rückgabewert
+```
+
+- `def` → Schlüsselwort zur Funktionsdefinition  
+- `funktionsName` → Bezeichner (meist im camelCase)  
+- `parameter` → Werte, die übergeben werden  
+- `return` → gibt Ergebnis zurück
+
+---
+
+### Fall 1: Ohne Parameter, ohne Rückgabe
+
+```python
+def addiereZahlen():
+    x = 5
+    y = 8
+    print("Summe = ", x + y)
+
+addiereZahlen()
+```
+
+---
+
+### Fall 2: Ohne Parameter, mit Rückgabewert
+
+```python
+def addiereZahlen():
+    x = 5
+    y = 8
+    summe = x + y
+    return summe
+
+z = addiereZahlen()
+print(z)    # Ausgabe: 13
+```
+
+---
+
+### Fall 3: Mit Parametern, ohne Rückgabewert
+
+```python
+def addiereZahlen(x, y):
+    summe = x + y
+    print(summe)
+
+addiereZahlen(5, 8)    # Ausgabe: 13
+```
+
+---
+
+### Fall 4: Mit Parametern und Rückgabewert
+
+```python
+def addiereZahlen(x, y):
+    summe = x + y
+    return summe
+
+z = addiereZahlen(5, 8)
+print(z)    # Ausgabe: 13
+```
+
+---
+
+## Fehlerarten in Python
+
+### Syntaxfehler
+
+- Treten **beim Parsen** auf
+- Verhindern, dass das Programm überhaupt läuft
+
+**Beispiele:**
+
+```python
+P rint("Hallo")      # falsches Schlüsselwort
+if a > 4 :            # ohne Block
+```
+
+---
+
+### Logikfehler
+
+- Treten **zur Laufzeit** auf
+- Z. B. Division durch 0, Index außerhalb Bereich
+
+```python
+liste = [1, 2, 3]
+print(liste[5])    # IndexError
+```
+
+---
+
+## Ausnahmebehandlung (Exception Handling)
+
+### Grundstruktur
+
+```python
+try:
+    # kritischer Code
+except Fehlerart as variable:
+    # Reaktion auf Ausnahme
+finally:
+    # wird immer ausgeführt
+```
+
+---
+
+## Beispiel: Zahleneingabe mit Wiederholung
+
+```python
+while True:
+    try:
+        n = input("Bitte eine Ganzzahl eingeben: ")
+        n = int(n)
+        break
+    except ValueError:
+        print("Keine Integer! Bitte nochmals versuchen...")
+
+print("Super! Das war's!")
+```
+
+---
+
+## Beispiel: Division mit Fehlerbehandlung
+
+```python
+try:
+    dividend = int(input("Dividenden eingeben: "))
+    divisor = int(input("Divisor eingeben: "))
+    result = dividend / divisor
+    print("Ergebnis:", result)
+except ZeroDivisionError as err:
+    print("Fehler:", err)
+except ValueError as err:
+    print("Fehler:", err)
+finally:
+    print("Programm beendet.")
+```
+
+---
+
+## Fazit
+
+Mit **Funktionen** lassen sich Programme modular und effizient gestalten – egal ob mit oder ohne Parameter und Rückgabewert. Die **Fehler- und Ausnahmebehandlung** mit `try`, `except` und `finally` sorgt dafür, dass Programme auch bei unerwarteten Eingaben stabil bleiben.

@@ -1,0 +1,157 @@
+---
+title: "erzweigungen und Schleifen in Python"
+description: "if-, elif-, else-Verzweigungen, match-case-Anweisung sowie while- und for-Schleifen in Python erklärt mit Beispielen."
+tags: ["LF5", "Python", "if", "elif", "while", "for", "match", "Kontrollstrukturen"]
+---
+
+
+## Verzweigungen in Python
+
+Mit Verzweigungen lassen sich Abläufe abhängig von Bedingungen steuern.
+
+---
+
+### if-Verzweigung
+
+```python
+a = 40
+b = 100
+if b > a:
+    print("b ist größer als a")
+```
+
+- Der eingerückte Block wird nur ausgeführt, wenn die Bedingung wahr ist.
+- Vergleichsoperatoren: `<`, `>`, `<=`, `>=`, `==`, `!=`
+- Logische Operatoren wie `and`, `or`, `not` sind ebenfalls erlaubt
+
+---
+
+### if-else-Verzweigung
+
+```python
+a = 100
+b = 40
+if b > a:
+    print("b ist größer als a")
+else:
+    print("a ist größer als b")
+```
+
+- Der `else`-Block wird ausgeführt, wenn die Bedingung im `if` falsch ist.
+
+---
+
+### if-elif-else-Verzweigung
+
+```python
+a = 40
+b = 40
+if b > a:
+    print("b ist größer als a")
+elif b < a:
+    print("a ist größer als b")
+else:
+    print("a ist gleich b")
+```
+
+- Mit `elif` lassen sich mehrere Fälle abfragen.
+- Am Ende kann ein optionales `else` stehen.
+
+---
+
+## match-case (seit Python 3.10)
+
+```python
+Portstatus = "Open"
+
+match Portstatus:
+    case "Open":
+        print("Erfolgreiche Verbindung!")
+    case "Block":
+        print("Keine Verbindung möglich!")
+    case "Filtered":
+        print("Time out!")
+    case _:
+        print("Kein gültiger Portstatus!")
+```
+
+- `match-case` ist eine elegante Alternative zu vielen `if-elif`-Zweigen.
+- Der Unterstrich `_` steht für den Standardfall (default).
+
+---
+
+## while-Schleife
+
+```python
+a = 1
+while a < 5:
+    print(f"Der {a}. Durchlauf")
+    a = a + 1
+```
+
+- Solange die Bedingung wahr ist, wird der Block ausgeführt.
+- Achtung: Endlosschleifen vermeiden!
+- Mit `break` kann man die Schleife abbrechen.
+
+---
+
+## for-Schleife mit range()
+
+```python
+for i in range(0, 4):
+    print(f"Der {i}. Durchlauf")
+```
+
+- Gibt `0`, `1`, `2`, `3` aus.
+- `range(start, stop)` erzeugt eine Zahlenfolge.
+
+---
+
+### for + continue
+
+```python
+for i in range(1, 10):
+    if i < 6:
+        continue
+    print(f"Der {i}. Durchlauf")
+```
+
+- `continue` überspringt den aktuellen Schleifendurchlauf.
+
+---
+
+## for-Schleife über Listen und Strings
+
+### Fall 1: Iterieren über Elemente
+
+```python
+my_list = [2, 3.42, "Paul", True]
+for elem in my_list:
+    print(elem)
+```
+
+- Gibt alle Elemente nacheinander aus.
+
+---
+
+### Fall 2: Iterieren mit Index
+
+```python
+for i in range(0, 4):
+    print(i, my_list[i])
+```
+
+Ausgabe:
+```
+0 2
+1 3.42
+2 Paul
+3 True
+```
+
+---
+
+## Fazit
+
+Verzweigungen und Schleifen sind grundlegende Steuerstrukturen jeder Programmiersprache.  
+In Python sind sie besonders lesbar und elegant umgesetzt. Mit `if`, `elif`, `else`, `match`, `while` und `for` kannst du nahezu jede Logik umsetzen – von einfachen Entscheidungen bis zu komplexen wiederholten Abläufen.

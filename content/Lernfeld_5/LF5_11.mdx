@@ -1,0 +1,161 @@
+---
+title: "Relationale Datenbanken und SQL"
+description: "Vertiefung relationaler Datenbankmodelle mit Primär- und Fremdschlüsseln, Kardinalitäten, Normalisierung und Einführung in SQL."
+tags: ["LF5", "Datenbanken", "Relation", "SQL", "Normalisierung", "Primärschlüssel", "Fremdschlüssel"]
+---
+
+
+## Relationale Datenbanken (Vertiefung)
+
+Eine **Relation** ist eine Tabelle bestehend aus:
+
+- **Tupeln** (Zeilen)
+- **Attributen** (Spalten)
+
+> Jede Zeile stellt ein Objekt mit zugehörigen Informationen dar.  
+> Alle Werte eines Attributs gehören zu einem einheitlichen Wertebereich.
+
+---
+
+## Das relationale Datenmodell
+
+- Eine Datenbank besteht aus mehreren **Relationen**
+- Eine Relation = Tabelle mit:
+  - **Name**
+  - **Spalten (Attribute)**
+  - **Zeilen (Tupel / Datensätze)**
+
+---
+
+## Primärschlüssel (Primary Key, PK)
+
+- **Eindeutige Identifikation** eines Datensatzes
+- Merkmale:
+  - **Eindeutigkeit**: Kein Wert darf doppelt vorkommen
+  - **Minimalität**: Nur nötige Attribute
+  - **Unveränderbarkeit**
+
+---
+
+## Fremdschlüssel (Foreign Key, FK)
+
+- Verweist auf den **Primärschlüssel** einer anderen Tabelle
+- Verknüpft zwei Tabellen miteinander
+- Eine Tabelle kann **mehrere FK** besitzen
+- FK-Werte müssen in referenzierter Tabelle vorhanden sein (referenzielle Integrität)
+
+---
+
+## Kardinalitäten
+
+### 1:1 Beziehung
+
+Jeder Datensatz in Tabelle A gehört **genau einem** in Tabelle B und umgekehrt.
+
+---
+
+### 1:n Beziehung
+
+Ein Datensatz in Tabelle A ist mit **mehreren** in Tabelle B verknüpft, aber umgekehrt **max. einer**.
+
+---
+
+### m:n Beziehung
+
+Mehrere Datensätze in A stehen mit mehreren in B in Beziehung.
+
+→ Umsetzung in SQL über **Kreuztabellen** mit zwei Fremdschlüsseln
+
+---
+
+### Zusammengesetzter Primärschlüssel
+
+- Wird verwendet, um Kombinationen aus zwei Fremdschlüsseln **eindeutig zu machen**
+- Typisch in Kreuztabellen bei m:n-Beziehungen
+
+---
+
+## Wichtige Grundbegriffe
+
+| Begriff                   | Bedeutung                                                                 |
+|---------------------------|---------------------------------------------------------------------------|
+| **Datenredundanz**        | Information liegt mehrfach vor                                            |
+| **Datenkonsistenz**       | Korrekte und widerspruchsfreie Daten                                      |
+| **Anomalien**             | Probleme beim Einfügen, Löschen, Ändern (z. B. Einfügeanomalie)           |
+| **Referenzielle Integrität** | Fremdschlüssel muss auf existierenden Primärschlüssel verweisen         |
+| **Normalisierung**        | Strukturierung zur Vermeidung von Redundanzen                             |
+
+---
+
+## Normalisierung
+
+Ziel:
+- Vermeidung von Redundanz
+- Sicherstellung von Konsistenz
+- Beseitigung von **Einfüge-, Änderungs- und Löschanomalien**
+
+### Stufen:
+- **0NF**: unnormalisierte Form
+- **1NF–3NF**: in der Praxis am relevantesten
+
+---
+
+## Vom ER-Modell zum relationalen Modell
+
+### Transformationsregeln
+
+| ER-Modell                  | Relationales Modell                    |
+|----------------------------|----------------------------------------|
+| Entitätstyp + Attribute    | Tabelle + Attribute                    |
+| 1:n-Beziehung              | FK in abhängiger Tabelle               |
+| m:n-Beziehung              | Kreuztabelle mit 2 FK                  |
+
+---
+
+## Phasen des Datenbankentwurfs
+
+1. **Analysephase**  
+   Informelle Beschreibung des Problems
+
+2. **Konzeptionelle Phase**  
+   ER-Modell
+
+3. **Logische Phase**  
+   Teil 1: Transformation in Tabellen  
+   Teil 2: Normalisierung
+
+4. **Implementationsphase**  
+   Umsetzung in funktionsfähiges System
+
+---
+
+## SQL (Structured Query Language)
+
+SQL ist die **Standardsprache** zur Arbeit mit relationalen Datenbanken.
+
+---
+
+## SQL-Kategorien
+
+| Kategorie | Sprache | Zweck                         | Beispiele                   |
+|-----------|---------|-------------------------------|-----------------------------|
+| **DDL**   | Data Definition Language | Strukturdefinition       | `CREATE`, `DROP`, `ALTER`   |
+| **DML**   | Data Manipulation Language | Daten bearbeiten         | `SELECT`, `INSERT`, `UPDATE`|
+| **DCL**   | Data Control Language      | Rechteverwaltung         | `GRANT`, `REVOKE`, `DENY`   |
+| **TCL**   | Transaction Control Language | Transaktionen verwalten | `COMMIT`, `ROLLBACK`        |
+
+---
+
+## SQL-Beispiel: Datenbank anlegen
+
+```sql
+CREATE DATABASE testdatenbank;
+```
+
+> DDL-Befehle benötigen Adminrechte – DML reicht Nutzerrolle.
+
+---
+
+## Fazit
+
+Relationale Datenbanken basieren auf durchdachter Strukturierung in Tabellen, Beziehungen und Integritätsregeln. Mit Normalisierung und SQL lassen sich **konsistente, leistungsfähige und sichere Datenbanksysteme** gestalten – das Fundament moderner Informationssysteme.

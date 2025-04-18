@@ -1,0 +1,241 @@
+---
+title: "Datenbanksysteme und Datenmodellierung"
+description: "Einführung in relationale und NoSQL-Datenbanken, ANSI/SPARC-Architektur, sowie das Entity-Relationship-Modell mit Kardinalitäten."
+tags: ["LF5", "Datenbanken", "DBMS", "ER-Modell", "Datenmodelle", "SQL", "NoSQL"]
+---
+
+
+## Einführung in Datenbanksysteme
+
+Ein Datenbanksystem (DBS) besteht aus:
+
+- **Anwendungen**
+- **DBMS (Datenbankmanagementsystem):** Software zur Datenverwaltung
+- **Datenbank:** Daten + Metadaten
+
+---
+
+## Was sind Daten?
+
+Digitale Repräsentationen von:
+
+- Dingen
+- Entitäten
+- Beziehungen
+- Informationen aus der realen Welt
+
+**Zentrale Fragen:**
+
+- Welche Daten speichere ich?
+- Wie speichere ich sie?
+- Wie frage ich sie ab?
+- Wie sicher und effizient?
+
+---
+
+## Datenbanken vs. Dateien
+
+| Datenbank                     | Datei (ASCII)                                |
+|------------------------------|----------------------------------------------|
+| Optimiert für Anfragen       | Jede Änderung = ganze Datei neu schreiben    |
+| Puffermanagement             | Keine Anfrageoptimierung                     |
+| Sicherheit, API, GUI         | Nur einfache Speicherung                     |
+
+---
+
+## Datenbanken vs. Tabellenkalkulation
+
+| Datenbank                          | Excel                                      |
+|-----------------------------------|--------------------------------------------|
+| Joins, Skalierbarkeit             | Einfach zu bedienen, gute Visualisierung   |
+| Transaktionen, Sicherheit         | Keine komplexen Operationen                |
+| Metadaten, Datenintegrität        | Fehlende Kontrolle & Skalierung            |
+
+---
+
+## Aufgaben eines DBMS
+
+- Verwaltung von Datenmodellen
+- Anfragesprachen: DDL & DML
+- Effiziente Anfragebearbeitung
+- Speicherverwaltung (RAM & Disk)
+- Transaktionsmanagement
+- Benutzerverwaltung & Zugriffskontrolle
+- Datensicherheit & Konsistenz
+
+---
+
+## Beispiele für Datenbankmanagementsysteme
+
+- **Kommerziell:** Oracle, IBM DB2, MS SQL Server, Sybase, Informix
+- **Open Source:** PostgreSQL, MySQL
+- **Einfachsysteme:** Microsoft Access
+
+---
+
+## Einsatzgebiete
+
+- Kundenmanagement
+- Bestellwesen
+- Flugbuchungen
+- Banken, Versicherungen
+- Telekommunikation
+- Datenanalyse
+- Lagerverwaltung
+- ERP-Systeme
+
+---
+
+## ANSI/SPARC-Architektur
+
+**Dreischicht-Modell:**
+
+1. **Externe Schicht:**  
+   - Sichten, Anwendungen, Nutzerzugriff
+2. **Konzeptionelle Schicht:**  
+   - Datenmodell, stabile Definition
+3. **Interne Schicht:**  
+   - Physikalische Speicherung (Dateien, Blöcke)
+
+---
+
+## Visualisierung – Beispielverwaltung
+
+- Verwalter: Mieten, Abrechnung  
+- Makler: Kunden, Verträge  
+- Service: Hausordnung, Reinigung  
+- Mieter – Wohnung – Pflichten
+
+---
+
+## Organisation physischer Speicher
+
+- Zugriff über Hashing, B-Bäume
+- Speicherblöcke auf Zylindern
+
+---
+
+## Betriebsarten von Datenbanken
+
+- **Stand-Alone**
+- **File-Share**
+- **Client-Server**
+
+---
+
+## Datenmodelle
+
+### Klassisch
+
+- Hierarchisch
+- Netzwerk
+- Relational
+- Objektorientiert
+- Objektrelational
+
+### NoSQL
+
+- Key-Value
+- Dokumentenorientiert
+- Graphenorientiert
+- Spaltenorientiert
+
+---
+
+## Relationales Modell
+
+- **Tabellen** mit **Zeilen (Tupel)** und **Spalten (Attribute)**
+- Verbindungen zwischen Tabellen möglich (Relationen)
+- Effiziente Abfragen über JOINs
+
+---
+
+## Terminologie
+
+| Begriff     | Bedeutung                         |
+|-------------|------------------------------------|
+| Datenbank   | Sammlung mehrerer Tabellen         |
+| Relation    | Tabelle                            |
+| Tupel       | Zeile                              |
+| Attribut    | Spalte (Datenelement)              |
+
+---
+
+## Entity-Relationship-Modell (ER-Modell)
+
+Vor SQL-Datenbankentwurf wird ein **ER-Modell** erstellt.
+
+### Grundelemente:
+
+- **Entität:** eindeutig identifizierbares Objekt
+- **Beziehung:** Verknüpfung zwischen Entitäten
+- **Attribut:** Eigenschaft einer Entität oder Beziehung
+
+---
+
+## Darstellung im ER-Modell
+
+- Entitäten durch Rechtecke
+- Beziehungen durch Rauten
+- Attribute durch Ellipsen
+
+Attribute können auch Beziehungen zugeordnet sein.
+
+---
+
+## Kardinalitäten
+
+### 1:1 Beziehung
+
+- Eine Entität hat genau eine zugehörige Entität
+
+**Beispiel:**  
+- Eine Person ↔ ein Ausweis
+
+### 1:n Beziehung
+
+- Eine Entität ist mit vielen verknüpft – umgekehrt nur mit einer
+
+**Beispiel:**  
+- Sammler ↔ Kunstwerke
+
+### n:m Beziehung
+
+- Beide Seiten mit mehreren verbunden
+
+**Beispiel:**  
+- Schüler ↔ Lehrer
+
+---
+
+## Erweiterte Kardinalitäten
+
+- **Min-Max-Notation**
+  - z. B. `0..n` oder `1..n`
+- Präzisiert optionale oder verpflichtende Beziehungen
+
+**Beispiel:**  
+- Eine Person kann kein oder viele Handys besitzen  
+- Ein Handy gehört genau einer Person
+
+---
+
+## Beispielauftrag 1: Zoo
+
+- Tiere → Gattung  
+- Tiere → Pfleger (1:n)  
+- Tiere → Unterkunft (n:m)
+
+---
+
+## Beispielauftrag 2: Arztpraxis
+
+- Bisher Excelverwaltung  
+- Jetzt: Patienten, Termine, Ärzte in relationaler DB  
+- Ausgangspunkt: ER-Modell
+
+---
+
+## Fazit
+
+Ein Datenbanksystem ist mehr als eine Tabelle: Es kombiniert **Datenorganisation**, **Sicherheit**, **Zugriff**, **Mehrbenutzerbetrieb** und eine **mächtige Modellierung**. Das ER-Modell hilft beim sauberen Entwurf – egal ob für klassische relationale Datenbanken oder moderne NoSQL-Lösungen.

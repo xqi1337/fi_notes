@@ -1,0 +1,188 @@
+---
+title: "SQL-DML: Datensätze verwalten und abfragen"
+description: "SQL-Befehle zum Einfügen, Ändern, Löschen und Abfragen von Daten mit WHERE, GROUP BY, HAVING, LIKE, IN, BETWEEN und JOINs."
+tags: ["LF5", "SQL", "DML", "SELECT", "INSERT", "UPDATE", "DELETE", "JOIN", "WHERE"]
+---
+
+
+## Datensätze einfügen, ändern und löschen (DML)
+
+### INSERT INTO
+
+Neue Datensätze in Tabellen einfügen:
+
+```sql
+INSERT INTO Kunden (KundenID, Nachname, Vorname)
+VALUES (1, 'Meier', 'Hans');
+```
+
+**Alternative ohne Spaltenliste:**
+
+```sql
+INSERT INTO Kunden
+VALUES (1, 'Meier', 'Hans');
+```
+
+Achtung: Reihenfolge der Werte **muss** exakt der Tabellendefinition entsprechen.
+
+---
+
+### UPDATE
+
+Datensätze gezielt ändern:
+
+```sql
+UPDATE Kunden
+SET Vorname = 'Alfred', Nachname = 'Schmidt'
+WHERE KundenID = 1;
+```
+
+- Ohne `WHERE` → **alle** Zeilen werden verändert
+
+---
+
+### DELETE
+
+Datensätze löschen:
+
+```sql
+DELETE FROM Kunden
+WHERE KundenID = 1;
+```
+
+- Ohne `WHERE` → **alle** Zeilen werden gelöscht!
+
+---
+
+## Daten abfragen mit SELECT
+
+### Grundstruktur
+
+```sql
+SELECT Spalte1, Spalte2 FROM Kunden;
+SELECT * FROM Kunden;
+```
+
+---
+
+### SELECT DISTINCT
+
+Nur eindeutige Werte anzeigen:
+
+```sql
+SELECT DISTINCT Land FROM Kunden;
+```
+
+Mit Aggregatfunktionen kombinieren:
+
+```sql
+SELECT COUNT(DISTINCT Land) FROM Kunden;
+```
+
+---
+
+### WHERE-Klausel
+
+Abfragen filtern:
+
+```sql
+SELECT * FROM Kunden WHERE Land = 'Deutschland';
+```
+
+Mehrere Bedingungen mit `AND`, `OR`, `NOT`:
+
+```sql
+SELECT * FROM Kunden WHERE Land = 'Deutschland' AND Stadt = 'Berlin';
+```
+
+---
+
+### ORDER BY / GROUP BY
+
+#### Sortieren
+
+```sql
+SELECT * FROM Kunden ORDER BY Nachname ASC;
+```
+
+#### Gruppieren
+
+```sql
+SELECT Land, COUNT(*) FROM Kunden GROUP BY Land;
+```
+
+---
+
+### HAVING
+
+Filter für Gruppen:
+
+```sql
+SELECT COUNT(KundenID), Land
+FROM Kunden
+GROUP BY Land
+HAVING COUNT(KundenID) > 5;
+```
+
+- `HAVING` wird **nach** `GROUP BY` verwendet  
+- `WHERE` darf nicht mit Aggregatfunktionen kombiniert werden
+
+---
+
+## LIKE – Musterabgleich
+
+```sql
+SELECT * FROM Kunden WHERE Nachname LIKE 'M%';
+```
+
+### Wildcards
+
+| Symbol | Bedeutung                      |
+|--------|-------------------------------|
+| `%`    | beliebige Anzahl Zeichen       |
+| `_`    | genau ein Zeichen              |
+
+---
+
+## IN – Mehrfachfilter
+
+```sql
+SELECT * FROM Kunden
+WHERE Land IN ('Deutschland', 'Frankreich', 'England');
+```
+
+- Kürzer als mehrere `OR`-Bedingungen
+
+---
+
+## BETWEEN – Bereichsfilter
+
+```sql
+SELECT * FROM Kunden
+WHERE KundenID BETWEEN 2 AND 3;
+```
+
+- **Grenzwerte sind inklusive**
+
+---
+
+## INNER JOIN – Tabellen verknüpfen
+
+Verknüpft zwei Tabellen über gemeinsame Spalten:
+
+```sql
+SELECT Kunden.Name, Bestellungen.Datum
+FROM Kunden
+INNER JOIN Bestellungen
+ON Kunden.KundenID = Bestellungen.KundenID;
+```
+
+- Zeigt **nur** Datensätze mit Übereinstimmung
+- Voraussetzung: PK/FK-Beziehung
+
+---
+
+## Fazit
+
+Mit SQL-DML-Befehlen wie `INSERT`, `UPDATE`, `DELETE` und `SELECT` lassen sich Daten gezielt verwalten und auswerten.  
+Durch WHERE-Klauseln, Funktionen, Joins und Musterabgleiche wird SQL zu einem **mächtigen Werkzeug zur Datenanalyse und Pflege** relationaler Datenbanken.
