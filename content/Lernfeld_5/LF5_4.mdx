@@ -1,0 +1,270 @@
+---
+title: "Anforderungsspezifikation und Modellierung"
+description: "Von der Anforderungsspezifikation über Lasten- und Pflichtenheft bis hin zu Struktogrammen und Entscheidungstabellen – mit praktischen Beispielen."
+tags: ["LF5", "Anforderung", "Lastenheft", "Pflichtenheft", "Modellierung", "Struktogramm", "Entscheidungstabelle"]
+---
+
+
+## Anforderungsspezifikation
+
+> „Ermitteln, Analysieren, Spezifizieren und Validieren der Eigenschaften und Rahmenbedingungen eines Softwaresystems.“
+
+### Kriterien für gute Anforderungen
+
+- **Korrektheit**
+- **Eindeutigkeit**
+- **Prüfbarkeit**
+- **Nachverfolgbarkeit**
+
+### Rahmenbedingungen
+
+- **Technologisch:** z. B. eingesetzte Plattformen oder Sprachen
+- **Organisatorisch:** Projektteam, Projektumfang
+- **Normativ:** z. B. gesetzliche Vorgaben
+
+---
+
+## Arten von Anforderungen
+
+### Funktionale Anforderungen
+
+- Was soll das System **leisten**?
+- Beispiel:
+  - Eingabedaten, Verarbeitung, Ausgaben
+  - Benutzeraktionen (z. B. „Aufgabe hinzufügen“)
+
+### Nicht-funktionale Anforderungen
+
+- **Benutzbarkeit** (z. B. intuitive Oberfläche)
+- **Zuverlässigkeit** (z. B. Fehlertoleranz, Wiederherstellung)
+- **Effizienz** (Zeit-/Speicherverhalten)
+- **Änderbarkeit** (Wartbarkeit)
+- **Übertragbarkeit** (Plattformunabhängigkeit)
+
+---
+
+## Lasten- und Pflichtenheft
+
+### Lastenheft (Auftraggeber, „Was und Wofür“)
+
+- Spezifiziert SOLL-Funktionen und SOLL-Prozesse
+- Grundlage für das Pflichtenheft
+- Grundlage für Angebote
+
+---
+
+## Beispiel Lastenheft – ToDo-App
+
+### Projektname
+
+> Entwicklung einer einfachen ToDo-Liste-App
+
+### Zielsetzung
+
+> Benutzerfreundliche ToDo-App für mobile Geräte (iOS & Android) mit den Funktionen:
+> - Aufgaben erstellen, bearbeiten, löschen
+> - Kategorien zur Sortierung
+> - Benachrichtigungen bei Fälligkeit
+> - Offline-Verfügbarkeit + Synchronisierung
+
+### Lieferumfang
+
+- Funktionierende App (iOS & Android)
+- Installationspakete
+- Benutzeranleitung
+
+---
+
+## Pflichtenheft (Softwareanbieter, „Wie und Womit“)
+
+- **Detaillierte technische Umsetzung**
+- Grundlage für Vertrag und Abnahme
+- Erarbeitet durch den Anbieter (mit Auftraggeber)
+
+---
+
+## Beispiel Pflichtenheft – ToDo-App
+
+### 1. Projektinformationen
+
+- Zeitraum: 01.11.2023 – 15.01.2024
+- Team: Entwickler A, B, UX-Designer, Tester
+
+### 2. Aufgabenverteilung
+
+- Entwickler A: Grundfunktionen (Hinzufügen, Bearbeiten, Löschen)
+- Entwickler B: Sortierung, Filter, Benachrichtigung
+- UX-Designer: Design & Usability
+- Tester: Funktions- & Kompatibilitätstests
+
+### 3. Meilensteine
+
+| Datum         | Ziel                                                         |
+|---------------|--------------------------------------------------------------|
+| 15.12.2023    | Grundfunktionen implementiert                                |
+| 30.12.2023    | Sortierung + Benachrichtigung abgeschlossen                  |
+| 10.01.2024    | Testphase beginnt                                            |
+| 15.01.2024    | Fertige App für iOS und Android                              |
+
+### 4. Kommunikation
+
+- Wöchentliche Meetings
+- Tägliche Statusmails
+- Sofortmeldung bei Fehlern
+
+### 5. Qualitätskontrolle
+
+- Fehlerfreie, stabile App
+- Benutzerfreundlichkeit
+- Alle Lastenheft-Anforderungen erfüllt
+- Plattformübergreifende Tests
+
+---
+
+## Programmablaufplan (PAP)
+
+> **Definition nach DIN 66001:**  
+> Grafische Darstellung des logischen Ablaufs eines Programms
+
+### Einsatzbereiche:
+
+- Planung vor dem Codieren
+- Visualisierung für Entwickler & Fachabteilungen
+- Frühzeitige Fehlererkennung
+- Dokumentation und Lehre
+
+---
+
+## Struktogramm (Nassi-Shneiderman-Diagramm)
+
+- Ablaufdarstellung **von oben nach unten**
+- Ohne Sprunganweisungen (strukturierter Code)
+- Entwickelt in den 1970ern
+
+### Grundelemente:
+
+- **Anweisung:** Rechteck
+- **Sequenz:** mehrere Anweisungen untereinander
+- **Entscheidung:** Raute oder geteiltes Rechteck
+- **Schleifen:** nach rechts gekipptes „L“ (Kopf-/Fuß-gesteuert)
+- **Prozedur:** Doppelrand um Anweisung
+
+---
+
+## Beispiel: Struktogramm – Variablen und Rechenoperation
+
+```
+Int A = 5
+Int B = 7
+Int C = 0
+C = A + B
+Ausgabe: C
+```
+
+---
+
+## Entscheidung (If)
+
+- Eine Bedingung entscheidet den Ablauf.
+- Beispiel:
+  - Wenn A gerade → „gerade“
+  - Sonst → „ungerade“
+
+---
+
+## Schleifen – kopfgesteuert
+
+- Bedingung **vor dem Schleifenblock**
+- Beispiel (Collatz-Problem):  
+  Wiederhole, solange $A > 1$:
+  - Wenn gerade: $A = A / 2$  
+  - Sonst: $A = A * 3 + 1$
+
+---
+
+## Schleifen – fußgesteuert
+
+- Schleifenblock wird **mindestens einmal** ausgeführt
+- Bedingung steht unten
+
+---
+
+## Prozedur- / Prozessaufruf
+
+- Aufruf einer Methode / Funktion
+- Darstellung: **doppelrandiger Block**
+- Beispiel: `Login(User)`
+
+---
+
+## Beispiel: Zahl-Ratespiel
+
+- Eingabe: max. Zahl  
+- Zufallszahl mit `Random(max)`  
+- Benutzer rät
+  - Ist geraten = richtig → Gewinn
+  - Sonst: „kleiner / größer“, neuer Versuch
+
+---
+
+## Beispiel: Notenermittlung
+
+- Eingabe: Prozentwert `P`  
+- Berechnung:
+  - 100–92 % → Note 1  
+  - 91–81 % → Note 2  
+  - usw.
+
+- Ausgabe:
+  - Bei < 50 %: „Durchgefallen“  
+  - Ab 50 %: „Bestanden“
+
+---
+
+## Beispiel: Passwortprüfung
+
+- Eingabe: Passwort → Hash()  
+- Vergleich mit `SavedHash`  
+- Bei Erfolg:
+  - Login = true  
+  - Rückmeldung „Erfolg“
+- Bei Misserfolg:
+  - Fehlversuche zählen  
+  - Ab 3x → Account sperren
+
+---
+
+## Schreibtischtest
+
+> Manuelles Durchspielen eines Algorithmus auf Papier
+
+### Beispiel: Zahlen 0–15 durchtesten  
+→ Unendlichschleife bei bestimmten Werten erkannt (z. B. 3, 7, 10…)
+
+---
+
+## Parkhaus-Beispiel
+
+- Sensoren prüfen Belegung  
+- Ausgabe: „frei“ oder „belegt“ ab 90 %  
+- Beispielhafter Fehler im Struktogramm erklärt
+
+---
+
+## Entscheidungstabellen
+
+> Strukturierte Darstellung aller möglichen Bedingungskombinationen
+
+| Bedingung              | ja | nein |
+|------------------------|----|------|
+| Schalter gedrückt?     | X  |      |
+| Nachricht empfangen?   | X  |      |
+| Anzeige > 35 °C?       |    | X    |
+
+→ Ausgabe: Motor dreht sich / nicht
+
+---
+
+## Fazit
+
+Kapitel 5.4 bietet ein vollständiges Bild des Anforderungsprozesses in Softwareprojekten. Vom strukturierten Erfassen über Lasten-/Pflichtenhefte bis hin zur grafischen Modellierung mit PAP und Struktogrammen erhältst du Werkzeuge zur Planung, Dokumentation und Kommunikation von Softwarelösungen. Entscheidungstabellen ergänzen das Spektrum bei komplexen Bedingungskombinationen.

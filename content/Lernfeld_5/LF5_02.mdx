@@ -1,277 +1,194 @@
 ---
-
-## title: 'Softwareentwicklung & IT-Übersicht' description: 'Ein umfassender Überblick über Softwareentwicklung, Programmiersprachen, Berufsbilder und Softwareklassifikationen.' tags: ['Softwareentwicklung', 'IT', 'Programmiersprachen', 'Projektmanagement']
+title: "Darstellungsformen von Daten"
+description: "Wie Zahlen, Zeichen und Bilder in IT-Systemen digital dargestellt werden: Dualsystem, Zweierkomplement, Gleitkommazahlen, Zeichencodierung, Grafikformate und Farbtiefe."
+tags: ["LF5", "Darstellung von Daten", "Dualsystem", "ASCII", "UTF-8", "Zweierkomplement", "Gleitkommazahl", "Farbmodell"]
 ---
-## Softwareentwicklung & IT-Übersicht
 
-### Softwareentwicklung & -anpassung
-
-- Anpassung bestehender Software oder Entwicklung neuer Softwarelösungen
-    
-- Beteiligung an:
-    
-    - Entwicklung neuer Software
-        
-    - Anpassung und Erweiterung bestehender Systeme
-        
+## Darstellungsformen von Daten
 
 ---
 
-### Berufsbilder in der Softwareentwicklung
+## Darstellung von Zahlen – Ganze Zahlen ohne Vorzeichen
 
-- **Frontend-Entwickler**
-    
-- **Backend-Entwickler**
-    
-- **Full-Stack-Entwickler**
-    
-- **Datenanalyst**
-    
-- **DevOps-Entwickler**
-    
-- **Datenbankentwickler**
-    
+- Die Darstellung erfolgt gemäß dem **dualen Zahlensystem**.
+- Beispiel für ein Byte (8 Bit), darstellbarer Bereich: `0 .. 255`
 
----
-
-### Programmiersprachen
-
-**Pascal**
-
-- Imperative Programmiersprache aus den 1970er Jahren
-    
-- Lehrsprache für strukturierte Programmierung
-    
-
-**Object Pascal**
-
-- Erweiterung von Pascal um objektorientierte Programmierung
-    
-- Bekannteste Variante: **Embarcadero Delphi** (seit 1985)
-    
-
-**JavaScript (JS)**
-
-- Entwickelt 1995 von Netscape
-    
-- Ermöglicht dynamisches HTML und Benutzerinteraktion im Webbrowser
-    
-- Heute auch außerhalb des Browsers einsetzbar (Server, Microcontroller)
-    
-
-**PHP**
-
-- Serverseitige Scriptsprache für dynamische Webseiten
-    
-- Ersterscheinung: Juni 1995
-    
-- Aktuelle Version: 8.3.6 (Stand: 11. April 2024)
-    
-- Vorteil gegenüber HTML: PHP wird auf dem Server ausgeführt
-    
-
-**Go**
-
-- Kompilierte Sprache, entwickelt von Google (2009, stabil seit 2012)
-    
-- Paradigmen: imperativ, objektorientiert
-    
-- Vorteile: schnelle Kompilierung, Nebenläufigkeit, Cloud-optimiert
-    
-- Syntax an C orientiert
-    
-- Aktuelle Version: 1.22.3 (April 2024)
-    
-
-**Ruby**
-
-- Höhere Programmiersprache (Entwicklung Mitte der 1990er)
-    
-- Tief objektorientiert, unterstützt mehrere Paradigmen
-    
-- Laufzeitinterpretation, dynamische Typisierung, Garbage Collection
-    
-- Aktuelle Version: 3.3.0 (Dezember 2023)
-    
+| Binär        | Dezimal |
+|--------------|---------|
+| 0000 0000    | 0       |
+| 0011 1111    | 63      |
+| 0100 0000    | 64      |
+| 0111 1111    | 127     |
+| 1000 0000    | 128     |
+| 1111 1111    | 255     |
 
 ---
 
-### Aufgaben von Softwareentwicklern
+## Darstellung von Zahlen – Ganze Zahlen mit Vorzeichen
 
-- Entwicklung von **Softwarearchitektur** & **Quellcode**
-    
-- Testen, Implementieren, Installieren
-    
-- Wartung & Weiterentwicklung
-    
-- Arbeiten meist im Team mit anderen Fachrollen
-    
+- Das **erste Bit wird als Vorzeichenbit** verwendet:
+  - `0` für eine positive Zahl
+  - `1` für eine negative Zahl
+- Zahlenbereich: `-128 .. 0 .. +127`
 
----
+### Beispiel: -7
+- Ausgang: `0000 0111 b`
+- Invertieren: `1111 1000 b`
+- +1: `1111 1001 b`  
+- Ergebnis: `-7`, weil höchstwertiges Bit = `1`
 
-### Hard Skills von Softwareentwicklern
-
-- **Programmiersprachenkenntnisse**
-    
-- **Sauberer, strukturierter Code**
-    
-- **Versionskontrolle**
-    
-- **Projektmanagementmethoden**
-    
-- **Algorithmen & Datenstrukturen**
-    
-- **Datenbankkenntnisse**
-    
-- **Testing & Debugging-Methoden**
-    
-
-### Soft Skills von Softwareentwicklern
-
-- **Kommunikationsfähigkeit**
-    
-- **Teamarbeit**
-    
-- **Lernbereitschaft**
-    
-- **Flexibilität**
-    
+- Rückrechnung:  
+  - `1111 1001 b`  
+  - Invertieren: `0000 0110 b`  
+  - +1: `0000 0111 b` = `7 d`
 
 ---
 
-### Softwaredefinition (IEEE Standard 610.12)
+## Weitere Beispiele Zweierkomplement
 
-> „Software umfasst alle Programme, vorgeschriebenen Abläufe, Dokumentation und Daten, die zum Betrieb eines Rechnersystems erforderlich sind.“
+### -16
+- `0001 0000 b` → `1110 1111 b` + `1 b` = `1111 0000 b`
+- Rückrechnung: `1111 0000 b` → `0000 1111 b` + `1 b` = `0001 0000 b` = `16 d`  
+→ `-16`, da höchstwertiges Bit `1`
 
----
+### +127
+- Kein Zweierkomplement notwendig  
+- `0111 1111 b` = `+127`
 
-### Kategorisierung von Software
+### 0
+- Kein Zweierkomplement notwendig  
+- `0000 0000 b` = `0`
 
-**Aufgabenbezogen:**
+### -128
+- `1000 0000 b` → invertiert: `0111 1111 b` + 1 = `1000 0000 b`  
+- Rückrechnung führt wieder auf `1000 0000 b` = `128 d`  
+→ `-128`, höchstwertiges Bit `1`
 
-- **Systemsoftware**
-    
-- **Unterstützungssoftware**
-    
-- **Anwendersoftware**
-    
-
-**Grad der Individualisierung:**
-
-- **Standardsoftware**
-    
-- **Individualsoftware**
-    
-
----
-
-### Beispiele für Softwaretypen
-
-**Systemsoftware:**
-
-- Betriebssysteme (Windows, macOS, Linux, Android)
-    
-- Treiber, BIOS/UEFI
-    
-- Utility-Programme (z. B. Antivirus, Defragmenter)
-    
-- Kommandozeileninterpreter (Bash, CMD, PowerShell)
-    
-
-**Unterstützungssoftware:**
-
-- Compiler, Interpreter
-    
-- Editoren, IDEs
-    
-- Virtualisierungen (VirtualBox, Hyper-V)
-    
-
-**Anwendersoftware:**
-
-- Textverarbeitung, Tabellenkalkulation, Präsentation
-    
-- Bildbearbeitung, DTP, Datenbanktools
-    
-- Kommunikationssoftware, Webbrowser
-    
-- Medienplayer, Spiele
-    
+### -300
+- `0000 0001 0010 1100 b` → invertiert: `1111 1110 1101 0011 b` + `1 b`  
+- Ergebnis: `1111 1110 1101 0100 b`
+- Rückrechnung → `0000 0001 0010 1100 b` = `300 d`  
+→ `-300`, höchstwertiges Bit `1`
 
 ---
 
-### Definition Softwareentwicklung
+## Gleitkommazahlen nach IEEE 754 / IEC 60559
 
-> Entwicklung, Verbesserung oder Anpassung von Softwaresystemen
-
-**Arten der Softwareentwicklung:**
-
-- **Customizing**
-    
-- **Erweiterungsprogrammierung**
-    
-- **Neuentwicklung**
-    
-- **Datenmigration**
-    
+| Format     | Vorzeichen | Exponent | Mantisse |
+|------------|------------|----------|----------|
+| 16-Bit     | 1 Bit      | 5 Bit    | 10 Bit   |
+| 32-Bit     | 1 Bit      | 8 Bit    | 23 Bit   |
+| 64-Bit     | 1 Bit      | 11 Bit   | 52 Bit   |
+| 128-Bit    | 1 Bit      | 15 Bit   | 112 Bit  |
 
 ---
 
-### Projektdefinition nach DIN 69901
+## Beispiel: Umrechnung Dezimal in Binär  
+**Zahl:** `-10,6875`
 
-- Einmaliges Vorhaben mit:
-    
-    - **Zielvorgaben**
-        
-    - Begrenzten **Ressourcen** (Zeit, Geld, Personal)
-        
-    - **Abgrenzung** zu anderen Projekten
-        
-    - Spezifischer **Organisation**
-        
+### 1. Ganzzahlteil
+- `10 d = 1010 b`
 
----
+### 2. Nachkommateil
+- `0,6875 * 2 = 1,375` → `1`
+- `0,375 * 2 = 0,75` → `0`
+- `0,75 * 2 = 1,5` → `1`
+- `0,5 * 2 = 1,0` → `1`  
+→ ergibt: `.1011`
 
-### Klassifikation von Softwareprojekten
+### 3. Normalisierung
+- `1010,1011` = `1,0101011 × 2^3`
+- Exponent = `127 (Bias)` + `3` = `130` → `10000010 b`
 
-- Nach **Team**: intern, extern, gemischt
-    
-- Nach **Ziel**: Funktionsverbesserung, Kostensenkung
-    
-- Nach **Softwaretyp**: Anwendung, Web, Mobile, Desktop etc.
-    
-- Nach **Komplexität**: klein, mittel, groß
-    
-- Nach **Technologie**: z. B. Java, .NET, C++
-    
-- Nach **Projektgröße**: kurz, mittelgroß, groß
-    
-- Nach **Ort**: on-site, remote
-    
-- Nach **Auftraggeber**: intern, extern
-    
-- Nach **Anlass**: Neuentwicklung, Anpassung, Migration
-    
+### 4. Ergebnis (32 Bit)
+- Vorzeichenbit = `1` (negativ)
+
+```
+1 | 10000010 | 01010110000000000000000
+^   ^^^^^^^^   ^^^^^^^^^^^^^^^^^^^^^^^
+|   Exponent   Mantisse
+```
 
 ---
 
-### Informationen
+## Darstellung von Zeichen und Text
 
-- Transfer von Wissen, das den Wissensstand des Empfängers erweitert
-    
-- Eigenschaften:
-    
-    - **Immateriell**
-        
-    - **An Träger gebunden**
-        
-    - **Nicht kostenlos**
-        
-    - **Leicht übertragbar & vervielfältigbar**
-        
+### ASCII
+- Anfang der 1960er Jahre entwickelt
+- 8 Bit (davon 7 Bit Zeichencodierung + 1 Paritätsbit)
+- 128 Zeichen insgesamt  
+→ die ersten 32 Zeichen sind **Steuerzeichen**
 
-### Daten
+---
 
-- Repräsentation von Informationen (z. B. als Binärcode)
-    
-- Müssen **decodiert & interpretiert** werden
+### ISO 8859-1 und ISO 8859-15
+
+- Erweiterung des ASCII-Zeichensatzes  
+- **8-Bit Zeichensätze**, 15 Varianten
+- Die ersten 128 Zeichen sind identisch zu ASCII  
+- Die letzten 96 Zeichen beinhalten regionale Sonderzeichen  
+- ISO 8859-15 enthält z. B. das **€-Symbol**
+
+---
+
+### Unicode – UTF-8, UTF-16, UTF-32
+
+| Codierung | Beschreibung                               |
+|-----------|--------------------------------------------|
+| UTF-8     | 1–4 Byte pro Zeichen, speicheroptimiert     |
+| UTF-16    | 2 oder 4 Byte pro Zeichen                   |
+| UTF-32    | Immer 4 Byte pro Zeichen                    |
+
+- Unicode wurde 1990 eingeführt
+- Aktuell (2024): ca. **230.000 Zeichen**
+- UTF-8 benötigt komplexere Kodierung und Dekodierung
+
+---
+
+## Darstellung von grafischen Daten
+
+### Rastergrafik (Bitmap)
+- Bild = Matrix aus einzelnen Bildpunkten (Pixel)
+- Gängige Formate:
+  - `.gif`
+  - `.tif`
+  - `.jpg`
+  - `.png`
+  - `.psd`
+
+---
+
+### Vektorgrafik
+- Bild besteht aus geometrischen Objekten (Punkte, Linien, Kreise, Polygone)
+- Vorteile:
+  - Benötigt weniger Speicher
+  - **Verlustfrei skalierbar**
+- Typische Dateiformate:
+  - `.ai`
+  - `.eps`
+  - `.svg`
+  - `.pdf`
+
+---
+
+## Farbmodelle und Farbtiefe
+
+### Farbmodelle
+- **RGB** (Rot, Grün, Blau) → additive Farbmischung
+- **CMYK** (Cyan, Magenta, Gelb, Schwarz) → subtraktive Farbmischung
+
+### Farbtiefe
+- Gibt an, wie viele Farben durch die Kombination von Bits dargestellt werden können:
+
+| Farbtiefe | Farben                   |
+|-----------|--------------------------|
+| 8 Bit     | 256 Farben               |
+| 16 Bit    | 65.536 Farben            |
+| 24 Bit    | 16,7 Millionen Farben    |
+→ 24 Bit = **True Color**
+
+---
+
+## Fazit
+
+Zahlen, Zeichen und Bilder müssen in IT-Systemen digital dargestellt werden – dafür gibt es etablierte Kodierungen wie das **Dualsystem**, das **Zweierkomplement**, **Gleitkommazahlen** nach IEEE 754 sowie Zeichencodierungen wie **ASCII**, **ISO 8859** oder **UTF-8**. Auch bei der Grafikverarbeitung sind die Unterschiede zwischen **Raster- und Vektordarstellung** sowie der **Farbtiefe** entscheidend für Effizienz und Qualität.

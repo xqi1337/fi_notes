@@ -1,0 +1,151 @@
+---
+title: "Einfache Anwendungen in Python"
+description: "Einführung in Python, Installation, print(), Kommentare, Zahlen und Operatoren – mit Syntax und Beispielen."
+tags: ["LF5", "Python", "print", "Kommentare", "Operatoren", "Einsteiger"]
+---
+
+
+## Einführung: Wofür wird Python verwendet?
+
+- Webanwendungen (z. B. Django, Flask)  
+- Spieleentwicklung (PySoy, PyGame)  
+- Machine Learning / Deep Learning (z. B. TensorFlow)  
+- Desktop-GUIs (Tkinter)  
+- ERP-Systeme (Tryton)  
+- Audio- und Videoverarbeitung  
+- CAD-Anwendungen (Fandango)  
+- Embedded Systems (z. B. Raspberry Pi)  
+- Datenanalyse, -verarbeitung und -visualisierung (z. B. Pandas, Seaborn)
+
+---
+
+## Warum Python?
+
+- Leicht zu erlernen
+- Mächtige und klare Syntax
+- Open Source
+- Plattformunabhängig
+- Große Community
+- Über 200.000 Bibliotheken
+- Für Alltags- bis Unternehmensanwendungen geeignet
+- Sehr beliebt (PYPL-Ranking, April 2024)
+
+---
+
+## Python – Historie
+
+| Jahr      | Ereignis                                             |
+|-----------|------------------------------------------------------|
+| 1989      | Guido van Rossum beginnt Entwicklung                 |
+| 1991      | Version 0.9.0 erscheint                               |
+| 1994      | Version 1.0                                          |
+| 2000      | Version 2.0                                          |
+| 2008      | Version 3.0 (nicht vollständig abwärtskompatibel)    |
+| Okt 2024  | Aktuelle Version: 3.13.0                             |
+
+---
+
+## Entwicklungsumgebungen (IDEs)
+
+- **PyCharm** (JetBrains)  
+- **Visual Studio Code** (Microsoft)  
+- **IntelliJ IDEA** (JetBrains)  
+- **Eclipse** (Eclipse Foundation)
+
+---
+
+## Installation von Python
+
+### Schritt 1
+- [www.python.org](https://www.python.org)  
+- z. B. Version 3.11.9 herunterladen
+
+### Schritt 2
+- **Wichtig:**  
+  - Beide Checkboxen aktivieren („Add to PATH“)  
+  - Dann: „Install Now“
+
+### Schritt 3
+- Nach erfolgreicher Installation: „Close“
+
+---
+
+## Installation von PyCharm
+
+- [www.jetbrains.com/de-de/pycharm/](https://www.jetbrains.com/de-de/pycharm/)  
+- Installationsassistent Schritt für Schritt durchlaufen  
+- Empfehlung: Community Edition für Einsteiger
+
+---
+
+## IDLE – Python-Entwicklungsumgebung
+
+**IDLE = Integrated Development and Learning Environment**
+
+- Farbige Syntax  
+- Autovervollständigung  
+- Direkte Ausgabe & Fehlermeldung  
+- Mehrfenstermodus  
+- Plattformübergreifend (Windows, macOS, Linux)
+
+---
+
+## Interpreter-Modus
+
+Python kann direkt über die Konsole ausgeführt werden.  
+→ Ideal für kleine Tests und einfache Ausgaben
+
+---
+
+## Die print()-Funktion
+
+```python
+print("Hallo liebe Teilnehmer!")
+print('Hallo "liebe" Teilnehmer!')
+print("Hallo", "liebe", "Teilnehmer!")
+print("Hallo liebe Teilnehmer! \n Herzlich Willkommen")
+print()
+```
+
+- Funktion ist **case-sensitive**
+- Mehrere Strings mit `,` getrennt
+- Zeilenumbruch mit `\n`
+- Leere Zeile mit `print()`
+
+---
+
+## Formatierte Ausgabe
+
+### Mit `str.format()`
+
+```python
+temp_jul = 25.134
+temp_aug = 21.678
+print("Die Temperatur beträgt im Juli {0:.2f} °C und im August {1:.2f} °C".format(temp_jul, temp_aug))
+```
+
+### Mit f-Strings (ab Python 3.6)
+
+```python
+print(f"Die Temperatur beträgt im Juli {temp_jul:.2f} °C und im August {temp_aug:.2f} °C")
+```
+
+---
+
+## Kommentare in Python
+
+### Einzeilig
+
+```python
+# Begrüßung der Teilnehmer
+print("Hallo liebe Teilnehmer!")  # Direkt dahinter möglich
+```
+
+### Mehrzeilig
+
+```python
+"""
+Dies ist ein
+mehrzeiliger Kommentar
+"""
+```

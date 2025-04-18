@@ -1,0 +1,176 @@
+---
+title: "Python: Datentypen, Listen, Operatoren"
+description: "Python-Grundlagen zu Variablen, Datentypen, Listen, Vergleichsoperatoren und logischen Verknüpfungen – mit Input/Output und Type Casting."
+tags: ["LF5", "Python", "Datentypen", "Listen", "Input", "Boolesche Operatoren"]
+---
+
+
+## Zahlen und Operatoren in Python
+
+### Grundlegende Datentypen
+
+- Ganze Zahlen: `int`  
+- Reelle Zahlen: `float`
+
+### Operatoren
+
+| Operation             | Symbol     | Beispiel        |
+|----------------------|------------|-----------------|
+| Addition             | `+`        | `14 + 5`        |
+| Subtraktion          | `-`        | `20 - 3`        |
+| Multiplikation       | `*`        | `3 * 7`         |
+| Division             | `/`        | `8 / 4`         |
+| Modulo               | `%`        | `7 % 2`         |
+| Ganzzahldivision     | `//`       | `7 // 2`        |
+| Potenzierung         | `**`       | `2 ** 3`        |
+| Negation             | `-x`       | `-5`            |
+
+---
+
+## Strings (Zeichenketten)
+
+- Eine Zeichenkette ist eine **endliche Folge von Zeichen**.
+- Verkettung: `"Hallo" + "Teilnehmer"` → `"HalloTeilnehmer"`  
+- Wiederholung: `'o' * 4` → `"oooo"`
+
+---
+
+## Variablen & Bezeichner
+
+- Ein **Bezeichner** kann enthalten:
+  - Buchstaben (a–z, A–Z)
+  - Ziffern (0–9)
+  - Unterstriche `_`
+- **Nicht zulässig:**
+  - Bezeichner beginnt mit Ziffer
+  - Verwendung von Schlüsselwörtern
+- Empfehlung: sprechende Namen, kleingeschrieben, englisch
+
+**Zuweisung:**
+```python
+zahl = 42
+name = "Python"
+```
+
+---
+
+## Bedeutung von Datentypen
+
+```python
+print("Fritz" + "Box")     # FritzBox
+print(14 * 3)              # 42
+print(8 / 4)               # 2.0
+print("Fritz" + 7)         # TypeError!
+```
+
+→ Der Interpreter erkennt anhand des **Datentyps**, ob eine Operation gültig ist.
+
+---
+
+## Primitive Datentypen in Python
+
+```python
+int_val = 356        # int – ganze Zahl
+float_val = 4.8763   # float – Kommazahl
+str_val = "Hallo!"   # str – Zeichenkette
+```
+
+> Hinweis: Es gibt in Python **keinen eigenen `char`-Typ**.
+
+---
+
+## Listen in Python
+
+```python
+my_list = [3, 2.729, "Fritz", True]
+```
+
+- Listen können **verschiedene Datentypen** enthalten
+- Eigenschaften:
+  - geordnet
+  - veränderbar
+  - Duplikate erlaubt
+
+```python
+len(my_list)         # → 4
+```
+
+---
+
+## Methoden für Listen
+
+| Methode      | Beschreibung                                                                 |
+|--------------|------------------------------------------------------------------------------|
+| `append()`   | Element ans Ende anhängen                                                    |
+| `extend()`   | Andere Liste anhängen                                                        |
+| `insert()`   | Element an bestimmter Stelle einfügen                                       |
+| `remove()`   | Erstes Vorkommen eines Wertes löschen                                       |
+| `pop()`      | Element an bestimmter Position entfernen und zurückgeben                   |
+| `index()`    | Index des ersten Vorkommens zurückgeben                                     |
+| `count()`    | Anzahl eines Wertes zählen                                                  |
+| `sort()`     | Liste aufsteigend sortieren                                                 |
+| `reverse()`  | Reihenfolge umkehren                                                        |
+
+---
+
+## Input und Type Casting
+
+```python
+wert1 = input()
+wert2 = input()
+ergebnis = wert1 + wert2
+print(ergebnis)      # → "48", wenn Eingaben 4 und 8
+```
+
+→ **Problem:** Strings werden verkettet
+
+### Lösung: Type Casting
+
+```python
+wert1 = int(input())
+wert2 = int(input())
+ergebnis = wert1 / wert2
+```
+
+Weitere Umwandlungsfunktionen: `float()`, `str()`
+
+---
+
+## Vergleichsoperatoren & boolescher Datentyp
+
+```python
+print(3 < 7)                  # True
+print(type(3 < 7))            # <class 'bool'>
+print((3 - 1) * 4 / 2 == 4)   # True
+```
+
+| Operator | Bedeutung           |
+|----------|---------------------|
+| `<`      | kleiner als         |
+| `>`      | größer als          |
+| `<=`     | kleiner oder gleich |
+| `>=`     | größer oder gleich  |
+| `==`     | gleich              |
+| `!=`     | ungleich            |
+
+---
+
+## Logische Operatoren
+
+| Ausdruck                    | Ergebnis |
+|-----------------------------|----------|
+| `True and True`             | True     |
+| `True and False`            | False    |
+| `False or True`             | True     |
+| `not (3 < 4)`               | False    |
+| `not (3 > 4)`               | True     |
+| `3 > 4 or 2 != 2`           | False    |
+| `(3 - 1) * 4 / 2 == 4`      | True     |
+
+> Logische Verknüpfungen helfen bei der **Kombination von Bedingungen**
+
+---
+
+## Fazit
+
+Dieses Kapitel vertieft die grundlegenden Elemente der Programmierung mit Python: von **Datentypen und Operatoren** über **Listen und Input** bis hin zu **logischen Ausdrücken** und **Type Casting**. Wer diese Konzepte versteht, ist bestens gerüstet für strukturierte Programmierung und eigene kleine Projekte.

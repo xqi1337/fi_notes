@@ -1,246 +1,326 @@
 ---
-
-## title: 'Softwareentwicklung & IT-Übersicht' description: 'Ein umfassender Überblick über Softwareentwicklung, Programmiersprachen, Berufsbilder und Softwareklassifikationen.' tags: ['Softwareentwicklung', 'IT', 'Programmiersprachen', 'Projektmanagement']
+title: "Umfeld der Softwareentwicklung"
+description: "Überblick über Softwarearten, Programmiersprachen, Entwicklerrollen und den Projektbezug in der Softwareentwicklung"
+tags: ["LF5", "Softwareentwicklung", "Programmiersprachen", "Softwarearten", "Projektarbeit"]
 ---
-## Softwareentwicklung & IT-Übersicht
 
-### Digitalisierung von Audio (Stichpunkte)
-
-#### Grundlagen
-
-- Töne werden als Schwingungslinien dargestellt → Signal
-    
-
-#### Sampling-Rate
-
-- Gibt an, wie oft ein Signal pro Sekunde abgetastet wird
-    
-- Beispiel: 6 Hz = 6 Abtastungen/Sekunde
-    
-- Übliche Samplingrate: z. B. 44.100 Hz (44,1 kHz)
-    
-
-#### Sampling-Tiefe
-
-- y-Achse: Tonhöhe
-    
-- Nur begrenzte Anzahl speicherbarer Werte (gerundet)
-    
-- Beispiel: 3 Bit → 8 Werte möglich
-    
-- Üblich: 16 Bit → 65.536 Werte
-    
-
-#### Diskretisierung / AD-Wandlung
-
-- Analog-Digital-Wandler überträgt analoge Signale ins digitale Raster
-    
-- Höhere Samplingrate & -tiefe → höhere Qualität
-    
-- Beispiel: 6 Werte/s * 3 Bit = 18 Bit/s
-    
-
-#### Datenrate & Datenmenge
-
-- Datenrate = Samplingtiefe * Samplingrate
-    
-- Datenmenge = Datenrate * Aufnahmezeit
-    
-- Beispiel: 3 min, 18 bit/s → 3240 Bit = 405 Byte
-    
-
-#### Beispiel Studioaufnahme
-
-- 24 Bit * 48.000 Hz * 60 s * 30 min = 259,2 MB
-    
-- Datenrate: 144 kB/s
-    
-
-#### Beispiel Codec G.711 (VoIP)
-
-- Samplingtiefe: 8 Bit, Datenrate: 64 kBit/s
-    
-- Samplingrate: 64.000 Bit/s / 8 Bit = 8.000 Hz = 8 kHz
-    
+## Software zur Verwaltung von Daten anpassen
 
 ---
 
-### Algorithmen & Programme
+## Mitwirkung an der Softwareentwicklung
 
-- Algorithmus = Handlungsvorschrift zur Problemlösung in Schritten
-    
-- Beispiel: Euklidischer Algorithmus (ggT)
-    
-- Umsetzung: Algorithmus → Quellcode → Compiler → Maschinenbefehl (Binärcode)
-    
+Softwareentwickler wirken an der Entwicklung neuer Software sowie an der Anpassung und Erweiterung bestehender Softwaresysteme mit.
 
----
-
-### Datenrepräsentation
-
-- Analog / Digital
-    
-- Struktur: (semi-)strukturiert / unstrukturiert
-    
-- Sicherheitsstufen: öffentlich / intern / vertraulich / geheim
-    
-- Beständigkeit: dauerhaft / flüchtig
-    
+**Beispiele für Rollen:**
+- Frontend-Entwickler  
+- Backend-Entwickler  
+- Full-Stack-Entwickler  
+- Datenanalyst  
+- DevOps-Entwickler  
+- Datenbankentwickler
 
 ---
 
-### Informationsbeschaffung & Datenquellen
+## Programmiersprachen im Überblick
 
-- **Interne Quellen:** Mitarbeiter, Statistiken, Bestandsdaten, Berichte
-    
-- **Externe Quellen:** Kunden, Drittanbieter, Umfragen
-    
-- **Datenarten:**
-    
-    - Primärdaten → neu erhoben
-        
-    - Sekundärdaten → bereits vorhanden (evtl. veraltet)
-        
+### Pascal
+- Anfang der 1970er Jahre entwickelte imperative Programmiersprache
+- Lehrsprache für strukturierte Programmierung
+
+**Object Pascal**
+- Oberbegriff für Pascal-Derivate mit objektorientierter Erweiterung
+- Bekannteste Variante: **Embarcadero Delphi** (entstand 1985 bei Apple)  
+  [https://www.embarcadero.com](https://www.embarcadero.com)
 
 ---
 
-### Datenschutz
-
-- Regelung der Sammlung, Nutzung, Speicherung, Löschung personenbezogener Daten
-    
-- Ziel: Recht auf informationelle Selbstbestimmung, Schutz vor Missbrauch
-    
-
-### Datensicherheit
-
-- Schutz aller Daten vor Manipulation, Verlust, unberechtigtem Zugriff
-    
-
-### Informationssicherheit
-
-- Vertraulichkeit → Zugriff nur für Berechtigte
-    
-- Integrität → Daten bleiben korrekt & unverändert
-    
-- Verfügbarkeit → Daten jederzeit zugänglich
-    
+### JavaScript
+- Entwickelt 1995 von Netscape für dynamisches HTML in Webbrowsern
+- Ziel: Benutzerinteraktionen und HTML-Erweiterungen
+- Heute auch außerhalb von Browsern im Einsatz (z. B. Server, Microcontroller)
 
 ---
 
-### Speicherbedarf berechnen
+### PHP
+- Serverseitig interpretierte Skriptsprache für dynamische Webseiten und Webanwendungen
+- Erscheinungsjahr: Juni 1995
+- Aktuelle Version: **8.3.6** (Stand: 11. April 2024)
 
-**Beispielaufgabe: 500 Bilder**
-
-- Auflösung: 1500x2000 Pixel
-    
-- Farbkanäle: 3 (RGB)
-    
-- Farbtiefe: 8 Bit pro Kanal = 3 Byte/Pixel
-    
-- Speicher pro Bild: 1500 * 2000 * 3 = 9.000.000 Byte
-    
-- Gesamt: 500 Bilder = 4.500.000.000 Byte = 4,19 GiB
-    
+**Warum PHP und nicht HTML?**
+- HTML wird **auf dem Client** (Browser) ausgewertet  
+- PHP wird **auf dem Server** ausgeführt
 
 ---
 
-### Speicherlösungen
+### Go
+- Kompilierbare Sprache mit imperativen und objektorientierten Paradigmen
+- Entwickelt von Google aufgrund von Unzufriedenheit mit C++ und Java
+- Merkmale:
+  - Hohe Übersetzungsgeschwindigkeit
+  - Optimiert für Cloud-Anwendungen
+  - Syntax angelehnt an C
+  - Unterstützt Nebenläufigkeit (z. B. Kanäle)
 
-- **Cloud-Storage:** Speicherung & Zugriff über Internet
-    
-- **Full-Flash-Storage:** Nur SSDs, keine beweglichen Teile → schnell
-    
-- **All-Flash- vs. Hybrid-Flash:**
-    
-    - All-Flash = nur SSD
-        
-    - Hybrid = SSD + HDD
-        
-- **File-Storage:** Hierarchische Dateiablage
-    
-- **Block-Storage:** Daten in Blöcken → direkt adressierbar
-    
-- **Object-Storage:** Speicherung als Objekte mit Metadaten
-    
+- Erscheinungsjahr: 2009  
+- Erste stabile Version: 2012  
+- Aktuelle Version: **1.22.3** (Stand: April 2024)
 
 ---
 
-### Software Engineering
+### Ruby
+- Höhere Programmiersprache, Mitte der 1990er Jahre entwickelt
+- Tief objektorientiert
+- Unterstützt mehrere Programmierparadigmen
+- Merkmale:
+  - Laufzeitinterpretation
+  - Dynamische Typisierung
+  - Automatische Speicherbereinigung
 
-- Ziel: Qualitativ hochwertige Software effizient entwickeln
-    
-- Fokus: Fehlervermeidung, Aufwand minimieren, Kundenwert maximieren
-    
-
-#### Phasen (Softwarelebenszyklus)
-
-1. **Anforderungsanalyse** – Anforderungen erfassen
-    
-2. **Entwurf** – Modelle & Struktur erstellen
-    
-3. **Implementierung** – Programmierung
-    
-4. **Testen** – Anforderungen überprüfen
-    
-5. **Dokumentation** – laufend während des Prozesses
-    
-6. **Auslieferung** – Softwarebereitstellung
-    
-7. **Wartung & Support** – Fehlerbehebung, Anpassungen
-    
+- Aktuelle Version: **3.3.0** (Stand: Dezember 2023)
 
 ---
 
-### Projektmanagement
+## Aufgaben von Softwareentwicklern
 
-- Koordination aller Projektphasen (Planung, Durchführung, Abschluss)
-    
-- Aufgaben:
-    
-    - Ziel-, Kosten- und Zeitdefinition
-        
-    - Ressourcenplanung
-        
-    - Risikoanalyse
-        
-    - Kommunikation & Qualitätsmanagement
-        
+- Entwicklung der Software-Architektur und des Quellcodes  
+- Testen  
+- Implementierung und Installation  
+- Wartung und Weiterentwicklung der Software
 
-#### Risiken
-
-- Schlechte Anforderungsanalyse, technische Probleme
-    
-- Sicherheitslücken, mangelnde Dokumentation
-    
-- Kommunikationsprobleme, Abhängigkeit von Dritten
-    
+> In den meisten Fällen arbeiten Softwareentwickler **nicht allein**, sondern in Teams, z. B. mit:
+- Softwareanalysten  
+- Programmierern  
+- Softwaretestern  
+- Anwendungsberatern  
+- Softwareingenieuren  
+- Webdesignern
 
 ---
 
-### Agile Vorgehensmodelle
+## Hard Skills
 
-- **Iterativ:** Kurze Zyklen (Sprints)
-    
-- **Inkrementell:** Funktionierende Teile schrittweise liefern
-    
-- **Kundenorientierung:** Feedback & Anpassungen laufend
-    
-- **Selbstorganisierte Teams**
-    
-- **Kontinuierliche Verbesserung**
-    
+- Programmierkenntnisse
+- Saubere und sinnvoll strukturierte Code-Struktur
+- Versionsverwaltung (z. B. Git)
+- Projektmanagementmethoden
+- Algorithmen und Datenstrukturen
+- Datenbanken
+- Testmethoden
+- Debuggingmethoden
 
-#### Scrum
+---
 
-- **Product Owner:** Zielvorgabe, Kundenkontakt
-    
-- **Scrum Team:** 5–9 Personen, selbstorganisiert
-    
-- **Scrum Master:** Unterstützung, Hindernisse beseitigen
-    
+## Soft Skills
 
-#### DevOps
+Soft Skills sind genauso wichtig wie Fachkenntnisse.
 
-- Kombination von **Development** & **Operations**
-    
-- Entwickler & Betriebsteam arbeiten eng zusammen
+> Ein Entwickler muss heute mehr als nur technisches Wissen mitbringen.
+
+Wichtige Kompetenzen:
+- Kommunikatives Geschick
+- Teamarbeit
+- Fähigkeit zur Selbstweiterbildung
+- Flexibilität
+
+---
+
+## Software – Definition und Einteilung
+
+> **IEEE 610.12:**  
+> „Software umfasst alle Programme, vorgeschriebenen Abläufe, Dokumentation und Daten, die zum Betrieb eines Rechnersystems erforderlich sind.“
+
+---
+
+### Einteilung nach Aufgabenbereich
+
+- **Systemsoftware**
+- **Unterstützungssoftware**
+- **Anwendersoftware**
+
+---
+
+### Einteilung nach Individualisierungsgrad
+
+- **Standardsoftware**
+- **Individualsoftware**
+
+---
+
+## Beispiele für Softwarearten
+
+### Systemsoftware
+
+- Betriebssysteme: Windows, macOS, Linux, Android  
+- Treiberprogramme  
+- BIOS / UEFI  
+- Utility-Programme: Defragmentierung, Antivirus, Firewall  
+- Kommandozeileninterpreter: Bash, PowerShell, CMD
+
+---
+
+### Unterstützungssoftware
+
+- Compiler  
+- Interpreter  
+- Editoren  
+- IDEs (z. B. Visual Studio, Eclipse)  
+- Virtualisierungen: VirtualBox, MS Hyper-V
+
+---
+
+### Anwendersoftware
+
+- Textverarbeitung: Microsoft Word, LibreOffice Writer  
+- Tabellenkalkulation: Excel, Calc  
+- Präsentationen: PowerPoint, Impress  
+- Bildbearbeitung: Photoshop, GIMP  
+- Desktop-Publishing: InDesign, Scribus  
+- Datenbanken: MS Access, Base  
+- Kommunikation: E-Mail-Clients, Messenger  
+- Browser: Chrome, Firefox  
+- Medien: VLC, iTunes  
+- Spiele: Counter-Strike, World of Warcraft
+
+---
+
+## Softwareentwicklung – Definition
+
+> **„Softwareentwicklung ist die Neuentwicklung oder die Verbesserung und Anpassung von Softwaresystemen.“**
+
+---
+
+## Arten der Softwareentwicklung
+
+- **Customizing** – Anpassung von Standardsoftware (z. B. über Konfiguration)
+- **Erweiterungsprogrammierung** – z. B. durch Plug-ins, Add-ons, APIs
+- **Neuentwicklung** – vollständige Eigenentwicklung
+- **Datenmigration** – Übertragung von Daten in neue Systeme
+
+---
+
+## Projektarbeit in der Softwareentwicklung
+
+### Projektbegriff nach **DIN 69901**
+
+Ein Projekt ist ein Vorhaben mit:
+- Einmaligen Zielvorgaben  
+- Begrenzten Ressourcen (Zeit, Geld, Personal)  
+- Abgrenzung gegenüber anderen Vorhaben  
+- Projektspezifischer Organisation
+
+---
+
+### Projektklassifikation
+
+**Mögliche Unterscheidungskriterien:**
+
+- **Teamstruktur:** intern, extern, gemischt  
+- **Projektziel:** Funktionsverbesserung, Kostensenkung  
+- **Softwaretyp:** Web, Mobile, Datenbank, Spiele  
+- **Komplexität:** klein, mittel, groß  
+- **Technologie:** Java, .NET, C++, usw.  
+- **Größe:** kurz, mittelgroß, groß  
+- **Ort:** on-site, remote  
+- **Anlass:** Neuentwicklung, Anpassung, Migration
+
+---
+
+### Projektstruktur (bei mittleren und großen Projekten)
+
+> Enthält typischerweise mehrere Arbeitspakete, Projektleitung, Qualitätssicherung, Dokumentation, evtl. eigene Support-Strukturen.  
+(Detaillierte grafische Darstellung liegt nicht als Text vor.)
+
+---
+
+### Die 5 Phasen eines Projekts
+
+1. **Projektstart**  
+2. **Planung**  
+3. **Durchführung**  
+4. **Kontrolle**  
+5. **Projektabschluss**
+
+---
+
+## Informationen und Daten
+
+### Was ist eine Information?
+
+> Transfer von Wissen, der beim Empfänger zu einer Wissensänderung führt.
+
+**Eigenschaften:**
+- immateriell  
+- an Träger gebunden  
+- nicht kostenlos  
+- leicht übertragbar  
+- leicht kopierbar
+
+---
+
+### Was sind Daten?
+
+> Darstellung von Informationen in maschinenverarbeitbarer Form  
+→ z. B. **Binärform** (0 und 1)
+
+Beispiel:  
+`1000001`  
+- Dezimal: 1.000.001  
+- Binär: 65  
+- ASCII: „A“
+
+---
+
+## EVA-Prinzip
+
+- **Eingabe** → **Verarbeitung** → **Ausgabe**
+
+---
+
+## Zahlensysteme
+
+### Dezimalsystem (Basis 10)
+- Ziffern: 0–9  
+- Positionswertigkeit: Zehnerpotenzen
+
+---
+
+### Dualsystem (Basis 2)
+- Ziffern: 0, 1  
+- Anwendung in allen digitalen Systemen
+
+---
+
+### Hexadezimalsystem (Basis 16)
+- Ziffern: 0–9, A–F  
+- 1 Hex-Zeichen = 4 Bit
+
+---
+
+## Umrechnung zwischen Zahlensystemen
+
+### Dezimal → Dual (Divisionsmethode)  
+Beispiel: `233`  
+- Ergebnis: `11101001`
+
+### Dual → Dezimal (Additionsmethode)  
+- `1×128 + 1×64 + 1×32 + 0 + 1×8 + 0 + 0 + 1 = 233`
+
+### Dual → Hex  
+- `11101001` = `E9`
+
+### Hex → Dual  
+- `E9` = `11101001`
+
+---
+
+## Exkurs: Warum ist eine Zahl hoch 0 = 1?
+
+> Begründet durch Potenzgesetze  
+z. B. \( a^m / a^m = a^{m-m} = a^0 = 1 \)
+
+---
+
+## Fazit
+
+Softwareentwicklung ist ein vielschichtiger Bereich, der technisches Wissen, Teamarbeit und projektorientiertes Handeln vereint. Neben unterschiedlichen Softwarearten und Programmiersprachen erfordert die moderne Entwicklung ein tiefes Verständnis für Projektarbeit, Informationsverarbeitung und Zahlensysteme – die Grundlagen für jedes IT-System.
