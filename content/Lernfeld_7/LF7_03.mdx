@@ -1,0 +1,101 @@
+---
+title: 'Cyber-physische Systeme & Kommunikationsprotokolle'
+description: 'Überblick über Einplatinencomputer, Mikrocontroller und Kommunikationsprotokolle wie HTTP und MQTT im Kontext cyber-physischer Systeme.'
+tags: ['IoT', 'Mikrocontroller', 'Einplatinencomputer', 'MQTT', 'HTTP']
+---
+
+## Cyber-physische Systeme & Kommunikationsprotokolle
+
+---
+
+### Einplatinencomputer
+
+- **Alle Komponenten** wie Prozessor, Speicher und Schnittstellen auf einer einzigen Platine integriert.
+- **Kompakte Bauform** mit geringer **Stromaufnahme**.
+- Einsatz in **Smartphones**, **Smart-TVs**, **Routern**, **Haushaltsgeräten** und **KFZ-Steuergeräten**.
+- Beliebt in **Bildung**, **Forschung**, **Prototyping** und dem **Internet of Things (IoT)**.
+- **Steuern Sensoren und Aktoren**, ermöglichen **Echtzeitdatenverarbeitung**.
+- Betrieb mit vollwertigen Betriebssystemen wie **Linux** oder **Raspbian**.
+
+---
+
+### Mikrocontroller
+
+- **System-on-a-Chip (SoC)**: Integrieren Prozessor, Speicher und **Peripheriefunktionen** auf einem Chip.
+- Für die **Automatisierung wiederholbarer Aufgaben** konzipiert.
+- Anwendungen in **Ladegeräten**, **Motorsteuerungen**, **Robotik**, **Schaltuhren**.
+- Eingesetzt in **industrieller Automatisierung**, **Medizintechnik** und **Fahrzeugsystemen**.
+- Betrieb mit **Echtzeitbetriebssystemen (RTOS)** oder ganz ohne Betriebssystem.
+
+---
+
+### Unterschiede: Einplatinencomputer vs. Mikrocontroller
+
+- **Einplatinencomputer**: Vollständige Computersysteme mit **Betriebssystem**, **vielfältigen Schnittstellen** und höherer Rechenleistung.
+- **Mikrocontroller**: Spezialisierte Chips für **zeitkritische Steuerungen**, häufig ohne Betriebssystem.
+
+---
+
+### HTTP-Protokoll
+
+- **Zustandsloses Protokoll** zur Datenübertragung im IP-Netzwerk.
+- Anwendung: Kommunikation zwischen **Webbrowser** und **Webserver**.
+- Standardmäßig **unverschlüsselt** (HTTPS für **sichere Übertragung**).
+- Funktioniert nach dem **Client-Server-Prinzip**, verwendet **Port 80/443**.
+
+---
+
+### MQTT-Protokoll
+
+- **Messaging-Protokoll** für IoT-Geräte, optimiert für **instabile Netzwerke**.
+- **Asynchrone Kommunikation**, kleine Nachrichtenpakete, verschiedene **QoS-Stufen**.
+- Rollenmodell: **Broker**, **Client**, **Publisher**, **Subscriber**.
+- **Publisher und Subscriber** sind entkoppelt – der **Broker** übernimmt die Vermittlung.
+- Unterstützt **SSL/TLS-Verschlüsselung** mit **Zertifikaten**.
+- Vorteile gegenüber HTTP:
+  - **Geringerer Overhead**
+  - **Bidirektionale Kommunikation**
+  - **Effizienz** bei intermittierender Konnektivität
+
+---
+
+### MQTT – Topics und Wildcards
+
+- **Topics** sind hierarchische Zeichenfolgen zur Steuerung von Nachrichtenflüssen.
+- Wildcards ermöglichen **flexible Abonnements**:
+
+  **Einstufig (`+`)**:
+  - Abonniert **ein Topic-Level**.
+
+  **Mehrstufig (`#`)**:
+  - Abonniert **alle nachfolgenden Topic-Level**.
+
+---
+
+### Quality of Service (QoS)
+
+- **QoS 0**: *"Fire-and-forget"*, keine Garantie für Zustellung.
+- **QoS 1**: *"Acknowledged delivery"*, Nachricht kann mehrfach ankommen.
+- **QoS 2**: *"Exactly once"*, garantiert **einmalige und vollständige Zustellung**.
+
+---
+
+### Last Will Testament (LWT)
+
+- Vordefinierte **Nachricht**, die vom Broker gesendet wird, wenn ein Client **unerwartet** die Verbindung verliert.
+- Informiert **alle Subscriber**, dass ein Client **nicht mehr erreichbar** ist.
+
+---
+
+### MQTT vs. HTTP
+
+| Merkmal                | MQTT                                           | HTTP                                  |
+| ---------------------- | ---------------------------------------------- | ------------------------------------- |
+| Kommunikationsart      | **Bidirektional, asynchron**                   | **Anfrage-Antwort**, synchron         |
+| Datenformat            | **Binär**                                      | **Textbasiert**                       |
+| Overhead               | **Niedrig**                                    | **Höher**                             |
+| Netzwerkfreundlichkeit | **Für schwache/stabile Verbindungen geeignet** | **Für stabile Verbindungen**          |
+| Einsatzgebiet          | **IoT, Sensorik, Telemetrie**                  | **Webanwendungen, API-Kommunikation** |
+
+---
+
