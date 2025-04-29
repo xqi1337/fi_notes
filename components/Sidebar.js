@@ -14,7 +14,7 @@ export default function Sidebar() {
         setNavigation(data);
 
         // 🔥 Standardmäßig die fünfte Kategorie öffnen
-        const toOpenCategory = Object.keys(data)[5];
+        const toOpenCategory = Object.keys(data)[6];
         if (toOpenCategory) {
           setOpenCategories({ [toOpenCategory]: true });
         }
