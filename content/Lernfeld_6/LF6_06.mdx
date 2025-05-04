@@ -1,0 +1,130 @@
+---
+title: 'IT-Serviceanfragen & PXE-Boot'
+description: 'Strukturierte Analyse von IT-Serviceanfragen und Grundlagen des PXE-Boot-Prozesses'
+tags: ['IT-Service', 'Incident Management', 'PXE', 'Netzwerkboot', 'DMAIC']
+---
+
+## IT-Serviceanfragen & PXE-Boot
+
+---
+
+### IT-Serviceanfragen analysieren
+
+**IT-Serviceanfragen** sind zentrale Elemente des IT-Supports und müssen systematisch analysiert werden, um eine hohe Servicequalität sicherzustellen. Ziel ist die Steigerung der **Effizienz**, die Reduktion von **Fehlerquellen** und letztlich der **Unternehmenserfolg**.
+
+#### Wichtige Schritte der Analyse
+
+- **Kategorisierung**: Einordnung der Anfrage in vordefinierte Kategorien.
+- **Klassifizierung**: Identifikation von Typ, Umfang und betroffenen Systemen.
+- **Priorisierung**: Bewertung nach Dringlichkeit und Auswirkung.
+- **Eskalation**: Prüfung, ob die Anfrage an ein höheres Support-Level übergeben werden muss.
+- **Kundenanforderungen**: Berücksichtigung individueller Erwartungen und Anforderungen.
+
+---
+
+### Methoden zur Ursachenanalyse
+
+#### 5-Why-Methode
+
+Die **5-Why-Methode** ist ein einfaches Werkzeug zur **Ursachenanalyse**. Dabei wird wiederholt die Frage **„Warum?“** gestellt, um tieferliegende Gründe eines Problems zu identifizieren.
+
+#### DMAIC-Zyklus
+
+Ein strukturierter Verbesserungsprozess aus dem **Six Sigma**-Ansatz:
+
+1. **Define**: Definition des Problems und der Ziele.
+2. **Measure**: Messung des aktuellen Zustands.
+3. **Analyse**: Identifikation der Hauptursachen.
+4. **Improve**: Entwicklung und Implementierung von Lösungen.
+5. **Control**: Sicherstellung der Nachhaltigkeit durch Kontrolle und Überwachung.
+
+---
+
+## PXE (Preboot Execution Environment)
+
+---
+
+### Definition
+
+**PXE (Preboot Execution Environment)** ist ein Netzwerkprotokoll, das das **Booten von Computern über das Netzwerk** ermöglicht – ganz ohne physische Datenträger.
+
+**Voraussetzungen**:
+
+- PXE-fähige **Netzwerkkarte**
+- Unterstützung durch **BIOS/UEFI**
+- Funktionsfähige **DHCP**- und **TFTP**-Server
+
+---
+
+### Anwendungsbereiche
+
+- Installation von **Betriebssystemen**
+- Starten von **Live-Systemen**
+- **Mass-Deployment**
+- **Hardware-Diagnose**
+- **Cloning** von Rechnern
+- **Firmware-Updates**
+- Einsatz bei **Thin Clients**
+- Verwendung von **Security-Tools**
+
+---
+
+### Technischer Hintergrund
+
+#### Protokolle
+
+- **DHCP**: Verteilt IP-Adresse und Informationen zum Bootserver.
+- **TFTP (Trivial File Transfer Protocol)**: Überträgt Boot-Dateien (UDP-Port 69).
+
+---
+
+### PXE-Boot-Prozess
+
+1. **Netzwerk-Initialisierung**
+2. **DHCP-Discovery** – Client sucht einen DHCP-Server.
+3. **DHCP-Response** – Server übermittelt IP- und Bootserver-Informationen.
+4. **TFTP-Download** – Boot-Datei wird vom Server geladen.
+5. **Bootloader-Ausführung** – Initialisiert das System.
+6. **Start des Betriebssystems** oder **Installationsprozess**
+
+---
+
+### Anforderungen
+
+- **Firmware-Support (PXE)**
+- Funktionierender **DHCP-Server**
+- **TFTP-Server** mit zugänglichen Boot-Images
+
+---
+
+### Vorteile
+
+- Kein Bedarf an **physischen Installationsmedien**
+- **Zentrale Verwaltung** von Boot-Prozessen
+- Hohe **Automatisierung**
+- Ideal für große **IT-Infrastrukturen**
+
+---
+
+### Nachteile
+
+- Starke **Netzwerkabhängigkeit**
+- **Sicherheitsrisiken** durch ungesicherte Transfers
+- Komplexe **Infrastrukturkonfiguration**
+- Langsame Übertragungsrate bei großen Images
+
+---
+
+### Sicherheitsmaßnahmen
+
+- **Netzwerksegmentierung**
+- **Authentifizierte Clients**
+- Verwendung von **signierten Boot-Images**
+- Integration von **Secure Boot**
+
+---
+
+### Zusammenfassung
+
+**PXE** ist ein leistungsfähiges Werkzeug für automatisiertes, netzwerkbasiertes Booten und eignet sich hervorragend für **große IT-Umgebungen**. Trotz der Vorteile müssen **Sicherheitsaspekte** beachtet werden, um Risiken zu minimieren.
+
