@@ -1,0 +1,124 @@
+---
+title: 'OPC UA & industrielle Schnittstellen'
+description: 'Ein Überblick über OPC UA, Datenübertragung und industrielle Schnittstellen in der Industrie 4.0'
+tags: ['Industrie 4.0', 'OPC UA', 'IoT', 'Schnittstellen', 'Automation']
+---
+
+## OPC UA & industrielle Schnittstellen
+
+### Was ist OPC UA?
+
+**OPC UA** (Open Platform Communications Unified Architecture) ist ein **Datenaustauschstandard** für die industrielle Kommunikation, der in der **Industrie 4.0** zentrale Bedeutung hat.
+
+**Eigenschaften von OPC UA**:
+
+- **Unabhängig** von Plattform, Betriebssystem und Programmiersprache
+- **Skalierbar** von Mikrocontrollern bis zu Cloud-Plattformen
+- Unterstützt eine **serviceorientierte Architektur (SOA)**
+- Bietet hohe **Sicherheit** durch Authentifizierung, Signierung und Verschlüsselung
+- Ermöglicht die **Prüfbarkeit der Konformität** für Interoperabilität
+
+**Kommunikationsmodell**:
+
+- **Client-Server-Prinzip**: Ein **Server** stellt Informationen bereit, auf die **Clients** zugreifen
+- Geräteadressierung über **IP-Adressen** oder **symbolische Namen**
+
+---
+
+### OPC UA Server & Clients
+
+#### OPC UA Server
+
+- Hersteller liefern häufig eigene **OPC UA Server**, um den Zugriff auf Geräte und Daten zu standardisieren
+- Der Server kann **eigenständig** laufen oder in ein Gerät **eingebettet** sein
+- **Drittanbieter** bieten erweiterte Server mit **mehr Protokollen** und **zusätzlichen Funktionen**
+
+#### OPC UA Clients
+
+- **Clients** verbinden sich mit Servern und **lesen Daten** aus
+- Ein OPC UA Client kann mit **jedem OPC UA Server** kommunizieren
+- Anwendungen sind oft **spezialisiert** (z. B. SCADA-Systeme, HMI, Analysesoftware)
+
+---
+
+### Datenübertragungsmechanismen
+
+OPC UA unterstützt **verschiedene Kommunikationsmodelle**:
+
+- **Client-Server-Modell**: Clients nutzen dedizierte Dienste des Servers (klassisch)
+- **Publisher-Subscriber-Modell (Pub/Sub)**: Der Server „sendet“ Daten an mehrere Abnehmer gleichzeitig
+
+**Unterstützte Protokolle**:
+
+- **TCP**
+- **HTTPS**
+- **UDP**
+- **AMQP**
+- **MQTT**
+
+Diese Vielfalt macht OPC UA **flexibel** und anpassbar an verschiedene Infrastrukturen.
+
+---
+
+### Sicherheit & Transport
+
+- **Sicherheitsfunktionen**: Integrierte Mechanismen wie **Authentifizierung**, **Signierung** und **Verschlüsselung**
+- **Transportunabhängigkeit**: Die Kommunikation ist nicht auf ein bestimmtes **Medium oder Protokoll** beschränkt
+- Gerätehersteller müssen lediglich sicherstellen, dass ihre Dienste und Daten **geschützt** angeboten werden
+
+---
+
+## Sensorik & industrielle Schnittstellen
+
+### Sensoren in cyber-physischen Systemen
+
+**Sensoren und Aktoren** sind das Bindeglied zwischen der physischen und der digitalen Welt. Zusammen mit **Mikrocontrollern** und **Einplatinencomputern** wie dem Raspberry Pi ermöglichen sie eine **intelligente Datenverarbeitung** direkt an der Quelle.
+
+**Typische Schnittstellen**:
+
+- **GPIO**
+- **UART**
+- **I2C**
+- **SPI**
+
+---
+
+### Schnittstellen im Detail
+
+#### GPIO – General Purpose Input/Output
+
+- Universell einsetzbare **digitale Ein-/Ausgänge**
+- Verwendung zur Ansteuerung von LEDs, Tastern, Relais oder zur Datenerfassung
+
+#### UART – Universal Asynchronous Receiver/Transmitter
+
+- **Asynchrone Kommunikation**
+- Nutzt zwei Leitungen: **TX (Transmit)** und **RX (Receive)**
+- Unterstützt **Start-/Stoppbits** und **Paritätsprüfung**
+- Wird häufig für serielle Verbindungen zu Sensoren und Modulen verwendet
+
+#### I2C – Inter-Integrated Circuit
+
+- **Synchrone Datenübertragung** über **SDA** (Daten) und **SCL** (Takt)
+- Unterstützt bis zu **128 Teilnehmer** mit eindeutiger Adressierung
+- Ideal für kurze Distanzen und Kommunikation mit mehreren Geräten über einen Bus
+
+#### SPI – Serial Peripheral Interface
+
+- **Vollduplex-Kommunikation** mit hoher Geschwindigkeit (bis zu **20 Mbps**)
+- Nutzt vier Leitungen: **MISO**, **MOSI**, **SCLK**, **SS**
+- Besonders geeignet für leistungsintensive Sensoren oder Displays
+
+---
+
+### Lernhilfen & Ressourcen
+
+Hier sind nützliche Links zur Vertiefung:
+
+- [Was ist MQTT?](https://mqtt.org/)
+- [Einführung in OPC UA (deutsch)](https://opcfoundation.org/)
+- [UART Grundlagen](https://www.elektronik-kompendium.de/sites/bau/0207181.htm)
+- [I2C erklärt](https://www.roboternetz.de/wissen/index.php/I2C)
+- [SPI Bus verstehen](https://www.elektronik-kompendium.de/sites/bau/0206051.htm)
+
+---
