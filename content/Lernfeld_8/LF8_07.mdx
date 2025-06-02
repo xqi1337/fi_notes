@@ -1,0 +1,104 @@
+---
+title: 'Verzweigungen, Schleifen und Arrays in Java'
+description: 'Grundlagen von Verzweigungen, Schleifen und Arrays in Java'
+tags: ['Java', 'Programmierung', 'Kontrollstrukturen', 'Arrays']
+---
+
+## Verzweigungen, Schleifen und Arrays in Java
+
+### Verzweigungen (Auswahl zwischen Alternativen)
+
+- Ermöglichen die **Auswahl zwischen zwei Alternativen** basierend auf einer Bedingung.
+- Die Entscheidung wird aufgrund einer Bedingung getroffen, die entweder **wahr (true)** oder **falsch (false)** ist.
+- Hinter `if` steht die Bedingung in runden Klammern `()`.
+- Der Anweisungsblock in geschweiften Klammern `{}` wird ausgeführt, wenn die **Bedingung erfüllt** (wahr) ist.
+- Nach `else` in `{}` steht, was passieren soll, wenn die Bedingung **nicht erfüllt** (falsch) ist.
+- Der `else`-Zweig **kann weggelassen werden**.
+- `else if` wird **nur dann ausgeführt**, wenn die `if`-Bedingung falsch ist.
+- `else` wird **nur ausgeführt**, wenn auch alle `else if`-Bedingungen falsch sind.
+- Das Programm wird normalerweise von oben nach unten abgearbeitet.
+
+---
+
+### Schleifen (Code mehrmals ausführen)
+
+- Dienen dazu, den **gleichen Code mehrmals auszuführen**, aber nur einmal zu schreiben.
+- Bestehen aus einem **Schleifenkopf** (mit Schleifenbedingung) und einem **Schleifenrumpf**.
+
+**Arten von Schleifen**:
+
+#### Zählschleife `for`
+
+- Wird verwendet für eine **feste Anzahl von Wiederholungen**.
+- Syntax des Schleifenkopfes:  
+  ```java
+  for (int i = 0; i < 5; i++)
+  ```
+- Die **Laufvariable** (z. B. `i`) wird zu Beginn initialisiert.
+- Die **Abbruchbedingung** wird vor jedem Durchlauf geprüft.
+- Die **Schrittweite** (z. B. `i++`) wird nach jedem Durchlauf ausgeführt.
+- Der Schleifenrumpf wird solange ausgeführt, wie die Bedingung erfüllt ist.
+
+#### Kopfgesteuerte Schleife `while`
+
+- Führt den Schleifenrumpf aus, **solange eine Bedingung wahr ist**.
+- Die Initialisierung findet **vor der Schleife** statt.
+- Die **Werteänderung** erfolgt in der Schleife.
+- Bedingung wird **nach jedem Durchlauf geprüft**.
+
+#### Fußgesteuerte Schleife `do while`
+
+- Führt den Schleifenrumpf **mindestens einmal** aus.
+- Bedingung wird **am Ende** der Schleife geprüft.
+
+```java
+do {
+    // Code
+} while (Bedingung);
+```
+
+#### Erweiterte `for`-Schleife (`for-each`)
+
+- Wird für Arrays oder Collections verwendet.
+- Syntax:
+  ```java
+  for (Datentyp variable : array) {
+      // Code
+  }
+  ```
+
+**Hinweis**: Endlosschleifen sind möglich und sollten vermieden werden, wenn unbeabsichtigt.
+
+---
+
+### Arrays (Container für Werte gleichen Datentyps)
+
+- **Arrays** sind **Container für Werte des gleichen Datentyps**.
+- Darstellung mit eckigen Klammern `[]`.
+- Beispiel:
+  ```java
+  int[] numbers;
+  ```
+- Können wie Garagen für Autos betrachtet werden: **durchnummeriert**, **Zugriff über Index**, **feste Größe**.
+- Müssen **deklariert** und **initialisiert** werden.
+
+#### Initialisierung
+
+- Standardinitialisierung:
+  ```java
+  int[] numbers = new int[5];
+  ```
+  → Alle Elemente haben **Defaultwert** (z. B. `0` bei `int`).
+
+- Direkte Initialisierung mit Werten:
+  ```java
+  int[] numbers = {5, 37, 19, 0, 501};
+  ```
+
+**Eigenschaften von Arrays**:
+
+- Index beginnt bei **0**.
+- Länge über `.length` abrufbar.
+- Größe ist **nicht dynamisch veränderbar** (primitive Arrays).
+
+---

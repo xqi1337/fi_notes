@@ -1,0 +1,67 @@
+---
+title: "Grundlagen der objektorientierten Programmierung in Java"
+description: "Wichtige Konzepte der objektorientierten Programmierung wie static, Kapselung, abstrakte Klassen, abstrakte Methoden und Type Casting in Java."
+tags: ["Java", "OOP", "Programmierung", "static", "Kapselung", "Abstrakte Klassen", "Type Casting"]
+---
+
+## Grundlagen der objektorientierten Programmierung in Java
+
+---
+
+### Schlüsselwort `static`
+
+- **`static`** ist ein **Modifier** für Elemente einer Klasse (Variablen, Methoden).
+- Bindet das Element an die **Klasse selbst**, nicht an eine Instanz (Objekt).
+- Gehört zur Klasse, nicht zu einem bestimmten Objekt.
+- **Ideal für**: Hilfsmethoden und gemeinsame Daten für alle Objekte einer Klasse.
+
+---
+
+### Kapselung (Encapsulation)
+
+- **Verhindert direkten Zugriff** von außerhalb der Klasse auf Attribute.
+- Schützt Attribute vor unkontrollierter Veränderung.
+- Insbesondere ungewollten Zugriff auf Attributwerte verhindern.
+- **Konvention**: Alle Attribute als `private` deklarieren.
+- Zugriff erfolgt über **`public` Getter/Setter**.
+- Getter/Setter ermöglichen es Entwicklern, anderen Objekten Lese- bzw. Schreibrechte einzuräumen.
+- Ermöglicht **vollständige Kontrolle des Zugriffs**.
+- Attributwerte können über Getter gelesen und über Setter geändert werden.
+- Ermöglicht **Validierung von Werten** in den Settern (z. B. `eingabeAlter >= 0` in `setAlter`).
+- Die **Implementierung kann geändert werden**, ohne den Zugriff anderer Klassen zu beeinträchtigen.
+
+---
+
+### Abstrakte Klassen (Abstract Classes)
+
+- Werden mit dem Schlüsselwort **`abstract`** deklariert (`abstract public` oder `public abstract`).
+- **Objekte** dieser Klasse **können nicht instanziiert werden** (`new Auto()` ist bei `abstract class Auto` nicht möglich).
+- Instanziierung ist **nur über Subklassen** möglich.
+- Subklassen abstrakter Klassen können selbst wieder abstrakt sein.
+- Können **abstrakte Methoden** enthalten.
+
+---
+
+### Abstrakte Methoden (Abstract Methods)
+
+- Werden mit dem Schlüsselwort **`abstract`** deklariert.
+- Haben **keinen Methodenrumpf** und enden mit einem Semikolon (z. B. `public abstract void steuern();`).
+- **Müssen** von der ersten konkreten Subklasse **überschrieben (implementiert) werden** (`@Override`).
+- Können **nur in abstrakten Klassen** existieren.
+
+---
+
+### Type Casting (Typumwandlung)
+
+- Notwendig, wenn Parameter und Rückgabewerte **definierte Datentypen** haben.
+- Dient der Anpassung (Umwandlung) in den passenden Datentyp, falls möglich.
+- **Implizites Type Casting**: Umwandlung passiert **ohne spezielle Syntax** vom Benutzer (z. B. `int` zu `double`). Passiert automatisch.
+- **Explizites Type Casting**: Erzwungene Umwandlung. Der gewünschte Zieltyp wird **vor den Bezeichner in Klammern** geschrieben (z. B. `(int) a`).
+- Möglich **nur bei kompatiblen Datentypen**.
+- Bei möglichem **Informationsverlust** (z. B. `double` zu `int`) findet **keine automatische** Umwandlung statt.
+- Für jeden primitiven Datentyp gibt es einen passenden **Objektdatentyp** (z. B. `int` -> `Integer`, `double` -> `Double`).
+- Objektdatentypen bieten **Methoden** (z. B. `Integer.parseInt(String s)` zur Umwandlung eines Strings in einen `int`) und **Konstanten**.
+- Umwandlung von `String` in `int` kann z. B. mit `Integer.parseInt()` erfolgen.
+
+---
+

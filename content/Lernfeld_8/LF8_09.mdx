@@ -1,0 +1,124 @@
+---
+title: 'Methoden in Java – Grundlagen und Anwendung'
+description: 'Ein Überblick über die Struktur, Verwendung und Bedeutung von Methoden in der Programmiersprache Java.'
+tags: ['Java', 'Methoden', 'Programmierung', 'Grundlagen']
+---
+
+## Methoden in Java
+
+Methoden sind ein zentrales Element objektorientierter Programmierung. Sie beschreiben **das Verhalten von Objekten** und ermöglichen die **Wiederverwendung von Code** durch modulare Strukturen.
+
+---
+
+### Grundlagen und Aufbau
+
+- Eine **Methode** wird innerhalb einer Klasse definiert und besteht aus dem **Rückgabetyp**, dem **Methodennamen**, einer optionalen **Parameterliste** und einem **Anweisungsblock**.
+- Allgemeine Syntax:
+
+```java
+<Rückgabetyp> methodenName(Parameterliste) {
+    // Anweisungen
+}
+```
+
+- Die Methodensignatur besteht aus dem Methodennamen und der Parameterliste.
+- Methoden können einen Wert zurückgeben (z. B. `int`, `String`) oder `void` sein, wenn sie keinen Rückgabewert haben.
+
+---
+
+### Rückgabewerte
+
+- Der **Rückgabetyp** muss bei der Methodendeklaration angegeben werden.
+- Methoden mit einem Rückgabewert verwenden das Schlüsselwort `return`, um diesen zurückzugeben.
+- Beispiel:
+
+```java
+int verdoppeln(int zahl) {
+    return zahl * 2;
+}
+```
+
+> **Wichtig**: Der zurückgegebene Wert muss dem definierten Rückgabetyp entsprechen.
+
+---
+
+### Parameter und Argumente
+
+- **Parameter**: Platzhalter in der Methodendefinition, z. B. `int zahl`.
+- **Argumente**: Konkrete Werte, die beim Aufruf übergeben werden.
+
+**Beispiel**:
+
+```java
+void begruessung(String name) {
+    System.out.println("Hallo " + name);
+}
+
+begruessung("Anna");
+```
+
+- Die Anzahl, Reihenfolge und Typen der Argumente müssen mit den Parametern übereinstimmen.
+- Methoden können auch ohne Parameter definiert werden (`methodenName()`), dann werden leere Klammern verwendet.
+
+---
+
+### Methodenaufruf
+
+- Die Syntax für einen Aufruf lautet: `objektName.methodenName(argumente);`
+- Methoden werden auf **Objekten** oder innerhalb derselben Klasse aufgerufen.
+- Auch **geschachtelte Methodenaufrufe** sind möglich.
+
+Beispiel:
+
+```java
+Person p = new Person();
+p.setName("Max");
+System.out.println(p.getName());
+```
+
+---
+
+### Sichtbarkeitsbereich (Scope)
+
+- Parameter und Variablen, die in einer Methode deklariert sind, sind nur innerhalb dieser Methode gültig.
+- Der **Scope** ist durch geschweifte Klammern `{}` begrenzt.
+
+---
+
+### Getter und Setter
+
+- **Getter**: Gibt den Wert eines privaten Attributs zurück.
+- **Setter**: Setzt den Wert eines privaten Attributs.
+
+Beispiel:
+
+```java
+public class Person {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+- Das Schlüsselwort `this` wird verwendet, um auf das aktuelle Objekt zuzugreifen, insbesondere in Settern.
+
+---
+
+### Zusammenfassung
+
+**Methoden in Java** bieten:
+
+- Strukturierung und Wiederverwendbarkeit von Code
+- Zugriffskontrolle durch Sichtbarkeiten
+- Flexibilität durch Parameter und Rückgabewerte
+- Kapselung durch Getter und Setter
+
+> Ein gutes Verständnis von Methoden ist essenziell für die Entwicklung robuster Java-Anwendungen.
+
+---

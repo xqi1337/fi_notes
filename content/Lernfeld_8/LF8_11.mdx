@@ -1,0 +1,136 @@
+---
+title: 'Vererbung, Methoden und Sichtbarkeit in Java'
+description: 'Ein Überblick über Vererbung, Methodenüberschreibung, Methodenüberladung und Zugriffsmodifizierer in Java.'
+tags: ['Java', 'OOP', 'Vererbung', 'Methoden', 'Modifier']
+---
+
+## Vererbung, Methoden und Sichtbarkeit in Java
+
+### Vererbung (Inheritance)
+
+- Beschreibt eine **"Ist-ein"-Beziehung** (Is-a-Beziehung).  
+  Beispiele: Ein **Papagei ist ein Vogel**, ein **Pinguin ist ein Vogel**, ein **Vogel ist ein Tier**.
+- Attribute und Methoden werden von der **Superklasse** an die **Subklasse** vererbt.
+- Subklassen erhalten alle Methoden und Attribute der Superklasse, ohne diese neu deklarieren zu müssen.  
+  Beispiel: `Parrot` erbt Methoden und Attribute von `Animal`.
+- Subklassen werden mit dem Schlüsselwort **`extends`** angelegt.  
+  Syntax: `class <Subklasse> extends <Superklasse> { }`
+- Vererbung funktioniert nur **von unten nach oben**:  
+  Ein **Papagei ist ein Tier**, aber ein **Tier ist kein Papagei**.
+- Subklassen können um eigene **Methoden und Attribute** ergänzt werden.
+- Methoden und Attribute der Superklasse können in der Subklasse **überschrieben** werden.
+
+---
+
+### Methoden überschreiben (Override)
+
+- Eine **Subklasse implementiert** eine Methode **neu**, die bereits in der **Superklasse** definiert ist.
+- Die Methode wird mit der Annotation **`@Override`** gekennzeichnet.
+- Zugriff auf Methoden der Superklasse über **`super.methode()`**.
+- Zugriff auf eigene Methoden oder Attribute über **`this.methode()`**.
+
+**Regeln für das Überschreiben**:
+
+- Die **Sichtbarkeit** darf **nicht eingeschränkt** werden.
+- Die **Parameterliste** muss gleich bleiben.
+- Der **Rückgabewert** muss vom gleichen oder einem übergeordneten Datentyp sein.
+
+**Beispielverhalten**:
+
+```java
+class Animal {
+  void sayHello() {
+    System.out.println("Hello from Animal");
+  }
+}
+
+class Parrot extends Animal {
+  @Override
+  void sayHello() {
+    System.out.println("Hello from Parrot");
+  }
+}
+```
+
+> Aufruf **alfred.sayHello()** bei einem **Parrot**-Objekt ruft die Methode aus der **Subklasse** auf.
+    
+---
+
+### Methoden überladen (Overload)
+
+- **Gleicher Methodenname**, aber unterschiedliche **Parameterlisten** in derselben Klasse.
+    
+- Unterschiede können sein:
+    
+    - **Anzahl der Parameter**
+        
+    - **Datentyp der Parameter**
+        
+
+**Nicht entscheidend** ist der **Name der Parameter**.
+
+**Beispiele für Überladung**:
+
+```java
+int summe(int x, int y) { return x + y; }
+int summe(int x, int y, int z) { return x + y + z; }
+double summe(double x, double y) { return x + y; }
+```
+> Der Aufruf `summe(2, 4)` wählt die Methode mit der besten **Übereinstimmung**.
+    
+---
+
+### Modifier (Zugriffsmodifizierer)
+
+- **Steuern den Zugriff** auf Methoden und Attribute.
+    
+- Innerhalb einer Klasse sind **alle Mitglieder sichtbar**.
+    
+
+**Übersicht der Zugriffsarten**:
+
+| Modifier    | Zugriff von außerhalb | Zugriff in Subklassen | Zugriff im gleichen Package |
+| ----------- | --------------------- | --------------------- | --------------------------- |
+| `public`    | ✅ Ja                  | ✅ Ja                  | ✅ Ja                        |
+| `protected` | ❌ Nein (außer Subkl.) | ✅ Ja                  | ✅ Ja                        |
+| _default_   | ❌ Nein                | ❌ Nein                | ✅ Ja                        |
+| `private`   | ❌ Nein                | ❌ Nein                | ❌ Nein                      |
+
+**Vererbung mit Modifiern**:
+
+- `public` und `protected`: werden **vererbt**
+    
+- `default`: wird nur **im gleichen Package** vererbt
+    
+- `private`: wird **nicht vererbt**
+    
+---
+
+### Keyword `static`
+
+- Statische Methoden benötigen **kein Objekt**.
+    
+- Sie gehören zur **Klasse selbst**, nicht zu einer Instanz.
+    
+- Nützlich für **Hilfsmethoden**, die keine Objektattribute verwenden.
+    
+
+**Beispiel**:
+
+```java
+class MathUtils {
+  static int add(int a, int b) {
+    return a + b;
+  }
+}
+
+// Aufruf:
+int result = MathUtils.add(3, 5);
+```
+
+---
+
+**Fazit**:  
+>Das Verständnis von **Vererbung**, **Methodenüberschreibung**, **Methodenüberladung**, **Modifizierern** und dem **`static`-Keyword** bildet eine wichtige Grundlage für objektorientiertes Programmieren in Java. Die richtige Anwendung dieser Konzepte verbessert die Wartbarkeit, Erweiterbarkeit und Struktur von Java-Code erheblich.
+
+---

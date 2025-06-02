@@ -1,0 +1,96 @@
+---
+title: 'Objektorientierte Programmierung (OOP) in Java'
+description: 'Grundlagen der objektorientierten Programmierung mit Java, inklusive Klassen, Objekten, Attributen, Methoden und Instanziierung.'
+tags: ['Java', 'OOP', 'Programmierung', 'Klassen', 'Objekte']
+---
+
+## Objektorientierte Programmierung (OOP) in Java
+
+### Grundlagen
+
+- **OOP** realisiert und strukturiert Gegenstände entsprechend der natürlichen menschlichen Denkweise.
+- Gegenstände werden durch **Klassen und Objekte abgebildet**.
+- Verschiedene Objekte **kooperieren und kommunizieren** miteinander.
+
+---
+
+### Klassen und Objekte
+
+- **Klassen (class)** sind **Baupläne** für reale Konstrukte.
+- Eine Klasse ist eine **Vorlage (Blaupause)** für viele Objekte.
+- Klassen besitzen einen **Zustand (Attribute)** und ein **Verhalten (Methoden)**.
+- **Objekte** sind **Instanzen**, also **realisierte Umsetzungen einer Klasse**.
+- Jedes Objekt hat eigene **Attributwerte**.
+
+---
+
+### Klassen (Details)
+
+- **Zustand (State)**: durch **Attribute** beschrieben.
+- **Verhalten (Behaviour)**: durch **Methoden** beschrieben.
+- Der Zustand beeinflusst das Verhalten und umgekehrt.
+
+---
+
+### Attribute
+
+- Beschreiben **Eigenschaften bzw. Merkmale** der Klasse.
+- Werden **innerhalb der Klasse definiert**.
+- **Syntax**: `<Datentyp> <Bezeichner>;` (z. B. `int baujahr;`).
+- Initialwerte sind möglich: `<Datentyp> <Bezeichner> = <Initialwert>;`.
+- Neue Objekte erhalten entweder **vordefinierte Werte** oder den **Default-Wert** des Datentyps.
+
+---
+
+### Methoden
+
+- Beschreiben das **Verhalten** eines Objektes.
+- Namenskonvention: **klein anfangen, dann CamelCase** (z. B. `berechneSumme()`).
+- Beispielmethoden: `fahren(int pKilometer)`, `aendereWert(int pneuerWert)`, `tanken(int pLiter)`.
+- Der **Konstruktor** (z. B. `Auto()`) wird beim Erzeugen aufgerufen.
+
+---
+
+### Instanziierung
+
+- **Erzeugen eines Objektes** mit `new`.
+- Syntax: `<Klassenname> <Bezeichner> = new <Klassenname>();`
+- Beispiel: `Auto meinAuto = new Auto();`
+- Der Bezeichner dient zur **Referenzierung** und ermöglicht den **Zugriff** auf das Objekt.
+
+---
+
+### Zugriff auf Attribute und Methoden
+
+- Verwendung des **Punkt-Operators (`.`)**.
+- Beispiel (Schreiben): `meinAuto.farbe = "schwarz";`
+- Beispiel (Lesen): `System.out.println(meinAuto.farbe);`
+
+---
+
+### Regeln für Bezeichner
+
+**Erlaubt**:
+
+- Buchstaben (A–Z, a–z, inkl. Unicode).
+- Ziffern (nicht am Anfang).
+- Unterstrich `_`, Dollarzeichen `$` (nicht empfohlen).
+
+**Nicht erlaubt**:
+
+- Sonderzeichen wie §, #, @ etc.
+- Leerzeichen oder Ziffer am Anfang.
+- Reservierte Keywords (z. B. `int`, `class`).
+- Nur `_` als Name (ab Java 9 verboten).
+
+---
+
+### Konventionen und Best Practices
+
+- **Variablen**: klein beginnen, z. B. `anzahlKonstanten`
+- **Konstanten**: GROSSBUCHSTABEN + `_`, z. B. `MAX_WERT`
+- **Klassen**: Großbuchstabe am Anfang, z. B. `Auto`
+- **Methoden**: klein anfangen, dann CamelCase
+- Keine **Umlaute**, z. B. `muell` statt `müll`
+
+---
