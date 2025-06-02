@@ -1,0 +1,178 @@
+---
+title: 'UML & Anwendungsfalldiagramme'
+description: 'Einführung in die Unified Modeling Language (UML) mit Fokus auf Anwendungsfalldiagramme, deren Aufbau und Einsatzmöglichkeiten.'
+tags: ['UML', 'Modellierung', 'Use Case', 'IT-Grundlagen']
+---
+
+## UML & Anwendungsfalldiagramme
+
+### Einführung in UML
+
+**UML** steht für **Unified Modeling Language** und ist eine **grafische Modellierungssprache**, die zur **Spezifikation, Konstruktion und Dokumentation** von Software- und anderen Systemen verwendet wird. Sie dient insbesondere der **Visualisierung programmiertechnischer Konzepte** und ist **standardisiert**.
+
+**Einsatzbereich**:
+
+- Unterstützung bei der **Kommunikation** zwischen Entwicklern und Stakeholdern
+- Visualisierung von **Systemstrukturen** und **Prozessen**
+- Grundlage für die **Softwareentwicklung** und **Anforderungsanalyse**
+
+---
+
+### Arten von UML-Diagrammen
+
+Die Diagramme in UML 2.3 lassen sich in zwei Hauptkategorien einteilen:
+
+#### Strukturdiagramme
+
+Modellieren die **statischen Komponenten** eines Systems:
+
+- **Klassendiagramm**
+- **Objektdiagramm**
+- **Profildiagramm**
+- **Paketdiagramm**
+- **Verteilungsdiagramm**
+- **Komponentendiagramm**
+- **Kompositionsstrukturdiagramm** (auch Montagediagramm)
+
+#### Verhaltensdiagramme
+
+Visualisieren die **dynamischen Aspekte** eines Systems, insbesondere **zeitliche Abläufe**:
+
+- **Anwendungsfalldiagramm** (Use-Case Diagramm)
+- **Aktivitätsdiagramm**
+- **Sequenzdiagramm**
+- **Interaktionsübersichtsdiagramm**
+- **Kommunikationsdiagramm**
+- **Zeitverlaufsdiagramm**
+- **Zustandsdiagramm**
+
+---
+
+## Anwendungsfalldiagramme (Use-Case Diagramme)
+
+### Grundlagen
+
+Das **Anwendungsfalldiagramm** gilt als **Ausgangspunkt objektorientierter Entwicklungsmethoden**. Es stellt die Aktivitäten dar, die zur Zielverwirklichung nötig sind, ohne dabei Details wie **Reihenfolgen** zu nennen.
+
+**Ziel**: Überblick über die **Beziehungen zwischen Akteuren, Systemen und Anwendungsfällen**
+
+### Einsatzgebiete
+
+- Visualisierung von **System-Benutzer-Interaktionen**
+- Strukturierung funktionaler **Anforderungen**
+- Definition von **Kontext und Rahmenbedingungen**
+- Modellierung konkreter **Use Cases**
+
+---
+
+### Darstellungselemente
+
+- **Ovale Formen**: symbolisieren **Anwendungsfälle**
+- **Strichmännchen**: stehen für **Akteure**
+- **Linien**: modellieren **Beziehungen**
+- **Kästchen**: kennzeichnen die **Systemgrenze**
+
+---
+
+### Akteure
+
+Ein **Akteur** steht **außerhalb der Systemgrenze** und interagiert mit dem System:
+
+**Rollen von Akteuren**:
+
+- **Menschlich**: z. B. Benutzer, Admin
+- **Nicht-menschlich**: z. B. E-Mail-System
+- **Primär**: profitiert vom System
+- **Sekundär**: unterstützt den Betrieb
+- **Aktiv**: initiiert Anwendungsfälle
+- **Passiv**: wird vom System genutzt
+
+**Wichtig**: Jeder Akteur ist mit **mindestens einem Use Case verbunden**.
+
+---
+
+### Anwendungsfälle
+
+Ein **Anwendungsfall (Use Case)** beschreibt **ein erwartetes Verhalten** des Systems.
+
+**Merkmale**:
+
+- Identifikation erfolgt über **Kundenwünsche** oder **Anforderungsanalysen**
+- Können textlich ergänzt werden
+- Stellen eine **funktionale Einheit** dar
+
+---
+
+### Beziehungen zwischen Anwendungsfällen
+
+#### Einfache Beziehung
+
+- **Simple Linie ohne Pfeil**
+- **Bidirektionale** Beziehung zwischen Akteur und Anwendungsfall
+
+#### Include-Beziehung
+
+- **Pflichtmäßige Einbindung** eines anderen Anwendungsfalls
+- Dargestellt durch **gestrichelten Pfeil mit offener Spitze**, der auf den inkludierten Fall zeigt
+- Beispiel:
+
+```plaintext
+A --> B  («include»)
+```
+
+**Eigenschaft**: „B“ ist **immer Teil von „A“**, aber auch separat nutzbar.
+
+#### Extend-Beziehung
+
+- **Optionale Erweiterung** eines Basis-Anwendungsfalls
+- **Bedingungen** definieren, wann „B“ ausgeführt wird
+- **Gestrichelter Pfeil mit offener Spitze** zeigt auf den Basisfall
+
+**Beispiel**:
+
+```plaintext
+B --> A  («extend»)
+```
+
+- Erweiterungsstellen (Extension Points) können **benannt und mehrfach** vorhanden sein
+- Bedingungen werden häufig als **Blattsymbol** am Pfeil dargestellt
+
+---
+
+## Beispiele für Anwendungsfalldiagramme
+
+### Kalender
+
+- **System**: Onlinekalender „CALENDARIUM“
+- **Akteur**: Benutzer
+- **Use Cases**:
+  - Termine erfassen
+  - Termine ändern/löschen
+  - Termine exportieren
+  - Termine abfragen
+
+### Schulungsunternehmen
+
+- Akteure: festangestellter Dozent, freier Dozent, Teilnehmer, Schulungsleiter
+- Visualisiert Geschäftsprozesse und Interaktionen
+
+### Geldautomat
+
+- **Akteur**: Bankkunde
+- **Use Cases**:
+  - Kontostand anzeigen
+  - Geld abheben (inkl. PIN-Eingabe, Betragseingabe)
+- Optionale Erweiterung: „Anderen Betrag eingeben“
+
+### IHK-Beispiel
+
+- Beispiel mit konkreter Lösung
+- Darstellung verschiedener Rollen, Beziehungen und Erweiterungen
+
+---
+
+## Fazit
+
+**Anwendungsfalldiagramme** sind ein **zentrales Werkzeug** in der Softwareentwicklung, um **Anforderungen visuell darzustellen**. Sie ermöglichen eine **klare Kommunikation mit Stakeholdern**, erleichtern die **Systemanalyse** und schaffen eine **gemeinsame Sichtweise** für Entwickler und Kunden.
+
+---

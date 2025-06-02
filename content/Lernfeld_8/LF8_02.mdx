@@ -1,0 +1,177 @@
+---
+title: 'Datenintegration & Programmierparadigmen'
+description: 'Systemübergreifende Datenbereitstellung, Integrationstechniken und der gezielte Einsatz von Programmierparadigmen im IT-Kontext'
+tags: ['IT', 'Datenintegration', 'Programmierparadigmen', 'Data Lake', 'Data Warehouse']
+---
+
+## Datenintegration & Programmierparadigmen
+
+### Daten systemübergreifend bereitstellen
+
+In modernen IT-Systemen ist die **Bereitstellung von Daten über Systemgrenzen hinweg** essenziell. Dabei treten verschiedene Formen der **Heterogenität** auf:
+
+- **Strukturelle Heterogenität**: Unterschiedliche Datenstrukturen, z. B. tabellarisch (SQL) vs. hierarchisch (XML).
+- **Semantische Heterogenität**: Unterschiedliche Bedeutungen gleicher Bezeichnungen (z. B. "Name" = vollständiger Name vs. Nachname).
+- **Syntaktische Heterogenität**: Abweichende Datenformate (z. B. "YYYY-MM-DD" vs. "DD.MM.YYYY").
+- **Technologische Heterogenität**: Nutzung verschiedener Systeme wie **RDBMS** vs. **NoSQL**.
+- **Qualitative Heterogenität**: Unterschiedliche Aktualität, Genauigkeit oder Vollständigkeit der Datenquellen.
+
+---
+
+### Integration von Daten
+
+#### Physische Integration
+
+Hierbei werden Daten **zentral zusammengeführt**:
+
+- Daten aus verschiedenen Quellen werden in einer zentralen Datenbank gespeichert.
+- Ermöglicht **Datenkonsistenz**, bessere **Performance** und einfachere **Verwaltung**.
+- Beispiel: Zusammenführung von CRM- und ERP-Daten zur zentralen Analyse.
+
+#### Virtuelle Integration
+
+Daten bleiben **in ihren Ursprungssystemen** und werden bei Bedarf **in Echtzeit zusammengeführt**:
+
+- Keine physische Datenbewegung.
+- Bietet hohe **Flexibilität** und aktuellste Daten.
+- Abhängig von **Netzwerkleistung**.
+- Beispiel: Einsatz einer **Datenvirtualisierungsplattform** für Echtzeitberichte.
+
+---
+
+### Data Warehouse
+
+Ein **Data Warehouse** ist ein spezialisiertes System zur **zentralen Datenhaltung und -analyse**.
+
+**Merkmale**:
+
+- Speicherung bereinigter, konsolidierter Daten
+- Historische **Zeitdimension**
+- Unterstützung von **OLAP**, **Data Marts**, **ETL-Prozessen**
+
+**Vorteile**:
+
+- **Entscheidungsunterstützung**
+- Höhere **Datenqualität**
+- Einheitliche **Datenbasis** für Analysen
+
+**Anwendungsbereiche**:
+
+- **Finanzanalyse**
+- **CRM**
+- **Logistik**
+- **Marketing**
+- **Gesundheitswesen**
+
+---
+
+### Data Lake
+
+Ein **Data Lake** speichert **Rohdaten im Originalformat** – strukturiert, semi-strukturiert und unstrukturiert.
+
+**Merkmale**:
+
+- **Skalierbarkeit**, **Flexibilität**
+- Speicherung großer Datenmengen
+- Unterstützt **Machine Learning** & **Big Data Analysen**
+
+**Unterschiede zum Data Warehouse**:
+
+| Kriterium         | Data Lake                     | Data Warehouse               |
+|------------------|-------------------------------|------------------------------|
+| Datenstruktur    | Unstrukturiert & flexibel      | Strukturiert & bereinigt     |
+| Verarbeitung     | Schema-on-read                | Schema-on-write              |
+| Zielgruppe       | Data Scientists               | Business Analysts            |
+| Kosten           | Geringere Einstiegskosten     | Höherer Integrationsaufwand  |
+| Zweck            | Exploration & Analyse         | Reporting & BI               |
+
+---
+
+## Programmierparadigmen
+
+### Was ist ein Programmierparadigma?
+
+Ein **Programmierparadigma** ist ein Denkmodell, das vorgibt, **wie Programme strukturiert** und **Probleme gelöst** werden. Es beeinflusst die:
+
+- Denkweise beim Programmieren
+- Struktur und Lesbarkeit von Code
+- Wartbarkeit und Erweiterbarkeit von Software
+
+---
+
+### Imperatives Paradigma
+
+Das **imperative Paradigma** beschreibt Programme als **Abfolge von Anweisungen**, die den **Zustand des Systems verändern**.
+
+**Kernelemente**:
+
+- **Zuweisungen**, **Schleifen**, **Bedingungen**
+- Kontrollfluss wird explizit gesteuert
+- Nah an der Arbeitsweise realer Maschinen
+
+#### Unterformen
+
+**Strukturiertes Programmieren**:
+
+- Nutzt: **Sequenz**, **Selektion (if)**, **Iteration (loops)**
+- Ziel: klare, wartbare Code-Struktur
+- Vorteil: Vermeidung von **Spaghetti-Code**
+
+**Prozedurales Programmieren**:
+
+- Erweiterung durch **Funktionen/Prozeduren**
+- Modularisierung & Wiederverwendbarkeit
+- Beispielsprachen: C, Pascal, Python
+
+---
+
+### Deklaratives Paradigma
+
+Beim **deklarativen Paradigma** steht **das Was** im Vordergrund, nicht das **Wie**.
+
+**Kerneigenschaften**:
+
+- **Keine explizite Steuerung des Ablaufs**
+- Kürzerer, verständlicherer Code
+- Paradigmen: **funktional**, **logisch**
+
+#### Funktionales Programmieren
+
+- Basiert auf **mathematischer Funktionstheorie**
+- **Reine Funktionen**, keine Seiteneffekte
+- Hohe Testbarkeit
+- Beispiele: Haskell, F#, moderne JavaScript-Ansätze
+
+#### Logisches Programmieren
+
+- Definition über **Fakten und Regeln**
+- **Schlussfolgerung** durch das System
+- Bekannteste Sprache: **Prolog**
+
+---
+
+### Vergleich der Paradigmen
+
+| Paradigma     | Fokus                   | Hauptmerkmale                           | Zustandsveränderung | Beispiele           | Vorteile                              |
+|---------------|--------------------------|------------------------------------------|----------------------|----------------------|-----------------------------------------|
+| Strukturiert  | Kontrollfluss            | Sequenz, Selektion, Iteration            | Ja                   | C, Python            | Verständlichkeit, Struktur             |
+| Prozedural    | Modularisierung          | Funktionen, Prozeduren                   | Ja                   | Pascal, Python       | Wiederverwendbarkeit, Gliederung       |
+| Funktional    | Funktionskomposition     | Reine Funktionen, Rekursion              | Nein (idealerweise) | Haskell, F#, JS      | Testbarkeit, keine Seiteneffekte       |
+| Logisch       | Schlussfolgerung         | Regeln, Fakten, Queries                  | Nein                 | Prolog               | Automatische Problemlösung             |
+
+---
+
+### Gezielter Einsatz von Paradigmen
+
+**Wahl des Paradigmas** hängt stark vom Anwendungsfall ab:
+
+- **Strukturiert/Prozedural**: Klassische Businesslogik, gut für Einsteiger.
+- **Funktional/Logisch**: Komplexe Algorithmen, Datenanalyse, formale Systeme.
+- Kombinationen oft sinnvoll: z. B. funktionale Ansätze in prozeduralem Code.
+
+**Vorteile der Paradigmenkenntnis**:
+
+- Flexibilität in der Sprache- und Methodenauswahl
+- Höhere Codequalität und Wartbarkeit
+- Passgenaue Lösung für spezifische Problemstellungen
+---

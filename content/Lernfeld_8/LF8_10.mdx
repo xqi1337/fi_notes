@@ -1,0 +1,154 @@
+---
+title: 'Konstruktoren in Java'
+description: 'Eine Einführung in Konstruktoren in Java mit Eigenschaften, Arten und Beispielen.'
+tags: ['Java', 'OOP', 'Konstruktoren']
+---
+
+## Konstruktoren in Java
+
+### Was ist ein Konstruktor?
+
+Ein **Konstruktor** ist eine spezielle Methode in Java, die beim Erzeugen eines neuen Objekts automatisch aufgerufen wird. Er trägt denselben Namen wie die Klasse und hat **keinen Rückgabewert**, auch nicht `void`.
+
+---
+
+### Eigenschaften von Konstruktoren
+
+- Konstruktoren **haben keinen Rückgabewert**.
+- Der **Methodenname entspricht exakt dem Klassennamen**.
+- Konstruktoren können **überladen** werden (mehrere Konstruktoren mit unterschiedlichen Parametern).
+- Das Schlüsselwort **`new`** erzeugt eine neue Instanz und ruft den passenden Konstruktor auf.
+- Mit **`this`** kann innerhalb des Konstruktors auf aktuelle Objektattribute zugegriffen werden.
+
+**Beispiel**:
+
+```java
+public class Auto {
+    String marke;
+    double preis;
+
+    public Auto(String marke, double preis) {
+        this.marke = marke;
+        this.preis = preis;
+    }
+}
+```
+### Der Default-Konstruktor
+
+> Ein **Default-Konstruktor** (parameterloser Konstruktor) wird automatisch von Java bereitgestellt, **wenn kein eigener Konstruktor definiert wurde**.
+
+**Merkmale**:
+
+- Hat **keine Parameter**
+    
+- Setzt alle Attribute auf die **Standardwerte** (z. B. `0`, `null`, `false`)
+    
+- **Wird entfernt**, sobald ein benutzerdefinierter Konstruktor existiert
+    
+
+**Beispiel**:
+
+```java
+public class Person {
+    // Default-Konstruktor (implizit vorhanden)
+}
+```
+
+---
+
+### Benutzerdefinierte Konstruktoren
+
+Wenn eigene Konstruktoren benötigt werden, um beim Erstellen eines Objekts bestimmte Werte zu übergeben, können diese definiert werden.
+
+**Beispiel mit Parametern**:
+
+```java
+public class Person {
+    String name;
+    int alter;
+
+    public Person(String name, int alter) {
+        this.name = name;
+        this.alter = alter;
+    }
+}
+```
+
+**Objekterzeugung**:
+
+```java
+Person max = new Person("Max", 25);
+```
+
+---
+
+### Konstruktorüberladung
+
+> Java erlaubt die **Überladung** von Konstruktoren – also mehrere Konstruktoren mit unterschiedlichen Parameterlisten.
+
+**Beispiel**:
+```java
+public class Buch {
+    String titel;
+    double preis;
+
+    public Buch() {
+        // Default-Werte setzen
+        this.titel = "Unbekannt";
+        this.preis = 0.0;
+    }
+
+    public Buch(String titel, double preis) {
+        this.titel = titel;
+        this.preis = preis;
+    }
+}
+```
+
+---
+
+### Vorteile von Konstruktoren
+
+- **Initialisierung** von Attributen direkt beim Objektstart
+    
+- Mehr **Flexibilität** durch Konstruktorüberladung
+    
+- Vereinfachte **Objekterstellung**
+    
+- Vermeidung von **unnötigem Setter-Aufwand**
+    
+
+---
+
+### Wichtige Hinweise
+
+- Wird **mindestens ein Konstruktor** selbst definiert, entfällt der automatische Default-Konstruktor.
+    
+- Die **Konstruktorwahl** richtet sich nach der **Anzahl und dem Typ** der übergebenen Argumente.
+    
+- Konstruktoren können auch **aufeinander verweisen** mittels `this(...)`.
+    
+
+**Beispiel für Konstruktorverkettung**:
+```Java
+public class Laptop {
+    String modell;
+    int ram;
+
+    public Laptop() {
+        this("Standard-Modell", 8);
+    }
+
+    public Laptop(String modell, int ram) {
+        this.modell = modell;
+        this.ram = ram;
+    }
+}
+```
+---
+
+### Fazit
+
+**Konstruktoren sind essenziell** für die objektorientierte Programmierung in Java. Sie ermöglichen eine **strukturierte Initialisierung** und bieten durch Überladung und Verkettung hohe **Flexibilität** beim Erzeugen von Objekten.
+
+---

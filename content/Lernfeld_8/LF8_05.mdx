@@ -1,0 +1,116 @@
+---
+title: 'UML-Aktivitätsdiagramm und Darstellungselemente'
+description: 'Ein Überblick über UML, das Aktivitätsdiagramm als Verhaltensdiagramm und dessen wesentliche Darstellungselemente.'
+tags: ['UML', 'Aktivitätsdiagramm', 'Modellierung', 'Softwareentwicklung', 'Diagramme']
+---
+
+## UML-Aktivitätsdiagramm und Darstellungselemente
+
+---
+
+### Was ist UML?
+
+**UML** steht für **Unified Modeling Language** und ist eine **grafische Modellierungssprache** zur:
+
+- **Spezifikation**
+- **Konstruktion**
+- **Dokumentation** von Software und anderen Systemen
+
+Sie dient der **Visualisierung** der programmiertechnischen Umsetzung und ist besonders hilfreich, um **Konzepte verständlich zu präsentieren**, z. B. gegenüber Kund:innen.
+
+UML-Diagramme werden in zwei Hauptgruppen unterteilt:
+
+- **Strukturdiagramme**
+- **Verhaltensdiagramme** (z. B. **Aktivitätsdiagramme**)
+
+---
+
+### Aktivitätsdiagramm
+
+Ein **Aktivitätsdiagramm** ist ein **Verhaltensdiagramm** in UML und beschreibt das **dynamische Verhalten von Abläufen**.
+
+Typische Anwendungsbereiche:
+
+- **Softwaresysteme** (z. B. Algorithmen)
+- **Geschäftsprozesse**, in denen Softwaresysteme eingebettet sind
+
+Merkmale:
+
+- **Aktionen** stehen im Vordergrund
+- Hat einen **Start- und Endpunkt**
+- **Reihenfolge** der Abläufe wird dargestellt
+- Beliebig komplex, mit **Entscheidungen** und **Untergliederungen**
+- **Einfach verständlich** und **flexibel einsetzbar**
+
+---
+
+### Darstellungselemente im Aktivitätsdiagramm
+
+#### **Startknoten:**
+
+- Darstellung: **Ausgefüllter Kreis**
+- Beginn des Ablaufs
+- **Mehrere Startknoten möglich**
+
+#### **Endknoten:**
+
+- Darstellung: **Ausgefüllter Kreis mit äußerem Kreis**
+- Beendet den gesamten Ablauf
+- "Stoppt alles!"
+
+#### **Alternativer Endknoten:**
+
+- Darstellung: **X mit Kreis**
+- Beendet **einen Pfad**, nicht den gesamten Ablauf
+- "Stoppt nur den einzelnen Pfad"
+
+#### **Aktion / Aktionsknoten:**
+
+- Darstellung: **Viereck mit abgerundeten Ecken**
+- Beinhaltet eine **kurze Beschreibung** (z. B. „Passwort eingeben“)
+- Hat meist **einen Eingang** und **einen Ausgang**
+
+#### **Kontrollfluss:**
+
+- Darstellung: **Pfeil mit geöffneter Spitze**
+- Zeigt, **welche Aktion folgt**
+
+#### **Objektknoten / Objektfluss:**
+
+- Darstellung: **Viereck** zwischen Aktionen
+- Zeigt, ob **Objekte** oder **Zustände** übergeben werden
+
+#### **Entscheidung / Entscheidungsknoten:**
+
+- Darstellung: **Raute**
+- Eingang und **mehrere Ausgänge**, jeweils mit **Bedingung** in `[]`
+- Nur **ein Pfad** wird weiterverfolgt
+- "ODER-Entscheidung"
+
+#### **Zusammenführung / Verbindungsknoten**
+
+- Darstellung: **Raute**
+- Führt **mehrere Pfade zusammen**
+- Weiterverarbeitung bei **einem aktiven Eingang** möglich
+- Auch als Entscheidung nutzbar
+
+#### **Gabelung / Aufspaltung:**
+
+- Darstellung: **Dicke Linie mit mehreren Pfeilen**
+- Führt zu **mehreren parallelen Aktionen**
+- "UND-Weg", paralleler Ablauf
+
+#### **Vereinigung:**
+
+- Darstellung: **Dicke Linie mit mehreren Eingängen**
+- Vereint **mehrere parallele Prozesse**
+- Weiterverarbeitung nur bei **allen aktiven Eingängen**
+- Optional: Bedingungen in `{}` für alternative Logik
+
+#### **Aktivitätsbereiche / Swimlanes:**
+
+- Darstellung: **Matrixartige Bereiche**
+- Zeigt **Verantwortlichkeiten**, z. B. **Akteure**
+- Dient der **optischen Gliederung** und dem besseren Verständnis
+
+---

@@ -1,0 +1,67 @@
+---
+title: 'Big Data & Datenbanken – Grundlagen und Design'
+description: 'Zusammenfassung wichtiger Konzepte zu Big Data, Datenbanken und deren Design'
+tags: ['Big Data', 'Datenbanken', 'Design', 'IT', 'Normalisierung']
+---
+
+## Big Data & Datenbanken
+
+---
+
+### Big Data
+
+- Bezeichnet **Datenmengen, die zu groß oder komplex für traditionelle Systeme sind**.
+- Billionen von Datenpunkten in Unternehmen können für wertvolle Erkenntnisse genutzt werden.
+- Es gibt **zahlreiche Herausforderungen, insbesondere die 5 V's**.
+
+**5 V's von Big Data:**
+
+- **Volume:** Kolossale Datenmengen (Petabytes, Exabytes) aus unterschiedlichen Quellen (Transaktionen, E-Mails, soziale Netzwerke, Kundendatenbanken, mobile Apps). Verwaltung oft über **Data Lakes**, **Data Warehouses** oder spezielle Datenverwaltungssysteme.
+- **Velocity:** Daten wachsen schnell und altern rasch. Echtzeitüberwachung und -analyse sind wichtig, aber kostenintensiv.
+- **Variety:** Verschiedene Arten digitaler Daten (strukturiert, unstrukturiert). Unstrukturierte Daten liegen z.B. als E-Mails, Kommentare, Social Media Posts, Sensordaten oder Multimedia vor.
+- **Veracity:** Wahrhaftigkeit der Daten ist entscheidend. Daten müssen genau, konsistent, zuverlässig und vollständig sein, um geschäftlichen Erfolg zu gewährleisten.
+- **Value:** Daten müssen in wertvolle Informationen umgewandelt werden, um Wettbewerbsvorteile zu schaffen, z.B. durch bessere Leistungskennzahlen oder Risiko-Minimierung.
+
+---
+
+### Datenbanken – Grundlagen
+
+- Eine Datenbank ist ein **digitales System zur Speicherung und Organisation von Daten**.
+- Speichert Daten strukturiert und effizient.
+- Ermöglicht schnellen Zugriff durch Indizes und Suchalgorithmen.
+- Unterstützt einfache Änderungen und gewährleistet Datenintegrität.
+- Bietet Sicherheit durch Zugriffskontrollen und Verschlüsselung.
+- Besteht aus verschiedenen Datenstrukturen wie Tabellen, Dokumenten oder Graphen.
+- **Primärschlüssel** und **Fremdschlüssel** identifizieren Datensätze und definieren Beziehungen.
+- **Relationale Datenbanken** nutzen Tabellen und SQL für Abfragen.
+- **NoSQL-Datenbanken** unterstützen flexible Modelle für unstrukturierte Daten.
+
+---
+
+### Design von relationalen Datenbanken
+
+Der Designprozess umfasst folgende Phasen:
+
+- **Analysephase:** Anforderungen erfassen, zu speichernde Informationen sammeln und Beziehungen analysieren. Zusammenarbeit mit Endbenutzern wichtig.
+- **Konzeptionelle Phase:** Erstellung eines abstrakten Modells (Entity-Relationship-Diagramm). Festlegung von Entitäten, Attributen und Beziehungen.
+- **Logische Phase:** Umsetzung in ein DBMS-unabhängiges logisches Datenmodell. Anwendung von **Normalisierung** zur Optimierung.
+- **Implementierungsphase:** Realisierung im gewählten Datenbanksystem.
+
+---
+
+### Datenbank-Normalisierung
+
+**Ziele:**
+
+- **Redundanzen beseitigen**
+- **Anomalien vermeiden** (Einfüge-, Lösch-, Änderungsanomalien)
+- Klar strukturiertes Datenbankmodell schaffen
+
+**Normalformen:**
+
+- **Nullte Normalform (0NF):** Beispiel: Tabelle mit Rechnungsinformationen, noch nicht normalisiert.
+- **Zweite Normalform (2NF):** Tabelle ist in 2NF, wenn sie in 1NF ist und jedes Nicht-Schlüsselattribut voll funktional vom gesamten Primärschlüssel abhängt (keine partiellen Abhängigkeiten).
+- **Dritte Normalform (3NF):** Tabelle ist in 3NF, wenn sie in 2NF ist und keine transitiven Abhängigkeiten zwischen Nicht-Schlüsselattributen bestehen.
+
+---
+

@@ -1,0 +1,143 @@
+---
+title: 'UML-Klassendiagramme als Werkzeug in der Softwareentwicklung'
+description: 'Ein umfassender Überblick über den Aufbau, die Notation und die Anwendung von UML-Klassendiagrammen'
+tags: ['UML', 'Klassendiagramme', 'Objektorientierung', 'Softwaremodellierung', 'IT']
+---
+
+## UML-Klassendiagramme als Werkzeug in der Softwareentwicklung
+
+---
+
+### Einführung in UML und Klassendiagramme
+
+Die **Unified Modeling Language (UML)** ist eine standardisierte **Modellierungssprache** zur grafischen Darstellung von Softwaresystemen.
+Ein zentrales Element in UML ist das **Klassendiagramm**, ein Strukturdiagramm zur Abbildung von **Klassen**, **Schnittstellen** und deren **Beziehungen**.
+
+**Vorteile von Klassendiagrammen**:
+
+- Förderung eines **gemeinsamen Verständnisses** zwischen Entwicklern und Stakeholdern
+- Unterstützung bei der **Kommunikation** und **Dokumentation**
+- Verbesserung von **Wartbarkeit** und **Erweiterbarkeit** von Softwaresystemen
+
+---
+
+### Einsatzgebiete von Klassendiagrammen
+
+- Darstellung objektorientierter Systeme
+- Strukturierung komplexer **Informationssysteme**
+- Visualisierung bei **unklarer Systemstruktur**
+- Frühzeitige **Konzeptprüfung** durch grafische Modellierung
+
+---
+
+### Aufbau und Notation einer Klasse
+
+Eine **Klasse** wird als Rechteck mit drei unterteilten Bereichen dargestellt:
+
+1. **Name** der Klasse
+2. **Attribute** (Eigenschaften/Zustand)
+3. **Methoden** (Verhalten/Fähigkeiten)
+
+```text
+---------------------
+|     Klassenname    |
+---------------------
+| +attribut:Typ       |
+| -intern:Typ         |
+---------------------
+| +methode():Rückgabe |
+| -intern():void      |
+---------------------
+```
+
+**Zugriffsmodifikatoren**:
+
+- `+` Public (öffentlich)
+- `~` Package (paketweit)
+- `#` Protected (geschützt)
+- `-` Private (privat)
+
+**Datentyp-Beispiele**:
+
+- `Integer` (Ganzzahlen)
+- `Boolean` (Wahr/Falsch)
+- `String` (Zeichenkette)
+- `Date` (Datum)
+- `Double` (Gleitkommazahl)
+
+---
+
+### Abstrakte Klassen und Vererbung
+
+**Abstrakte Klassen**:
+
+- Bündeln gemeinsame Eigenschaften und Methoden
+- Nicht instanziierbar
+- Gekennzeichnet durch `<<Abstrakt>>` oder **kursiven Namen**
+
+**Vererbung**:
+
+- Oberklassen geben Attribute/Methoden an Unterklassen weiter
+- Darstellung: Linie mit **offener Pfeilspitze** zur Oberklasse
+
+```text
+Unterklasse --------▷ Oberklasse
+```
+
+---
+
+### Assoziationen zwischen Klassen
+
+**Arten von Beziehungen**:
+
+- **Assoziation**: Einfache Verbindung ohne Richtung oder mit Leserichtung
+- **Vererbung**: Linie mit Pfeil zur Oberklasse
+- **Aggregation**: Linie mit **unausgefüllter Raute** (Teil-Ganzes-Beziehung, Existenz unabhängig)
+- **Komposition**: Linie mit **ausgefüllter Raute** (Teil ist von Ganzem abhängig)
+
+**Kardinalitäten**:
+
+- Geben an, wie oft ein Objekt an einer Beziehung teilnimmt
+- Beispiele:
+  - `1..*`: mindestens ein Objekt
+  - `0..1`: optional
+  - `1`: genau ein Objekt
+
+---
+
+### Beispiel: Personen, Adressen, Studenten
+
+Ein vereinfachtes UML-Klassendiagramm zur Modellierung:
+
+```text
++------------------+      +----------------+
+|    Person        |<>----|   Adresse      |
++------------------+      +----------------+
+| name: String     |      | straße: String |
+| geburt: Date     |      | ort: String    |
++------------------+      +----------------+
+         ▲
+         |
++------------------+
+|   Student        |
++------------------+
+| matrikel: String |
++------------------+
+```
+
+**Legende**:
+
+- `<>` = Aggregation
+- `▲` = Vererbung (Student ist eine Person)
+
+---
+
+
+### Wichtigste Erkenntnisse
+
+- Klassendiagramme sind essenziell für die **strukturierte Softwaremodellierung**
+- Sie fördern **Verständnis, Wartbarkeit** und **Kommunikation**
+- Die UML-Notation ist **standardisiert** und leicht erlernbar
+- Konzepte wie **Vererbung, Aggregation, Komposition** sind zentral
+- Praktische Übungen vertiefen das Verständnis der Zusammenhänge
+---

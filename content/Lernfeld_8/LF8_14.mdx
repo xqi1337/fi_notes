@@ -1,0 +1,109 @@
+---
+title: 'SQL Rechtevergabe und Datenbereitstellung'
+description: 'Wichtige Grundlagen zur Datenbereitstellung und Rechtevergabe in SQL-Datenbanken'
+tags: ['SQL', 'Datenbanken', 'Rechtevergabe', 'DCL', 'DML', 'DDL']
+---
+
+## Daten systemübergreifend bereitstellen & Rechtevergabe in SQL
+
+---
+
+### Implementierungsphase relationaler Datenbanken
+
+In der **Implementierungsphase** des relationalen Datenbankdesigns wird das logische Modell mit **SQL** in eine physische Datenbank überführt.
+
+- Es werden **Tabellen** erstellt, die Entitäten und Attribute repräsentieren.
+- Spezifikationen wie **Datentypen** und **Relationen** werden definiert.
+
+---
+
+### SQL-Anweisungen und ihre Teilmengen
+
+SQL-Befehle werden in verschiedene Kategorien unterteilt:
+
+- **Data Definition Language (DDL)**: Definiert die Struktur der Datenbank.
+  - Wichtige Befehle: **CREATE TABLE**, **ALTER TABLE**, **DROP TABLE**.
+- **Data Manipulation Language (DML)**: Bearbeitet Daten (Einfügen, Aktualisieren, Löschen, Abrufen).
+  - Wichtige Befehle: **INSERT INTO**, **UPDATE**, **SELECT**.
+- **Data Control Language (DCL)**: Legt Zugriffsrechte fest.
+  - Wichtige Befehle: **GRANT**, **REVOKE**, **DENY**.
+- **Transaction Control Language (TCL)**: Übernimmt Änderungen endgültig in die Datenbank.
+  - Wichtige Befehle: **COMMIT**, **ROLLBACK**.
+
+---
+
+### Data Control Language (DCL) – Rechtevergabe und Zugriffskontrolle
+
+Die **DCL** steuert den Zugriff auf Datenbanken und ist besonders in Mehrbenutzerumgebungen essenziell.
+
+**Zentrale Aufgaben:**
+
+- Verwaltung von **Benutzern**
+- Verwaltung von **Berechtigungen** zum Schutz sensibler Daten
+
+---
+
+### Wichtige DCL-Befehle
+
+- **CREATE USER**  
+  Erstellt einen neuen Benutzer mit Benutzername und Passwort.  
+  Beispiel:
+```sql
+CREATE USER 'schueler_admin'@'localhost' IDENTIFIED BY 'passwort123';
+ ``` 
+
+Benutzerliste prüfen:
+```sql
+SELECT User, Host FROM mysql.user;
+```
+- **GRANT**  
+    Erteilt einem Benutzer bestimmte **Berechtigungen** (z. B. SELECT, INSERT, UPDATE, DELETE) auf Datenbankobjekte.  
+    Beispiel:
+```sql    
+GRANT SELECT, INSERT ON Schulverwaltung.Schueler TO 'schueler_admin'@'localhost';
+```
+    Erteilte Rechte anzeigen:
+```SQL
+SHOW GRANTS FOR 'schueler_admin'@'localhost';
+```    
+- **REVOKE**  
+    Entzieht einem Benutzer bestimmte Berechtigungen.  
+    Beispiel:
+ ```SQL
+REVOKE INSERT ON Schulverwaltung.Schueler FROM 'schueler_admin'@'localhost';
+``` 
+- **DROP USER**  
+    Löscht einen bestehenden Benutzer.  
+    Beispiel:
+ ```SQL
+DROP USER 'schueler_admin'@'localhost';
+ ```   
+
+---
+
+### Übungsbeispiel: Verwaltung einer Schul-Datenbank
+
+Erstellung und Abfrage einer Testdatenbank zur Verwaltung von Schülern, Klassen, Lehrern und Unterricht:
+
+- Tabellen mit klar definierten Strukturen
+    
+- Einfügen von Beispieldaten
+    
+- Grundlegende **SELECT**-Abfragen zur Anzeige und Filterung der Daten
+    
+
+---
+
+**Zusammenfassung der wichtigsten Punkte:**
+
+- **Daten systemübergreifend bereitstellen** ist essenziell.
+    
+- Rechtevergabe erfolgt über **DCL** mit Befehlen wie **CREATE USER**, **GRANT**, **REVOKE** und **DROP USER**.
+    
+- Die Implementierung umfasst Erstellung von Tabellen und Definition von Relationen mittels **DDL**.
+    
+- Datenbearbeitung und Abfrage erfolgen über **DML**.
+    
+- Änderungen werden mit **TCL** bestätigt oder zurückgesetzt.
+
+---
