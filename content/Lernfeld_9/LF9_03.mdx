@@ -1,0 +1,156 @@
+---
+title: 'Bereitstellen von Netzwerken'
+description: 'Überblick über das OSI-Modell, Ethernet, Netzwerkadapter und die TCP/IP-Kommunikation'
+tags: ['Netzwerke', 'OSI-Modell', 'Ethernet', 'TCP/IP', 'IT-Grundlagen']
+---
+
+## Bereitstellen von Netzwerken
+
+### ISO/OSI-Schichtenmodell
+
+Das **ISO/OSI-Modell** (Open Systems Interconnection) ist ein Referenzmodell, das Kommunikationsprozesse in **sieben logische Schichten** unterteilt:
+
+**Schichtenübersicht**:
+
+1. **Physical Layer** – Zugriff auf das Übertragungsmedium  
+2. **Data Link Layer** – Physikalische Adressierung  
+3. **Network Layer** – Routing / Lokale Adressierung  
+4. **Transport Layer** – Transport & Segmentierung  
+5. **Session Layer** – Verbindung herstellen/verwalten  
+6. **Presentation Layer** – Formatierung & Verschlüsselung  
+7. **Application Layer** – Generierung von Daten
+
+**Dateneinheiten pro Schicht**:
+
+- Schicht 7–5: **DATA**
+- Schicht 4: **SEGMENTS**
+- Schicht 3: **PACKETS**
+- Schicht 2: **FRAMES**
+- Schicht 1: **BITS**
+
+**Kapselung der Daten**:
+
+Daten werden schichtweise mit **Headern** versehen, z. B.:
+```
+DATA → AH → PH → SH → TH → NH → DTDH → ... → BITS
+```
+Beim Empfänger erfolgt die **Dekapselung** in umgekehrter Reihenfolge.
+
+---
+
+### Ethernet (IEEE 802.3)
+
+**Ethernet** ist ein weit verbreiteter Netzwerkstandard, der **paketvermittelten** Datenverkehr ermöglicht.
+
+**Ethernet-Frame Aufbau**:
+
+- **Präambel (7 Byte)**: Synchronisation – z. B. `10101010...`
+- **Start of Frame Delimiter (1 Byte)**: `10101011`
+- **Zieladresse (6 Byte)**: MAC-Adresse des Empfängers
+- **Quelladresse (6 Byte)**: MAC-Adresse des Senders
+- **EtherType (2 Byte)**: z. B. `0x0800` für IPv4
+- **Daten (46–1500 Byte)**: Nutzdaten
+- **PAD-Feld**: Falls Nutzdaten < 46 Byte
+- **FCS (4 Byte)**: Frame Check Sequence (32-bit CRC)
+
+**Größenbegrenzungen**:
+
+- **Min. Frame-Größe**: 64 Byte  
+- **Max. Frame-Größe**: 1518 Byte  
+- **MTU (Maximum Transmission Unit)**: 1500 Byte (ohne Ethernet-Header)
+
+---
+
+### Netzwerkadapter (NIC)
+
+Ein **Netzwerkadapter** oder **Network Interface Card (NIC)** verbindet einen Rechner mit dem Netzwerk.
+
+**Funktionen**:
+
+- Datenumwandlung OS ↔ elektrisches Signal
+- Paketempfang und -prüfung
+- Steuerung des Datenflusses
+- Adressierung via **MAC-Adresse**
+
+**MAC-Adresse**:
+
+- 48-Bit-Hardwareadresse (z. B. `00-18-8B-D3-FA-D3`)
+- Zusammensetzung:
+  - **Herstellerkennung** (24 Bit)
+  - **Individuelle ID** (24 Bit)
+- Gespeichert im **PROM**
+- Unveränderlich
+
+**Einordnung im OSI-Modell**:
+
+- **Schicht 1**: Physikalisch  
+- **Schicht 2**: Sicherung
+
+---
+
+### Datenpaket & Header (TCP/IP)
+
+**Beispiel: Schichtung eines TCP/IP-Pakets**
+
+| Schicht | Inhalt                                   | Größe       |
+|--------|------------------------------------------|-------------|
+| 4      | TCP-Header (20 Byte) + Nutzdaten         | 1460 Byte   |
+| 3      | IP-Header (20 Byte) + TCP-Segment        | 1480 Byte   |
+| 2      | Ethernet-Header (14 Byte) + Nutzdaten    | 1500 Byte   |
+| 1      | Präambel + SFD + Daten + FCS + IPG       | 1518 + 12 B |
+
+**IPG (Inter-Packet Gap)**:
+
+- Zeitlicher Abstand zwischen zwei Paketen  
+- Dient der Synchronisation und Pufferung
+
+---
+
+### Übertragungsablauf (TCP/IP & Ethernet)
+
+**Beispiel-Szenario: HTTP-Anfrage von Client A an Client B über zwei Router**
+
+**Netzwerk-Topologie**:
+
+- Client A: `IP 10.0.0.20`, `MAC: AA`
+- Router 1: `lokal 10.0.0.1 (C1)`, `global 160.0.0.1 (C2)`
+- Router 2: `lokal 192.168.1.1 (D1)`, `global 160.0.0.2 (D2)`
+- Client B: `IP 192.168.1.2`, `MAC: BB`
+
+**Übertragungsschritte**:
+
+1. **Datenaufteilung**  
+   Nutzdaten werden abhängig von Header-Größen in Teile zerlegt.
+
+2. **Segmentierung**  
+   - **Transport Header** wird hinzugefügt  
+   - Quellport (z. B. 9454), Zielport (z. B. 80)
+
+3. **IP-Paketbildung**  
+   - IP-Header: `Quell-IP = 10.0.0.20`, `Ziel-IP = 160.0.0.2` (NAT)
+
+4. **Ethernet-Frame-Erstellung**  
+   - Ziel-MAC: Router 1  
+   - Quell-MAC: Client A  
+   - MAC-Adresse des Gateways per **ARP** ermittelt
+
+5. **Routerweiterleitung & NAT**  
+   - NAT/PAT: Router 1 ersetzt private Quell-IP durch öffentliche  
+   - Router 2 erkennt Ziel und leitet an Client B weiter (Port-Forwarding)
+
+**Beispiel: NAT-Tabelle bei Router 1**  
+```
+Client A (10.0.0.20:9454) → Router 1 (160.0.0.1:40001)
+```
+
+**Antwortpaket** wird an `160.0.0.1:40001` gesendet und von Router 1 zurückübersetzt.
+
+---
+
+### Zusammenfassung
+
+- Das **OSI-Modell** erklärt die logische Struktur der Netzwerkkommunikation.
+- **Ethernet** regelt physikalischen Zugriff und Datenrahmen.
+- **Netzwerkadapter** ermöglichen die physische Verbindung zum Netzwerk.
+- **TCP/IP-Kommunikation** erfolgt schichtweise mit Kapselung und Dekapselung.
+- Durch **NAT/PAT** können private Netze über öffentliche IPs kommunizieren.

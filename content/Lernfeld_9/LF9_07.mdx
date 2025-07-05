@@ -1,0 +1,98 @@
+---
+title: 'Subnetting, VLSM und Routing im IPv4-Netzwerk'
+description: 'Grundlagen zu Subnetting gleichgroßer Netze, VLSM (Variable Length Subnet Mask) und Supernetting im IPv4-Adressraum'
+tags: ['Netzwerk', 'Subnetting', 'IPv4', 'VLSM', 'Routing']
+---
+
+## Subnetting, VLSM und Routing im IPv4-Netzwerk
+
+---
+
+### Subnetting gleichgroßer Netze (vereinfachte Darstellung)
+
+**Subnetting** wird oft mit dem Bild einer Torte verglichen, die mehrfach **halbiert** wird. Jede Halbierung ergibt doppelt so viele **Subnetze**, wobei jedes Subnetz **ein Bit mehr** im Netzanteil verwendet.
+
+**Beispiel**:
+
+Ausgangsnetz: 
+	192.168.0.0 /27
+
+Aufteilung in zwei gleich große Subnetze:
+	192.168.0.0 /28
+     192.168.0.16 /28
+     
+Weitere Unterteilung desselben /27-Netzes:
+	192.168.0.0 /29
+	192.168.0.8 /29
+	192.168.0.16 /29
+	192.168.0.24 /29
+
+**Visualisierte Inhalte** (in der Originalquelle):
+
+**Netz ID** und **Broadcast-Adresse** werden in den Subnetzen dargestellt
+
+Genutzte Subnetzmasken: 
+	**/24**
+	**/25**
+	**/26**
+	**/27**
+	**/28**
+
+---
+
+## **Supernetting**
+
+**Supernetting** ist das **Gegenteil von Subnetting** – es fasst mehrere kleinere Netze zu einem größeren zusammen (auch bekannt als **Route Aggregation**). Die Quelle enthält **Grafiken**, jedoch keine detaillierte Erklärung.
+
+Beispielhafte Netzmaske:
+	 **/26** als Supernetz
+
+---
+
+### Variable Length Subnet Mask (VLSM)
+
+**VLSM** erlaubt die Unterteilung eines Netzwerks in **unterschiedlich große Subnetze** und basiert auf einem schrittweisen Verfahren:
+
+- Zunächst wird ein **größeres Netz** (z. B. `/27`) in gleich große Teile geteilt.
+- Anschließend wird **nur eines dieser Subnetze weiter unterteilt**.
+- Diese neuen Subnetze (sog. **Sub-Subnetze**) können ebenfalls individuell weiter unterteilt werden.
+
+**Wichtige Regel**:  
+> Das Netz mit der **höchsten Hostanzahl** sollte **an erster Stelle** geplant und vergeben werden.
+
+**Beispiel** für VLSM mit dem Ausgangsnetz 192.168.0.0 /27:
+
+- 192.168.0.0 /28
+- 192.168.0.16 /29  
+- 192.168.0.24 /30
+- 192.168.0.28 /30
+
+**Genutzte Subnetzmasken**:
+
+- **/24**
+- **/25**
+- **/26** 
+- **/27**
+- **/28**
+- **/29**
+- **/30**
+
+**Darstellungen** zeigen jeweils:
+
+- **Netz ID**
+- **Broadcast-Adresse**
+- **Adressbereiche der Hosts**
+
+---
+
+### **Aufgaben und Übungen**
+
+Die Quelle schlägt eine **praktische Übung in Excel** vor, um die Anwendung von **VLSM** besser zu verstehen.
+
+**Ziel**:
+
+>Visualisierung der IP-Aufteilung
+>Berechnung von Netz-, Broadcast- und Hostadressen
+  Planung von Subnetzen mit **unterschiedlichem Größenbedarf**
+
+---

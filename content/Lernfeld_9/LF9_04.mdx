@@ -1,0 +1,75 @@
+---
+title: 'Bereitstellen von Netzwerken'
+description: 'Netzwerktechnologien, ISO/OSI, TCP/IP, IPv4, NAT'
+tags: ['Netzwerk', 'OSI', 'TCP/IP', 'IPv4', 'NAT']
+---
+
+## Bereitstellen von Netzwerken
+
+---
+
+### ISO/OSI-Schichtenmodell
+
+Das **ISO/OSI-Schichtenmodell** ist ein Referenzmodell mit **sieben Schichten**, die jeweils spezifische Aufgaben in der Netzwerkkommunikation übernehmen.
+
+- **Schicht 7 – Anwendungsschicht (Application Layer)**: Schnittstelle für Anwendungen zur Netzwerknutzung.
+- **Schicht 6 – Darstellungsschicht (Presentation Layer)**: **Formatierung** und **Verschlüsselung** der Daten.
+- **Schicht 5 – Sitzungsschicht (Session Layer)**: Aufbau, Verwaltung und Beendigung von **Sitzungen**.
+- **Schicht 4 – Transportschicht (Transport Layer)**: Verantwortlich für **Zuverlässigkeit**, **Segmentierung** und **Fehlerkorrektur**. Hauptprotokoll: **TCP**.
+- **Schicht 3 – Vermittlungsschicht (Network Layer)**: Zuständig für **Routing** und logische **Adressierung**. Hauptprotokoll: **IP**.
+- **Schicht 2 – Sicherungsschicht (Data Link Layer)**: Regelt den Zugriff auf das Medium, verwendet **MAC-Adressen**.
+- **Schicht 1 – Bitübertragungsschicht (Physical Layer)**: Übertragung von **Bits** über das physikalische Medium.
+
+---
+
+### TCP/IP-Protokollfamilie
+
+Die **TCP/IP-Protokollfamilie** ist die Grundlage für das moderne Internet.
+
+#### TCP (Transmission Control Protocol)
+
+- **Verbindungsorientiertes** Protokoll auf der **Transportschicht**.
+- Verhindert **Datenverlust** durch **Quittierung** (ACK).
+- Ermöglicht die **Segmentierung** großer Datenströme.
+
+#### IP (Internet Protocol)
+
+- Arbeitet auf der **Vermittlungsschicht (Layer 3)**.
+- Verbindungslose, **nicht garantierte** Übertragung.
+- **Fragmentierung** möglich – Pakete werden aufgeteilt und später zusammengesetzt.
+
+---
+
+### IPv4-Adressierung
+
+- **32-Bit-Adressierung**, z. B. `192.168.1.1`
+- **Statische** vs. **dynamische IP-Adressen** (über DHCP).
+- **Private Adressbereiche**:
+  - Klasse A: `10.0.0.0/8`
+  - Klasse B: `172.16.0.0/12`
+  - Klasse C: `192.168.0.0/16`
+
+---
+
+### NAT (Network Address Translation)
+
+**NAT** ermöglicht die Nutzung von privaten IP-Adressen im lokalen Netzwerk.
+
+#### Funktionsweise von NAT
+
+1. Gerät sendet Paket mit **privater Quell-IP**.
+2. **NAT-Router** ersetzt diese durch seine **öffentliche IP**.
+3. Antwortpakete werden anhand der **NAT-Tabelle** zurückübersetzt.
+
+#### Vorteile von NAT
+
+- Verlangsamt die **IPv4-Verknappung**
+- **Maskierung** der internen IPs
+- Mehrere Geräte teilen eine öffentliche IP
+
+#### Nachteile von NAT
+
+- **Bricht End-to-End-Prinzip**
+- Erschwert **VPN**, **VoIP** etc.
+- Erhöhter **Rechenaufwand** am Router
+
