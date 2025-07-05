@@ -1,0 +1,85 @@
+---
+title: 'Netzwerkbereitstellung & ISO/OSI-Modell'
+description: 'Ein Überblick über das ISO/OSI-Modell, Netzwerkkabel und deren Unterschiede.'
+tags: ['Netzwerk', 'ISO/OSI', 'Kupferkabel', 'LWL', 'IT']
+---
+
+## Bereitstellung von Netzwerken
+
+### ISO/OSI-Schichtenmodell
+
+Das **ISO/OSI-Schichtenmodell** (Open Systems Interconnection Model) ist ein Referenzmodell, das die Schritte der Datenübertragung in **sieben Schichten** unterteilt. Jede Schicht hat spezifische Aufgaben:
+
+- **Schicht 7 – Anwendungsschicht (Application Layer)**: Stellt **Dienste für Anwendungen** bereit und generiert Daten.
+- **Schicht 6 – Darstellungsschicht (Presentation Layer)**: Zuständig für **Formatierung** und **Verschlüsselung**.
+- **Schicht 5 – Sitzungsschicht (Session Layer)**: **Verbindungsaufbau**, Verwaltung und Beenden von Sitzungen.
+- **Schicht 4 – Transportschicht (Transport Layer)**: **Segmentierung** von Daten und **Ende-zu-Ende-Kommunikation**.
+- **Schicht 3 – Vermittlungsschicht (Network Layer)**: **Routing** und **logische Adressierung** (z. B. IP).
+- **Schicht 2 – Sicherungsschicht (Data Link Layer)**: **Physikalische Adressierung** (MAC) und Zugriff auf das Medium.
+- **Schicht 1 – Bitübertragungsschicht (Physical Layer)**: Übertragung von **Bits** über das Übertragungsmedium.
+
+---
+
+## Netzwerkkabelarten
+
+Netzwerkkabel verbinden Netzwerkkomponenten. Man unterscheidet zwischen **Kupferkabeln** und **Lichtwellenleitern (LWL)**.
+
+### Kupferkabel (Twisted Pair)
+
+- **Twisted-Pair-Kabel** bestehen aus 1 bis 4 **Aderpaaren** (z. B. 8 Adern bei CAT 5e).
+- Die **Verdrillung** reduziert elektromagnetische Störungen.
+- **Kategorien** wie CAT 5e, CAT 6, CAT 7a definieren Frequenz, Länge und Geschwindigkeit.
+- **Standardstecker**: RJ45
+- **Verdrahtungsstandards**: T-568A und T-568B
+- **Sonderfall CAT 7a**: Nutzt GG45-Stecker mit 12 Kontakten für über 10 Gbit/s.
+- **Adernfarben**: Grün, Braun, Blau, Orange
+- **Schirmung** nach ISO/IEC-11801: z. B. U/UTP, S/FTP
+
+**Kabelarten**:
+
+- **Verlegekabel**: Unflexibel, robust
+- **Patchkabel**: Flexibel, empfindlicher
+
+**Verdrahtungstypen**:
+
+- **Straight-Through**: Beide Enden gleich (z. B. PC–Switch)
+- **Crossover**: Adern vertauscht (z. B. PC–PC)
+- **Auto MDI-X**: Automatische Erkennung
+
+---
+
+### Lichtwellenleiter (Glasfaser, LWL)
+
+LWL übertragen Daten **als Lichtimpulse**. Sie bieten **hohe Bandbreiten** und eignen sich für große Distanzen.
+
+- **Funktion**: Übertragung durch **Totalreflexion** im Kern
+- **Aufbau**: Kern + Mantel + Schutzschicht
+- **Lichtquellen**: LED oder Laser
+
+**LWL-Typen**:
+
+- **Singlemode (OS1, OS2)**: Kleiner Kerndurchmesser (9 µm), große Distanzen (bis 200 km)
+- **Multimode (OM3, OM4)**: Mehrere Lichtmoden, kürzere Strecken (300–400 m)
+
+**Indexprofile**:
+
+- **Stufenindex**: Abrupter Brechungswechsel
+- **Gradientenindex**: Sanfter Übergang, bessere Leistung
+
+---
+
+### Vergleich LWL vs. Kupferkabel
+
+**Vorteile von LWL**:
+
+- **Hohe Übertragungsraten** (bis Terabit-Bereich)
+- **Große Störsicherheit**
+- **Keine elektromagnetischen Felder**
+- **Große Reichweite** (bis 120 km)
+- **Abhörsicherheit**, **keine Erdung nötig**
+
+**Nachteile von LWL**:
+
+- **Empfindlich gegenüber Biegung und mechanischer Belastung**
+- **Teurere Komponenten und Installation**
+- **Aufwendigere Reparatur**
