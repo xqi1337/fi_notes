@@ -1,0 +1,131 @@
+---
+title: 'IPv6-Netzwerke – Hauptthemen und wichtige Konzepte'
+description: 'Umfassender Überblick über IPv6-Netzwerke, Adresszuweisung und wichtige Protokolle'
+tags: ['IPv6', 'Netzwerke', 'NDP', 'SLAAC', 'ULA']
+---
+
+## IPv6-Netzwerke – Hauptthemen und wichtige Konzepte
+
+### IPv6-Gültigkeitsbereiche (Scopes)
+
+IPv6-Adressen werden in verschiedene **Gültigkeitsbereiche** unterteilt, die ihre **Routbarkeit** und **Reichweite** definieren:
+
+- **LLA (Link-local addresses)**: Adressen die nicht geroutet werden können. Sie sind nur innerhalb des lokalen Netzsegmentes gültig. Ein Beispiel für den Anfang einer Link-Local-Adresse ist `FE80::x`.
+- **ULA (Unique local addresses)**: Im lokalen Netzwerk routbare Adressen. Sie sind vergleichbar mit privaten IP-Adressen in IPv4 und dienen der Kommunikation innerhalb eines Unternehmens oder einer privaten Organisation.
+- **Global addresses**: Im Netzwerk (inkl. Internet) routbare eindeutige Adressen. Sie sind weltweit eindeutig und über das Internet erreichbar.
+
+---
+
+### Erstellung von Unique Local Adressen (ULA)
+
+Die Erstellung eines lokalen **Präfixes** für ULA-Adressen folgt spezifischen Vorgaben:
+
+**Präfix-Struktur**:
+- Das Präfix beginnt immer mit `fdxx:xxxx:xxxx:yyyy:`
+- Die ersten 8 Bits sind fest auf `1111 1101 (FD)` eingestellt
+- Die nächsten 40 Bits werden als **global-id** bezeichnet und generiert
+- Der letzte Block des Präfixes (yyyy) dient dem **Subnetting**
+
+**Generierung der global-id**:
+1. Anfordern der Uhrzeit im **64-Bit-Format** per NTP
+2. Erzeugung einer **64-Bit-Folge** mittels EUI-64 aus der MAC-Adresse eines beliebigen Geräts im Netzwerk
+3. Verschlüsselung der 128 Bit (Uhrzeit + EUI-64-Ergebnis) über eine **Einwegverschlüsselung** (Prüfsummenbildung mit SHA1)
+4. Die letzten 40 Bits des Ergebnisses bilden die **global-id**
+
+---
+
+### IPv6 Globale Adressen
+
+Globale routbare Präfixe beginnen derzeit alle mit `2000::/3`. Diese Präfixe werden von der **IANA** (Internet Assigned Numbers Authority) verwaltet und weitergegeben.
+
+**Hierarchischer Aufbau einer globalen IPv6-Adresse**:
+
+```
+2000 xxxx xxxx xxxx 0000 0000 0000 0000
+/3:  Global Prefix (IANA)
+/23: Regional Registry Prefix (RIR)
+/32: Provider Prefix (LIR)
+/48: Site Prefix (Firma/Privat)
+```
+
+Danach folgen das **Subnetz** und der **Interface Identifier**.
+
+---
+
+### IPv6 Adresszuweisung
+
+Die Zuweisung von IPv6-Adressen kann auf drei Arten erfolgen:
+
+- **Manuell**: Vom Administrator zugewiesen
+- **Stateful via DHCPv6**: Von einem Server zugewiesen
+- **Stateless (SLAAC)**: Vom eigenen System automatisch generiert
+
+---
+
+### Neighbor Discovery Protocol (NDP)
+
+**NDP** ersetzt das bei IPv4 eingesetzte **ARP-Protokoll** und fasst mehrere Funktionen zusammen:
+
+**Funktionen**:
+- **SLAAC** (Stateless Address Auto Configuration)
+- **IP-Adressauflösung** in MAC-Adressen (vergleichbar mit ARP)
+- **Neighbor Unreachability Detection** (NUD)
+- **Duplicate Address Detection** (DAD)
+
+**ICMPv6-Pakettypen**:
+- **Router Solicitation (RS)**
+- **Router Advertisement (RA)**
+- **Neighbor Solicitation (NS)**
+- **Neighbor Advertisement (NA)**
+
+---
+
+### Stateless Address Auto Configuration (SLAAC)
+
+**SLAAC** ist eine serverlose IPv6-Adress-Generierung durch die Clients:
+
+**Prozess**:
+
+1. **Anfrage per Router Solicitation (RS)**: Der Client sendet eine RS-Nachricht an die Multicastadresse "all Routers" (`FF02::2`), um Präfixe oder Konfigurationsinformationen zu erhalten. Die Quell-Adresse ist dabei "Nicht spezifiert" (`::/128`).
+
+2. **Erhalt eines Router Advertisement (RA)**: Der Router sendet periodisch (alle 30 Sekunden) oder als Reaktion auf ein RS ein RA an die Multicastadresse "All-Nodes" (`FF02::1`). Die Quell-Adresse ist die **Link-Local-Adresse** des Routers (`FE80::x`).
+
+**RA-Inhalte**:
+- IPv6-Präfixe (z.B. `2001:1234:4567:ABCD::/64`)
+- **Router Lifetime Information** (Gültigkeitsdauer, 1-9000 Sekunden; 0 bedeutet nicht Standard)
+- **Flag Informationen** (z.B. DHCPv6, SLAAC only, MTU)
+- **Default Gateway** (Quell-Adresse des Routers `FE80::x`)
+
+3. **Host-Konfiguration**: Der Host konfiguriert basierend auf den RA-Angaben neue Präfixe und einen **Interface Identifier (IID)** über modifiziertes EUI-64 oder **Privacy Extensions**.
+
+4. **Duplicate Address Detection (DAD)**: Der Client führt einen DAD durch, indem er einen Ping auf seine eigene generierte Adresse sendet. Falls die Adresse bereits vorhanden ist, erstellt der Client eine neue IID und wiederholt DAD.
+
+---
+
+### Neighbor Solicitation (NS) und Neighbor Advertisement (NA)
+
+Diese **ICMPv6-Pakete** ähneln dem ARP-Protokoll in IPv4:
+
+**Neighbor Solicitation (NS)**:
+- Gleicht **ARP** aus IPv4
+- Prüft **Host-Erreichbarkeit**
+- Führt **DAD-Prüfung** durch
+- Quell-Adresse ist Link-local (`FE80::x`) oder `::/128` (bei DAD)
+- Ziel-Adresse ist die Multicastadresse (**Solicited Node**) `FF02::1:FFxx:xxxx`
+
+**Neighbor Advertisement (NA)**:
+- Wird als **Antwort** auf ein NS gesendet
+- Enthält Informationen wie die **MAC-Adresse** und **Flags/Optionen**
+- Quell-Adresse ist die **Link-lokale Adresse** des Absenders
+- Ziel-Adresse ist die **Link-Lokale Adresse** des Absenders des NS
+
+**Vorteile von NDP**:
+- **Vereinfachte Adressauflösung**
+- **Integrierte Sicherheitsmechanismen**
+- **Automatische Konfiguration**
+- **Effiziente Netzwerkerkennung**
+
+**Wichtige Multicast-Adressen**:
+- `FF02::1`: **All-Nodes** (alle Knoten im lokalen Segment)
+- `FF02::2`: **All-Routers** (alle Router im lokalen Segment)
+- `FF02::1:FFxx:xxxx`: **Solicited Node** (spezifische Knoten-Adresse)

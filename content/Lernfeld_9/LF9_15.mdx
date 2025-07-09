@@ -1,0 +1,185 @@
+---
+title: 'Bereitstellen von Netzwerken und Schlüsselprotokollen'
+description: 'Grundlegende Konzepte des Netzwerkmanagements, ISO/OSI-Schichtenmodell, TCP/UDP, Ports, DNS und DHCP'
+tags: ['Netzwerke', 'Protokolle', 'TCP', 'UDP', 'DNS', 'DHCP', 'ISO/OSI']
+---
+
+## Bereitstellen von Netzwerken und Schlüsselprotokollen
+
+### ISO/OSI-Schichtenmodell
+
+Das **ISO/OSI-Schichtenmodell** unterteilt die Kommunikation in sieben hierarchische Schichten:
+
+- **Schicht 7 - Application Layer (Anwendungsschicht)**: Zuständig für die Generierung von Daten und die Bereitstellung von Funktionen für Anwendungen (z.B. Dateneingabe/-ausgabe). Umfasst Dienste/Protokolle, die Anwendungen nutzen.
+
+- **Schicht 6 - Presentation Layer (Präsentationsschicht)**: Verantwortlich für **Formatierung** und **Verschlüsselung**. Stellt Funktionen zur Protokollumwandlung, Datenübertragung und -verschlüsselung bereit.
+
+- **Schicht 5 - Session Layer (Sitzungsschicht)**: Verwaltet das Herstellen, Durchführen und Beenden von **Verbindungen**. Übernimmt die Überwachung von Betriebsparametern und Synchronisation.
+
+- **Schicht 4 - Transport Layer (Transportschicht)**: Zuständig für **Transport** und **Segmentierung** von Daten. Dies ist die "Ende-zu-Ende-Kontrolle" mit Protokollen wie **TCP** und **UDP**.
+
+- **Schicht 3 - Network Layer (Vermittlungsschicht)**: Verantwortlich für **Routing** und lokale Adressierung, arbeitet mit **Paketen**.
+
+- **Schicht 2 - Data Link Layer (Sicherungsschicht)**: Zuständig für **physikalische Adressierung**, arbeitet mit **Frames**.
+
+- **Schicht 1 - Physical Layer (Bitübertragungsschicht)**: Verantwortlich für den Zugriff auf das **Übertragungsmedium**, arbeitet mit **Bits**.
+
+---
+
+### TCP (Transmission Control Protocol)
+
+**TCP ist ein zuverlässiges und verbindungsorientiertes Transportprotokoll**, das eine **Socket-Verbindung** zwischen zwei Endpunkten herstellt.
+
+**Wichtige Merkmale**:
+
+- **Zuverlässigkeit**: Erkennt und behebt Datenverluste automatisch
+- **Verbindungsorientiert**: Baut eine explizite Verbindung auf vor Datenübertragung
+- **Segmentierung**: Bricht Nachrichten in kleinere Segmente mit **Sequenznummern** auf
+- **Flusskontrolle**: Limitiert die maximale Datengröße über das **16-Bit Window Size-Feld**
+- **Überlastungsvermeidung**: Verhindert Netzwerküberlastung
+
+**Anwendungen**: HTTP(S), SMTP/POP (E-Mail), wo **Datenintegrität** und vollständige Übertragung kritisch sind.
+
+### Three-Way-Handshake
+
+Der **Drei-Wege-Handschlag** ist der Prozess zum Aufbau einer TCP-Verbindung:
+
+1. **SYN-Flag**: Sender sendet Segment mit **SYN-Flag** und **Initial Sequence Number (ISN)**
+2. **ACK-Flag**: Server bestätigt mit **ACK-Flag** (SYN-Wert plus eins)
+3. **Final ACK**: Client sendet finales ACK-Flag (Server-ACK plus eins)
+
+---
+
+### UDP (User Datagram Protocol)
+
+**UDP stellt nur allgemeine Grundlagen zur Datenübertragung zur Verfügung** und gewährleistet eine **verbindungslose Übertragung** ohne Erfolgsgarantie.
+
+**Wichtige Merkmale**:
+
+- **Verbindungslos**: Kein vorheriger Verbindungsaufbau, weniger **Overhead**
+- **Unzuverlässig**: Keine Gewährleistung für erfolgreiche Datenübertragung
+- **Geringe Verzögerung**: Ideal für Anwendungen, die **Datenverlust** akzeptieren können
+- **Keine Neuübertragung**: Verlorene Pakete werden nicht erneut gesendet
+
+**Anwendungen**: **IP-Telefonie (VoIP)**, **Audio-/Videostreaming**, wo gelegentlicher Datenverlust weniger störend ist als Verzögerungen.
+
+### TCP vs. UDP Vergleich
+
+| Merkmal | UDP | TCP |
+|---------|-----|-----|
+| **Verbindung** | Verbindungslos - weniger Overhead | Verbindungsorientiert - mehr Overhead |
+| **Datenverlust** | Kein erneutes Senden | Erneute Sendung bei Datenverlust |
+| **Verzögerung** | Geringe Verzögerungen | Große Verzögerungen |
+| **Anwendungen** | DHCP, DNS, VoIP, Streaming | HTTP, FTP, SMTP, POP |
+
+---
+
+### Ports
+
+**Ports sind entscheidend für die Zuordnung von Datenpaketen zu bestimmten Anwendungen**. Eine **IP-Adresse & Port bilden die vollständige Adresse** einer Anwendung.
+
+**Eigenschaften**:
+
+- **Portnummern**: 0 bis 65535 (gelten für TCP und UDP)
+- **Verwaltung**: Durch **IANA** (Internet Assigned Numbers Authority)
+- **Verbindungsanforderung**: Beide Seiten benötigen einen Port
+
+### Port-Kategorien
+
+- **Well Known Ports (0-1.023)**: Fest einem Dienst zugeordnet (z.B. Port 80 für HTTP)
+- **Registered Ports (1.024-49.151)**: Zur Registrierung freigegeben
+- **Dynamically Allocated Ports (49.152-65.535)**: Können frei belegt werden
+
+### Port-Zustände
+
+- **Open (Geöffnet)**: Anwendung "lauscht" auf diesem Port
+- **Closed (Geschlossen)**: Keine Anwendung lauscht; **Verbindungsversuche** werden abgelehnt
+- **Blocked/Filtered**: Keine Anwendung lauscht; keine Rückmeldung an Absender
+
+### Portknocking
+
+**Sicherheitsmechanismus** mit einer definierten **Klopfsequenz** (Verbindungsversuche), um geschlossene Ports zu öffnen.
+
+---
+
+### Wichtige Protokolle und Standard-Ports
+
+| Protokoll | Name | Transport | Port | Hinweise |
+|-----------|------|-----------|------|----------|
+| **FTP** | File Transfer Protocol | TCP | 20+21 | Daten auf 20, Steuerung auf 21 |
+| **SMTP** | Simple Mail Transfer Protocol | TCP | 25, 465/587 | E-Mail-Versand; 465 mit SSL, 587 mit TLS |
+| **POP3** | Post Office Protocol v3 | TCP/UDP | 110, 995 | E-Mail-Empfang; 995 mit SSL/TLS |
+| **IMAP** | Internet Message Access Protocol | TCP | 143, 993 | E-Mail bleibt auf Server |
+| **DNS** | Domain Name System | UDP | 53 | Namensauflösung |
+| **DHCP** | Dynamic Host Configuration Protocol | UDP | 67/68 | Automatische IP-Vergabe |
+| **HTTP** | Hypertext Transfer Protocol | TCP | 80 | Webseiten-Übertragung |
+| **HTTPS** | HTTP Secure | TCP | 443 | Verschlüsseltes HTTP |
+| **SSH** | Secure Shell | TCP | 22 | Verschlüsselter Fernzugriff |
+| **RDP** | Remote Desktop Protocol | TCP/UDP | 3389 | Microsoft-Fernzugriff |
+
+---
+
+### DNS (Domain Name System)
+
+**DNS ist ein dezentraler Ansatz zur Übersetzung von Namen in IP-Adressen**. Es ersetzt die unpraktischen zentralen "hosts"-Dateien.
+
+### Namensraum-Struktur
+
+**DNS verwendet eine Baumstruktur**:
+
+- **Root-Domain**: Der oberste Punkt ('.')
+- **Top-Level-Domain (TLD)**: .com, .de, .io
+- **Second-Level-Domain**: google, wikipedia
+- **Third-Level-Domain/Subdomain**: www, mail, ftp
+- **FQDN (Fully Qualified Domain Name)**: Vollständiger Domänenname (z.B. mail.daa.de.)
+
+### DNS-Server-Hierarchie
+
+- **13 Root-Server weltweit**: Besitzen IP-Adressen aller **TLD-DNS-Server**
+- **TLD-DNS-Server**: Halten für ihren Bereich alle **Second-Level-Domain-Server-IPs**
+- **SLD-Server**: Enthalten IP-Adressen ihrer Hosts oder Subdomains
+
+### DNS-Server-Typen
+
+**Nach Aktionen**:
+- **Primary Server**: Verwaltet einen Teil des DNS-Raums
+- **Secondary Server**: **Backup-Server**; kopiert Tabellen von Primary Servern
+- **Cache-Only Server**: Speichern nur Informationen (z.B. Fritzbox)
+
+**Nach Verbindlichkeit**:
+- **Autoritative Server**: Verbindliche Informationen, da selbst für **DNS-Zone** verantwortlich
+- **Nicht-autoritative Server**: Ermitteln Informationen durch Abfragen
+
+---
+
+### DHCP (Dynamic Host Configuration Protocol)
+
+**DHCP ist ein Client-Server-Protokoll** der Internetprotokollfamilie, das **TCP/IP-Konfigurationsparameter** zentral verwaltet und dynamisch zuteilt.
+
+**Vorteile**:
+
+- **Zentrale Verwaltung**: Eliminiert manuelle Konfiguration
+- **Dynamische Zuteilung**: IP-Adressen aus **Adresspool**
+- **Automatische Konfiguration**: Endgeräte suchen automatisch nach DHCP-Server
+- **Gültigkeitsdauer**: **LEASE/TTL** mit regelmäßiger Erneuerung
+
+### DHCP-Ablauf (DORA-Prozess)
+
+1. **DHCP Discovery (D)**: Client sendet **Broadcast-Anfrage** (0.0.0.0 → 255.255.255.255, Port 68→67)
+2. **DHCP Offer (O)**: Server sendet **Angebot** mit IP-Konfiguration via Broadcast
+3. **DHCP Request (R)**: Client prüft IP-Adresse via **ARP-Request** und sendet Bestätigung
+4. **DHCP ACKnowledge (A)**: Server bestätigt Konfiguration und nimmt Daten in **DHCP-Datenbank** auf
+
+### DHCP-Sonderfälle
+
+- **DHCP-Decline**: Client lehnt Adresse ab (bereits verwendet)
+- **DHCP-NACK**: Server meldet, dass Adresse von anderem Client angenommen wurde
+- **DHCP-Inform**: Client hat bereits Adresse, benötigt weitere Konfigurationen
+
+### Auto-Konfiguration ohne DHCP
+
+**APIPA (Automatic Private IP Addressing)**: Ohne DHCP-Server generiert PC automatisch private IP-Adresse im Bereich **169.254.1.0 bis 169.254.254.255**.
+
+### Netzübergreifende DHCP-Konfiguration
+
+Für **verschiedene Netzwerkbereiche** oder **Subnetze** wird ein **DHCP-Relay-Agent** auf dem Router installiert, der **Broadcast-Nachrichten** in **Unicast-Nachrichten** umwandelt.

@@ -1,96 +1,108 @@
 ---
-title: 'Netzwerkgeräte und Routing-Grundlagen'
-description: 'Grundlagen der Netzwerkgeräte, Adressierung, ARP, Routing und Paketversand'
-tags: ['Netzwerk', 'Router', 'Switch', 'ARP', 'Routing']
+title: 'Netzwerkgrundlagen & Routing'
+description: 'Einführung in Netzwerkgeräte, Adressierung, ARP und Routing'
+tags: ['Netzwerk', 'Switches', 'Router', 'ARP', 'Routing']
 ---
 
-## Netzwerkgeräte und Routing-Grundlagen
+## Grundlagen der Netzwerkgeräte
 
 ### Switches
 
-- **Layer 2 Switch**: Arbeitet auf Layer 2 des OSI-Schichtmodells und leitet Datenpakete innerhalb eines Netzwerks weiter.
-- **MAC-Adress-Tabelle**: Speichert die MAC-Adressen der Endgeräte, die an den Ports angeschlossen sind.
-- **Kollisionsdomänen**: Switches trennen Kollisionsdomänen in Halb-Duplex-Netzen; bei Vollduplex gibt es keine.
-- **Layer-3 Switch**: Unterstützt Routing-Funktionen, arbeitet mit MAC- und IP-Adressen und verbindet verschiedene Netzwerke.
-
-**Funktion**:
-Ein Switch erkennt anhand seiner MAC-Adress-Tabelle, an welchen Port ein Datenpaket weitergeleitet werden muss.
+- **Switches** arbeiten auf **Layer 2** des OSI-Modells und leiten Datenpakete innerhalb eines Netzwerks weiter.
+- Sie verwenden eine **MAC-Adress-Tabelle**, um die MAC-Adresse jedes Endgeräts dem entsprechenden Port zuzuordnen.
+- In **Halb-Duplex-Netzwerken** trennen Switches **Kollisionsdomänen**, während sie bei **Vollduplex-Verbindungen** nicht existieren.
+- **Layer-3-Switches** besitzen Routing-Fähigkeiten und arbeiten sowohl mit MAC- als auch IP-Adressen. Sie können grundlegende Funktionen eines Routers übernehmen.
 
 ---
 
 ### Router
 
-- **Layer 3 Router**: Verbindet zwei oder mehr Netzwerke und verwendet IP-Adressen zur Adressierung.
-- **NICs**: Verfügt über mehrere Netzwerkkarten für verschiedene Netzwerke.
-- **Routing**: Leitet Datenpakete basierend auf ihrer Ziel-IP-Adresse weiter, z. B. vom LAN ins WAN.
+- Ein **Router** arbeitet auf **Layer 3** des OSI-Modells und verbindet zwei oder mehr Netze miteinander.
+- Er verwendet **IP-Adressen** zur Adressierung und wird typischerweise als Bindeglied zwischen **LAN** und **WAN** (z. B. dem Internet) genutzt.
+- Router verfügen über mehrere integrierte **Netzwerkkarten (NICs)**.
 
 ---
 
-### Adressierung von Datenpaketen
+## Adressierung von Datenpaketen
 
-- **Port-Adresse**: Auf Anwendungsebene (Layer 4).
-- **IP-Adresse**: Für Ende-zu-Ende-Kommunikation auf Layer 3.
-- **MAC-Adresse**: Für die Kommunikation innerhalb eines Netzwerks (Layer 2).
+In einem Netzwerk werden Datenpakete durch verschiedene Adressen identifiziert:
 
-Ein **Gateway** ersetzt beim Weiterleiten in andere Netzwerke die MAC-Adresse durch die seines nächsten Hops.
+- **Port-Adresse**: Für die Anwendungsschicht.
+- **IP-Adresse**: Layer 3 – Ende-zu-Ende-Kommunikation.
+- **MAC-Adresse**: Layer 2 – Adresse des nächsten Hops/Gateways.
 
----
-
-### ARP - Address Resolution Protocol
-
-- **ARP-Request**: Broadcast zur Ermittlung einer MAC-Adresse anhand einer IP-Adresse.
-- **ARP-Reply**: Antwort mit der MAC-Adresse als Unicast.
-- **ARP-Tabelle**: Zwischenspeicherung von IP-MAC-Zuordnungen, die regelmäßig aktualisiert werden.
+**Hinweis**: Beim Verlassen eines Netzwerks löscht ein Gateway (z. B. Router) den Datenframe und erstellt einen neuen mit neuer **Ziel-MAC-Adresse**.
 
 ---
 
-### Paketversand in einem Netzwerk
+## ARP – Address Resolution Protocol
 
-**Beispiel: Host A sendet Daten an Host D über einen Router**:
+Das **ARP-Protokoll** arbeitet auf **Layer 2** und ermittelt MAC-Adressen anhand bekannter IP-Adressen.
 
-1. Host A erkennt, dass Host D in einem anderen Netzwerk liegt.
-2. ARP-Request zur Ermittlung der MAC-Adresse des Routers.
-3. Switch 1 leitet ARP-Request weiter.
-4. Router sendet ARP-Reply mit seiner MAC-Adresse.
-5. Host A erstellt Layer-2-Frame mit Ziel-MAC des Routers.
-6. Switch 1 leitet an Router weiter.
-7. Router verarbeitet Paket, erkennt Ziel in anderem Netz.
-8. ARP-Request in Netz 2 zur Ermittlung von Host D.
-9. Switch 2 leitet ARP-Request weiter.
-10. Host D sendet ARP-Reply mit seiner MAC-Adresse.
-11. Router erstellt neuen Ethernet-Frame für Host D.
-12. Switch 2 leitet Paket weiter.
-13. Host D empfängt und verarbeitet die Daten.
+**Bestandteile**:
+
+- **ARP-Request**: Broadcast mit Ziel-MAC `FF-FF-FF-FF-FF-FF` und IP-Zieladresse.
+- **ARP-Reply**: Unicast mit zugehöriger MAC-Adresse vom Zielgerät.
+
+**ARP-Cache**: Temporäre Tabelle im Gerät mit MAC-IP-Zuordnungen, die regelmäßig aktualisiert werden muss.
 
 ---
 
-### Routing
+## Paketversand in einem Netzwerk
 
-**Routing** ist der Prozess zur Bestimmung des optimalen Weges für ein Datenpaket anhand seiner Ziel-IP-Adresse.
+### Beispiel: Host A sendet an Host D über einen Router
 
-#### Statisches Routing
+1. **Host A** erkennt, dass Host D in einem anderen Netzwerk liegt → Paket geht an **Gateway**.
+2. **ARP-Request** an Router gesendet (MAC-Adresse unbekannt).
+3. **Switch 1** leitet Broadcast weiter, lernt MAC von Host A.
+4. **Router** antwortet mit **ARP-Reply**, Host A speichert MAC.
+5. Paket mit Router-MAC wird an **Switch 1**, dann an Router gesendet.
+6. **Router** verarbeitet IP-Header, erkennt Zielnetz, verwirft Frame.
+7. **ARP-Request** an Host D in Netz 2.
+8. **Switch 2** leitet ARP-Request, lernt MAC vom Router.
+9. **Host D** sendet **ARP-Reply**, Router speichert MAC.
+10. Neuer Ethernet-Frame mit MAC von Host D wird erzeugt.
+11. **Switch 2** leitet das Paket an Host D weiter.
+12. **Host D** entfernt Header und verarbeitet die Daten.
 
-- **Manuell** konfigurierte Routingtabellen.
-- **Unflexibel**, reagiert nicht auf Netzänderungen.
-- **Keine Rechenleistung** für Routing notwendig.
-- **Konfigurationsbeispiel**:
-  ```bash
-  ip route <Ziel-IP> <Subnetzmaske> <Next-Hop-IP>
-  ```
+---
+
+## Routing
+
+**Routing** ist die Auswahl des optimalen Weges eines Datenpakets durch ein Netzwerk. Das **Internet Protocol (IP)** ist ein routingfähiges Protokoll.
+
+### Statisches Routing
+
+- Manuelle Einträge in die **Routingtabelle**.
+- Keine automatische Anpassung bei Ausfällen oder Überlastung.
 
 **Vorteile**:
 
-- Kein zusätzlicher Traffic für Routenverteilung.
-- Einfach nachvollziehbarer Datenfluss.
+- Kein Routing-Traffic im Netzwerk.
+- Geringe CPU-Belastung.
+- Leichte Nachvollziehbarkeit.
 
 **Nachteile**:
 
-- Fehleranfällig durch manuelle Konfiguration.
-- Nicht geeignet für große dynamische Netzwerke.
+- **Unflexibel** bei Netzänderungen.
+- **Hoher Konfigurationsaufwand**.
+- Erhöhtes Risiko für Konfigurationsfehler.
 
-#### Default Routing & Supernetting
+**Eignung**: Kleine Netzwerke, z. B. Außenstellen.
 
-- **Default Route**: 0.0.0.0/0 für alle unbekannten Ziele.
-- **Supernetting**: Zusammenfassen mehrerer Subnetze.
+**Konfigurationsbeispiel**:
+
+```bash
+ip route <Ziel-IP-Netz> <Ziel-Subnetzmaske> <Next-Hop-IP-Adresse>
+```
 
 ---
+
+### Default Routing & Supernetting
+
+- **Supernetting**: Zusammenfassen mehrerer Subnetze unter einer gemeinsamen Adresse.
+- **Default Route**: IP `0.0.0.0` mit Subnetzmaske `0.0.0.0` leitet unbekannte Ziele weiter.
+
+**Beispiel**:
+
+Alle nicht zugewiesenen Routen werden über einen bestimmten Router gesendet (z. B. für Internetzugang).

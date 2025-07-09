@@ -1,0 +1,228 @@
+---
+title: 'Netzwerkkomponenten und ihre Funktion'
+description: 'Umfassender Überblick über passive und aktive Netzwerkkomponenten, Kopplungselemente und deren Funktionen in modernen Netzwerken'
+tags: ['Netzwerk', 'IT-Infrastruktur', 'Hardware', 'Ethernet', 'Router', 'Switch']
+---
+
+## Netzwerkkomponenten und ihre Funktion
+
+### Netzwerkkomponenten – Eine Übersicht
+
+Zum Aufbau eines Netzwerks sind verschiedene Komponenten erforderlich, die in **passive** (z. B. Kabel, Stecker, Patchfelder) und **aktive Komponenten** unterteilt werden.
+
+**Aktive Komponenten**:
+
+- **Netzwerkkarte / Netzwerkadapter**
+- **Hubs**
+- **Repeater**
+- **Bridge**
+- **Switch**
+- **Router**
+- **Medienkonverter**
+- **Access Points**
+- **Server**
+- **Firewall**
+
+---
+
+### Netzwerkadapter (-karte)
+
+Ein **Netzwerkadapter**, auch **Netzwerkkarte (NIC)** genannt, ist die physische Schnittstelle zwischen einem Computer und dem Netzwerk (z. B. Ethernet, Koaxialkabel, LWL, WLAN). Er kann als Erweiterungskarte oder direkt auf dem Mainboard integriert sein.
+
+**Funktionen**:
+
+- **Senden, Übertragen und Umwandeln** von Daten vom Betriebssystem in elektrische Signale für das Kabel
+- **Empfangen** elektrischer Signale vom Kabel und Umwandeln in ein für das Betriebssystem verständliches Format
+- **Prüfen**, ob empfangene Daten für den Computer bestimmt sind
+- **Steuern** des Datenflusses
+
+**MAC-Adresse**: Jeder Netzwerkadapter besitzt eine einzigartige **MAC-Adresse** (Media Access Control-Adresse), auch Hardware-/Ethernet- oder physikalische Adresse genannt. Es handelt sich um eine **48 Bit lange Hardware-Adresse**, dargestellt als Hexadezimalzahl, die aus einer **Herstellerkennung** (24 Bit) und einer **einmaligen ID** (24 Bit) besteht.
+
+**OSI-Modell**: Netzwerkkarten sind in den **Schichten 1** (Bitübertragungsschicht) und **2** (Sicherungsschicht) angesiedelt.
+
+---
+
+### Kopplungselemente
+
+Kopplungselemente sind essenziell, um Netzwerksegmente zu erweitern oder zu verbinden.
+
+### Repeater
+
+Ein **Repeater** dient dazu, die Übertragungsstrecke in Netzwerken zu verlängern. Er **"erzeugt das Signal und den Takt neu"**, wodurch Rauschen, Signalverschlechterungen und Jitter beseitigt werden.
+
+**Eigenschaften**:
+
+- **Räumliche Ausdehnung** des Netzwerks
+- In modernen kabelgebundenen Netzwerken seltener
+- Häufiger Anwendung in **drahtlosen Netzwerken** (WLAN-Repeater)
+- **OSI-Schicht 1** (Bitübertragungsschicht)
+
+---
+
+### Hubs
+
+Ein **Hub** verbindet mehrere Hosts/Geräte in einem Netzwerk. Eine eingehende Nachricht auf einem Port wird als **Broadcast** an alle anderen Ports weitergeleitet.
+
+**Vorteile**:
+
+- **Kostengünstig** aufgrund ihrer Einfachheit
+
+**Nachteile**:
+
+- Nachrichten können leichter **abgefangen** werden
+- Nur **Broadcast-Weiterleitung**
+- Sehr hohe **Netzauslastung**
+- **Kollisionen** möglich
+
+**Status**: Hubs sind heutzutage **"normalerweise nicht mehr im Einsatz"** und gehören zur **OSI-Schicht 1** (Bitübertragungsschicht).
+
+---
+
+### Bridge
+
+Eine **Bridge** teilt ein lokales Netzwerk in zwei Segmente auf oder verbindet diese. Sie **"arbeitet im Normalfall mit MAC-Adressen zur Weiterleitung einer Nachricht"**.
+
+**Eigenschaften**:
+
+- Früher zur Verbindung von **LANs** eingesetzt
+- Heute als Kopplungselement für **Ethernet-Netzwerke** eher untypisch
+- **OSI-Schicht 2** (Sicherungsschicht)
+
+---
+
+### Switch
+
+**Switches** sind fortschrittlichere Kopplungselemente als Hubs. Ein Switch speichert in einer **Adresstabelle (SAT; Source Address Table)** **"welcher Port zu welchem Gerät gehört"**.
+
+**Funktionsweise**: Der Switch liest die **Header-Informationen** eines eingehenden Pakets aus und vergleicht sie mit der SAT, um das Paket an den korrekten Port zu senden.
+
+### **Arbeitsanweisungen eines Switches**
+
+- **Lernen**: Speichert Port, Quell-MAC-Adresse und Zeitstempel in der Adresstabelle
+- **Weiterleiten**: Leitet eingehende Pakete direkt an den Ziel-Port weiter
+- **Fluten**: Leitet Frames an alle Ports weiter, wenn die Zieladresse noch nicht bekannt ist
+- **Altern**: Löscht den ältesten Eintrag in der Adresstabelle, wenn diese voll ist
+- **Filtern**: Erkennt, wenn Quell- und Zielrechner über denselben Switch-Port erreichbar sind
+
+### **Switch-Backplane**
+
+Die **Backplane** ist ein **"interner Hochgeschwindigkeitsbus"** im Switch, der die Ports verbindet.
+
+**Faustformel für Backplane-Bandbreite**: Portanzahl x Port-Bandbreite x 2 (Vollduplex)
+
+- **Blocking**: Tritt auf, wenn die Bandbreite für Übertragungen nicht ausreicht
+- **Non-Blocking**: Garantiert die Bandbreite bei maximaler Portnutzung
+
+### **Switching-Verfahren**
+
+- **Cut-Through**: Leitet das Datenpaket sofort weiter, sobald die Zieladresse bekannt ist
+  - *Vorteil*: Extrem geringe **Latenz**
+  - *Nachteil*: Fehlerhafte Datenpakete werden **nicht erkannt**
+
+- **Store-and-Forward**: Nimmt das gesamte Datenpaket in Empfang, speichert, prüft und bearbeitet es
+  - *Vorteil*: Fehlerhafte Datenpakete können **aussortiert** werden
+  - *Nachteil*: **Verzögerung** durch Speicherung und Prüfung
+
+- **Error-Free-Cut-Through / Adaptive Switching**: Kombination aus Cut-Through und Store-and-Forward
+- **Fragment-Free**: Empfängt die ersten 64 Byte des Datenpaketes zur Fehlerprüfung
+
+### **Arten von Switches**
+
+- **Unmanaged Switch**: Plug-and-Play, keine Fernkonfiguration, kostengünstig
+- **Web-Smart Switch**: Für mittlere Netzwerke, einfache Webschnittstelle
+- **Managed Switch**: Umfassende **Kontrollfunktionen aus der Ferne**
+- **Industrielle Switches**: Für **raue industrielle Umgebungen** konzipiert
+
+### **PoE (Power over Ethernet)**
+
+Ermöglicht die Übertragung von **Strom und Daten** über die vorhandene LAN-Infrastruktur.
+
+**Standards**:
+
+- **PoE IEEE 802.3af**: 15,4 Watt pro Port
+- **PoE+ IEEE 802.3at**: 25,4 Watt pro Port
+- **PoE++ / 4PPoE IEEE 802.3bt**: 70 bis 100 Watt pro Port
+
+---
+
+### Gateways
+
+Ein **Gateway** ist eine Hard- und/oder Softwarekomponente, die **"zwischen zwei Systemen einen Übergang (Verbindung) herstellt"**. Gateways können auf allen Schichten des **OSI-Modells** agieren.
+
+**Beispiele für Gateways**:
+
+- **Router**
+- **Mediakonverter**
+- **Access Points**
+- **Firewalls**
+
+---
+
+### Router
+
+**Router** sind Koppelelemente, die **"zwei oder mehr Subnetze miteinander verbinden"** und Funktionen bis zur **Vermittlungsschicht** (OSI-Modell) realisieren.
+
+### **Aufgaben eines Routers**
+
+- **Ermittlung** der verfügbaren Routen
+- **Auswahl** der geeignetsten Route
+- **Herstellen** einer physikalischen Verbindung zu anderen Netzwerken
+- **Anpassen** der Datenpakete an die Übertragungstechnik (Fragmentierung)
+
+**OSI-Schicht**: Router gehören zur **Schicht 3** (Vermittlungsschicht).
+
+### **Routing-Verfahren**
+
+- **Klassisches Routing**: Einzelne Datenpakete werden geroutet
+- **Session-based Routing**: Route für eine ganze Session wird festgelegt
+- **Statisches Routing**: Optimale Wegwahl wird einmalig berechnet
+- **Dynamisches Routing**: Wegwahl erfolgt aufgrund aktueller Netzwerkzustandsparameter
+
+---
+
+### Mediakonverter
+
+Ein **Medienkonverter** ist ein Netzwerkgerät, das **"Ethernet- oder andere Kommunikationsprotokolle von einem Kabeltyp zu einem anderen Kabelmedium transparent umwandeln kann"**.
+
+**Vorteile**:
+
+- **Verlängerung** der LAN-Entfernung durch Glasfaser
+- **Schutz** der Investition in vorhandene Geräte
+- **Schutz** der Daten vor Störungen
+- **Geschwindigkeitsumwandlung**
+- **Power-over-Ethernet-Funktionalität**
+
+**OSI-Schicht**: Medienkonverter gehören zur **Schicht 1** (Bitübertragungsschicht).
+
+### **Arten von Medienkonvertern**
+
+- **Kupfer-zu-Glasfaser-Medienkonverter**: Ermöglichen Verbindungen über größere Entfernungen
+- **Glasfaser-zu-Glasfaser-Medienkonverter**: Verbinden unterschiedliche Glasfasernetzwerke
+- **PoE-Medienkonverter**: Bieten zuverlässige Verlängerung für PoE-betriebene Geräte
+
+---
+
+### Access Points
+
+Ein **Wireless Access Point (WAP)** ist eine **Funk-Basisstation** innerhalb eines lokalen Netzwerks, um **"Clients über WLAN an das drahtgebundene Netzwerk anzuschließen"**.
+
+**Eigenschaften**:
+
+- **Reichweite** einer Funkzelle hängt von verschiedenen Faktoren ab
+- **In-House**: 15-50 m
+- **Im Freien**: mehrere hundert Meter
+- Dienen als **Hotspots** für den drahtlosen Zugang
+
+---
+
+### IADs (Integrated Access Devices)
+
+**IAD** steht für „Integrated Access Device" und ist ein Netzwerkelement, das **"mehrere Funktionen von Netzwerkkomponenten übernimmt"**.
+
+**Eigenschaften**:
+
+- Im allgemeinen Sprachgebrauch auch als **DSL-Router** oder **Kabel-Router** bekannt
+- Bieten verschiedene **Schnittstellen** für Endgeräte
+- Werden oft vom **Netzanbieter** gestellt
+- Zentrale Elemente im **NGN** – **"Next Generation Network"** (All-IP)
+- Basieren auf dem **Internet Protokoll (IP)**
