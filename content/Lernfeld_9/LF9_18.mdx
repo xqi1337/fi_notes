@@ -1,0 +1,216 @@
+---
+title: 'Die Windows-Eingabeaufforderung (CMD)'
+description: 'Umfassender Leitfaden zur Windows-Eingabeaufforderung - Befehle, Navigation, Dateisystemoperationen und Batch-Dateien'
+tags: ['Windows', 'CMD', 'Kommandozeile', 'Systemadministration', 'Batch']
+---
+
+## Die Windows-Eingabeaufforderung (CMD)
+
+### Was ist CMD?
+
+Die **Eingabeaufforderung**, auch bekannt als **Command Prompt** oder **DOS-Eingabeaufforderung**, ist ein zentrales Werkzeug in Microsoft Windows für die **Kommandozeileninteraktion** mit dem Betriebssystem. Sie emuliert viele Funktionen von **MS-DOS**, ist aber nicht identisch damit.
+
+**CMD** ist ein **Kommandozeileninterpreter** (Betriebssystem-Shell), der in Microsoft Windows verwendet wird und ermöglicht Benutzern Befehle direkt an das Betriebssystem zu senden und Programme auszuführen.
+
+Im Grunde ermöglicht CMD alles, was auch über die **grafische Benutzeroberfläche** (GUI) von Windows möglich ist, und in manchen Fällen sogar mehr.
+
+---
+
+### Grundlegendes zur CMD
+
+**Fundort**: Die ausführbare Datei `cmd.exe` befindet sich im **System32-Ordner** von Windows.
+
+**Startmöglichkeiten**:
+
+- Über das Suchfenster („Eingabeaufforderung" oder „cmd" eingeben)
+- Über „Ausführen" (**Win-Taste + R**) und Eingabe von „cmd"
+
+**Administrator-Modus**: Für bestimmte Befehle kann es notwendig sein, CMD im **Administratormodus** zu öffnen. Dies geschieht durch Rechtsklick auf das Symbol der Eingabeaufforderung und Auswahl von „Als Administrator ausführen".
+
+**Standardverzeichnis**: Nach dem Start zeigt das CMD-Fenster standardmäßig das aktuelle **Benutzerverzeichnis** an, z.B. `C:\Users\Benutzername`.
+
+---
+
+### CMD-Befehle und ihre Funktionsweise
+
+Windows verfügt über ca. **80 CMD-Befehle**, die durch **Modi** und **Eigenschaften** präzisiert werden können.
+
+**Hilfe**: Der Befehl `help` zeigt eine Liste aller CMD-Befehle mit einer kurzen Erklärung.
+
+**Modi und Eigenschaften**:
+
+- Die meisten Befehle können durch **Modi** erweitert werden, die mit einem `/` hinter dem Befehl geschrieben werden (z.B. `dir /a:h`)
+- Um detaillierte Informationen zu einem Modus oder Befehl zu erhalten, fügt man `/?` hinzu (z.B. `dir /?`)
+- **Eigenschaften** werden entweder durch einen Doppelpunkt (`:`) oder direkt ohne Vorzeichen hinter dem Modus angegeben
+
+---
+
+### Hilfreiche Bedienhilfen (Shortcuts)
+
+Da die CMD viel Texteingabe erfordert, sind einige **Tastenkombinationen** integriert:
+
+- **TAB-Taste**: Wechselt einzeln durch Dateien/Ordnernamen im aktuellen Verzeichnis
+- **Pfeiltasten UP/DOWN**: Blenden bereits eingegebene Befehle ein
+- **STRG + C** (Kopieren) / **STRG + V** (Einfügen): Funktionieren für Befehlstexte
+- **STRG + X** (Ausschneiden): Funktioniert nicht
+
+---
+
+### Navigation in CMD
+
+#### CD / CHDIR (Change Directory)
+
+**Wechselt in ein gewünschtes Verzeichnis**:
+
+- Beispiel: `cd mpoetschke` oder `cd mpoetschke\it-pruefungen\archiv`
+- Direkte Navigation zu einem vollständigen Pfad: `cd c:\windows\system32`
+- **Laufwerkswechsel**: Direkte Angabe des Laufwerksbuchstabens mit Doppelpunkt (z.B. `d:`)
+- Wechsel zu einem Ordner auf einem anderen Laufwerk: `cd /d e:\backup`
+- Eine Ebene zurück: `cd..`
+
+#### DIR (Ordnerinhalt anzeigen)
+
+**Zeigt den Inhalt** (Unterordner und Dateien) eines Ordners an:
+
+- Ordner sind durch `<DIR>` gekennzeichnet
+- Beispiel für Modi: `dir /a:h` (zeigt nur **versteckte Dateien** an)
+- Anzeigen des Inhalts eines spezifischen Pfades: `dir c:\windows`
+- Suchen/Filtern mit **Platzhaltern**: `dir c:\windows\*.exe` (alle .exe-Dateien)
+
+**Platzhalter**:
+
+- `*`: Steht für **mehrere oder keine Zeichen**
+- `?`: Steht für **genau ein Zeichen**
+
+#### TREE (Baumstruktur)
+
+**Stellt den Ordnerinhalt als Baumstruktur dar**:
+
+- Der Modus `/F` zeigt auch alle **Unterordner** samt Dateien an
+- Beispiel: `tree /F c:\windows`
+- Nützlich für die **Dateisuche** in übersichtlichen Strukturen
+
+---
+
+### Arbeiten in CMD (Dateisystemoperationen)
+
+#### MKDIR / MD (Ordner erstellen)
+
+**Erstellt ein Verzeichnis oder Unterverzeichnis**:
+
+- Beispiel: `mkdir Server` erstellt den Ordner "Server" im aktuellen Verzeichnis
+- **Befehlserweiterungen** erlauben das Erstellen von Zwischenverzeichnissen in einem einzigen Befehl
+
+#### RMDIR / RD (Ordner löschen)
+
+**Löscht ein angegebenes Verzeichnis**:
+
+- Ohne den Zusatz `/S` wird ein **nicht-leerer Ordner** nicht gelöscht
+- Der Zusatz `/S` löscht den Ordner und alle Inhalte (mit **Sicherheitsabfrage**)
+- Der Zusatz `/Q` überspringt die Sicherheitsabfrage
+- Beispiel: `rmdir d:\VMs\Server /S`
+
+#### DEL (Dateien löschen)
+
+**Löscht die angegebene Datei**:
+
+- Beispiel: `del poop.exe` löscht "poop.exe" im aktuellen Verzeichnis
+- Mit Platzhaltern: `del c:\backup\*2023.txt`
+
+#### REN (Dateien und Ordner umbenennen)
+
+**Benennt Dateien oder Ordner um**:
+
+- Syntax: `ren [Quellpfad inkl. Name] [Neuer Name]`
+- Beispiel: `ren d:\VMs\Server Server_alt`
+
+#### MOVE (Dateien und Ordner verschieben)
+
+**Verschiebt Dateien oder Ordner**:
+
+- Syntax: `move [Quellpfad] [Zielspeicherpfad]`
+- Beispiel: `move d:\test.txt d:\VMs\test.txt`
+- Beim Verschieben kann direkt ein **neuer Dateiname** angegeben werden
+
+#### COPY / XCOPY (Dateien und Ordner kopieren)
+
+**XCOPY** wird dem copy-Befehl vorgezogen:
+
+**Vorteile von XCOPY**:
+
+- Kopieren von **mehreren Daten/Ordnern** möglich
+- Fragt standardmäßig bei vorhandenen Dateien nach **Überschreiben**
+- Mehr Kontrolle durch **Befehlssatzerweiterungen**
+
+Beispiel: `xcopy /E c:\VMs d:\` kopiert den Ordner VMs mit allen Dateien und Unterordnern.
+
+#### START (Dateien starten/öffnen)
+
+**Öffnet Dateien oder Ordner**:
+
+- Beispiel: `start VMs` öffnet den Ordner "VMs" im **Windows Explorer**
+- Beispiel: `start c:\VMs\test.txt` öffnet die Datei mit dem zugeordneten Programm
+- Modi beeinflussen die Art des Öffnens (z.B. `/min` für **minimiertes Starten**)
+
+---
+
+### Umgebungsvariablen mit "SET"
+
+Der **set-Befehl** wird verwendet, um **Umgebungsvariablen** zu erstellen, anzuzeigen oder zu ändern.
+
+**Umgebungsvariablen** sind spezielle Werte, die von verschiedenen Programmen und Befehlen auf dem System verwendet werden können. Sie sind besonders nützlich in **Batch-Dateien**.
+
+**WICHTIG**: Umgebungsvariablen sind nur für die **aktuelle Sitzung** oder Batch-Datei gültig und gehen beim Beenden verloren.
+
+- **Erstellen**: `set A=Hallo`, `set Quellpfad=C:/Backup`
+- **Verwenden**: Variablen werden mit `%` vor und nach dem Variablennamen abgerufen (z.B. `Xcopy %Quellpfad%/2023 D:/`)
+
+---
+
+### Systemtools und weitere hilfreiche Befehle
+
+#### Netzwerkbefehle
+
+- **getmac**: MAC-Adresse anzeigen
+- **ipconfig**: IP-Netzwerkeinstellungen anzeigen
+- **netstat**: TCP/IP-Verbindungen und Status anzeigen
+- **nslookup**: DNS-Server abfragen
+- **pathping, tracert, ping**: Netzwerkverbindungen testen und Routen verfolgen
+- **route**: Netzwerkroutingtabelle anzeigen/bearbeiten
+
+#### Weitere nützliche Befehle
+
+- **cls**: Entfernt alle alten Eingaben aus dem Fenster
+- **attrib**: Dateiattribute anzeigen/ändern
+- **shutdown**: Herunterfahrbefehl für den PC (anpassbar, z.B. Zeit bis zum Shutdown)
+- **Echo [Text]**: Wiederholt den eingegebenen Text
+- **@Echo OFF / @Echo ON**: Blendet Befehlsanweisungen ein/aus (nützlich für Batch-Dateien)
+- **pause**: Pausiert die Ausführung von Befehlen und wartet auf eine Tastendruck
+- **systeminfo**: Systeminformationen anzeigen
+
+---
+
+### Batch-Dateien erstellen
+
+**Definition**: Befehle können in einer Textdatei gespeichert und als **Batch-Datei** (`.bat` oder `.cmd` Dateiendung) ausgeführt werden.
+
+**Unterschied .bat vs. .cmd**:
+
+- **.bat-Dateien**: Älter, auf **ASCII** beschränkt, können komplexere Befehle möglicherweise nicht ausführen
+- **.cmd-Dateien**: Die neuere Version mit erweiterten Funktionen
+
+**Funktionsweise**: Beim Ausführen einer Batch-Datei öffnet sich das **CMD-Fenster** für die Dauer der Durchführung.
+
+**Vorteile**:
+
+- **Automatisierung** wiederkehrender Aufgaben (z.B. Backups)
+- Mehrere Befehle können **nacheinander** ausgeführt werden
+- **pause** und **ECHO** sind besonders nützlich für Informationsanzeige
+
+**Programmierlogik**: CMD erlaubt auch die Erstellung kleinerer Programme mit Befehlen wie **IF**, **AND** und der Verwendung von **Pipes** (`|`) zur Befehlsverkettung.
+
+---
+
+### Fazit
+
+Die **Windows-Eingabeaufforderung** (CMD) ist ein mächtiges und vielseitiges Werkzeug zur direkten Interaktion mit dem Betriebssystem. Sie bietet Funktionen zur **Navigation** im Dateisystem, zur **Verwaltung** von Dateien und Ordnern, zur Nutzung von **Systemtools** und zur **Automatisierung** von Aufgaben durch Batch-Dateien. Das Verständnis der grundlegenden Befehle und Bedienhilfen ermöglicht eine effiziente und präzise Systemverwaltung jenseits der grafischen Benutzeroberfläche.

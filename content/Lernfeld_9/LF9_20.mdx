@@ -1,0 +1,182 @@
+---
+title: 'Windows PowerShell – Ein umfassender Überblick'
+description: 'Umfassender Überblick über Windows PowerShell: Von Grundlagen bis zu praktischen Anwendungsbeispielen'
+tags: ['PowerShell', 'Automatisierung', 'Scripting', 'Windows', 'IT-Administration']
+---
+
+## Windows PowerShell – Ein umfassender Überblick
+
+### Was ist PowerShell?
+
+**PowerShell** ist ein leistungsstarkes Framework zur **Automatisierung von Aktionen** (Aufgaben) und zur **Konfigurationsverwaltung** von Workstations und Servern. Es ist realisiert mit Hilfe eines **interaktiven Kommandozeileninterpreters (CLI)** und einer **Skriptsprache**.
+
+Es unterscheidet sich von traditionellen Kommandozeilen durch seine **objektorientierte Natur**, da es Kommandos mit Pipes und Filtern ergänzt um **objektorientierte Programmierparadigma** verbindet und auf dem **.NET Framework mit .NET-Objekten** für die Verarbeitung (Ein- und Ausgabe) basiert.
+
+---
+
+### Plattformübergreifende Verfügbarkeit und Historie
+
+Ursprünglich für **Windows** entwickelt, ist PowerShell ab Version 7 **plattformübergreifend** und auf Windows, Linux und macOS verfügbar. Die Entwicklung von PowerShell hat mehrere wichtige Versionen durchlaufen:
+
+**Versionshistorie**:
+
+- **1.0 (2006)**: Einfache Konsole, 129 Cmdlets
+- **2.0 (2009)**: Einführung von **Background Jobs** und **Remoting**
+- **3.0 (2012)**: Über 2.400 Cmdlets, Internetzugriff mit **Invoke-WebRequest**
+- **4.0 (2013)**: **Desired State Configuration (DSC)** zur automatischen Systemzustandsverwaltung
+- **5.0 (2015)**: **Paketverwaltung** zur Programminstallation
+- **5.1 (2016)**: Letzte reine Windows PowerShell-Version, standardmäßig in Windows 10/11 und Windows Server 2019
+- **PowerShell Core 6**: Erste plattformübergreifende, quelloffene Version
+- **PowerShell 7.x (ab 2020)**: Aktueller Nachfolger von Windows PowerShell 5.1 und PowerShell Core 6, mit Version 7.5.0 (Januar 2025) und bevorstehender 7.6.0 (zweites Halbjahr 2025)
+
+---
+
+### Anwendungsbereiche von PowerShell
+
+Die Einsatzmöglichkeiten von PowerShell sind extrem vielfältig und erstrecken sich über zahlreiche IT-Bereiche:
+
+**Betriebssysteme**:
+- Microsoft Windows Client, Server, IoT
+- Linux, MacOS
+
+**Netzwerkdienste**:
+- **DNS**, **DHCP**, **Firewall**, **Proxy**
+- **File-Server**, **Storage**, **Print-Server**
+
+**Microsoft-Dienste**:
+- **Active Directory Service (ADS)**
+- **Microsoft Exchange**
+- **Microsoft SQL-Server**
+- **Azure Cloud**
+- **Intranet** (IIS, Web Services)
+- **Microsoft Office 365** (einschließlich Excel, Access, Word, PowerPoint, Outlook)
+
+**Drittanbieter-Produkte**:
+- **Citrix** (XenApp, XenDesktop)
+- **Quest**, **VMware**
+- **GIMP**, **CorelDraw**
+
+**Cloud-APIs**:
+- **Google** (Drive API, Sheets API, Calendar API, Gmail API)
+
+---
+
+### Schlüsselkomponenten von PowerShell
+
+PowerShell besteht aus vier Hauptkomponenten:
+
+**PowerShell Runtime (.dll Datei)**:
+- **Kommandozeilen-Interpreter**, verarbeitet die Eingaben, Herz der Shell
+- Eine **Sammlung von .NET-Klassen**
+
+**PowerShell Host**:
+- Die Benutzerschnittstelle zur Runtime
+- **Windows PowerShell (powershell.exe)** mit der Version 5.1 ist standardmäßig verfügbar
+- **PowerShell 7 (pwsh.exe)** steht allen Betriebssystemen (Windows, Linux, MacOS) zur Verfügung
+- Der Host verarbeitet auch klassische **DOS-Befehle**
+
+**PowerShell Scripting Language**:
+- Eine Sprache zum Schreiben von Skripten für die PowerShell Runtime
+- Ausführbare Skripte haben die Dateierweiterung **.PS1**
+- **Execution Policies** steuern, ob ausführbare Dateien ausgeführt werden dürfen
+
+**Cmdlets (Command-Lets)**:
+- Die **Befehle in PowerShell**
+- Keine eigenständigen .EXE-Dateien
+- Können nur innerhalb von PowerShell ausgeführt werden
+- Erhalten ihre Eingabe über **Parameter** als Text oder Objekt
+- Erzeugen Ausgaben in Form von **Objekten**
+- Syntax ist immer **VERB-SUBSTANTIV** (z.B. Get-Service oder Set-Content)
+- Gängige Verben: **Get**, **Set**, **Add**, **Clear**, **Write**, **Read**
+
+---
+
+### Ausführungsrichtlinien für PowerShell-Skripte
+
+PowerShell-Skripte (**.ps1-Dateien**) werden aus Sicherheitsgründen standardmäßig nicht durch Doppelklick ausgeführt, um **versehentliche Schäden** zu vermeiden. Die **Execution Policies** bestimmen, welche Skripte ausgeführt werden dürfen:
+
+**Richtlinien**:
+
+- **Restricted**: Es werden keine Skripte ausgeführt. Standardeinstellung in Windows
+- **AllSigned**: Es können nur Skripte ausgeführt werden, die signiert wurden
+- **RemoteSigned**: Sie können Ihre eigenen Skripte ausführen (Empfohlene Einstellung zum Arbeiten mit Skripten)
+- **Unrestricted**: Sie können jedes beliebige Skript ausführen
+
+Um Skripte ausführen zu können, muss die Richtlinie geändert werden, typischerweise auf **RemoteSigned** mittels des Befehls:
+
+```powershell
+Set-ExecutionPolicy RemoteSigned
+```
+
+---
+
+### PowerShell vs. Eingabeaufforderung
+
+PowerShell bietet eine modernere und intuitivere Syntax im Vergleich zur traditionellen Eingabeaufforderung. Ein Beispiel zur rekursiven Suche nach .db-Dateien verdeutlicht dies:
+
+**Eingabeaufforderung**:
+```cmd
+FOR /R %G IN ("*.db") DO @ECHO %G
+```
+
+**PowerShell**:
+```powershell
+Get-ChildItem -Recurse -Path 'C:\Users\<user>\Documents\*.db'
+```
+
+Die PowerShell-Syntax ist oft lesbarer und folgt einer konsistenten **VERB-SUBSTANTIV-Struktur**.
+
+---
+
+### Entwicklungsumgebungen
+
+Neben der **PowerShell Konsole** und der **PowerShell ISE** (Integrated Scripting Environment) wird **Visual Studio Code** mit entsprechenden Erweiterungen als Alternative für die Skriptentwicklung empfohlen.
+
+---
+
+### Praktische Anwendungsbeispiele
+
+Die praktische Anwendung von Cmdlets für gängige Aufgaben:
+
+#### Dateisystemoperationen
+
+**New-Item**: Erstellen von Ordnern (-ItemType Directory) und Dateien (-ItemType File)
+```powershell
+New-Item -Path C:\Users\<user>\Desktop -Name "PowerShell_Uebung" -ItemType Directory
+```
+
+**Weitere wichtige Cmdlets**:
+- **Set-Content**: Überschreibt den Inhalt einer Datei
+- **Add-Content**: Fügt Inhalt an eine Datei an
+- **Get-Content**: Liest den Inhalt einer Datei
+- **Copy-Item**: Kopiert Dateien oder Ordner
+- **Move-Item**: Verschiebt Dateien oder Ordner
+- **Remove-Item**: Löscht Dateien oder Ordner
+
+#### Prozess- und Dienstverwaltung
+
+**Prozessverwaltung**:
+- **Get-Process**: Listet alle laufenden Prozesse auf
+- **Start-Process**: Startet einen Prozess (z.B. calc)
+- **Stop-Process**: Hält einen Prozess an
+
+**Dienstverwaltung**:
+- **Get-Service**: Zeigt installierte Dienste an
+
+#### Systeminformationen abrufen (mittels CIM/WMI)
+
+**Systeminformationen**:
+- **Get-CimInstance Win32_LoggedOnUser**: Zeigt angemeldete Benutzer
+- **Get-WmiObject -Class Win32_BIOS**: Zeigt BIOS-Informationen
+- **Get-CimInstance -ClassName Win32_Physicalmemory**: Zeigt RAM-Informationen
+- **Get-CimInstance -ClassName Win32_Processor**: Zeigt Prozessorinformationen
+- **Get-CimInstance -ClassName Win32_OperatingSystem**: Zeigt Betriebssysteminformationen
+
+#### Netzwerkdiagnose
+
+**Netzwerk-Cmdlets**:
+- **Test-Connection**: Entspricht ping
+- **Get-NetIPAddress**: Entspricht ipconfig
+- **Resolve-DnsName**: Entspricht nslookup
+- **Get-NetAdapter**: Entspricht getmac
+- **Test-NetConnection -TraceRoute**: Entspricht tracert
