@@ -1,17 +1,17 @@
-import { marked } from 'marked';
+import { marked } from "marked";
 
 // ✅ Einheitliche Funktion zur Markdown-Bereinigung
 export function cleanMarkdown(content) {
-  if (!content) return '';
+  if (!content) return "";
 
   let cleanContent = marked.parse(content); // 🔥 Markdown → HTML konvertieren
-  cleanContent = cleanContent.replace(/<[^>]*>/g, ''); // 🔥 Alle HTML-Tags entfernen
+  cleanContent = cleanContent.replace(/<[^>]*>/g, ""); // 🔥 Alle HTML-Tags entfernen
 
   return cleanContent.trim(); // 🔥 Zeilenumbrüche bleiben erhalten!
 }
 
 export function extractHeadings(mdxContent) {
-  const lines = mdxContent.split('\n');
+  const lines = mdxContent.split("\n");
   const headings = [];
 
   lines.forEach((line) => {
@@ -25,21 +25,21 @@ export function extractHeadings(mdxContent) {
       let cleanText = cleanMarkdown(headingText);
 
       // 🔥 Entfernt `()` & `[]` samt Inhalt **nach** der Markdown-Bereinigung
-      console.debug(cleanText);
+      // console.debug(cleanText);
       cleanText = cleanText
-        .replace(/\(.*?\)|\[.*?\]/g, '') // Entfernt `()` und `[]` samt Inhalt
-        .replace(/[(){}\[\]]/g, '') // Entfernt übrig gebliebene Klammern
-        .replace('&amp;', '&')
+        .replace(/\(.*?\)|\[.*?\]/g, "") // Entfernt `()` und `[]` samt Inhalt
+        .replace(/[(){}\[\]]/g, "") // Entfernt übrig gebliebene Klammern
+        .replace("&amp;", "&")
         .trim();
 
       // 🔥 Erstelle eine saubere `id`
       let headingId = cleanText
         .toLowerCase()
-        .replace(/\s+/g, '-') // Ersetzt Leerzeichen mit `-`
+        .replace(/\s+/g, "-") // Ersetzt Leerzeichen mit `-`
 
-        .replace(/&/g, '-')
-        .replace(/[^a-z0-9-]/g, '') // Entfernt Sonderzeichen außer `-`
-        .replace(/-+$/, ''); // Entfernt `-` am Ende
+        .replace(/&/g, "-")
+        .replace(/[^a-z0-9-]/g, "") // Entfernt Sonderzeichen außer `-`
+        .replace(/-+$/, ""); // Entfernt `-` am Ende
 
       headings.push({
         text: cleanText, // 🔥 Bereinigter Text für Inhaltsverzeichnis
@@ -53,10 +53,10 @@ export function extractHeadings(mdxContent) {
 }
 
 export function extractContext(content, startIdx, endIdx, maxLength = 75) {
-  if (!content) return '';
+  if (!content) return "";
 
   const lines = content
-    .split('\n')
+    .split("\n")
     .map((line) => line.trim())
     .filter((line) => line.length > 0); // 🔹 Zeilen aufteilen & leere entfernen
 
@@ -67,23 +67,19 @@ export function extractContext(content, startIdx, endIdx, maxLength = 75) {
     return lineStart <= startIdx && lineEnd >= endIdx;
   });
 
-  if (!matchedLine) return 'Kein Kontext gefunden';
+  if (!matchedLine) return "Kein Kontext gefunden";
 
   // 🔹 Falls die Zeile länger als `maxLength`, wird sie geschnitten & mit `...` versehen
   if (matchedLine.length > maxLength) {
-    let matchPos = matchedLine
-      .toLowerCase()
-      .indexOf(content.slice(startIdx, endIdx).toLowerCase());
+    let matchPos = matchedLine.toLowerCase().indexOf(content.slice(startIdx, endIdx).toLowerCase());
 
     let snippetStart = Math.max(0, matchPos - Math.floor(maxLength / 2));
     let snippetEnd = Math.min(matchedLine.length, snippetStart + maxLength);
 
     matchedLine = matchedLine.slice(snippetStart, snippetEnd).trim();
 
-    if (snippetStart > 0)
-      matchedLine = '...' + matchedLine.slice(matchedLine.indexOf(' '));
-    if (snippetEnd < content.length)
-      matchedLine = matchedLine.slice(0, matchedLine.lastIndexOf(' ')) + '...';
+    if (snippetStart > 0) matchedLine = "..." + matchedLine.slice(matchedLine.indexOf(" "));
+    if (snippetEnd < content.length) matchedLine = matchedLine.slice(0, matchedLine.lastIndexOf(" ")) + "...";
   }
 
   return matchedLine;
