@@ -1,5 +1,5 @@
 ---
-title: 'Firewall: Grundlagen, Funktionen und Sicherheitsaspekte'
+title: 'Firewall - Grundlagen, Funktionen und Sicherheitsaspekte'
 description: 'Umfassende Übersicht zu Firewalls im Bereich Netzwerksicherheit, inklusive Funktionen, Bedrohungen und Implementierungsstrategien.'
 tags: ['Firewall', 'Netzwerksicherheit', 'IT-Sicherheit', 'ACL', 'DMZ']
 ---
@@ -8,8 +8,8 @@ tags: ['Firewall', 'Netzwerksicherheit', 'IT-Sicherheit', 'ACL', 'DMZ']
 
 ### 1. Einleitung und Hauptzweck der Firewall
 
-Die vorliegende Quelle beleuchtet umfassend das Thema **Firewalls** im Kontext von Netzwerksicherheitsmaßnahmen.  
-Eine Firewall wird als eine Art „Brandschutzmauer“ beschrieben, deren Hauptzweck es ist, **"die Kommunikation zwischen Netzen [zu] trennen, einschränken, analysieren, protokollieren und nur ‚erlaubte‘ Kommunikation durchlassen"** soll.  
+Die vorliegende Quelle beleuchtet umfassend das Thema **Firewalls** im Kontext von Netzwerksicherheitsmaßnahmen.
+Eine Firewall wird als eine Art „Brandschutzmauer“ beschrieben, deren Hauptzweck es ist, **"die Kommunikation zwischen Netzen [zu] trennen, einschränken, analysieren, protokollieren und nur ‚erlaubte‘ Kommunikation durchlassen"** soll.
 Sie setzt die im Vorfeld definierten Sicherheitskonzepte (**Security-Policies** in Form einer **ACL** – Access Control List) technisch durch und kann als Router-Funktion oder eigenständige Komponente implementiert werden.
 
 ---
@@ -22,16 +22,16 @@ Bei der Anbindung an andere Netze, insbesondere das **WAN** (Wide Area Network),
 
 **Unmittelbare Bedrohungen:**
 
-- Virenbefall  
-- Datendiebstahl / Diebstahl von geistigem Eigentum  
-- Passwort-Kompromittierung  
-- Spionage / Sabotage  
+- Virenbefall
+- Datendiebstahl / Diebstahl von geistigem Eigentum
+- Passwort-Kompromittierung
+- Spionage / Sabotage
 
 **Mittelbare Bedrohungen:**
 
-- Arbeitsausfall  
-- Service-Einschränkungen  
-- Geschäftsschädigungen  
+- Arbeitsausfall
+- Service-Einschränkungen
+- Geschäftsschädigungen
 
 Folgewirkungen solcher Bedrohungen können **Gewinnausfälle**, **Ansehensverlust** / **Reputationsschäden** sein.
 
@@ -41,13 +41,13 @@ Folgewirkungen solcher Bedrohungen können **Gewinnausfälle**, **Ansehensverlus
 
 Der Einsatz von Firewalls ist aus mehreren Gründen essentiell:
 
-- **Blockieren von unerwünschtem Datenverkehr**: Eine Kernfunktion.  
-- **Erreichbarkeit verfügbarer Dienste regeln**: Steuert, welcher Dienst für wen erreichbar ist.  
-- **Drosseln von bestimmtem Datenverkehr (Traffic Shaping)**: Zur Optimierung der Netzwerkleistung.  
-- **Protokollierung des Datenverkehrs**: Wichtig für Audits und Fehleranalyse.  
-- **Umleitung eingehenden Verkehrs an bestimmte interne Systeme**: Ermöglicht z.B. Port-Weiterleitungen.  
-- **Zugang ins äußere / öffentliche Netz nur nach Authentifizierung**: Oft in Kombination mit **Network Address Translation (NAT)**.  
-- **Abschirmung von einzelnen Rechnern / Netzwerken**: Schützt interne Strukturen.  
+- **Blockieren von unerwünschtem Datenverkehr**: Eine Kernfunktion.
+- **Erreichbarkeit verfügbarer Dienste regeln**: Steuert, welcher Dienst für wen erreichbar ist.
+- **Drosseln von bestimmtem Datenverkehr (Traffic Shaping)**: Zur Optimierung der Netzwerkleistung.
+- **Protokollierung des Datenverkehrs**: Wichtig für Audits und Fehleranalyse.
+- **Umleitung eingehenden Verkehrs an bestimmte interne Systeme**: Ermöglicht z.B. Port-Weiterleitungen.
+- **Zugang ins äußere / öffentliche Netz nur nach Authentifizierung**: Oft in Kombination mit **Network Address Translation (NAT)**.
+- **Abschirmung von einzelnen Rechnern / Netzwerken**: Schützt interne Strukturen.
 - **Schutz vor Angriffen von Außen**: Wobei betont wird, dass **Anti-Viren-Software weiterhin erforderlich** ist.
 
 ---
@@ -56,23 +56,23 @@ Der Einsatz von Firewalls ist aus mehreren Gründen essentiell:
 
 Trotz ihrer Wichtigkeit hat eine Firewall auch Einschränkungen:
 
-- Sie schützt nicht vor Verbindungen, die nicht durch sie hindurchführen.  
-- Sie schützt nicht vor bösartigen Insidern.  
-- Sie schützt in der Regel nicht vor Viren (dafür sind Anti-Viren-Programme zuständig).  
-- Sie kann Endgeräte-Sicherheit nicht ersetzen.  
-- Sie kann sichere Kommunikationsverfahren (Ende-zu-Ende) wie **Verschlüsselung** oder **digitale Signaturen** nicht ersetzen.  
+- Sie schützt nicht vor Verbindungen, die nicht durch sie hindurchführen.
+- Sie schützt nicht vor bösartigen Insidern.
+- Sie schützt in der Regel nicht vor Viren (dafür sind Anti-Viren-Programme zuständig).
+- Sie kann Endgeräte-Sicherheit nicht ersetzen.
+- Sie kann sichere Kommunikationsverfahren (Ende-zu-Ende) wie **Verschlüsselung** oder **digitale Signaturen** nicht ersetzen.
 - Sie kann sich nicht selbst richtig konfigurieren.
 
 ---
 
 ### 5. Ports – Die "Türen" zum PC
 
-Ein wichtiger Aspekt im Kontext der Firewall-Konfiguration sind **Ports**. Ein PC kann 65536 Ports nutzen, die **"vergleichbar mit ‚Türen/Eingängen‘ in einen PC zur ‚Außenwelt‘"** sind.  
-Nicht verwendete Ports sind nicht automatisch geschlossen und können offen sein, insbesondere System-Ports (<1024) wie Port 80 (**HTTP**) oder 443 (**HTTPS**).  
+Ein wichtiger Aspekt im Kontext der Firewall-Konfiguration sind **Ports**. Ein PC kann 65536 Ports nutzen, die **"vergleichbar mit ‚Türen/Eingängen‘ in einen PC zur ‚Außenwelt‘"** sind.
+Nicht verwendete Ports sind nicht automatisch geschlossen und können offen sein, insbesondere System-Ports (<1024) wie Port 80 (**HTTP**) oder 443 (**HTTPS**).
 
 Es gibt zwei Arten von verschlossenen Ports:
 
-- **Geschlossene Ports**: Senden eine Rückantwort (**REJECT**).  
+- **Geschlossene Ports**: Senden eine Rückantwort (**REJECT**).
 - **Unsichtbare Ports**: Senden keine Rückmeldung.
 
 ---
@@ -81,19 +81,19 @@ Es gibt zwei Arten von verschlossenen Ports:
 
 Firewalls können auf verschiedene Weisen implementiert werden:
 
-- **Software-Firewall / Host-Based Firewall**: Installiert auf einem Endgerät/Client.  
+- **Software-Firewall / Host-Based Firewall**: Installiert auf einem Endgerät/Client.
 - **Hardware-Firewall / Network Firewall**: Installiert auf einem Router oder als eigenständiges Gerät.
 
 Es gibt zwei grundlegende Firewall-Strategien (**Default-Policy**):
 
-- **Whitelisting** ("Alles ist zum Start gesperrt"): **Sehr sicher, jedoch sehr konfigurationsaufwendig.** Nur explizit erlaubter Verkehr wird zugelassen.  
+- **Whitelisting** ("Alles ist zum Start gesperrt"): **Sehr sicher, jedoch sehr konfigurationsaufwendig.** Nur explizit erlaubter Verkehr wird zugelassen.
 - **Blacklisting** ("Alles ist zum Start freigegeben"): **Relativ komfortabel, Gefahren müssen bekannt sein.** Explizit unerwünschter Verkehr wird blockiert.
 
 Bei der Konfiguration einer Firewall sind folgende Fragen zu beachten:
 
-- Auf welchem Gerät (**wo**) im Netzwerk wird die Firewall eingerichtet?  
-- Wo wird überall eine Firewall benötigt?  
-- Auf welcher Schnittstelle (**Interface**) muss die Regel angewendet werden?  
+- Auf welchem Gerät (**wo**) im Netzwerk wird die Firewall eingerichtet?
+- Wo wird überall eine Firewall benötigt?
+- Auf welcher Schnittstelle (**Interface**) muss die Regel angewendet werden?
 - Ist es eine eingehende (**IN**) oder eine ausgehende (**OUT**) Regel?
 
 ---
@@ -104,13 +104,13 @@ Bei der Konfiguration einer Firewall sind folgende Fragen zu beachten:
 
 ACLs können implementiert werden:
 
-- Pro Interface  
-- Pro Richtung  
+- Pro Interface
+- Pro Richtung
 - Pro IP-Protokoll (**IPv4 & IPv6**)
 
 Es gibt:
 
-- **Standard-ACLs**: Nur Quell-IP.  
+- **Standard-ACLs**: Nur Quell-IP.
 - **Extended-ACLs**: Quell- & Ziel-IPs & Ports + Protokoll.
 
 ---
@@ -121,25 +121,25 @@ Die Quelle unterscheidet drei Hauptarten von Firewalls:
 
 **a) Paketfilter (Stateless) (Layer 3 / 4 Firewall):**
 
-- Prüfen jedes Paket anhand vordefinierter Regeln (**ACLs**) basierend auf Absender- und Ziel-Adressen sowie ggf. Portadressen.  
-- **Die Firewall arbeitet jedes Mal strikt die Regeln ab und ‚merkt‘ sich keine Kommunikationen.**  
-- Man muss für eine bidirektionale Kommunikation beide Richtungen (Quelle A nach Ziel B und Quelle B nach Ziel A) explizit erlauben.  
+- Prüfen jedes Paket anhand vordefinierter Regeln (**ACLs**) basierend auf Absender- und Ziel-Adressen sowie ggf. Portadressen.
+- **Die Firewall arbeitet jedes Mal strikt die Regeln ab und ‚merkt‘ sich keine Kommunikationen.**
+- Man muss für eine bidirektionale Kommunikation beide Richtungen (Quelle A nach Ziel B und Quelle B nach Ziel A) explizit erlauben.
 - Gilt als **unsicherer**, weil B jederzeit an A senden darf, auch wenn von A keine Anfrage existiert.
 
 **b) Stateful Packet Inspection (SPI) (Layer 3 / 4 Firewall):**
 
-- Überprüft Datenpakete ebenfalls anhand von Layer-3- und Layer-4-Adressen mithilfe definierter ACLs.  
-- **Die Firewall ‚merkt‘ sich die Kommunikation (Session Table inkl. Session ID).**  
-- Dies bedeutet, B kann A nur dann Antworten, wenn eine Antwort erwartet wird und B kann dadurch nicht unaufgefordert A Daten übermitteln.  
+- Überprüft Datenpakete ebenfalls anhand von Layer-3- und Layer-4-Adressen mithilfe definierter ACLs.
+- **Die Firewall ‚merkt‘ sich die Kommunikation (Session Table inkl. Session ID).**
+- Dies bedeutet, B kann A nur dann Antworten, wenn eine Antwort erwartet wird und B kann dadurch nicht unaufgefordert A Daten übermitteln.
 - Regeln für Antwortpakete werden dynamisch erzeugt, und es wird **nur eine Regel benötigt** (für die initiierende Richtung).
 
 **c) Application & Proxy Firewall (+Content Filter) (Layer 5-7 Firewall):**
 
-- Bieten zusätzlich zu den Fähigkeiten einer Stateful Packet Inspection Firewall einen **Einblick in den Payload bis Layer-7**.  
-- Ermöglichen:  
-  - Zulassen / behindern von Anwendungen.  
-  - Zugriffskontrolle von Anwendungen auf andere Netze.  
-  - Regeln, welche Benutzer mit welchen Programmen ins Internet dürfen.  
+- Bieten zusätzlich zu den Fähigkeiten einer Stateful Packet Inspection Firewall einen **Einblick in den Payload bis Layer-7**.
+- Ermöglichen:
+  - Zulassen / behindern von Anwendungen.
+  - Zugriffskontrolle von Anwendungen auf andere Netze.
+  - Regeln, welche Benutzer mit welchen Programmen ins Internet dürfen.
   - Filtern von Inhalten (z.B. Webseiten).
 
 ---
@@ -152,5 +152,5 @@ Das Ziel einer DMZ ist es, das eigene LAN besser durch Firewall-Regeln schützen
 
 Die DMZ kann in unterschiedlichen Architekturen aufgebaut werden:
 
-- **Einstufiger Aufbau:** Eine Firewall trennt WAN, DMZ und LAN.  
+- **Einstufiger Aufbau:** Eine Firewall trennt WAN, DMZ und LAN.
 - **Zweistufiger Aufbau:** Zwei Firewalls trennen die drei Zonen, was eine höhere Sicherheit bietet (Firewall 1 trennt WAN und DMZ, Firewall 2 trennt DMZ und LAN).
