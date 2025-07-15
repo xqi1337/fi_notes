@@ -1,0 +1,224 @@
+---
+title: 'Datensicherung & Backup'
+description: 'Umfassende Anleitung zu Datensicherung, Backup-Strategien und Wiederherstellungsverfahren'
+tags: ['IT', 'Datensicherung', 'Backup', 'Restore', 'IT-Sicherheit']
+---
+
+## Datensicherung & Backup
+
+### Definition und Zweck der Datensicherung
+
+Die **Datensicherung**, im Englischen als **Backup** bezeichnet, ist definiert als das **Kopieren von Daten** zum **Schutz vor Datenverlust**. Ihr primärer Zweck ist die **Wiederherstellung der Originaldaten aus dem Backup**, ein Vorgang, der im Englischen als **Restore** bezeichnet wird. Backups werden typischerweise auf **externen Datenträgern** (Festplatte, USB, etc.), **CD/DVD** gespeichert.
+
+**Wichtige Abgrenzung**:
+- **Archivierung**: Langfristige Speicherung der Daten, oft gesetzlich oder unternehmensintern vorgeschrieben
+- **Backup**: Kurz- bis mittelfristige Speicherung der Daten als Sicherheitskopie des Datenbestandes
+
+---
+
+### Hauptursachen für Datenverlust
+
+Die kritischen Ursachen für Datenverlust, die die Notwendigkeit von Backups unterstreichen:
+
+- **Hardwarefehler** / Hardwaredefekte
+- **Menschliche Fehler** (z.B. versehentlich gelöschte Dateien)
+- **Softwarefehler** / Systemabstürze
+- **Schadsoftware** (z.B. Viren)
+- **Hardware- oder Datendiebstahl** / Hackerangriffe
+- **Physikalische Schäden** durch Sturz oder Aufprall
+
+---
+
+### Maßnahmen zum Schutz vor Datenverlust
+
+**Physische Maßnahmen**:
+- **Umzäunung des Geländes**
+- **Sicherung von Türen und Fenstern**
+- **Bauliche Maßnahmen** allgemein
+- **Alarmanlagen** jeglicher Art
+
+**Logische / Technische Maßnahmen**:
+- **Benutzerkonten** und **Passwörter**
+- **Protokolldateien**
+- **Biometrische Benutzeridentifikation**
+- **Anti-Viren Programme**
+- **Externe Datenträger**
+- **Updates** und **Back-ups**
+
+---
+
+### Planung einer Datensicherung
+
+Bei der Planung einer **Datensicherung** sind folgende Schlüsselfragen zu beantworten:
+
+**Welche Daten**: Speicherort und Umfang (Volumen) der zu sichernden Daten
+**Wo gespeichert**: Aufbewahrungsort des Backups
+**Wie häufig/Wann**: Zeitpunkt der Sicherung
+**Welche Art**: Art des Backups (Vollbackup, Inkrementell oder Differentiell)
+**Welches Medium**: Speichermedium für die Backups
+**Wie lange**: Aufbewahrungsdauer des Backups
+**Wiederherstellung**: Verfahren zur Wiederherstellung der Daten
+**Welche Software**: Backupsoftware für die Datensicherung
+
+---
+
+### Was kein Backup ist
+
+**Wichtige Klarstellung** - folgende Verfahren stellen keine vollwertige Datensicherung dar:
+
+- **Wiederherstellungspunkte** (unter Windows): Speichern nur die Systemeinstellungen und keine Daten, zudem lokal gespeichert
+- **Lokal gespeicherte Snapshots**
+- **RAID-Systeme**
+
+**Snapshots ersetzen kein Backup!** Während Backups **Kopien der Daten** sind, sind Snapshots nur eine **systemseitige Verlinkung** der geänderten Blöcke zur originalen Datei.
+
+---
+
+### Relevanz von Daten
+
+Die Wichtigkeit von Daten variiert stark und beeinflusst die **Backup-Strategie**:
+
+**Leicht ersetzbar (Weniger wichtig)**:
+- Installiertes OS, freie Software-Tools (z.B. Internet-Browser, PDF-Reader)
+- Einstellungen vom OS oder Anwendungen
+- Fortschritte wie Speicherstände
+
+**Wichtig, aber nicht dringend**:
+- Gekaufte Audio-/Videodateien
+- Fotos aus anderen Quellen
+- Software-Lizenzen oder Editierungen von bestehenden Daten
+
+**Unverzichtbar (Schwer/Nicht ersetzbar)**:
+- **Eigens erstellte Daten** wie Fotos, Audio-/Video-Dateien
+- **Beruflich genutzte lizenzierte Software**
+- **Datenbanken** wie E-Mails oder Adressdaten
+- **Steuerunterlagen** / rechtlich benötigte Aufzeichnungen
+
+---
+
+### Speichermedien und Speicherort
+
+**Verfügbare Speichermedien**:
+- **Festplatte** (HDD/SSD)
+- **Optische Laufwerke** (CD/DVD/Blu-ray)
+- **Bandlaufwerk**
+- **Netzwerk** (z.B. Server oder SAN/NAS)
+- **USB-Sticks** / USB-Festplatte
+- **Online Backup**
+
+**Wichtige Regeln für den Speicherort**:
+- Backup sollte sich **nicht auf derselben Festplatte** oder dem selben PC/Server befinden
+- Am besten **nicht im selben Raum oder Gebäude**
+- Vorsicht bei **(Public-)Cloud-Systemen** mit unbekanntem Speicherort
+- **Redundant vorhanden** sein (mehrfache Backups an unterschiedlichen Orten)
+- **Sicher** sein (Zugriffsschutz, ggf. brandschutzgesichert)
+
+### **3-2-1-Regel**
+
+- **3** Sicherungskopien jeder wichtigen Datei
+- **2** unterschiedliche Speichermedien
+- **1** externe Speicherort
+
+---
+
+### Methoden der Datensicherung
+
+**Datenbasiert**:
+- Sichern von **einzelnen Daten**
+- Festlegen von **Einschluss- und Ausschlusskriterien**
+- Kann **problematisch bei geöffneten Dateien** sein
+- Arten: **Vollsicherung**, **Differenzielle Datensicherung**, **Inkrementelle Datensicherung**
+
+**Abbild-basiert**:
+- Sichert **ganze Datenträger/Partitionen** am Stück
+- Sichert auch **versteckte Dateien** mit
+- Kann **besser mit geöffneten Dateien** umgehen
+- Arten: **Speicherabbildsicherung/Snapshot**, **Image**
+
+---
+
+### Vollsicherung (Full Backup)
+
+Es werden **jedes Mal alle zu sichernden Daten** in einer Sicherungsdatei auf dem Zieldatenträger gespeichert.
+
+**Vorteile**:
+- **Schnellere Erstellung** und Wiederherstellung
+- **Vereinfachte Backup-Verwaltung** (nur eine Backup-Datei)
+
+**Nachteile**:
+- **Hoher Speicher- und Zeitaufwand**
+- Unveränderte Dateien werden **erneut gesichert**
+
+---
+
+### Differentielle Datensicherung (Differential Backup)
+
+Benötigt immer eine **Vollsicherung im Vorfeld**. Anschließend werden nur noch die Daten gesichert, die sich **seit dem letzten Vollbackup geändert** haben.
+
+**Vorteile**:
+- **Weniger Speicherkapazität** als Vollsicherung
+- Zur Wiederherstellung werden nur **Vollsicherung + letzte differenzielle Sicherung** benötigt
+
+**Nachteile**:
+- **Langsamere Wiederherstellung** als Vollsicherung
+- **Kompliziertere Handhabung** (zwei Dateien nötig)
+
+---
+
+### Inkrementelle Datensicherung (Incremental Backup)
+
+Setzt eine **zuvor erstellte Vollsicherung** voraus. Basiert immer auf dem **zuvor erstellten Backup** und nur beim ersten Durchlauf auf dem Vollbackup.
+
+**Vorteile**:
+- **Geringste Speicherkapazität** aller Methoden
+
+**Nachteile**:
+- **Langsamste Wiederherstellung**
+- **Komplizierte Handhabung** (alle Dateien der Sicherungskette nötig)
+- **Höheres Risiko** bei längeren Sicherungsketten
+
+### **Backup-Methoden im Vergleich**
+
+- **Vollsicherung**: Backup-Erstellung langsam, Wiederherstellung schnell & simpel
+- **Differenzielle Sicherung**: Backup-Erstellung schnell, Wiederherstellung langsamer & schwieriger
+- **Inkrementelle Sicherung**: Backup-Erstellung schnell, Wiederherstellung langsam & kompliziert
+
+---
+
+### Wann welche Methode verwenden?
+
+Die **optimale Backup-Methode** muss je nach Anwendungsfall gewählt werden. Oft macht eine **Kombination aus allen drei Methoden** am meisten Sinn.
+
+**Beispiel-Strategie**:
+- **Wöchentliches Vollbackup**
+- **Täglich inkrementelles Backup**
+- Niedrige **Datenaufkommen** bei schneller Wiederherstellung zu verschiedenen Zeitpunkten
+
+---
+
+### Das Archiv-Bit
+
+Unter Windows kann das **Archiv-Bit** für Datensicherungen genutzt werden:
+
+- Wird bei jedem **Ändern/Erstellen einer Datei** gesetzt
+- **Vollbackup** setzt das Archivbit nach der Sicherung zurück
+- **Inkrementelle und differenzielle Backups** speichern nur Daten mit gesetztem Archivbit
+- Nach **inkrementellem Backup** wird das Archivbit zurückgesetzt
+- Nach **differenziellem Backup** bleibt das Archivbit gesetzt
+
+**Achtung**: Bei **Dateiumbenennungen** wird das Archivbit nicht gesetzt. Nach dem **reinen Kopieren** von Dateien bleibt das Archivbit unverändert.
+
+---
+
+### Abbildsicherung / Imagesicherung / Snapshot
+
+Erstellt ein **Abbild eines Systems** sowie dessen Einstellungen und Datenbestand zu einem bestimmten Zeitpunkt.
+
+**Vorteile**:
+- **Komplette Systemeinstellungen** werden mitgesichert
+- **Schnelle Systemwiederherstellung** möglich
+- **Blockweise Speicherung** ermöglicht Weiterschreiben während Backup
+
+**Nachteile**:
+- **Ersetzt keine echten Backups** (meist lokal gespeichert)
+- **Festplattenausfall** führt zum Verlust des Abbildes/Snapshots
