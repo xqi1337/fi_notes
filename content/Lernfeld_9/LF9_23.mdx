@@ -1,0 +1,208 @@
+---
+title: 'Netzwerke, Virtualisierung und Speichersysteme'
+description: 'Überblick über VPNs, Virtualisierung, Cloudmodelle und Speichersysteme in der IT'
+tags: ['IT', 'Netzwerke', 'Virtualisierung', 'Cloud', 'Speichersysteme']
+---
+
+## Netzwerke, Virtualisierung und Speichersysteme
+
+---
+
+### **Virtuelle Private Netzwerke (VPN)**
+
+Ein **VPN** wird als *logisches privates Netzwerk auf einer öffentlich zugänglichen Infrastruktur* definiert. Es ermöglicht Kommunikationspartnern, sicher Informationen auszutauschen und gewährleistet **Authentizität**, **Vertraulichkeit** und **Integrität**.
+
+**Vorteile von VPNs**:
+
+- **Anonymität im Internet**
+- **Verschleierung des Standorts**
+- **Erhöhte Sicherheit** durch Verschlüsselung
+
+**Nachteile von VPNs**:
+
+- **Performance-Einbußen**
+- **Kostenpflichtige Dienste**
+- **Blockierung durch Dienste**
+- Abhängigkeit vom **VPN-Anbieter**
+
+---
+
+### **Arten von VPNs**
+
+| Typ              | Beschreibung         | Beispiel                      |
+| ---------------- | -------------------- | ----------------------------- |
+| **End-to-Site**  | Endgerät zu Netzwerk | Mitarbeiter → Firmennetz      |
+| **Site-to-Site** | Netzwerk zu Netzwerk | Hauptsitz → Filialen          |
+| **End-to-End**   | Endgerät zu Endgerät | Remote-Desktop via TeamViewer |
+
+
+#### **End-to-Site-VPN** (Remote-Access-VPN)
+
+- Verbindung eines **Endgeräts** mit einem zentralen Netzwerk
+- **VPN-Client** erforderlich
+
+>**Beispiel**: Mitarbeiter verbindet sich von zuhause mit dem Firmennetzwerk.
+
+#### **Site-to-Site-VPN** (LAN-to-LAN-VPN)
+
+- Kopplung mehrerer lokaler Netzwerke über das Internet
+
+>**Beispiel**: Zentrale verbindet Außenstellen zu einem gemeinsamen Netzwerk.
+
+#### **End-to-End-VPN** (Host-to-Host-VPN):
+
+- Direkte Verbindung zweier Endgeräte
+
+>**Beispiel**: Fernzugriff via **Remote Desktop** über VPN.
+
+---
+
+### **Virtualisierung**
+
+**Virtualisierung** ermöglicht den parallelen Betrieb mehrerer isolierter Systeme auf einem physikalischen Host.
+
+>Ausgangssituation: On-Premise
+  Unternehmensanwendungen werden auf eigener Hardware betrieben .
+  Der Lizenznehmer (Kunde) kauft oder mietet Software und betreibt diese unter eigener Verantwortung im eigenen Rechenzentrum. 
+  Der Kunde betreibt die Software auf angemieteten Servern eines Fremdrechenzentrums
+
+---
+
+**VMs** sind isolierte Computersysteme auf einem Host, verwaltet durch einen **Hypervisor**.
+
+---
+
+**Typen von Hypervisoren**:
+
+- **Typ 1 (Bare-Metal)**: Direkt auf der Hardware (z. B. VMware ESXi)
+- **Typ 2 (Hosted)**: Auf Betriebssystem installiert (z. B. VirtualBox)
+
+**Vorteile**:
+
+- **Skalierbarkeit**
+- Bessere **Ressourcennutzung**
+- **Backups**, **Disaster Recovery**
+- **Sicherheit** durch Isolierung
+
+**Nachteile**:
+
+- **Ressourcenbedarf** bei vielen VMs
+- **Single Point of Failure** bei Host-Ausfall
+
+---
+
+### **Virtuelle Container**
+
+**Container** enthalten alles zur Ausführung benötigte (Code, Libraries, Konfigurationen) und sind voneinander isoliert.
+
+**Unterschied zu VMs:**
+
+- **VMs** virtualisieren komplettes System inkl. Kernel
+- **Container** teilen sich den **Host-Kernel**
+
+**Vorteile**:
+
+- Geringer **Ressourcenbedarf**
+- Schnelles **Starten**
+- Leichte **Portierbarkeit**
+- Gute **Skalierbarkeit**
+
+**Nachteile**:
+
+- Abhängigkeit vom **Host-Betriebssystem**
+- **Sicherheitsrisiken** durch Kernel-Sharing
+- **Kompatibilitätsprobleme**
+
+---
+
+### **Cloud Computing vs. Virtualisierung**
+
+- **Virtualisierung** ist die zugrundeliegende Technologie
+- **Cloud Computing** nutzt Virtualisierung, um **IT-Ressourcen flexibel bereitzustellen**
+
+---
+
+### **Cloud-Managementsoftware**
+
+- Ermöglicht zentrale **Verwaltung**, **Skalierung**, **Kostenkontrolle** und **Monitoring** über Cloud-Umgebungen hinweg
+- Unterstützt **Automatisierung** und **Sicherheit**
+
+---
+## **Cloud Computing**
+
+### **Servicemodelle:**
+
+- **SaaS (Software as a Service)**: Nutzung von Software über das Internet
+- **PaaS (Platform as a Service)**: Entwicklungsplattform inkl. Tools und Middleware
+- **IaaS (Infrastructure as a Service)**: Mieten von Infrastruktur (z. B. Rechenleistung, Netzwerken)
+
+### **Cloud-Modelle**
+
+- **Public Cloud**: Öffentliche Infrastruktur (z. B. AWS, Azure)
+- **Private Cloud**: Exklusive, interne Unternehmens-Cloud-Umgebung
+- **Hybrid Cloud**: Kombination aus Public & Private Cloud
+- **Multi-Cloud**: Gleichzeitige Nutzung mehrerer Cloud-Anbieter
+
+---
+
+## **Speichersysteme**
+
+**Speichersysteme** umfassen dauerhafte Speicherlösungen und Verwaltungsmechanismen. 
+
+---
+
+### **DAS (Direct Attached Storage)**
+
+- Direkt an ein Hostsystem angeschlossen
+- **Schnittstellen**: SATA, SAS, USB
+
+**Stärken**:
+
+- Geringe **Kosten**
+- **Niedrige Latenz**
+- **Einfache Einrichtung**
+
+**Schwächen**:
+
+- Nur für einen Host zugänglich
+- **Skalierung** begrenzt
+
+---
+
+### **SAN (Storage Area Network)**
+
+- **Blockbasierter Zugriff** über dediziertes Netzwerk
+- **Schnittstellen**: Fibre Channel, iSCSI
+
+**Stärken**:
+
+- **Leistungsstark**
+- Gute **Redundanz**
+- Zentralisierte **Speicherung**
+
+**Schwächen**:
+
+- **Kostenintensiv**
+- Komplex in der Einrichtung
+- **Abhängig vom Netzwerk**
+
+---
+
+### **NAS (Network Attached Storage)**
+
+- Netzwerkgebundener Dateispeicher mit eigenem Betriebssystem
+- **Schnittstellen**: NFS, SMB/CIFS
+
+**Stärken**:
+
+- Einfache **Zugriffsfreigabe**
+- **Erweiterbar**
+- Gute **Verfügbarkeit**
+
+**Schwächen**:
+
+- **Höhere Latenzen**
+- **Kosten** höher als bei DAS
+- Abhängigkeit von der **NAS-Hardware**
+
+---
