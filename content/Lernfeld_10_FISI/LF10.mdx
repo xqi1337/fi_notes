@@ -1,0 +1,276 @@
+# Netzwerktechnik
+
+## VLAN
+
+**Was ist ein VLAN?**
+
+> Ein VLAN (Virtual Local Area Network) ist ein logisches Netzwerk auf einem managebaren Switch, das Geräte unabhängig von ihrer physischen Verbindung gruppiert. VLANs können statisch (portbasiert) oder dynamisch (MAC, IP, Zertifikate) konfiguriert werden. Jedes VLAN hat eine eindeutige ID, und Broadcasts werden nur innerhalb desselben VLANs weitergeleitet.
+
+**Wie können getrennte VLANs miteinander kommunizieren?**
+
+> Jedes VLAN benötigt ein eigenes IP-Netz. Die Kommunikation erfolgt über einen Router mit Sub-Interfaces, die eine physische Schnittstelle in mehrere virtuelle aufteilen.
+
+**Was ist ein Trunk?**
+
+> Ein Trunk-Port verbindet Switche und überträgt alle VLANs über eine gemeinsame Leitung.
+
+**Was bedeutet tagged und untagged?**
+
+> - **Tagged:** VLAN-ID wird in den Frame eingefügt (802.1q-Standard)
+> - **Untagged:** VLAN-Tag wird entfernt, Frame wird als Standard-Ethernet weitergeleitet
+
+**Warum werden Frames getaggt?**
+
+> Damit der empfangende Switch weiß, zu welchem VLAN das Paket gehört.
+
+**Welcher IEEE-Standard definiert VLAN-Tagging?**
+
+> 802.1q
+
+---
+
+## STP (Spanning Tree Protocol)
+
+**Was ist STP?**
+
+> STP verhindert Schleifen in geswitchten Netzwerken, indem redundante Pfade blockiert werden. RSTP ist die schnellere Weiterentwicklung mit Konvergenz <1 Sekunde.
+
+**Auf welcher Schicht arbeitet STP?**
+
+> Layer 2 (Sicherungsschicht)
+
+**Welche Porttypen gibt es bei STP?**
+
+> - **STP:** Root-Port, Designated Port, Blocked Port
+> - **RSTP zusätzlich:** Alternate Port, Backup-Port
+
+**Welche Portphasen gibt es in STP?**
+
+> 1. **Blocking** – Port blockiert, nur BPDUs werden weitergeleitet
+> 2. **Listening** – Aufbau des Spanning Tree, keine Frame-Weiterleitung
+> 3. **Learning** – Aufbau MAC-Adresstabelle, keine Frame-Weiterleitung
+> 4. **Forwarding** – Normale Frame-Weiterleitung und Netzwerküberwachung
+
+**Wie wird die Root Bridge bestimmt?**
+
+> Switch mit kleinster Bridge-ID (Priorität + MAC-Adresse).
+
+**Mit welchen Paketen kommunizieren Switches im STP?**
+
+> Mit BPDUs (Bridge Protocol Data Units).
+
+**Wie werden die Wegkosten im STP bestimmt?**
+
+> Portpfadkosten basieren auf der Datenübertragungsrate; niedrigere Kosten werden bevorzugt.
+
+---
+
+## Router
+
+**Welche Hauptaufgaben hat ein Router?**
+
+> - Verbindet mehrere Netze (Layer 3)
+> - Nutzt IP-Adressen zur Adressierung
+> - Bestimmt den Weg für Datenpakete (Routing)
+> - Verbindet LAN mit WAN/Internet
+
+**Was ist eine MAC-Adresse?**
+
+> - Physikalische Adresse einer Netzwerkkarte
+> - 6 Byte lang, z. B. AA:AA:AA:AA:AA:AA.
+
+**Was ist eine Routingtabelle?**
+
+> Tabelle, die angibt, wie Pakete zu einer bestimmten IP-Adresse gesendet werden.
+
+**Was ist eine Default-Route?**
+
+> Standardroute für unbekannte IP-Ziele (0.0.0.0 / 0.0.0.0).
+
+---
+
+## IPv4
+
+**Auf welcher Schicht arbeitet IPv4?**
+
+> Layer 3 (Netzwerkschicht)
+
+**Welche IPv4-Adressräume gibt es?**
+
+> - **Öffentlich:** global eindeutig, routbar
+> - **Privat:** nur intern nutzbar, z. B.:
+>     - 10.0.0.0 /8
+>     - 172.16.0.0 /12
+>     - 192.168.0.0 /16
+
+**Was ist CIDR?**
+
+> Classless Inter-Domain Routing, Darstellung von Subnetzen mit Schrägstrich, z. B. 192.168.0.0 /24.
+
+**Was ist eine Subnetzmaske?**
+
+> Markiert, welche Bits einer IP für das Netzwerk (1) und welche für Hosts (0) verwendet werden.
+
+**Welche Sonderadressen gibt es bei IPv4?**
+
+> - **Netz-ID:** erste Adresse eines Netzes, alle Hostbits 0
+> - **Broadcast-ID:** letzte Adresse eines Netzes, alle Hostbits 1
+
+---
+
+## Routing
+
+**Unterschied statisches vs. dynamisches Routing:**
+
+> - **Statisch:** manuell, unflexibel, vorhersehbar
+> - **Dynamisch:** automatisch, passt sich Netzänderungen an
+
+**Welche Routingprotokolle gibt es?**
+
+> - **Distance Vector:** RIP, IGRP
+> - **Link-State:** OSPF, NLSP, IS-IS
+
+---
+
+## IPv6
+
+**Was ist SLAAC?**
+
+> Stateless Address Auto Configuration – Clients erzeugen IPv6-Adressen automatisch, prüfen auf Duplikate, erhalten Präfix vom Router.
+
+**Was bedeutet Scope?**
+
+> - **LLA (Link-local)** – nur lokal
+> - **ULA (Unique local)** – LAN-intern, wie private IPv4
+> - **Global** – weltweit routbar, meist 2000::/3
+
+**Was macht das Neighbor Discovery Protocol (NDP)?**
+
+> - SLAAC
+> - MAC-Adressauflösung
+> - Neighbor Unreachability Detection
+> - Duplicate Address Detection
+> - Nutzt ICMPv6
+
+**Was sind Privacy Extensions?**
+
+> Zufällige Interface-Identifier, um Tracking zu verhindern.
+
+---
+
+## DHCP
+
+**Wofür steht DHCP?**
+
+> Dynamic Host Configuration Protocol
+
+**Wie läuft die Adressvergabe ab (DORA)?**
+
+> 1. **Discover** – Client sucht Server
+> 2. **Offer** – Server bietet IP an
+> 3. **Request** – Client bestätigt Angebot
+> 4. **ACK** – Server bestätigt Lease
+
+**Welche Daten kann DHCP verteilen?**
+
+> - IP Adresse
+> - Subnetzmaske
+> - Gateway 
+> - DNS
+> - Domain
+> - NTP/WINS-Server
+> - weitere Optionen
+
+**Was ist ein DHCP Relay Agent?**
+
+> Leitet DHCP-Broadcasts über Router an Server in anderen Subnetzen weiter.
+
+---
+
+## DNS
+
+**Was ist DNS?**
+
+> - Domain Name System
+> - Anwendungsschicht (Layer 7)
+> - ordnet Namen IP-Adressen zu (und umgekehrt)
+
+**Was ist ein FQDN?**
+
+> - Fully Qualified Domain Name 
+> - vollständiger Name inkl. aller Domänenebenen, z. B. mail.ihk.de.
+
+**Arten von DNS-Anfragen:**
+
+> - **Rekursiv:** Resolver fragt ganze Hierarchie ab
+> - **Iterativ:** Server gibt teilweise Antwort, Anfrage wird fortgesetzt
+
+**Häufige DNS-Records:**
+
+> - **SOA:** Zoneninformationen
+> - **A:** IPv4-Adresse
+> - **AAAA:** IPv6-Adresse
+> - **MX:** Mailserver
+> - **CNAME:** Alias
+> - **NS:** Nameserver
+> - **TXT:** Textinformationen
+
+---
+
+## Active Directory
+
+**Was ist ein Domain Controller (DC)?**
+
+> - Server, der eine Domäne verwaltet
+> - Benutzer authentifiziert und Zugriffe kontrolliert
+
+**Was ist eine OU (Organisationseinheit)?**
+
+> Container zur logischen Strukturierung von AD-Objekten, z. B. für GPO-Anwendung
+
+**Welche GPO wird angewendet, wenn mehrere vorhanden sind?**
+
+> Wenn mehrere GPOs mit derselben Website, Domäne oder OE verknüpft sind und die erzwungene Option festgelegt ist, hat der höchste GPO-Link, der erzwungen werden soll, Vorrang. [Info](https://learn.microsoft.com/de-de/windows-server/identity/ad-ds/manage/group-policy/group-policy-processing#:~:text=Wenn%20mehrere%20GPOs%20mit%20derselben%20Website%2C%20Dom%C3%A4ne%20oder%20OE%20verkn%C3%BCpft%20sind%20und%20die%20erzwungene%20Option%20festgelegt%20ist%2C%20hat%20der%20h%C3%B6chste%20GPO%2DLink%2C%20der%20erzwungen%20werden%20soll%2C%20Vorrang.)
+
+---
+
+## Netzwerkbefehle
+
+**ipconfig /displaydns:**
+
+> Zeigt DNS-Cache
+
+**ipconfig /flushdns:**
+
+> Leert DNS-Cache
+
+**nslookup:**
+
+> Fragt DNS-Server ab, interaktiv oder nicht-interaktiv
+
+---
+
+## NAT
+
+**Port Forwarding (DNAT):**
+
+> Weiterleitung eingehender Ports an interne IPs.
+
+**SNAT:**
+
+> Quell-IP wird auf Router-IP geändert, Rückantworten korrekt zugeordnet.
+
+---
+
+## Transportprotokolle
+
+**TCP vs UDP:**
+
+> - **TCP:** verbindungsorientiert, zuverlässig, Segmentnummerierung, Flusskontrolle
+> - **UDP:** verbindungslos, schnell, keine Fehlerkontrolle auf Protokollebene
+
+**Auf welcher Schicht arbeitet ICMP (Ping)?**
+
+> Layer 3, verwendet IP-Header, kein eigener Header
+
+---
