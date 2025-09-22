@@ -1,0 +1,1192 @@
+---
+title: 'Netzwerktechnik Notizen'
+description: 'Ein Überblick über das VLAN, STP und Router.'
+tags: ['Netzwerk', 'VLAN', 'STP', 'Router', 'IT']
+---
+
+## Spanning Tree Protocol
+
+> **Zweck:** Verhindert Loops in redundanten Switch-Topologien
+
+### Grundlagen
+
+**Einsatzzweck:**
+- Switche mit redundanten Leitungen
+- Vermeidung von Broadcaststürmen
+- Schutz vor MAC-Address Table Corruption
+
+### Root Bridge Bestimmung
+
+**Prozess:**
+```
+Bridge-ID Vergleich → Niedrigste Bridge-ID → Root Bridge
+```
+
+**Bridge-ID Struktur:**
+```
+┌─────────────────┬─────────────────┬──────────────────────────────────┐
+│ Bridge-Priority │   Extended ID   │           MAC-Adresse            │
+│     4 Bit       │     12 Bit      │             48 Bit               │
+└─────────────────┴─────────────────┴──────────────────────────────────┘
+```
+
+### Port-Zustände
+
+**Zustandsübergänge:**
+```
+Blocking → Listening → Learning → Forwarding
+```
+
+### Port-Rollen
+
+| Port-Typ | Beschreibung | Status |
+|----------|-------------|--------|
+| **Root-Port** | Kürzester Weg zur Root (1 pro Switch) | Aktiv |
+| **Designated-Port** | Gegenüber Root-Port oder Blocked-Port | Aktiv |
+| **Blocked-Port** | Höhere Wegkosten zur Root | Inaktiv |
+
+### BPDU (Bridge Protocol Data Units)
+
+**Übertragene Informationen:**
+- Bridge-ID des sendenden Switch
+- Root-Bridge Informationen
+- Pfadkosten zur Root-Bridge
+- Port-spezifische Daten
+
+> **Standard:** IEEE 802.1D
+
+---
+
+## VLAN
+
+> **Definition:** Virtual Local Area Network - Logische Segmentierung physischer Netzwerke
+
+### VLAN-Kategorien
+
+#### Statisches VLAN
+**Zuordnung:**
+```
+Switch-Port ←→ VLAN-Zuordnung
+```
+- **Basis:** Port-basierte Zuordnung
+- **Konfiguration:** Manuell pro Port
+
+#### Dynamisches VLAN
+**Zuordnung:**
+```
+Identifikator ←→ VLAN-Zuordnung
+```
+- **Basis:** MAC, IP, Zertifikat, RADIUS
+- **Konfiguration:** Automatisch basierend auf Identifikatoren
+
+### Trunk-Verbindungen
+
+**Eigenschaften:**
+- Link zwischen Switches oder Switch-Router
+- **IEEE 802.1Q** Tagging
+- **VLAN-ID:** 12 Bit im Header
+- **Zweck:** VLAN-Information zwischen Geräten übertragen
+
+### VLAN-Vorteile
+
+| Kategorie | Nutzen |
+|-----------|--------|
+| **Kosten** | Reduzierte Hardware & Stromkosten |
+| **Skalierung** | Bessere Netzwerk-Skalierbarkeit |
+| **Sicherheit** | Verbesserte Netzwerksegmentierung |
+| **Performance** | QoS-Priorisierung möglich |
+
+---
+
+## IPv4
+
+> **Standard:** 32-Bit Adressierung auf OSI Layer 3
+
+### Adress-Struktur
+
+**Aufbau:**
+```
+┌─────────────────┬─────────────────┐
+│  Netzwerkanteil │    Hostanteil   │
+└─────────────────┴─────────────────┘
+        ↑                   ↑
+   Subnetzmaske        Host-IDs
+```
+
+### Adress-Typen
+
+| Typ | Beschreibung | Beispiel |
+|-----|-------------|----------|
+| **Unicast** | Einzelne Zieladresse | `192.168.1.10` |
+| **Multicast** | Gruppe von Zielen | `224.0.0.1` |
+| **Broadcast** | Alle Hosts im Netz | `192.168.1.255` |
+| **Anycast** | Nächstgelegenes Ziel | Routing-abhängig |
+
+### Private IP-Bereiche
+
+**RFC 1918 Bereiche:**
+```
+Klasse A: 10.0.0.0/8        # 16.777.216 Adressen
+Klasse B: 172.16.0.0/12     # 1.048.576 Adressen  
+Klasse C: 192.168.0.0/16    # 65.536 Adressen
+```
+
+> **Wichtig:** Nicht öffentlich routbar - NAT erforderlich
+
+### Spezielle Adressen
+
+- **Netz-ID:** Hostanteil = `0` (z.B. `192.168.1.0`)
+- **Broadcast:** Hostanteil = `1` (z.B. `192.168.1.255`)
+
+---
+
+## NAT
+
+> **Network Address Translation:** Private ↔ Öffentliche IP-Übersetzung
+
+### Source NAT
+
+#### Statisches NAT
+**Zuordnung:**
+```
+Private IP ←→ Öffentliche IP
+  1:1 Zuordnung
+```
+
+#### Dynamisches NAT
+**Zuordnung:**
+```
+Private IP Pool ←→ Öffentlicher IP Pool
+  N:M Zuordnung
+```
+
+#### NAT Overload (PAT)
+**Zuordnung:**
+```
+Mehrere Private IPs ←→ Eine Öffentliche IP
+  N:1 Zuordnung + Port-Unterscheidung
+```
+
+### Destination NAT
+
+**Port-Forwarding:**
+```
+Öffentlicher Port ←→ Private IP:Port
+  Eingehende Verbindungen weiterleiten
+```
+
+---
+
+## Subnetting IPv4
+
+> **Ziel:** Effiziente Aufteilung großer Netzwerke in kleinere Segmente
+
+### Grundprinzip
+
+**Prozess:**
+```
+Ausgangsnetz
+     ↓
+Bits: Hostanteil → Netzanteil
+     ↓
+Mehrere Subnetze
+```
+
+### Methoden
+
+| Ansatz | Beschreibung |
+|--------|-------------|
+| **Gleichgroße Netze** | Identische Subnetzgrößen |
+| **VLSM** | Variable Length Subnet Mask |
+
+### Sprungweite-Berechnung
+
+**Methoden:**
+1. **Hostanteil-Bits:** Volle Oktette abziehen
+2. **Bit-Wertigkeit:** Letztes Netzwerk-Bit
+3. **Subnetzmaske:** `256 - letzter Wert ≠ 0`
+
+**Beispiel:**
+```
+Netz: 192.168.1.0/26
+Subnetzmaske: 255.255.255.192
+Sprungweite: 256 - 192 = 64
+Subnetze: .0, .64, .128, .192
+```
+
+### Supernetting
+
+> **Konzept:** Zusammenfassung aufeinanderfolgender Subnetze
+
+**Prozess:**
+```
+Mehrere kleine Netze → Ein größeres Netz
+Netzanteil ← Bits ← Hostanteil
+```
+
+---
+
+## IPv6
+
+> **Evolution:** 128-Bit Adressierung für unbegrenzte Konnektivität
+
+### Adress-Format
+
+**Struktur:**
+```
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+└─ 64 Bit Prefix ─┘└─── 64 Bit IID ───┘
+```
+
+**Eigenschaften:**
+- **8 Blöcke** à 16 Bit (Hexadezimal)
+- **Trennung:** Doppelpunkt `:`
+
+### Adress-Kategorien
+
+| Typ | Prefix | Geltungsbereich |
+|-----|--------|----------------|
+| **Link-Local** | `FE80::/10` | Lokales Segment |
+| **ULA** | `FD00::/8` | Lokales Netzwerk |
+| **Global** | `2000::/3` | Internet |
+
+### Kürzungsregeln
+
+1. **Führende Nullen** entfernen: `0db8` → `db8`
+2. **Null-Blöcke** einmalig: `0000:0000` → `::`
+
+**Beispiel:**
+```
+Vollform:  2001:0db8:0000:0000:0000:0000:0000:0001
+Gekürzt:   2001:db8::1
+```
+
+### SLAAC (Stateless Address Auto-Configuration)
+
+**Prozess:**
+```
+Client → Router Solicitation → Router
+Router → Router Advertisement (Prefix) → Client
+Client → IID Generation → Fertige IPv6-Adresse
+```
+
+**Eigenschaften:**
+- Clients generieren IPv6-Adresse selbstständig
+- Keine Server-Abhängigkeit
+- IID-Generierung via:
+  - **mod EUI-64** (via MAC)
+  - **Privacy Extension** (zufällig und wechselnd)
+
+### IPv6-Vorteile
+
+| Bereich | Verbesserung |
+|---------|-------------|
+| **Sicherheit** | IPSec standardmäßig integriert |
+| **Adressraum** | Praktisch unbegrenzt |
+| **Performance** | Vereinfachter 40-Byte Header |
+| **Routing** | Effizientere Verarbeitung |
+
+### Neighbor Discovery Protocol
+
+**Basiert auf ICMPv6:**
+- **DAD:** Duplicate Address Detection
+- **NUD:** Neighbor Unreachability Detection
+- **ARP-Ersatz:** Neighbor Solicitation/Advertisement
+- **RA, RS, NA, NS:** Router/Neighbor Advertisement/Solicitation
+
+---
+
+## Subnetting IPv6
+
+> **Konzept:** Subnetting im Prefix-Bereich (meist /64 → /X)
+
+### Grundlagen
+
+**Charakteristika:**
+- Subnetting im **letzten Teil des Prefix**
+- Anzahl der Geräte im Netz ist immer **gleich groß**
+- CIDR legt fest, wie viele Bits unverändert bleiben müssen
+- **Einheitliche Subnetzgrößen**
+
+### Sprungweite-Berechnung
+
+**Methoden:**
+
+1. **Bit-Wertigkeit:**
+```
+/64 = 1, /63 = 2, /62 = 4, /61 = 8, /60 = 16
+```
+
+2. **Formel:**
+```
+64 - CIDR des SN → Wert um 4 reduzieren bis Wert < 4
+Beispiel /58: 64-58=6 → 6-4=2 → 2²=4 (Sprungweite)
+```
+
+### IPv6 Bit-Position Tabelle
+
+| 8.Nibble | 7.Nibble | 6.Nibble | 5.Nibble | 4.Nibble | 3.Nibble | 2.Nibble | 1.Nibble | Bit-Wert |
+|----------|----------|----------|----------|----------|----------|----------|----------|----------|
+| 36       | 40       | 44       | 48       | 52       | 56       | 60       | 64       | 1        |
+| 35       | 39       | 43       | 47       | 51       | 55       | 59       | 63       | 2        |
+| 34       | 38       | 42       | 46       | 50       | 54       | 58       | 62       | 4        |
+| 33       | 37       | 41       | 45       | 49       | 53       | 57       | 61       | 8        |
+
+> **Tipp:** Jedes Nibble (4 Bit) = 1 Hexadezimalstelle
+
+---
+
+## Routing
+
+> **Funktion:** Pfadfindung zwischen Netzwerksegmenten
+
+### Grundkonzepte
+
+**Client-Seite:**
+```
+Gateway-Eintrag = Router-IP für Netzwerk-Ausgang
+```
+
+**Router-Seite:**
+```
+Routingtabelle → Next Hop Bestimmung
+Best Match = Meiste Bit-Übereinstimmungen
+```
+
+### Routingtabellen-Struktur
+
+| Feld | Beschreibung |
+|------|-------------|
+| **Ziel-Netz** | Destination Network/IP |
+| **Subnetzmaske** | Prüfbits für Matching |
+| **Next Hop** | Nächster Router |
+| **Interface** | Ausgangsschnittstelle |
+
+### Wichtige Konzepte
+
+#### Default Route
+**Definition:**
+```
+IPv4: 0.0.0.0/0
+IPv6: ::/0
+```
+- **Supernetz** für alle Adressen
+- **Fallback** wenn kein spezifischerer Eintrag
+- **Internet-Gateway** Standardeintrag
+
+#### Hop Count
+**Pfad-Verfolgung:**
+```
+Client → Router1 → Router2 → Ziel
+         Hop 1    Hop 2
+```
+> **Tool:** `tracert` zeigt Hop-Pfad an
+
+### Routing-Verfahren
+
+#### Statisches Routing
+
+**Vorteile:**
+- Vollständige Kontrolle über Pfade
+- Kein Protokoll-Overhead
+- Deterministische Routen
+
+**Nachteile:**
+- Hoher administrativer Aufwand
+- Fehleranfällig bei manueller Konfiguration
+- Keine automatische Failover-Fähigkeit
+
+#### Dynamisches Routing
+
+**Vorteile:**
+- Automatische Anpassung bei Änderungen
+- Ausgezeichnete Skalierbarkeit
+- Self-healing bei Ausfällen
+
+**Nachteile:**
+- Ressourcenverbrauch (CPU, Bandbreite)
+- Weniger Kontrolle über Pfade
+- Komplexere Fehlerdiagnose
+
+### Routing-Protokolle
+
+#### Distance-Vector (Legacy)
+
+**Beispiel:** RIP (Routing Information Protocol)
+
+**Funktionsweise:**
+```
+Router A → Komplette Tabelle → Router B
+Router B → Komplette Tabelle → Router C
+```
+
+**Eigenschaften:**
+- Vollständige Routingtabellen-Übertragung
+- Hop-Count basierte Metrik
+- Keine Topologie-Kenntnis
+- **Geeignet für:** Kleine Netzwerke
+
+#### Link-State (Modern)
+
+**Beispiel:** OSPF (Open Shortest Path First)
+
+**Funktionsweise:**
+```
+Router → Hello Packets → Neighbor Discovery
+Router → LSA Packets → Topology Database
+Topology Database → SPF Algorithm → Optimale Routen
+```
+
+**Eigenschaften:**
+- Hello-Pakete für Neighbor Detection
+- Link-State Advertisements (LSA)
+- Vollständige Topologie-Kenntnis
+- Dijkstra-Algorithmus für beste Pfade
+- **Geeignet für:** Enterprise-Netzwerke (große Netze)
+
+---
+
+## Header
+
+> **Definition:** Protokoll-spezifische Informationsblöcke vor Nutzdaten
+
+### OSI-Schichtmodell
+
+**7-Layer Architektur:**
+```
+┌─────────────────┐ ← 7. Application  │ HTTP, SMTP, DNS
+├─────────────────┤ ← 6. Presentation │ SSL/TLS, JPEG
+├─────────────────┤ ← 5. Session      │ NetBIOS, RPC
+├─────────────────┤ ← 4. Transport    │ TCP, UDP
+├─────────────────┤ ← 3. Network      │ IP, ICMP
+├─────────────────┤ ← 2. Data Link    │ Ethernet, WiFi
+└─────────────────┘ ← 1. Physical     │ Kabel, Funk
+```
+
+### Adressierungs-Hierarchie
+
+| Schicht | Adresstyp | Geltungsbereich | Beispiel |
+|---------|-----------|----------------|----------|
+| **Layer 2** | MAC-Adresse | Lokales Segment | `00:1B:44:11:3A:B7` |
+| **Layer 3** | IP-Adresse | Ende-zu-Ende | `192.168.1.100` |
+| **Layer 4** | Port-Nummer | Anwendung | `80 (HTTP)` |
+
+### Header-Verhalten
+
+**MAC-Adressen:**
+```
+Quelle ←→ Ziel wechselt bei jedem Router-Hop
+```
+
+**IP-Adressen:**
+```
+Quelle ←→ Ziel bleibt Ende-zu-Ende konstant
+```
+
+### Frame-Größen Limits
+
+| Parameter | Beschreibung | Standard-Wert |
+|-----------|-------------|---------------|
+| **MTU** | Maximum Transmission Unit | 1500 Bytes |
+| **MSS** | Maximum Segment Size (TCP) | 1460 Bytes |
+| **Preambel** | Frame-Erkennung | 8 Bytes |
+
+**Ethernet Frame-Struktur:**
+```
+┌─────────┬───────┬─────────┬─────────────┬────────┐
+│Preambel │ SFD   │ Header  │   Payload   │  FCS   │
+│ 7 Bytes │1 Byte │14 Bytes │   46-1500   │4 Bytes │
+└─────────┴───────┴─────────┴─────────────┴────────┘
+```
+
+---
+
+## DHCP
+
+> **Dynamic Host Configuration Protocol:** Automatisierte IP-Konfiguration
+
+### Zuweisungsarten
+
+#### Dynamische Zuweisung
+**Verhalten:**
+```
+Client-Request → Erste freie IP aus Pool
+Temporäre Zuweisung basierend auf Verfügbarkeit
+```
+
+#### Statische Zuweisung
+**Verhalten:**
+```
+MAC-Adresse → Feste IP-Adresse
+Dauerhafte 1:1 Zuordnung
+```
+
+#### Automatische Zuweisung
+**Verhalten:**
+```
+Client → Erste freie IP + MAC-Speicherung
+Dynamisch + Wiederverwendung der gleichen IP
+```
+
+### Konfigurationsparameter
+
+| Kategorie | Parameter |
+|-----------|-----------|
+| **Netzwerk** | IP-Adresse, Subnetzmaske, Gateway |
+| **DNS** | Primärer/Sekundärer DNS, Domäne |
+| **Zeit** | NTP-Server, Zeitzone |
+| **System** | Lease-Time, TFTP-Server |
+
+### DORA-Prozess
+
+**4-Schritt Kommunikation:**
+
+1. **DISCOVER** (Broadcast)
+   ```
+   Client → "Suche DHCP Server" → Netzwerk
+   ```
+
+2. **OFFER** (Broadcast)
+   ```
+   DHCP Server → "IP-Konfiguration anbieten" → Client
+   ```
+
+3. **REQUEST** (Broadcast)
+   ```
+   Client → "Konfiguration anfordern" → DHCP Server
+   ```
+
+4. **ACK** (Broadcast)
+   ```
+   DHCP Server → "Konfiguration bestätigen" → Client
+   ```
+
+### Lease-Time Management
+
+**Erneuerungszyklen:**
+```
+├─ 50% (T1) → Renewal Time → Unicast Request
+├─ 87.5% (T2) → Rebind Time → Broadcast Request  
+└─ 100% → Lease Expired → APIPA Fallback
+```
+
+### APIPA (Automatic Private IP Addressing)
+
+**Adressbereich:** `169.254.0.0/16`
+
+**Aktivierung bei:**
+- Kein DHCP-Server verfügbar
+- Lease-Time abgelaufen
+- IP-Konflikt bei statischer Konfiguration
+
+### DHCP Relay Agent
+
+**Problem:** DHCP-Broadcasts enden am Router
+
+**Lösung:**
+```
+Client Broadcast → Router → Unicast an DHCP Server
+DHCP Response ← Router ← Server Response
+```
+
+**Konfiguration:** `ip helper-address [DHCP-Server-IP]`
+
+### Vor-/Nachteile
+
+| Vorteile | Nachteile |
+|----------|-----------|
+| Zentralisierte Administration | Sicherheitsrisiken (Rogue DHCP) |
+| Reduzierte Konfigurationsfehler | Single Point of Failure |
+| Skalierbarkeit | Zusätzlicher Netzwerk-Traffic |
+| Automatische IP-Verwaltung | Abhängigkeit vom Server |
+
+---
+
+## DNS
+
+> **Domain Name System:** Hierarchische Namensauflösung für das Internet
+
+### FQDN-Struktur
+
+**Hierarchischer Aufbau:**
+```
+mail.example.com.
+│    │       │   │
+│    │       │   └─── Root (.)
+│    │       └─────── TLD (.com)
+│    └─────────────── SLD (example)
+└──────────────────── Hostname (mail)
+```
+
+### DNS-Hierarchie
+
+#### Root-Server
+```
+13 Root-Server-Gruppen weltweit
+Kennen alle TLD-Server (.com, .de, .org)
+```
+
+#### TLD-Server (Top-Level-Domain)
+```
+.com Server → Verwaltet example.com Server
+.de Server → Verwaltet beispiel.de Server
+```
+
+#### Authoritative Nameserver
+```
+Organisationen betreiben Server für ihre Domains
+Liefern endgültige Antworten (A, AAAA, MX Records)
+```
+
+#### Resolver
+```
+Provider/Firmen-Server
+Rekursive Anfragen für Clients
+Caching für Performance
+```
+
+### Anfrage-Arten
+
+#### Rekursive Anfrage
+**Prozess:**
+```
+Client → Resolver: www.example.com?
+Resolver → Root: .com Server?
+Resolver → TLD: example.com Server?
+Resolver → Auth: www.example.com IP?
+Resolver → Client: 192.0.2.1
+```
+
+#### Iterative Anfrage
+**Prozess:**
+```
+Resolver fragt Step-by-Step:
+Root → TLD → Authoritative → Antwort
+```
+
+### DNS-Record Typen
+
+| Record | Funktion | Beispiel |
+|--------|----------|----------|
+| **SOA** | Start of Authority | Zonen-Informationen |
+| **A** | Name → IPv4 | `www.example.com → 192.0.2.1` |
+| **AAAA** | Name → IPv6 | `www.example.com → 2001:db8::1` |
+| **MX** | Mail Exchange | `example.com → mail.example.com` |
+| **NS** | Name Server | `example.com → ns1.example.com` |
+| **CNAME** | Canonical Name | `ftp.example.com → www.example.com` |
+
+### Lookup-Arten
+
+**Forward Lookup:** `example.com → 192.0.2.1`
+**Reverse Lookup:** `192.0.2.1 → example.com`
+
+---
+
+## Proxy
+
+> **Vermittlungsserver:** Stellvertreter zwischen Client und Server
+
+### Forward Proxy
+
+**Position:** `Client ←→ **Proxy** ←→ Server`
+
+**Funktionen:**
+- **Anonymisierung:** Client-IP verbergen
+- **Logging:** Zugriffsprotokollierung
+- **Filterung:** Content-/URL-Blocking
+- **Caching:** Performance-Optimierung
+- **Entschlüsselung:** HTTPS-Inspection
+
+**Konfiguration:** Browser oder Betriebssystem
+
+### Reverse Proxy
+
+**Position:** `Client ←→ **Proxy** ←→ Server(s)`
+
+**Funktionen:**
+- **Load Balancing:** Lastverteilung
+- **Caching:** Statische Inhalte
+- **Deployment:** Blue/Green Strategies
+- **SSL Termination:** Entschlüsselung
+- **Security:** Server-Schutz
+
+### Proxy-Protokolle
+
+| Typ | Verwendung |
+|-----|------------|
+| **Web-Proxy** | HTTP/HTTPS Verkehr |
+| **SOCKS-Proxy** | Beliebige TCP/UDP Verbindungen |
+
+### Öffentlich vs. Privat
+
+#### Öffentliche Proxys
+**Vorteile:**
+- Geo-Blocking umgehen
+- Kostenlos verfügbar
+
+**Risiken:**
+- Vertrauensprobleme
+- Datensammlung/-verkauf
+- DNS-Manipulation möglich
+
+#### Private Proxys
+**Einsatz:**
+- Unternehmens-Firewalls
+- Richtlinien-Durchsetzung
+- Sicherheitskontrolle
+
+---
+
+## RADIUS
+
+> **Remote Authentication Dial-In User Service:** AAA-Framework für Netzwerkzugang
+
+### AAA-Prinzipien
+
+**Drei Säulen:**
+```
+Authentication → Wer bist du?
+Authorization → Was darfst du?
+Accounting → Was hast du getan?
+```
+
+### Einsatzgebiete
+
+- **LAN/WLAN:** Netzwerkzugang
+- **VLAN:** Dynamische Zuordnung
+- **VPN:** Remote-Access
+- **Network Devices:** Switch/Router Login
+
+### Architektur
+
+**3-Komponenten-Modell:**
+```
+┌─────────────────┐           ┌─────────────────────┐           ┌─────────────────────┐ 
+│ Supplicant      │◄─────────►│ Authenticator       │◄─────────►│ Authentication      │
+│ Client          │           │ Access Point/       │           │ Server              │
+│                 │           │ Switch              │           │ RADIUS Server       │ 
+└─────────────────┘           └─────────────────────┘           └─────────────────────┘ 
+```
+
+### Authentifizierungs-Ablauf
+
+**7-Schritt Prozess:**
+
+1. **Supplicant → Authenticator:** Verbindungsanfrage
+2. **Authenticator → Supplicant:** Authentication Request
+3. **Supplicant → Authenticator:** Credentials (User/Pass)
+4. **Authenticator → RADIUS Server:** Access-Request
+5. **RADIUS Server:** Credential Verification
+6. **RADIUS Server → Authenticator:** Access-Accept/Reject/Challenge
+7. **Authenticator → Supplicant:** Zugang gewähren/verweigern
+
+### RADIUS-Antworten
+
+| Response | Bedeutung |
+|----------|-----------|
+| **Access-Accept** | Authentifizierung erfolgreich |
+| **Access-Reject** | Authentifizierung fehlgeschlagen |
+| **Access-Challenge** | Zusätzliche Informationen benötigt |
+
+### Vor-/Nachteile
+
+| Vorteile | Nachteile |
+|----------|-----------|
+| Zentrale Benutzerverwaltung | Komplexere Infrastruktur |
+| Hohe Skalierbarkeit | Single Point of Failure |
+| Flexibilität bei Auth-Methoden | Netzwerk-Abhängigkeit |
+| Umfassendes Logging | Zusätzlicher Admin-Aufwand |
+
+### EAP (Extensible Authentication Protocol)
+
+**Framework für verschiedene Auth-Methoden:**
+- **Passwort-basiert:** PEAP, EAP-TTLS
+- **Zertifikat-basiert:** EAP-TLS
+- **Token-basiert:** EAP-SIM
+- **Biometrisch:** Fingerprint, Iris
+
+---
+
+## Verzeichnisdienste
+
+> **Active Directory:** Zentrale Verwaltung von Netzwerk-Ressourcen
+
+### Domäne vs. Arbeitsgruppe
+
+#### Domäne
+**Struktur:**
+```
+Domain Controller ←→ Zentrale Verwaltung
+├─ Benutzerkonten
+├─ Computer-Accounts  
+├─ Gruppenrichtlinien
+└─ Ressourcen-Management
+```
+
+**Eigenschaften:**
+- DNS-basierte Namensstruktur
+- Zentrale Authentifizierung
+- Gruppenrichtlinien (GPOs)
+- Skalierbare Verwaltung
+
+#### Arbeitsgruppe
+**Struktur:**
+```
+PC1 ←→ PC2 ←→ PC3
+ ↓      ↓      ↓
+Lokal  Lokal  Lokal
+Admin  Admin  Admin
+```
+
+**Eigenschaften:**
+- Dezentrale Verwaltung
+- Jeder PC eigenständig
+- Peer-to-Peer Struktur
+- Begrenzte Skalierbarkeit
+
+### Active Directory Objekte
+
+#### Benutzer & Gruppen
+- **User Accounts:** Individuelle Anmeldedaten
+- **Security Groups:** Berechtigungsverwaltung
+- **Distribution Groups:** E-Mail-Verteilung
+
+#### Computer & Ressourcen
+- **Computer Accounts:** Domain-joined PCs
+- **Printer Objects:** Netzwerk-Drucker
+- **Shared Folders:** Dateifreigaben
+
+#### Container-Struktur
+- **Default Container:** Automatisch erstellt
+- **Organizational Units (OUs):** Benutzerdefiniert
+- **Hierarchische Struktur:** Vererbung von Richtlinien
+
+#### Gruppenrichtlinienobjekte (GPOs)
+
+**Hierarchie:**
+```
+Domain GPO
+├─ OU: Sales
+│  └─ Sales Users
+└─ OU: IT
+   └─ IT Users
+```
+
+**GPO-Anwendung:**
+- **Computer Configuration:** System-Einstellungen
+- **User Configuration:** Benutzer-Einstellungen
+- **Vererbung:** Von oben nach unten
+- **Ausnahmen:** Block Inheritance, Enforced
+
+---
+
+## CMD-Befehle
+
+> **Command Line Interface:** Netzwerk-Diagnose und -Verwaltung unter Windows
+
+### Netzwerk-Diagnose
+
+#### `ping`
+**Funktion:** Erreichbarkeitstest über ICMP
+
+**Grundlegende Syntax:**
+```cmd
+ping 8.8.8.8
+ping -t google.com          # Kontinuierlich
+ping -n 10 192.168.1.1      # 10 Pakete
+ping -l 1000 192.168.1.1    # 1000 Byte Paketgröße
+```
+
+#### `tracert`
+**Funktion:** Hop-by-Hop Pfadverfolgung
+
+**Syntax:**
+```cmd
+tracert google.com
+tracert -h 15 8.8.8.8       # Max 15 Hops
+tracert -d 192.168.1.1      # Keine DNS-Auflösung
+```
+
+#### `nslookup`
+**Funktion:** DNS-Abfragen
+
+**Interaktive Nutzung:**
+```cmd
+nslookup google.com
+nslookup google.com 8.8.8.8 # Specific DNS
+
+# Interaktiver Modus
+nslookup
+> set type=MX               # MX Records
+> google.com
+> set type=AAAA             # IPv6 Records
+> google.com
+```
+
+### IP-Konfiguration
+
+#### `ipconfig`
+**Basis-Informationen:**
+```cmd
+ipconfig                    # Basis-Info
+ipconfig /all               # Detaillierte Info
+ipconfig /all | findstr DNS # Nur DNS-Server
+```
+
+**DHCP-Management:**
+```cmd
+ipconfig /renew            # IP erneuern
+ipconfig /release          # IP freigeben
+ipconfig /renew "LAN"      # Spezifisches Interface
+```
+
+**DNS-Cache:**
+```cmd
+ipconfig /displaydns       # Cache anzeigen
+ipconfig /flushdns         # Cache leeren
+```
+
+### Verbindungs-Analyse
+
+#### `netstat`
+**Aktive Verbindungen:**
+```cmd
+netstat                   # TCP Verbindungen
+netstat -an               # Alle + numerisch
+netstat -b                # Mit Prozess-Info (Admin)
+netstat -r                # Routing-Tabelle
+netstat -p tcp            # Nur TCP
+netstat -o                # Mit Process ID
+```
+
+**Nützliche Kombinationen:**
+```cmd
+netstat -an | findstr :80    # Nur Port 80
+netstat -an | findstr LISTEN # Nur Listening Ports
+```
+
+#### `arp`
+**ARP-Tabelle:**
+```cmd
+arp -a                     # Alle ARP-Einträge
+arp -a 192.168.1.1         # Spezifische IP
+arp -d                     # Cache löschen
+arp -s 192.168.1.1 00-11-22-33-44-55 # Statischer Eintrag
+```
+
+### Erweiterte Diagnose
+
+#### `pathping`
+**Kombiniert ping + tracert:**
+```cmd
+pathping google.com        # Verlust-Statistiken pro Hop
+pathping -n google.com     # Keine DNS-Auflösung
+pathping -h 15 google.com  # Max 15 Hops
+```
+
+#### `telnet`
+**Port-Erreichbarkeit:**
+```cmd
+telnet google.com 80       # HTTP Port testen
+telnet 192.168.1.1 23      # Telnet-Zugang
+telnet smtp.gmail.com 587  # SMTP Port
+```
+
+> **Hinweis:** Telnet-Client muss unter Windows aktiviert werden
+
+#### `route`
+**Routing-Tabelle verwalten:**
+```cmd
+route print               # Routing-Tabelle anzeigen
+route add 192.168.2.0 mask 255.255.255.0 192.168.1.1
+route delete 192.168.2.0 mask 255.255.255.0
+route -p add 0.0.0.0 mask 0.0.0.0 192.168.1.1 # Persistent
+```
+
+### Nützliche Parameter-Übersicht
+
+| Befehl | Parameter | Beschreibung |
+|--------|-----------|-------------|
+| `ping` | `-t` | Kontinuierlich |
+| `ping` | `-n X` | X Pakete senden |
+| `ping` | `-l X` | Paketgröße X Bytes |
+| `ping` | `-i X` | TTL setzen |
+| `tracert` | `-h X` | Max X Hops |
+| `tracert` | `-d` | Keine DNS-Auflösung |
+| `netstat` | `-p tcp` | Nur TCP zeigen |
+| `netstat` | `-o` | Mit Process ID |
+| `netstat` | `-e` | Ethernet-Statistiken |
+| `nslookup` | `set type=MX` | Mail Exchange Records |
+
+### Praktische Anwendungsfälle
+
+#### Netzwerk-Troubleshooting Workflow
+```cmd
+# 1. Basis-Konnektivität prüfen
+ping 127.0.0.1            # Loopback
+ping 192.168.1.1          # Gateway
+ping 8.8.8.8              # Internet (IP)
+ping google.com           # Internet (DNS)
+
+# 2. Bei Problemen detailliert prüfen
+ipconfig /all             # IP-Konfiguration
+tracert 8.8.8.8           # Routing-Pfad
+nslookup google.com       # DNS-Auflösung
+```
+
+#### Port-Scanning (Basis)
+```cmd
+telnet target.com 80      # HTTP
+telnet target.com 443     # HTTPS
+telnet target.com 22      # SSH
+telnet target.com 3389    # RDP
+```
+
+#### Performance-Analyse
+```cmd
+ping -t -l 1472 target.com # MTU-Test
+pathping target.com        # Hop-Performance
+netstat -e                 # Interface-Statistiken
+```
+
+---
+
+## Anhang
+
+### Wichtige Standards
+
+| Standard | Beschreibung | Bereich |
+|----------|-------------|---------|
+| **IEEE 802.1D** | Spanning Tree Protocol | Switching |
+| **IEEE 802.1Q** | VLAN Tagging | Switching |
+| **IEEE 802.3** | Ethernet Standard | Physical |
+| **RFC 2131** | DHCP Specification | Network Services |
+| **RFC 1034/1035** | DNS Specification | Network Services |
+| **RFC 1918** | Private IP Address Space | IP Addressing |
+| **RFC 4291** | IPv6 Address Architecture | IPv6 |
+
+### Port-Referenz
+
+#### Well-Known Ports (0-1023)
+
+| Port | Protokoll | Beschreibung |
+|------|-----------|-------------|
+| **20/21** | FTP | File Transfer Protocol |
+| **22** | SSH | Secure Shell |
+| **23** | Telnet | Unencrypted Remote Login |
+| **25** | SMTP | Simple Mail Transfer Protocol |
+| **53** | DNS | Domain Name System |
+| **67/68** | DHCP | Dynamic Host Configuration |
+| **80** | HTTP | Hypertext Transfer Protocol |
+| **110** | POP3 | Post Office Protocol v3 |
+| **143** | IMAP | Internet Message Access Protocol |
+| **443** | HTTPS | HTTP Secure |
+| **993** | IMAPS | IMAP over SSL |
+| **995** | POP3S | POP3 over SSL |
+
+#### Registered Ports (1024-49151)
+
+| Port | Protokoll | Beschreibung |
+|------|-----------|-------------|
+| **1433** | MSSQL | Microsoft SQL Server |
+| **1521** | Oracle | Oracle Database |
+| **3389** | RDP | Remote Desktop Protocol |
+| **5432** | PostgreSQL | PostgreSQL Database |
+
+### Subnetting-Referenz
+
+#### IPv4 CIDR-Notationen
+
+| CIDR | Subnetzmaske | Hosts | Beschreibung |
+|------|-------------|-------|-------------|
+| `/8` | `255.0.0.0` | 16.777.214 | Klasse A |
+| `/16` | `255.255.0.0` | 65.534 | Klasse B |
+| `/24` | `255.255.255.0` | 254 | Klasse C |
+| `/25` | `255.255.255.128` | 126 | Halbiertes C |
+| `/26` | `255.255.255.192` | 62 | Viertel C |
+| `/27` | `255.255.255.224` | 30 | Achtel C |
+| `/28` | `255.255.255.240` | 14 | Sechzehntel C |
+| `/30` | `255.255.255.252` | 2 | Point-to-Point |
+
+#### IPv6 Präfix-Längen
+
+| Präfix | Bedeutung | Anzahl Subnetze |
+|--------|-----------|----------------|
+| `/48` | Site Prefix | 65.536 |
+| `/56` | Subnet Prefix | 256 |
+| `/64` | Interface ID | 1 |
+
+### Weiterführende Themen
+
+#### Netzwerk-Sicherheit
+- **Firewalls:** Stateful/Stateless Inspection
+- **IDS/IPS:** Intrusion Detection/Prevention
+- **VPN:** Site-to-Site, Remote Access
+- **802.1X:** Port-basierte Authentifizierung
+
+#### Wireless Netzwerke
+- **802.11 Standards:** a/b/g/n/ac/ax
+- **Sicherheit:** WEP/WPA/WPA2/WPA3
+- **Roaming:** Fast BSS Transition
+- **MIMO:** Multiple Input/Output
+
+#### Cloud Networking
+- **SDN:** Software Defined Networking
+- **NFV:** Network Function Virtualization
+- **Overlay Networks:** VXLAN, NVGRE
+- **Container Networking:** Docker, Kubernetes
+
+#### WAN Technologies
+- **MPLS:** Multiprotocol Label Switching
+- **SD-WAN:** Software Defined WAN
+- **VPN:** IPSec, SSL/TLS
+- **Frame Relay:** Legacy Packet Switching
+
+#### Network Monitoring
+- **SNMP:** Simple Network Management Protocol
+- **NetFlow:** Network Traffic Analysis
+- **Syslog:** Centralized Logging
+- **RMON:** Remote Network Monitoring
+
+### Best Practices
+
+#### Dokumentation
+1. **Netzwerk-Diagramme:** Topologie aktuell halten
+2. **IP-Adress-Pläne:** IPAM (IP Address Management)
+3. **Konfigurationsbackups:** Regelmäßige Sicherung
+4. **Change-Management:** Änderungen dokumentieren
+
+#### Sicherheit
+1. **Segmentierung:** VLANs und Firewalls nutzen
+2. **Zugriffskontrolle:** AAA-Prinzipien umsetzen
+3. **Updates:** Firmware und Software aktuell halten
+4. **Monitoring:** Anomalieerkennung implementieren
+
+#### Performance
+1. **Kapazitätsplanung:** Wachstum berücksichtigen
+2. **QoS:** Quality of Service konfigurieren
+3. **Load Balancing:** Lastverteilung implementieren
+4. **Redundanz:** Single Points of Failure vermeiden
+
+#### Troubleshooting
+1. **Systematisches Vorgehen:** OSI-Layer-Modell
+2. **Baseline-Messungen:** Normale Werte kennen
+3. **Tool-Kenntnisse:** CLI und GUI beherrschen
+4. **Eskalationsverfahren:** Wann Experten hinzuziehen
+
+### Zertifizierungs-Pfade
+
+#### Cisco
+- **CCNA:** Associate Level
+- **CCNP:** Professional Level
+- **CCIE:** Expert Level
+
+#### CompTIA
+- **Network+:** Grundlagen-Zertifizierung
+- **Security+:** Sicherheitsfokus
+
+#### Herstellerneutral
+- **JNCIA/JNCIP/JNCIE:** Juniper Networks
+- **MCSA/MCSE:** Microsoft (veraltet)
+
+---
