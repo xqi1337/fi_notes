@@ -1,0 +1,83 @@
+---
+title: 'DNS - Domain Name System'
+description: 'Hierarchische Namensauflösung, FQDN-Struktur, DNS-Hierarchie und Record-Typen'
+tags: ['Netzwerk', 'DNS', 'FQDN', 'Namensauflösung', 'Root-Server', 'TLD']
+---
+
+# DNS
+
+> **Domain Name System:** Hierarchische Namensauflösung für das Internet
+
+## FQDN-Struktur
+
+**Hierarchischer Aufbau:**
+```
+mail.example.com.
+│    │       │   │
+│    │       │   └─── Root (.)
+│    │       └─────── TLD (.com)
+│    └─────────────── SLD (example)
+└──────────────────── Hostname (mail)
+```
+
+## DNS-Hierarchie
+
+### Root-Server
+```
+13 Root-Server-Gruppen weltweit
+Kennen alle TLD-Server (.com, .de, .org)
+```
+
+### TLD-Server (Top-Level-Domain)
+```
+.com Server → Verwaltet example.com Server
+.de Server → Verwaltet beispiel.de Server
+```
+
+### Authoritative Nameserver
+```
+Organisationen betreiben Server für ihre Domains
+Liefern endgültige Antworten (A, AAAA, MX Records)
+```
+
+### Resolver
+```
+Provider/Firmen-Server
+Rekursive Anfragen für Clients
+Caching für Performance
+```
+
+## Anfrage-Arten
+
+### Rekursive Anfrage
+**Prozess:**
+```
+Client → Resolver: www.example.com?
+Resolver → Root: .com Server?
+Resolver → TLD: example.com Server?
+Resolver → Auth: www.example.com IP?
+Resolver → Client: 192.0.2.1
+```
+
+### Iterative Anfrage
+**Prozess:**
+```
+Resolver fragt Step-by-Step:
+Root → TLD → Authoritative → Antwort
+```
+
+## DNS-Record Typen
+
+| Record | Funktion | Beispiel |
+|--------|----------|----------|
+| **SOA** | Start of Authority | Zonen-Informationen |
+| **A** | Name → IPv4 | `www.example.com → 192.0.2.1` |
+| **AAAA** | Name → IPv6 | `www.example.com → 2001:db8::1` |
+| **MX** | Mail Exchange | `example.com → mail.example.com` |
+| **NS** | Name Server | `example.com → ns1.example.com` |
+| **CNAME** | Canonical Name | `ftp.example.com → www.example.com` |
+
+## Lookup-Arten
+
+**Forward Lookup:** `example.com → 192.0.2.1`
+**Reverse Lookup:** `192.0.2.1 → example.com`
