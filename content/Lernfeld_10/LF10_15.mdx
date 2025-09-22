@@ -1,0 +1,174 @@
+---
+title: 'CMD-Befehle - Netzwerk-Diagnose und Verwaltung'
+description: 'Windows Command Line Tools für Netzwerk-Troubleshooting, ping, tracert, netstat, ipconfig'
+tags: ['Netzwerk', 'CMD', 'Windows', 'Troubleshooting', 'Diagnose', 'CLI']
+---
+
+# CMD-Befehle
+
+> **Command Line Interface:** Netzwerk-Diagnose und -Verwaltung unter Windows
+
+## Netzwerk-Diagnose
+
+### `ping`
+**Funktion:** Erreichbarkeitstest über ICMP
+
+**Grundlegende Syntax:**
+```cmd
+ping 8.8.8.8
+ping -t google.com          # Kontinuierlich
+ping -n 10 192.168.1.1      # 10 Pakete
+ping -l 1000 192.168.1.1    # 1000 Byte Paketgröße
+```
+
+### `tracert`
+**Funktion:** Hop-by-Hop Pfadverfolgung
+
+**Syntax:**
+```cmd
+tracert google.com
+tracert -h 15 8.8.8.8       # Max 15 Hops
+tracert -d 192.168.1.1      # Keine DNS-Auflösung
+```
+
+### `nslookup`
+**Funktion:** DNS-Abfragen
+
+**Interaktive Nutzung:**
+```cmd
+nslookup google.com
+nslookup google.com 8.8.8.8 # Specific DNS
+
+# Interaktiver Modus
+nslookup
+> set type=MX               # MX Records
+> google.com
+> set type=AAAA             # IPv6 Records
+> google.com
+```
+
+## IP-Konfiguration
+
+### `ipconfig`
+**Basis-Informationen:**
+```cmd
+ipconfig                    # Basis-Info
+ipconfig /all               # Detaillierte Info
+ipconfig /all | findstr DNS # Nur DNS-Server
+```
+
+**DHCP-Management:**
+```cmd
+ipconfig /renew            # IP erneuern
+ipconfig /release          # IP freigeben
+ipconfig /renew "LAN"      # Spezifisches Interface
+```
+
+**DNS-Cache:**
+```cmd
+ipconfig /displaydns       # Cache anzeigen
+ipconfig /flushdns         # Cache leeren
+```
+
+## Verbindungs-Analyse
+
+### `netstat`
+**Aktive Verbindungen:**
+```cmd
+netstat                   # TCP Verbindungen
+netstat -an               # Alle + numerisch
+netstat -b                # Mit Prozess-Info (Admin)
+netstat -r                # Routing-Tabelle
+netstat -p tcp            # Nur TCP
+netstat -o                # Mit Process ID
+```
+
+**Nützliche Kombinationen:**
+```cmd
+netstat -an | findstr :80    # Nur Port 80
+netstat -an | findstr LISTEN # Nur Listening Ports
+```
+
+### `arp`
+**ARP-Tabelle:**
+```cmd
+arp -a                     # Alle ARP-Einträge
+arp -a 192.168.1.1         # Spezifische IP
+arp -d                     # Cache löschen
+arp -s 192.168.1.1 00-11-22-33-44-55 # Statischer Eintrag
+```
+
+## Erweiterte Diagnose
+
+### `pathping`
+**Kombiniert ping + tracert:**
+```cmd
+pathping google.com        # Verlust-Statistiken pro Hop
+pathping -n google.com     # Keine DNS-Auflösung
+pathping -h 15 google.com  # Max 15 Hops
+```
+
+### `telnet`
+**Port-Erreichbarkeit:**
+```cmd
+telnet google.com 80       # HTTP Port testen
+telnet 192.168.1.1 23      # Telnet-Zugang
+telnet smtp.gmail.com 587  # SMTP Port
+```
+
+> **Hinweis:** Telnet-Client muss unter Windows aktiviert werden
+
+### `route`
+**Routing-Tabelle verwalten:**
+```cmd
+route print               # Routing-Tabelle anzeigen
+route add 192.168.2.0 mask 255.255.255.0 192.168.1.1
+route delete 192.168.2.0 mask 255.255.255.0
+route -p add 0.0.0.0 mask 0.0.0.0 192.168.1.1 # Persistent
+```
+
+## Nützliche Parameter-Übersicht
+
+| Befehl | Parameter | Beschreibung |
+|--------|-----------|-------------|
+| `ping` | `-t` | Kontinuierlich |
+| `ping` | `-n X` | X Pakete senden |
+| `ping` | `-l X` | Paketgröße X Bytes |
+| `ping` | `-i X` | TTL setzen |
+| `tracert` | `-h X` | Max X Hops |
+| `tracert` | `-d` | Keine DNS-Auflösung |
+| `netstat` | `-p tcp` | Nur TCP zeigen |
+| `netstat` | `-o` | Mit Process ID |
+| `netstat` | `-e` | Ethernet-Statistiken |
+| `nslookup` | `set type=MX` | Mail Exchange Records |
+
+## Praktische Anwendungsfälle
+
+### Netzwerk-Troubleshooting Workflow
+```cmd
+# 1. Basis-Konnektivität prüfen
+ping 127.0.0.1            # Loopback
+ping 192.168.1.1          # Gateway
+ping 8.8.8.8              # Internet (IP)
+ping google.com           # Internet (DNS)
+
+# 2. Bei Problemen detailliert prüfen
+ipconfig /all             # IP-Konfiguration
+tracert 8.8.8.8           # Routing-Pfad
+nslookup google.com       # DNS-Auflösung
+```
+
+### Port-Scanning (Basis)
+```cmd
+telnet target.com 80      # HTTP
+telnet target.com 443     # HTTPS
+telnet target.com 22      # SSH
+telnet target.com 3389    # RDP
+```
+
+### Performance-Analyse
+```cmd
+ping -t -l 1472 target.com # MTU-Test
+pathping target.com        # Hop-Performance
+netstat -e                 # Interface-Statistiken
+```
