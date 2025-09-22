@@ -1,0 +1,113 @@
+---
+title: 'Routing - Pfadfindung zwischen Netzwerksegmenten'
+description: 'Statisches und dynamisches Routing, Distance-Vector vs Link-State Protokolle, Default Route'
+tags: ['Netzwerk', 'Routing', 'OSPF', 'RIP', 'Routingtabelle', 'Next Hop']
+---
+
+# Routing
+
+> **Funktion:** Pfadfindung zwischen Netzwerksegmenten
+
+## Grundkonzepte
+
+**Client-Seite:**
+```
+Gateway-Eintrag = Router-IP für Netzwerk-Ausgang
+```
+
+**Router-Seite:**
+```
+Routingtabelle → Next Hop Bestimmung
+Best Match = Meiste Bit-Übereinstimmungen
+```
+
+## Routingtabellen-Struktur
+
+| Feld | Beschreibung |
+|------|-------------|
+| **Ziel-Netz** | Destination Network/IP |
+| **Subnetzmaske** | Prüfbits für Matching |
+| **Next Hop** | Nächster Router |
+| **Interface** | Ausgangsschnittstelle |
+
+## Wichtige Konzepte
+
+### Default Route
+**Definition:**
+```
+IPv4: 0.0.0.0/0
+IPv6: ::/0
+```
+- **Supernetz** für alle Adressen
+- **Fallback** wenn kein spezifischerer Eintrag
+- **Internet-Gateway** Standardeintrag
+
+### Hop Count
+**Pfad-Verfolgung:**
+```
+Client → Router1 → Router2 → Ziel
+         Hop 1     Hop 2
+```
+> **Tool:** `tracert` zeigt Hop-Pfad an
+
+## Routing-Verfahren
+
+### Statisches Routing
+
+**Vorteile:**
+- Vollständige Kontrolle über Pfade
+- Kein Protokoll-Overhead
+- Deterministische Routen
+
+**Nachteile:**
+- Hoher administrativer Aufwand
+- Fehleranfällig bei manueller Konfiguration
+- Keine automatische Failover-Fähigkeit
+
+### Dynamisches Routing
+
+**Vorteile:**
+- Automatische Anpassung bei Änderungen
+- Ausgezeichnete Skalierbarkeit
+- Self-healing bei Ausfällen
+
+**Nachteile:**
+- Ressourcenverbrauch (CPU, Bandbreite)
+- Weniger Kontrolle über Pfade
+- Komplexere Fehlerdiagnose
+
+## Routing-Protokolle
+
+### Distance-Vector (Legacy)
+
+**Beispiel:** RIP (Routing Information Protocol)
+
+**Funktionsweise:**
+```
+Router A → Komplette Tabelle → Router B
+Router B → Komplette Tabelle → Router C
+```
+
+**Eigenschaften:**
+- Vollständige Routingtabellen-Übertragung
+- Hop-Count basierte Metrik
+- Keine Topologie-Kenntnis
+- **Geeignet für:** Kleine Netzwerke
+
+### Link-State (Modern)
+
+**Beispiel:** OSPF (Open Shortest Path First)
+
+**Funktionsweise:**
+```
+Router → Hello Packets → Neighbor Discovery
+Router → LSA Packets → Topology Database
+Topology Database → SPF Algorithm → Optimale Routen
+```
+
+**Eigenschaften:**
+- Hello-Pakete für Neighbor Detection
+- Link-State Advertisements (LSA)
+- Vollständige Topologie-Kenntnis
+- Dijkstra-Algorithmus für beste Pfade
+- **Geeignet für:** Enterprise-Netzwerke (große Netze)
