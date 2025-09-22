@@ -1,0 +1,44 @@
+---
+title: 'VLAN - Virtual Local Area Network'
+description: 'Logische Segmentierung physischer Netzwerke mit VLANs, Trunk-Verbindungen und IEEE 802.1Q'
+tags: ['Netzwerk', 'VLAN', 'Switching', 'IEEE 802.1Q', 'Segmentierung']
+---
+
+# VLAN
+
+> **Definition:** Virtual Local Area Network - Logische Segmentierung physischer Netzwerke
+
+## VLAN-Kategorien
+
+### Statisches VLAN
+**Zuordnung:**
+```
+Switch-Port ←→ VLAN-Zuordnung
+```
+- **Basis:** Port-basierte Zuordnung
+- **Konfiguration:** Manuell pro Port
+
+### Dynamisches VLAN
+**Zuordnung:**
+```
+Identifikator ←→ VLAN-Zuordnung
+```
+- **Basis:** MAC, IP, Zertifikat, RADIUS
+- **Konfiguration:** Automatisch basierend auf Identifikatoren
+
+## Trunk-Verbindungen
+
+**Eigenschaften:**
+- Link zwischen Switches oder Switch-Router
+- **IEEE 802.1Q** Tagging
+- **VLAN-ID:** 12 Bit im Header
+- **Zweck:** VLAN-Information zwischen Geräten übertragen
+
+## VLAN-Vorteile
+
+| Kategorie | Nutzen |
+|-----------|--------|
+| **Kosten** | Reduzierte Hardware & Stromkosten |
+| **Skalierung** | Bessere Netzwerk-Skalierbarkeit |
+| **Sicherheit** | Verbesserte Netzwerksegmentierung |
+| **Performance** | QoS-Priorisierung möglich |
