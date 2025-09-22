@@ -1,0 +1,104 @@
+---
+title: 'DHCP - Dynamic Host Configuration Protocol'
+description: 'Automatisierte IP-Konfiguration, DORA-Prozess, Zuweisungsarten und DHCP Relay Agent'
+tags: ['Netzwerk', 'DHCP', 'IP-Konfiguration', 'DORA', 'Lease-Time', 'APIPA']
+---
+
+# DHCP
+
+> **Dynamic Host Configuration Protocol:** Automatisierte IP-Konfiguration
+
+## Zuweisungsarten
+
+### Dynamische Zuweisung
+**Verhalten:**
+```
+Client-Request → Erste freie IP aus Pool
+Temporäre Zuweisung basierend auf Verfügbarkeit
+```
+
+### Statische Zuweisung
+**Verhalten:**
+```
+MAC-Adresse → Feste IP-Adresse
+Dauerhafte 1:1 Zuordnung
+```
+
+### Automatische Zuweisung
+**Verhalten:**
+```
+Client → Erste freie IP + MAC-Speicherung
+Dynamisch + Wiederverwendung der gleichen IP
+```
+
+## Konfigurationsparameter
+
+| Kategorie    | Parameter                         |
+| ------------ | --------------------------------- |
+| **Netzwerk** | IP-Adresse, Subnetzmaske, Gateway |
+| **DNS**      | Primärer/Sekundärer DNS, Domäne   |
+| **Zeit**     | NTP-Server, Zeitzone              |
+| **System**   | Lease-Time, TFTP-Server           |
+
+## DORA-Prozess
+
+**4-Schritt Kommunikation:**
+
+1. **DISCOVER** (Broadcast)
+   ```
+   Client → "Suche DHCP Server" → Netzwerk
+   ```
+
+2. **OFFER** (Broadcast)
+   ```
+   DHCP Server → "IP-Konfiguration anbieten" → Client
+   ```
+
+3. **REQUEST** (Broadcast)
+   ```
+   Client → "Konfiguration anfordern" → DHCP Server
+   ```
+
+4. **ACK** (Broadcast)
+   ```
+   DHCP Server → "Konfiguration bestätigen" → Client
+   ```
+
+## Lease-Time Management
+
+**Erneuerungszyklen:**
+```
+├─ 50% (T1) → Renewal Time → Unicast Request
+├─ 87.5% (T2) → Rebind Time → Broadcast Request  
+└─ 100% → Lease Expired → APIPA Fallback
+```
+
+## APIPA (Automatic Private IP Addressing)
+
+**Adressbereich:** `169.254.0.0/16`
+
+**Aktivierung bei:**
+- Kein DHCP-Server verfügbar
+- Lease-Time abgelaufen
+- IP-Konflikt bei statischer Konfiguration
+
+## DHCP Relay Agent
+
+**Problem:** DHCP-Broadcasts enden am Router
+
+**Lösung:**
+```
+Client Broadcast → Router → Unicast an DHCP Server
+DHCP Response ← Router ← Server Response
+```
+
+**Konfiguration:** `ip helper-address [DHCP-Server-IP]`
+
+## Vor-/Nachteile
+
+| Vorteile | Nachteile |
+|----------|-----------|
+| Zentralisierte Administration | Sicherheitsrisiken (Rogue DHCP) |
+| Reduzierte Konfigurationsfehler | Single Point of Failure |
+| Skalierbarkeit | Zusätzlicher Netzwerk-Traffic |
+| Automatische IP-Verwaltung | Abhängigkeit vom Server |
