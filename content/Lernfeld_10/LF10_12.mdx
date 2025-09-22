@@ -1,0 +1,58 @@
+---
+title: 'Header - Protokoll-spezifische Informationsblöcke'
+description: 'OSI-Schichtmodell, Adressierungs-Hierarchie, Frame-Größen und Ethernet Frame-Struktur'
+tags: ['Netzwerk', 'OSI-Modell', 'Header', 'MAC-Adresse', 'IP-Adresse', 'MTU']
+---
+
+# Header
+
+> **Definition:** Protokoll-spezifische Informationsblöcke vor Nutzdaten
+
+## OSI-Schichtmodell
+
+**7-Layer Architektur:**
+```
+┌─────────────────┐ ← 7. Application  │ HTTP, SMTP, DNS
+├─────────────────┤ ← 6. Presentation │ SSL/TLS, JPEG
+├─────────────────┤ ← 5. Session      │ NetBIOS, RPC
+├─────────────────┤ ← 4. Transport    │ TCP, UDP
+├─────────────────┤ ← 3. Network      │ IP, ICMP
+├─────────────────┤ ← 2. Data Link    │ Ethernet, WiFi
+└─────────────────┘ ← 1. Physical     │ Kabel, Funk
+```
+
+## Adressierungs-Hierarchie
+
+| Schicht | Adresstyp | Geltungsbereich | Beispiel |
+|---------|-----------|----------------|----------|
+| **Layer 2** | MAC-Adresse | Lokales Segment | `00:1B:44:11:3A:B7` |
+| **Layer 3** | IP-Adresse | Ende-zu-Ende | `192.168.1.100` |
+| **Layer 4** | Port-Nummer | Anwendung | `80 (HTTP)` |
+
+## Header-Verhalten
+
+**MAC-Adressen:**
+```
+Quelle ←→ Ziel wechselt bei jedem Router-Hop
+```
+
+**IP-Adressen:**
+```
+Quelle ←→ Ziel bleibt Ende-zu-Ende konstant
+```
+
+## Frame-Größen Limits
+
+| Parameter | Beschreibung | Standard-Wert |
+|-----------|-------------|---------------|
+| **MTU** | Maximum Transmission Unit | 1500 Bytes |
+| **MSS** | Maximum Segment Size (TCP) | 1460 Bytes |
+| **Preambel** | Frame-Erkennung | 8 Bytes |
+
+**Ethernet Frame-Struktur:**
+```
+┌─────────┬───────┬─────────┬─────────────┬────────┐
+│Preambel │ SFD   │ Header  │   Payload   │  FCS   │
+│ 7 Bytes │1 Byte │14 Bytes │   46-1500   │4 Bytes │
+└─────────┴───────┴─────────┴─────────────┴────────┘
+```
