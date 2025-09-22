@@ -1,0 +1,56 @@
+---
+title: 'Spanning Tree Protocol'
+description: 'Grundlagen und Funktionsweise des Spanning Tree Protocols zur Vermeidung von Loops in Switch-Topologien'
+tags: ['Netzwerk', 'Switching', 'STP', 'IEEE 802.1D', 'Redundanz']
+---
+
+# Spanning Tree Protocol
+
+> **Zweck:** Verhindert Loops in redundanten Switch-Topologien
+
+## Grundlagen
+
+**Einsatzzweck:**
+- Switche mit redundanten Leitungen
+- Vermeidung von Broadcaststürmen
+- Schutz vor MAC-Address Table Corruption
+
+## Root Bridge Bestimmung
+
+**Prozess:**
+```
+Bridge-ID Vergleich → Niedrigste Bridge-ID → Root Bridge
+```
+
+**Bridge-ID Struktur:**
+```
+┌─────────────────┬─────────────────┬───────────────┐
+│ Bridge-Priority │   Extended ID   │ MAC-Adresse   │
+│     4 Bit       │     12 Bit      │   48 Bit      │
+└─────────────────┴─────────────────┴───────────────┘
+```
+
+## Port-Zustände
+
+**Zustandsübergänge:**
+```
+Blocking → Listening → Learning → Forwarding
+```
+
+## Port-Rollen
+
+| Port-Typ | Beschreibung | Status |
+|----------|-------------|--------|
+| **Root-Port** | Kürzester Weg zur Root (1 pro Switch) | Aktiv |
+| **Designated-Port** | Gegenüber Root-Port oder Blocked-Port | Aktiv |
+| **Blocked-Port** | Höhere Wegkosten zur Root | Inaktiv |
+
+## BPDU (Bridge Protocol Data Units)
+
+**Übertragene Informationen:**
+- Bridge-ID des sendenden Switch
+- Root-Bridge Informationen
+- Pfadkosten zur Root-Bridge
+- Port-spezifische Daten
+
+> **Standard:** IEEE 802.1D
