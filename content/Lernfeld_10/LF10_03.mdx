@@ -1,0 +1,43 @@
+---
+title: 'Subnetting IPv6'
+description: 'IPv6-Subnetting im Prefix-Bereich, Sprungweite-Berechnung und Bit-Position-Tabelle'
+tags: ['Netzwerk', 'IPv6', 'Subnetting', 'Prefix', 'Hexadezimal']
+---
+
+# Subnetting IPv6
+
+> **Konzept:** Subnetting im Prefix-Bereich (meist /64 → /X)
+
+## Grundlagen
+
+**Charakteristika:**
+- Subnetting im **letzten Teil des Prefix**
+- Anzahl der Geräte im Netz ist immer **gleich groß**
+- CIDR legt fest, wie viele Bits unverändert bleiben müssen
+- **Einheitliche Subnetzgrößen**
+
+## Sprungweite-Berechnung
+
+**Methoden:**
+
+1. **Bit-Wertigkeit:**
+```
+/64 = 1, /63 = 2, /62 = 4, /61 = 8, /60 = 16
+```
+
+2. **Formel:**
+```
+64 - CIDR des SN → Wert um 4 reduzieren bis Wert < 4
+Beispiel /58: 64-58=6 → 6-4=2 → 2²=4 (Sprungweite)
+```
+
+## IPv6 Bit-Position Tabelle
+
+| 8.Nibble | 7.Nibble | 6.Nibble | 5.Nibble | 4.Nibble | 3.Nibble | 2.Nibble | 1.Nibble | Bit-Wert |
+|----------|----------|----------|----------|----------|----------|----------|----------|----------|
+| 36       | 40       | 44       | 48       | 52       | 56       | 60       | 64       | 1        |
+| 35       | 39       | 43       | 47       | 51       | 55       | 59       | 63       | 2        |
+| 34       | 38       | 42       | 46       | 50       | 54       | 58       | 62       | 4        |
+| 33       | 37       | 41       | 45       | 49       | 53       | 57       | 61       | 8        |
+
+> **Tipp:** Jedes Nibble (4 Bit) = 1 Hexadezimalstelle
