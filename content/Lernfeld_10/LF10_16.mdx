@@ -1,0 +1,143 @@
+---
+title: 'Anhang - Referenzen und Weiterführende Informationen'
+description: 'Standards, Port-Referenz, Subnetting-Tabellen, weiterführende Themen und Zertifizierungspfade'
+tags: ['Netzwerk', 'Standards', 'Ports', 'Referenz', 'Best Practices', 'Zertifizierung']
+---
+
+# Anhang
+
+## Wichtige Standards
+
+| Standard | Beschreibung | Bereich |
+|----------|-------------|---------|
+| **IEEE 802.1D** | Spanning Tree Protocol | Switching |
+| **IEEE 802.1Q** | VLAN Tagging | Switching |
+| **IEEE 802.3** | Ethernet Standard | Physical |
+| **RFC 2131** | DHCP Specification | Network Services |
+| **RFC 1034/1035** | DNS Specification | Network Services |
+| **RFC 1918** | Private IP Address Space | IP Addressing |
+| **RFC 4291** | IPv6 Address Architecture | IPv6 |
+
+## Port-Referenz
+
+### Well-Known Ports (0-1023)
+
+| Port | Protokoll | Beschreibung |
+|------|-----------|-------------|
+| **20/21** | FTP | File Transfer Protocol |
+| **22** | SSH | Secure Shell |
+| **23** | Telnet | Unencrypted Remote Login |
+| **25** | SMTP | Simple Mail Transfer Protocol |
+| **53** | DNS | Domain Name System |
+| **67/68** | DHCP | Dynamic Host Configuration |
+| **80** | HTTP | Hypertext Transfer Protocol |
+| **110** | POP3 | Post Office Protocol v3 |
+| **143** | IMAP | Internet Message Access Protocol |
+| **443** | HTTPS | HTTP Secure |
+| **993** | IMAPS | IMAP over SSL |
+| **995** | POP3S | POP3 over SSL |
+
+### Registered Ports (1024-49151)
+
+| Port | Protokoll | Beschreibung |
+|------|-----------|-------------|
+| **1433** | MSSQL | Microsoft SQL Server |
+| **1521** | Oracle | Oracle Database |
+| **3389** | RDP | Remote Desktop Protocol |
+| **5432** | PostgreSQL | PostgreSQL Database |
+
+## Subnetting-Referenz
+
+### IPv4 CIDR-Notationen
+
+| CIDR | Subnetzmaske | Hosts | Beschreibung |
+|------|-------------|-------|-------------|
+| `/8` | `255.0.0.0` | 16.777.214 | Klasse A |
+| `/16` | `255.255.0.0` | 65.534 | Klasse B |
+| `/24` | `255.255.255.0` | 254 | Klasse C |
+| `/25` | `255.255.255.128` | 126 | Halbiertes C |
+| `/26` | `255.255.255.192` | 62 | Viertel C |
+| `/27` | `255.255.255.224` | 30 | Achtel C |
+| `/28` | `255.255.255.240` | 14 | Sechzehntel C |
+| `/30` | `255.255.255.252` | 2 | Point-to-Point |
+
+### IPv6 Präfix-Längen
+
+| Präfix | Bedeutung | Anzahl Subnetze |
+|--------|-----------|----------------|
+| `/48` | Site Prefix | 65.536 |
+| `/56` | Subnet Prefix | 256 |
+| `/64` | Interface ID | 1 |
+
+## Weiterführende Themen
+
+### Netzwerk-Sicherheit
+- **Firewalls:** Stateful/Stateless Inspection
+- **IDS/IPS:** Intrusion Detection/Prevention
+- **VPN:** Site-to-Site, Remote Access
+- **802.1X:** Port-basierte Authentifizierung
+
+### Wireless Netzwerke
+- **802.11 Standards:** a/b/g/n/ac/ax
+- **Sicherheit:** WEP/WPA/WPA2/WPA3
+- **Roaming:** Fast BSS Transition
+- **MIMO:** Multiple Input/Output
+
+### Cloud Networking
+- **SDN:** Software Defined Networking
+- **NFV:** Network Function Virtualization
+- **Overlay Networks:** VXLAN, NVGRE
+- **Container Networking:** Docker, Kubernetes
+
+### WAN Technologies
+- **MPLS:** Multiprotocol Label Switching
+- **SD-WAN:** Software Defined WAN
+- **VPN:** IPSec, SSL/TLS
+- **Frame Relay:** Legacy Packet Switching
+
+### Network Monitoring
+- **SNMP:** Simple Network Management Protocol
+- **NetFlow:** Network Traffic Analysis
+- **Syslog:** Centralized Logging
+- **RMON:** Remote Network Monitoring
+
+## Best Practices
+
+### Dokumentation
+1. **Netzwerk-Diagramme:** Topologie aktuell halten
+2. **IP-Adress-Pläne:** IPAM (IP Address Management)
+3. **Konfigurationsbackups:** Regelmäßige Sicherung
+4. **Change-Management:** Änderungen dokumentieren
+
+### Sicherheit
+1. **Segmentierung:** VLANs und Firewalls nutzen
+2. **Zugriffskontrolle:** AAA-Prinzipien umsetzen
+3. **Updates:** Firmware und Software aktuell halten
+4. **Monitoring:** Anomalieerkennung implementieren
+
+### Performance
+1. **Kapazitätsplanung:** Wachstum berücksichtigen
+2. **QoS:** Quality of Service konfigurieren
+3. **Load Balancing:** Lastverteilung implementieren
+4. **Redundanz:** Single Points of Failure vermeiden
+
+### Troubleshooting
+1. **Systematisches Vorgehen:** OSI-Layer-Modell
+2. **Baseline-Messungen:** Normale Werte kennen
+3. **Tool-Kenntnisse:** CLI und GUI beherrschen
+4. **Eskalationsverfahren:** Wann Experten hinzuziehen
+
+## Zertifizierungs-Pfade
+
+### Cisco
+- **CCNA:** Associate Level
+- **CCNP:** Professional Level
+- **CCIE:** Expert Level
+
+### CompTIA
+- **Network+:** Grundlagen-Zertifizierung
+- **Security+:** Sicherheitsfokus
+
+### Herstellerneutral
+- **JNCIA/JNCIP/JNCIE:** Juniper Networks
+- **MCSA/MCSE:** Microsoft (veraltet)
