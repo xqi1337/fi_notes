@@ -1,0 +1,40 @@
+---
+title: 'NAT - Network Address Translation'
+description: 'Private zu öffentliche IP-Übersetzung mit Source NAT, Destination NAT und Port-Forwarding'
+tags: ['Netzwerk', 'NAT', 'PAT', 'Port-Forwarding', 'IP-Übersetzung']
+---
+
+# NAT
+
+> **Network Address Translation:** Private ↔ Öffentliche IP-Übersetzung
+
+## Source NAT
+
+### Statisches NAT
+**Zuordnung:**
+```
+Private IP ←→ Öffentliche IP
+  1:1 Zuordnung
+```
+
+### Dynamisches NAT
+**Zuordnung:**
+```
+Private IP Pool ←→ Öffentlicher IP Pool
+  N:M Zuordnung
+```
+
+### NAT Overload (PAT)
+**Zuordnung:**
+```
+Mehrere Private IPs ←→ Eine Öffentliche IP
+  N:1 Zuordnung + Port-Unterscheidung
+```
+
+## Destination NAT
+
+**Port-Forwarding:**
+```
+Öffentlicher Port ←→ Private IP:Port
+  Eingehende Verbindungen weiterleiten
+```
