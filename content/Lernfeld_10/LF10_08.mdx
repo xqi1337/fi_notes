@@ -1,0 +1,58 @@
+---
+title: 'Proxy - Vermittlungsserver'
+description: 'Forward und Reverse Proxy, Funktionen, Protokolle und öffentliche vs. private Proxys'
+tags: ['Netzwerk', 'Proxy', 'Forward Proxy', 'Reverse Proxy', 'Load Balancing', 'Caching']
+---
+
+# Proxy
+
+> **Vermittlungsserver:** Stellvertreter zwischen Client und Server
+
+## Forward Proxy
+
+**Position:** `Client ←→ **Proxy** ←→ Server`
+
+**Funktionen:**
+- **Anonymisierung:** Client-IP verbergen
+- **Logging:** Zugriffsprotokollierung
+- **Filterung:** Content-/URL-Blocking
+- **Caching:** Performance-Optimierung
+- **Entschlüsselung:** HTTPS-Inspection
+
+**Konfiguration:** Browser oder Betriebssystem
+
+## Reverse Proxy
+
+**Position:** `Client ←→ **Proxy** ←→ Server(s)`
+
+**Funktionen:**
+- **Load Balancing:** Lastverteilung
+- **Caching:** Statische Inhalte
+- **Deployment:** Blue/Green Strategies
+- **SSL Termination:** Entschlüsselung
+- **Security:** Server-Schutz
+
+## Proxy-Protokolle
+
+| Typ | Verwendung |
+|-----|------------|
+| **Web-Proxy** | HTTP/HTTPS Verkehr |
+| **SOCKS-Proxy** | Beliebige TCP/UDP Verbindungen |
+
+## Öffentlich vs. Privat
+
+### Öffentliche Proxys
+**Vorteile:**
+- Geo-Blocking umgehen
+- Kostenlos verfügbar
+
+**Risiken:**
+- Vertrauensprobleme
+- Datensammlung/-verkauf
+- DNS-Manipulation möglich
+
+### Private Proxys
+**Einsatz:**
+- Unternehmens-Firewalls
+- Richtlinien-Durchsetzung
+- Sicherheitskontrolle
