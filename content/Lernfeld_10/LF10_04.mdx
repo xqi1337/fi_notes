@@ -1,0 +1,52 @@
+---
+title: 'Subnetting IPv4'
+description: 'Effiziente Aufteilung von IPv4-Netzwerken, VLSM, Sprungweite-Berechnung und Supernetting'
+tags: ['Netzwerk', 'IPv4', 'Subnetting', 'VLSM', 'Supernetting']
+---
+
+# Subnetting IPv4
+
+> **Ziel:** Effiziente Aufteilung großer Netzwerke in kleinere Segmente
+
+## Grundprinzip
+
+**Prozess:**
+```
+Ausgangsnetz
+     ↓
+Bits: Hostanteil → Netzanteil
+     ↓
+Mehrere Subnetze
+```
+
+## Methoden
+
+| Ansatz | Beschreibung |
+|--------|-------------|
+| **Gleichgroße Netze** | Identische Subnetzgrößen |
+| **VLSM** | Variable Length Subnet Mask |
+
+## Sprungweite-Berechnung
+
+**Methoden:**
+1. **Hostanteil-Bits:** Volle Oktette abziehen
+2. **Bit-Wertigkeit:** Letztes Netzwerk-Bit
+3. **Subnetzmaske:** `256 - letzter Wert ≠ 0`
+
+**Beispiel:**
+```
+Netz: 192.168.1.0/26
+Subnetzmaske: 255.255.255.192
+Sprungweite: 256 - 192 = 64
+Subnetze: .0, .64, .128, .192
+```
+
+## Supernetting
+
+> **Konzept:** Zusammenfassung aufeinanderfolgender Subnetze
+
+**Prozess:**
+```
+Mehrere kleine Netze → Ein größeres Netz
+Netzanteil ← Bits ← Hostanteil
+```
