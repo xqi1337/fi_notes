@@ -1,0 +1,45 @@
+---
+title: 'IPv4 - Internet Protocol Version 4'
+description: '32-Bit IP-Adressierung, Adress-Typen, private IP-Bereiche und spezielle Adressen'
+tags: ['Netzwerk', 'IPv4', 'IP-Adressierung', 'RFC 1918', 'OSI Layer 3']
+---
+
+# IPv4
+
+> **Standard:** 32-Bit Adressierung auf OSI Layer 3
+
+## Adress-Struktur
+
+**Aufbau:**
+```
+┌─────────────────┬─────────────────┐
+│  Netzwerkanteil │    Hostanteil   │
+└─────────────────┴─────────────────┘
+        ↑                  ↑
+   Subnetzmaske         Host-IDs
+```
+
+## Adress-Typen
+
+| Typ | Beschreibung | Beispiel |
+|-----|-------------|----------|
+| **Unicast** | Einzelne Zieladresse | `192.168.1.10` |
+| **Multicast** | Gruppe von Zielen | `224.0.0.1` |
+| **Broadcast** | Alle Hosts im Netz | `192.168.1.255` |
+| **Anycast** | Nächstgelegenes Ziel | Routing-abhängig |
+
+## Private IP-Bereiche
+
+**RFC 1918 Bereiche:**
+```
+Klasse A: 10.0.0.0/8        # 16.777.216 Adressen
+Klasse B: 172.16.0.0/12     # 1.048.576 Adressen  
+Klasse C: 192.168.0.0/16    # 65.536 Adressen
+```
+
+> **Wichtig:** Nicht öffentlich routbar - NAT erforderlich
+
+## Spezielle Adressen
+
+- **Netz-ID:** Hostanteil = `0` (z.B. `192.168.1.0`)
+- **Broadcast:** Hostanteil = `1` (z.B. `192.168.1.255`)
