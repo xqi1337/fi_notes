@@ -1,0 +1,73 @@
+---
+title: 'IPv6 - Internet Protocol Version 6'
+description: '128-Bit Adressierung, SLAAC, Neighbor Discovery Protocol und IPv6-Adress-Kategorien'
+tags: ['Netzwerk', 'IPv6', 'SLAAC', 'NDP', '128-Bit', 'Link-Local']
+---
+
+# IPv6
+
+> **Evolution:** 128-Bit Adressierung für unbegrenzte Konnektivität
+
+## Adress-Format
+
+**Struktur:**
+```
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+└─ 64 Bit Prefix ─┘└─── 64 Bit IID ───┘
+```
+
+**Eigenschaften:**
+- **8 Blöcke** à 16 Bit (Hexadezimal)
+- **Trennung:** Doppelpunkt `:`
+
+## Adress-Kategorien
+
+| Typ | Prefix | Geltungsbereich |
+|-----|--------|----------------|
+| **Link-Local** | `FE80::/10` | Lokales Segment |
+| **ULA** | `FD00::/8` | Lokales Netzwerk |
+| **Global** | `2000::/3` | Internet |
+
+## Kürzungsregeln
+
+1. **Führende Nullen** entfernen: `0db8` → `db8`
+2. **Null-Blöcke** einmalig: `0000:0000` → `::`
+
+**Beispiel:**
+```
+Vollform:  2001:0db8:0000:0000:0000:0000:0000:0001
+Gekürzt:   2001:db8::1
+```
+
+## SLAAC (Stateless Address Auto-Configuration)
+
+**Prozess:**
+```
+Client → Router Solicitation → Router
+Router → Router Advertisement (Prefix) → Client
+Client → IID Generation → Fertige IPv6-Adresse
+```
+
+**Eigenschaften:**
+- Clients generieren IPv6-Adresse selbstständig
+- Keine Server-Abhängigkeit
+- IID-Generierung via:
+  - **mod EUI-64** (via MAC)
+  - **Privacy Extension** (zufällig und wechselnd)
+
+## IPv6-Vorteile
+
+| Bereich | Verbesserung |
+|---------|-------------|
+| **Sicherheit** | IPSec standardmäßig integriert |
+| **Adressraum** | Praktisch unbegrenzt |
+| **Performance** | Vereinfachter 40-Byte Header |
+| **Routing** | Effizientere Verarbeitung |
+
+## Neighbor Discovery Protocol
+
+**Basiert auf ICMPv6:**
+- **DAD:** Duplicate Address Detection
+- **NUD:** Neighbor Unreachability Detection
+- **ARP-Ersatz:** Neighbor Solicitation/Advertisement
+- **RA, RS, NA, NS:** Router/Neighbor Advertisement/Solicitation
