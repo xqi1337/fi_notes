@@ -1,0 +1,123 @@
+---
+title: 'IT-Sicherheit und Verschlüsselung'
+description: 'Überblick über VPNs, Virtualisierungstechnologien, Cloud-Modelle und moderne Speichersysteme in der IT.'
+tags: ['sicherheit', 'verschlüsselung', 'netzwerk', 'compliance']
+---
+
+# IT-Sicherheit & Verschlüsselung
+
+> **Definition/Zweck:** Umfassende Übersicht über moderne Verschlüsselungsverfahren und Sicherheitsprotokolle in der IT-Infrastruktur
+
+---
+
+## Agenda
+
+*   Verschlüsselung Grundlagen
+*   Asymmetrische Verschlüsselung
+*   SSH (Secure Shell)
+*   TLS (Transport Layer Security)
+*   IPsec (Internet Protocol Security)
+*   IT-Risikoanalyse
+*   Zusammenfassung & Best Practices
+
+---
+
+## Problem Statement
+
+Die digitale Kommunikation ist Angriffen, Manipulationen und Datenverlust ausgesetzt.  
+Ohne geeignete Schutzmaßnahmen entstehen folgende Risiken:
+
+*   **Abhören:** Vertrauliche Daten können abgefangen werden.  
+*   **Manipulation:** Integrität von Nachrichten kann verletzt werden.  
+*   **Identitätsdiebstahl:** Fehlende Authentifizierung ermöglicht Missbrauch.  
+*   **Compliance-Verletzungen:** Nichteinhaltung gesetzlicher Vorgaben.
+
+---
+
+## Proposed Solution
+
+Einsatz moderner Verschlüsselungs- und Sicherheitsprotokolle:
+
+*   **Symmetrische Verfahren** für effiziente Datenübertragung  
+*   **Asymmetrische Verfahren** für Schlüsselaustausch & digitale Signaturen  
+*   **SSH** für sichere Remote-Verbindungen  
+*   **TLS** für verschlüsselte Datenübertragung im Internet  
+*   **IPsec** für Schutz auf Netzwerkebene  
+*   **IT-Risikoanalyse** für systematisches Sicherheitsmanagement  
+
+---
+
+## Data & Evidence
+
+### Arten der Verschlüsselung
+```
+Verschlüsselung
+├── Symmetrisch (Ein Schlüssel)
+└── Asymmetrisch (Schlüsselpaar)
+```
+
+| Verfahren        | Beschreibung                  | Eigenschaften                 | Anwendung              |
+|------------------|------------------------------|-------------------------------|------------------------|
+| **Symmetrisch**  | Ein Schlüssel für Ver/Entschl. | Schnell, effizient            | Datenübertragung       |
+| **Asymmetrisch** | Schlüsselpaar (pub/priv)      | Sicherer Schlüsselaustausch   | Authentifizierung, Signaturen |
+
+---
+
+## Case Studies & Examples
+
+### SSH – Secure Shell
+* Ersetzt unsichere Protokolle wie Telnet, rsh, FTP  
+* Anwendungen: Remote-Admin, Dateiübertragung, Tunneling  
+* **Authentifizierung:** Passwort, Public-Key, Zertifikate  
+
+### TLS – Transport Layer Security
+* Standard für sichere Internetkommunikation (HTTPS, SMTPS, IMAPS)  
+* Basiert auf Handshake mit Zertifikatsvalidierung  
+* Schützt gegen Man-in-the-Middle-Angriffe  
+
+### IPsec
+* Absicherung auf **Layer 3 (Netzwerkebene)**  
+* **Transport Mode:** Host-to-Host  
+* **Tunnel Mode:** Gateway-to-Gateway (VPNs)  
+
+---
+
+## IT-Risikoanalyse
+
+> **Definition/Zweck:** Systematische Identifikation, Bewertung und Behandlung von IT-Sicherheitsrisiken  
+
+### Bedrohungskategorien
+| Kategorie              | Beispiele               | Auswirkungen                 |
+|------------------------|-------------------------|------------------------------|
+| **Externe Angreifer**  | Hacker, Cybercrime      | Datenverlust, Ausfälle       |
+| **Interne Bedrohungen**| Insider, Sabotage       | Datendiebstahl               |
+| **Technische Lücken**  | Ungepatchte Software    | Kompromittierung             |
+| **Menschliche Fehler** | Fehlkonfiguration       | Sicherheitslücken            |
+
+**Maßnahmen:**
+- Technische: Firewalls, Verschlüsselung, IDS  
+- Organisatorisch: Policies, Berechtigungen, Backup  
+- Awareness: Schulungen, Phishing-Tests  
+- Incident Response: Notfallpläne, Recovery  
+
+---
+
+## Zusammenfassung
+
+> **Fazit:** Moderne IT-Sicherheit erfordert **Defense in Depth** – mehrere Schutzschichten.
+
+### Schlüsselprinzipien
+- Vertraulichkeit  
+- Integrität  
+- Verfügbarkeit  
+- Authentizität  
+- Nachvollziehbarkeit  
+
+### Best Practices
+- Kombination symmetrischer & asymmetrischer Verfahren  
+- Regelmäßige Sicherheitsbewertungen und Updates  
+- Mehrschichtige Sicherheitsstrategie (TLS, SSH, IPsec)  
+- Kontinuierliches Monitoring & Incident Response  
+
+---
+
