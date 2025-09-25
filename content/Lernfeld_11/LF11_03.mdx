@@ -1,0 +1,120 @@
+---
+title: 'Datensicherung und Backup'
+description: 'Überblick über Datensicherung, Arten und Methoden von Backups.'
+tags: ['IT', 'Datensicherung', 'Backup', 'Datenwiederherstellung']
+---
+
+## Datensicherung / Backup – Zusammenfassung
+
+### **Definition**
+
+- **Backup**: Kopieren von Daten zum Schutz vor Verlust
+- **Restore**: Wiederherstellung von Originaldaten aus dem Backup
+- **Speichermedien**: Externe Datenträger (Festplatte, USB, CD/DVD)
+
+---
+
+### **Archivierung vs. Backup**
+
+- **Archivierung**: Langfristige Speicherung von Daten, gesetzlich oder intern vorgeschrieben
+- **Backup**: Kurz- bis mittelfristige Sicherheitskopie zur Wiederherstellung
+
+---
+
+### **Hauptursachen für Datenverlust**
+
+- **Hardwarefehler**
+- **Menschliche Fehler**: z.B. versehentlich gelöschte Dateien
+- **Softwarefehler / Systemabstürze**
+- **Schadsoftware**: Viren
+- **Diebstahl / Hackerangriffe**
+- **Physikalische Schäden**: z.B. Sturz oder Aufprall
+
+---
+
+### **Schutzmaßnahmen**
+
+- Bauliche Sicherheitsmaßnahmen (z.B. Zäune, Alarmanlagen)
+- **Passwortschutz**, **biometrische Identifikation**
+- **Anti-Viren Programme** und regelmäßige Updates
+- **Externe Datenträger** und regelmäßige Backups
+
+---
+
+### **Wichtige Überlegungen für Backups**
+
+- **Speicherort** und Umfang der zu sichernden Daten
+- Häufigkeit und Zeitpunkt der Sicherung
+- Art des Backups: **Voll**, **Inkrementell**, **Differentiell**
+- **Speichermedium** und **Aufbewahrungsdauer**
+- **Wiederherstellungsmöglichkeit** der Daten
+
+---
+
+### **Was ist kein Backup?**
+
+- **Wiederherstellungspunkte** (Windows)
+- Lokal gespeicherte **Snapshots**
+- **RAID-Systeme**
+
+---
+
+### **Speichermedien für Backups**
+
+- **Festplatten** (HDD/SSD), optische Laufwerke (CD/DVD), **Bandlaufwerke**
+- Netzwerk (z. B. **Server**, **NAS**), USB-Sticks, **Online-Backup**
+
+---
+
+### **Speicherort für Backups**
+
+- Nicht auf derselben Festplatte oder im gleichen Raum/Gebäude
+- Redundante Speicherung an verschiedenen Orten (z. B. **Cloud-Systeme**)
+- **Zugriffsschutz** und **Brandschutz** für Datensicherheit
+
+---
+
+### **3-2-1-Regel**
+
+- **3 Sicherungskopien**
+- **2 unterschiedliche Speichermedien**
+- **1 Kopie extern** aufbewahren
+
+---
+
+### **Methoden der Datensicherung**
+
+- **Datenbasiert**: Sichern von einzelnen Daten
+- **Abbildbasiert**: Sichern ganzer Datenträger oder Partitionen
+
+---
+
+### **Arten von Backups**
+
+- **Vollsicherung**: Sichert alle Daten, hoher Speicheraufwand, schnelle Wiederherstellung
+- **Differentielle Sicherung**: Sichert nur geänderte Daten seit der letzten Vollsicherung
+- **Inkrementelle Sicherung**: Sichert nur geänderte Daten seit dem letzten Backup, geringer Speicheraufwand
+
+---
+
+### **Wahl der Backup-Methode**
+
+- Kombination aus verschiedenen Methoden sinnvoll
+- Beispiel: Wöchentliches **Vollbackup** + tägliche **inkrementelle Backups**
+
+---
+
+### **Das Archiv-Bit**
+
+- Markierung für geänderte oder neue Dateien
+- Wird bei **Inkrementellen** und **Differentiellen Backups** berücksichtigt
+
+---
+
+### **Abbildsicherung / Snapshot**
+
+- Sichert System und Einstellungen zu einem Zeitpunkt
+- **Schnelle Wiederherstellung** möglich
+- Kein Ersatz für vollständiges Backup, nur Verlinkung der geänderten Blöcke
+
+**Wichtig**: Snapshots können das System nicht komplett rekonstruieren, benötigen ein vollständiges Backup.
