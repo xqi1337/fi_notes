@@ -8,7 +8,7 @@ tags: ['netzwerk', 'vpn', 'ipsec', 'tls', 'ssl', 'sicherheit', 'kryptographie', 
 
 ## SPD (Security Policy Database)
 
-> **Definition/Zweck:** Die SPD entscheidet bei jedem IP-Paket, ob IPsec-Verarbeitung erforderlich ist und welche spezifischen Sicherheitsmaßnahmen angewendet werden
+> **Definition:** Die SPD entscheidet bei jedem IP-Paket, ob IPsec-Verarbeitung erforderlich ist und welche spezifischen Sicherheitsmaßnahmen angewendet werden
 
 ### Typische SPD-Felder
 
@@ -67,7 +67,7 @@ SPD-Match: protect → Weiterleitung an SAD für ESP-Verarbeitung
 
 ### SAD (Security Association Database)
 
-> **Definition/Zweck:** Verwaltung der aktiven Security Associations mit ihren kryptografischen Parametern
+> **Definition:** Verwaltung der aktiven Security Associations mit ihren kryptografischen Parametern
 
 **Typische SAD-Einträge:**
 
@@ -103,7 +103,7 @@ sa:
 
 ## IKEv2 / L2TP-IPsec
 
-> **Definition/Zweck:** IKEv2 etabliert sichere IPsec-Tunnels, über die L2TP PPP-Sitzungen transportiert werden
+> **Definition:** IKEv2 etabliert sichere IPsec-Tunnels, über die L2TP PPP-Sitzungen transportiert werden
 
 > **Standard:** RFC 7296 (IKEv2), RFC 2661 (L2TP)
 
@@ -196,7 +196,7 @@ Server → Client: HDR, SK {IDr, [CERT,] AUTH, SAr2, TSi, TSr}
 
 ## Diffie-Hellman-Gruppen
 
-> **Definition/Zweck:** Mathematische Grundlage für sicheren Schlüsselaustausch ohne vorherigen gemeinsamen Schlüssel
+> **Definition:** Mathematische Grundlage für sicheren Schlüsselaustausch ohne vorherigen gemeinsamen Schlüssel
 
 > **Standard:** RFC 3526 (MODP Groups), RFC 7919 (FFDHE Groups)
 
@@ -771,6 +771,3 @@ Für secp256r1:
 - **Migration-Strategie** → Schrittweise Einführung
 
 ---
-
-**Tags:** #netzwerk #vpn #ipsec #tls #ssl #sicherheit #kryptographie #ikev2 #l2tp #ppp #dh #ecdh #aes #hmac #x509 #pfs
-        │
