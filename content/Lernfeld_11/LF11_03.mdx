@@ -1,305 +1,78 @@
 ---
-title: 'Datensicherung & Backup'
-description: 'Zusammenfassung zu Datensicherung, Arten und Methoden von Backups.'
-tags: ['Datensicherung', 'Backup', 'Datenwiederherstellung']
----
-# Datensicherung & Backup
-
-> **Definition/Zweck:** Schutz von Daten durch Kopieren und Wiederherstellungsmöglichkeiten bei Verlust
-
+title: 'Backup-Konzepte & Strategien'
+description: 'Grundlagen, Arten, Strategien und Planung von Backups'
+tags: ['IT', 'Backup', 'Datensicherung', 'Strategien']
 ---
 
-## Grundlegende Begriffe der Datensicherung
-> **Backup**: Kopieren von Daten zum Schutz vor Verlust
->
-> **Restore**: Wiederherstellung von Originaldaten aus dem Backup
->
-> **Speichermedien**: Externe Datenträger (Festplatte, USB, CD/DVD)
+## Backup-Konzepte & Strategien
 
-**Prozess-Flow:**
-```
-Daten > Backup-Erstellung > Speicherung > Wiederherstellung (bei Bedarf)
-```
+- **Kopie** von Daten, die an einem **anderen Ort** aufbewahrt wird, um **Datenverlust** durch **Hardware-**, **Softwarefehler**, **menschliches Versagen**, **Hackerangriffe** oder **Naturkatastrophen** zu **vermeiden**.
 
 ---
+## Gründe für Backups
+- **Datenwiederherstellung**: Ermöglicht die Wiederherstellung verlorener oder beschädigter Daten.  
+- **Sicherheit**: Schutz vor Ransomware oder Malware-Angriffen.  
+- **Gesetzliche Vorgaben**: Unternehmen müssen bestimmte Daten oft über Jahre aufbewahren.  
+- **Kontinuität**: Sicherstellung des Geschäftsbetriebs bei IT-Problemen.  
 
-## Archivierung vs. Backup
+## Backup-Arten
+- **Vollbackup**  
+	- **Vollständige** Sicherung aller Daten  
+	- **Vorteil**: Alle Daten stehen bei Verlust zur Verfügung  
+	- **Nachteil**: Sehr zeitaufwendig und benötigt viel Speicherplatz  
+- **Inkrementelles Backup**  
+	- Sichert nur Daten, die sich **seit letztem Backup** geändert haben  
+	- **Vorteil**: Spart Speicherplatz und Zeit  
+	- **Nachteil**: Langsame Wiederherstellung, da mehrere Backups kombiniert werden müssen  
+- **Differenzielles Backup**  
+	- Sichert **alle Änderungen** seit dem **letzten Vollbackup**  
+	- **Vorteil**: Schneller bei Wiederherstellung als inkrementell  
+	- **Nachteil**: Wird mit der Zeit größer, je länger das letzte Vollbackup zurückliegt  
+- **Spiegelung (Mirroring)**  
+	- **Echtzeit-Kopie** auf externen Speicher  
+	- **Vorteil**: Permanente Verfügbarkeit der neuesten Daten  
+	- **Nachteil**: Kein Schutz vor versehentlichem Löschen, Änderungen werden sofort übernommen  
 
-> **Definition/Zweck:** Unterscheidung zwischen langfristiger Aufbewahrung und kurzfristiger Sicherung
+## Backup-Strategien
+- **3-2-1-Strategie**  
+	- **3 Kopien** (Produktivdaten + 2 Backups)  
+	- **2 verschiedene Medien** (z. B. Festplatte und Cloud)  
+	- **1 Kopie extern** (Offsite-Backup, z. B. Cloud oder anderes Rechenzentrum)  
+- **Grandfather-Father-Son (GFS)**  
+	- **Kombination** aus täglichen, wöchentlichen und monatlichen Backups  
+		- **Täglich (Son)**: Inkrementelles oder differenzielles Backup  
+		- **Wöchentlich (Father)**: Differenzielles Backup  
+		- **Monatlich (Grandfather)**: Vollbackup  
+	- **Vorteil**: Langfristige und flexible Datensicherung  
+- **Towers of Hanoi**  
+	- Komplexes Rotationsprinzip mit weniger Backups  
+	- **Vorteil**: Spart Speicherplatz, ausgeklügelte Zeitplanung  
+	- **Nachteil**: Schwieriger umzusetzen und wenig verbreitet  
 
-| Archivierung | Backup |
-|--------------|--------|
-| Langfristige Speicherung | Kurz- bis mittelfristige Sicherung |
-| Gesetzlich oder intern vorgeschrieben | Freiwillige Sicherheitskopie |
-| Datenaufbewahrung | Datenwiederherstellung |
-
----
-
-## Hauptursachen für Datenverlust
-
-> **Definition/Zweck:** Identifikation potenzieller Gefahrenquellen
-
-**Häufigste Ursachen:**
-- **Hardwarefehler**
-- **Menschliche Fehler**: z.B. versehentlich gelöschte Dateien
-- **Softwarefehler / Systemabstürze**
-- **Schadsoftware**: Viren
-- **Diebstahl / Hackerangriffe**
-- **Physikalische Schäden**: z.B. Sturz oder Aufprall
-
-**Risiko-Verteilung:**
-```
-Hardwarefehler (40%) > Menschliche Fehler (30%) > Softwarefehler (20%) > Sonstige (10%)
-```
-
----
-
-## Schutzmaßnahmen
-
-> **Definition/Zweck:** Präventive Maßnahmen zur Vermeidung von Datenverlust
-
-**Technische Maßnahmen:**
-- **Anti-Viren Programme** und regelmäßige Updates
-- **Externe Datenträger** und regelmäßige Backups
-- **Passwortschutz**, **biometrische Identifikation**
-
-**Physische Maßnahmen:**
-- Bauliche Sicherheitsmaßnahmen (z.B. Zäune, Alarmanlagen)
-- Brandschutzsysteme
-- Zugangskontrollen
+## Wichtige Begriffe
+- **RPO (Recovery Point Objective)**: Maximale Menge an Daten, die verloren gehen darf (Zeitraum zwischen den Backups).  
+- **RTO (Recovery Time Objective)**: Maximale Zeitspanne zur Wiederherstellung der Daten.  
+- **Backup-Fenster**: Zeitraum für Durchführung, optimal außerhalb der Arbeitszeiten.  
+- **Hot/Cold/Offline Backup**:  
+    - **Hot Backup**: Backup während laufendem Betrieb.  
+    - **Cold Backup**: Backup bei ausgeschaltetem System.  
+    - **Offline Backup**: Backup auf nicht verbundene Systeme (z. B. externe Festplatten).  
+- **Archiv-Bit**: Markiert geänderte Dateien für Backups, wird nach Sicherung zurückgesetzt.  
+- **Datenbasiert vs. Abbildbasiert**: Einzelne Dateien vs. komplettes System-Image.  
+- **Snapshot**: Zeitpunktaufnahme eines Systems, benötigt Basis-Backup für vollständige Wiederherstellung.  
 
 ---
 
-## Wichtige Überlegungen für Backups
-
-> **Definition/Zweck:** Planungsaspekte für eine effektive Backup-Strategie
-
-**Entscheidungskriterien:**
-- **Speicherort** und Umfang der zu sichernden Daten
-- Häufigkeit und Zeitpunkt der Sicherung
-- Art des Backups: **Voll**, **Inkrementell**, **Differentiell**
-- **Speichermedium** und **Aufbewahrungsdauer**
-- **Wiederherstellungsmöglichkeit** der Daten
-
-**Planungs-Checkliste:**
-- [] Welche Daten müssen gesichert werden?
-- [] Wie oft sollen Backups erstellt werden?
-- [] Wo werden die Backups gespeichert?
-- [] Wer ist für die Durchführung verantwortlich?
-- [] Wie wird die Wiederherstellung getestet?
-
----
+## Backup-Planung
+- **Speicherort**: Nutzung verschiedener physischer Standorte für Sicherheit.  
+- **Verschlüsselung**: Schutz sensibler Daten während Speicherung und Übertragung.  
+- **Wiederherstellungstests**: Regelmäßige Prüfung der Backup-Integrität.  
+- **Dokumentation**: Klare Prozessbeschreibung für Notfälle.  
 
 ## Was ist kein Backup?
-
-> **Definition/Zweck:** Abgrenzung zu ähnlichen Technologien ohne echten Backup-Charakter
-
-| Technologie | Warum kein Backup? |
-|-------------|-------------------|
-| **Wiederherstellungspunkte** (Windows) | Nur Systemdateien, keine Benutzerdaten |
-| Lokal gespeicherte **Snapshots** | Abhängig vom ursprünglichen Speicher |
-| **RAID-Systeme** | Schutz vor Hardwareausfall, nicht vor Datenverlust |
-
----
-
-## Speichermedien für Backups
-
-> **Definition/Zweck:** Übersicht verfügbarer Speichertechnologien
-
-**Lokale Speichermedien:**
-- **Festplatten** (HDD/SSD)
-- Optische Laufwerke (CD/DVD)
-- **Bandlaufwerke** (für große Datenmengen)
-- USB-Sticks
-
-**Netzwerkbasierte Speicher:**
-- **Server**, **NAS** (Network Attached Storage)
-- **Online-Backup** (Cloud-Systeme)
-
-**Vergleich der Speichermedien:**
-```
-┌──────────────┬────────────┬────────────┬────────────┐
-│ Medium       │ Kapazität  │ Geschwind. │ Kosten     │
-├──────────────┼────────────┼────────────┼────────────┤
-│ HDD          | Hoch       | Mittel     | Niedrig    │
-│ SSD          | Mittel     | Hoch       | Hoch       │
-│ Bänder       | Sehr hoch  | Langsam    | Mittel     │
-│ Cloud        | Skalierbar | Variabel   | Abo-Modell │
-└──────────────┴────────────┴────────────┴────────────┘
-```
-
----
-
-## Speicherort für Backups
-
-> **Definition/Zweck:** Optimale Aufbewahrung für maximale Sicherheit
-
-**Grundregeln:**
-- Nicht auf derselben Festplatte oder im gleichen Raum/Gebäude
-- Redundante Speicherung an verschiedenen Orten (z. B. **Cloud-Systeme**)
-- **Zugriffsschutz** und **Brandschutz** für Datensicherheit
-
-**Speicherort-Hierarchie:**
-```
-┌───────────────────┐
-│ Primärer Standort │
-├───────────────────┤
-│ Lokales Backup    │ ← Erste Sicherungsebene
-│ Externes Backup   │ ← Zweite Sicherungsebene
-│ Cloud-Backup      │ ← Dritte Sicherungsebene
-└───────────────────┘
-```
-
----
-
-## 3-2-1-Regel
-
-> **Definition/Zweck:** Industriestandard für sichere Backup-Strategien
-
-**Die 3-2-1-Regel im Detail:**
-
-1. **3 Sicherungskopien** der wichtigen Daten
-2. **2 unterschiedliche Speichermedien** verwenden
-3. **1 Kopie extern** aufbewahren
-
-**Beispiel-Implementierung:**
-
-| Kopie   | Medium             | Ort                    |
-| ------- | ------------------ | ---------------------- |
-| Kopie 1 | NAS-System         | Büro                   |
-| Kopie 2 | Externe Festplatte | Wohnung                |
-| Kopie 3 | Cloud-Speicher     | Externer Rechenzentrum |
-
----
-
-## Methoden der Datensicherung
-
-> **Definition/Zweck:** Grundlegende Ansätze zur Datensicherung
-
----
-
-### Datenbasiert
->Sichern von einzelnen Daten und Dateien
-
-**Vorteile:**
-- Selektive Wiederherstellung möglich
-- Geringerer Speicherbedarf bei partiellen Backups
-
----
-
-### Abbildbasiert
->Sichern ganzer Datenträger oder Partitionen
-
-**Vorteile:**
-- Komplette Systemwiederherstellung
-- Schnellere Backup-Erstellung
-
----
-
-**Vergleich:**
-```
-Datenbasiert: Datei1 + Datei2 + Datei3 > Backup
-Abbildbasiert: Gesamte Partition > Komplettes Image
-```
-
----
-
-## Arten von Backups
-
-> **Definition/Zweck:** Unterschiedliche Backup-Typen für verschiedene Anforderungen
-
-### **Vollsicherung**  
-> Sichert alle Daten, hoher Speicheraufwand, schnelle Wiederherstellung 
-
-### **Differentielle Sicherung**
-> Sichert nur geänderte Daten seit der letzten Vollsicherung
-
-### **Inkrementelle Sicherung**
-> Sichert nur geänderte Daten seit dem letzten Backup, geringer Speicheraufwand
-
----
-
-**Backup-Methoden Vergleich:**
-
-| Methode           | Speicherbedarf | Wiederherstellungszeit | Komplexität |
-| ----------------- | -------------- | ---------------------- | ----------- |
-| **Voll**          | Hoch           | Schnell                | Niedrig     |
-| **Differentiell** | Mittel         | Mittel                 | Mittel      |
-| **Inkrementell**  | Niedrig        | Langsam                | Hoch        |
-
----
-
-## Wahl der Backup-Methode
-
-> **Definition/Zweck:** Strategische Auswahl passender Backup-Verfahren
-
-**Empfohlene Kombination:**
-- Wöchentliches **Vollbackup** + tägliche **inkrementelle Backups**
-
-**Beispiel-Wochenplan:**
-```
-Montag:     [VOLL] Vollbackup   (alle Daten)
-Dienstag:   [INKR] Inkrementell (Änderungen seit Montag)
-Mittwoch:   [INKR] Inkrementell (Änderungen seit Dienstag)
-Donnerstag: [INKR] Inkrementell (Änderungen seit Mittwoch)
-Freitag:    [INKR] Inkrementell (Änderungen seit Donnerstag)
-```
-
-**Entscheidungsfaktoren:**
-- Verfügbarer Speicherplatz
-- Zeitfenster für Backups
-- Akzeptable Wiederherstellungszeit
-- Wichtigkeit der Daten
-
----
-
-## Das Archiv-Bit
-
-> **Definition/Zweck:** Technischer Mechanismus zur Identifikation geänderter Dateien
-
-**Funktionsweise:**
-- Markierung für geänderte oder neue Dateien
-- Wird bei **Inkrementellen** und **Differentiellen Backups** berücksichtigt
-
-**Prozess:**
-```
-Datei wird geändert > Archiv-Bit wird gesetzt (1)
-Backup wird durchgeführt > Archiv-Bit wird zurückgesetzt (0)
-```
-
-**Backup-Verhalten:**
-- **Vollsicherung:** Ignoriert Archiv-Bit, sichert alles
-- **Differentiell:** Sichert alle Dateien mit gesetztem Archiv-Bit seit letzter Vollsicherung
-- **Inkrementell:** Sichert nur Dateien mit gesetztem Archiv-Bit seit letztem Backup
-
----
-
-## Abbildsicherung / Snapshot
-
-> **Definition/Zweck:** Momentaufnahme eines Systems zu einem bestimmten Zeitpunkt
-
-**Eigenschaften:**
-- Sichert System und Einstellungen zu einem Zeitpunkt
-- **Schnelle Wiederherstellung** möglich
-- Kein Ersatz für vollständiges Backup, nur Verlinkung der geänderten Blöcke
-
-> **Wichtig:** Snapshots können das System nicht komplett rekonstruieren, benötigen ein vollständiges Backup.
-
-**Snapshot-Architektur:**
-```
-┌─────────────────────────────────┐
-│ Original-Datenträger            │
-├─────────────────────────────────┤
-│ Snapshot 1 > Geänderte Blöcke   │
-│ Snapshot 2 > Geänderte Blöcke   │
-│ Snapshot 3 > Geänderte Blöcke   │
-└─────────────────────────────────┘
-```
-
-**Anwendungsfälle:**
-- Testen von Software-Updates
-- Kurzfristige Sicherung vor Systemänderungen
-- Schnelle Wiederherstellung nach Fehlkonfiguration
+- **RAID-Systeme**: Schützen nur vor Hardwarefehlern, nicht vor Datenverlust.  
+- **Wiederherstellungspunkte**: Enthalten nur Systemdateien, keine Nutzerdaten.  
+- **Lokale Snapshots**: Abhängig vom ursprünglichen Speichermedium.  
 
 ---
 
