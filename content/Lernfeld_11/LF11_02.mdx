@@ -1,773 +1,123 @@
 ---
-title: 'L2TP/IPsec und SSL/TLS'
-description: 'Umfassende Integration IPsec, L2TP und TLS mit detaillierter Analyse der Protokollabläufe und Sicherheitsmechanismen'
-tags: ['netzwerk', 'vpn', 'ipsec', 'tls', 'ssl', 'sicherheit', 'kryptographie', 'ikev2', 'l2tp', 'ppp', 'dh', 'ecdh', 'hmac', 'x509', 'pfs']
+title: 'Übersicht: IPsec, TLS, Tunneling und Verschlüsselung'
+description: 'Strukturierte Übersicht zu VPN, Tunneling, TLS/SSL, Verschlüsselungsverfahren und Zertifikaten'
+tags: ['Netzwerksicherheit', 'IPsec', 'TLS', 'VPN', 'Verschlüsselung']
 ---
 
-# L2TP/IPsec und SSL/TLS
-
-## SPD (Security Policy Database)
-
-> **Definition:** Die SPD entscheidet bei jedem IP-Paket, ob IPsec-Verarbeitung erforderlich ist und welche spezifischen Sicherheitsmaßnahmen angewendet werden
-
-### Typische SPD-Felder
-
-| **Feldname** | **Beschreibung** | **Beispielwerte** |
-|--------------|------------------|-------------------|
-| **Quelle/Ziel** | IP-Adresse oder Subnetz | `192.168.10.0/24`, `10.0.0.0/24` |
-| **Protokoll/Port** | Layer 4 Protokoll mit Ports | `TCP:443`, `UDP:500`, `any` |
-| **Richtung** | Datenfluss-Richtung | `inbound`, `outbound` |
-| **Policy-Typ** | Aktion bei Regel-Match | `protect`, `bypass`, `discard` |
-| **SA-Verweis** | Security Association Referenz | `SPI=0x2001` |
-| **Tunneling-Modus** | IPsec-Betriebsmodus | `transport`, `tunnel` |
-| **Priorität** | Regel-Rangfolge | `100`, `200`, `300` |
-
-### SPD-Beispielkonfiguration
-
-```yaml
-# Beispiel SPD-Policy
-policy_entry:
-  src: "192.168.10.0/24"
-  dst: "10.0.0.0/24" 
-  proto: "any"
-  action: "protect"
-  sa_parameters:
-    spi: "0x2001"
-    protocol: "ESP"
-    encryption: "AES-256"
-    integrity: "HMAC-SHA-256"
-  mode: "tunnel"
-  priority: 100
-```
-
-### Paketverarbeitungs-Ablauf
-
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│ 1. IP-Paket │ →  │ 2. SPD      │ →  │ 3. Policy   │ →  │ 4. Aktion   │
-│   eingehend │    │ Durchsucht  │    │ Match       │    │ bestimmt    │
-│             │    │ alle Regeln │    │ gefunden    │    │             │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
-                                                               │
-                        ┌──────────────┬──────────────┬──────────────┐
-                        │              │              │              │
-                        ▼              ▼              ▼              │
-                ┌─────────────┐ ┌─────────────┐ ┌─────────────┐      │
-                │   PROTECT   │ │   BYPASS    │ │   DISCARD   │      │
-                │ → an SAD    │ │ → normal    │ │ → verwerfen │      │
-                │ weiterleiten│ │ weiterleiten│ │             │      │
-                └─────────────┘ └─────────────┘ └─────────────┘      │
-```
-
-**Beispiel:**
-```
-Eingehendes Paket: 192.168.10.5 → 10.0.0.10:443
-SPD-Match: protect → Weiterleitung an SAD für ESP-Verarbeitung
-```
-
-### SAD (Security Association Database)
-
-> **Definition:** Verwaltung der aktiven Security Associations mit ihren kryptografischen Parametern
-
-**Typische SAD-Einträge:**
-
-| **Parameter** | **Beschreibung** | **Beispiel** |
-|---------------|------------------|--------------|
-| **SPI** | Security Parameter Index (32-Bit) | `0x2001` |
-| **Quell-/Ziel-IP** | Endpunkte der Verbindung | `192.168.10.5 ↔ 10.0.0.1` |
-| **Verschlüsselungsalgorithmus** | Datenverschlüsselung | `AES-256-CBC`, `AES-128-GCM` |
-| **Integritätsalgorithmus** | Nachrichten-Authentifizierung | `HMAC-SHA-256`, `HMAC-SHA-1` |
-| **Schlüsselmaterial** | Aktuelle Sende-/Empfangsschlüssel | 32 Byte AES + 32 Byte HMAC |
-| **Lebensdauer** | Zeit- und Volumenlimits | `3600s`, `4GB` |
-| **Sequenznummer** | Schutz vor Replay-Angriffen | `0x00000001` |
-
-**SAD-Beispiel:**
-```yaml
-sa:
-  spi: 0x2001
-  src_ip: 192.168.10.5
-  dst_ip: 10.0.0.1
-  encryption: 
-    algorithm: AES-256-CBC
-    key: "a1b2c3d4e5f6..."
-  integrity:
-    algorithm: HMAC-SHA-256
-    key: "f6e5d4c3b2a1..."
-  lifetime:
-    time: 3600
-    bytes: 4294967296
-  mode: tunnel
-```
+## IPsec (Internet Protocol Security)
+- **Erweiterung von IP** um Verschlüsselung & Authentifizierung  
+- **Absicherung von IP-Paketen** über unsichere Netze  
+- Ursprünglich für **IPv6**, später für IPv4 spezifiziert  
 
 ---
-
-## IKEv2 / L2TP-IPsec
-
-> **Definition:** IKEv2 etabliert sichere IPsec-Tunnels, über die L2TP PPP-Sitzungen transportiert werden
-
-> **Standard:** RFC 7296 (IKEv2), RFC 2661 (L2TP)
-
-### IKE-SA Aufbau Parameter
-
-| **Komponente** | **Algorithmus** | **Zweck** | **Schlüssellänge** |
-|----------------|-----------------|-----------|-------------------|
-| **Verschlüsselung** | AES-256-CBC | IKE-Nachrichten schützen | 256 Bit |
-| **Integrität** | HMAC-SHA-256 | Nachrichten-Authentifizierung | 256 Bit |
-| **DH-Gruppe** | MODP-2048/3072 | Schlüsselaustausch | 2048/3072 Bit |
-| **PFS** | Optional | Perfect Forward Secrecy | Variable |
-
-### Detaillierter IKEv2-Ablauf
-
-**Phase 1: IKE_SA_INIT**
-```
-Client → Server: HDR, SAi1, KEi, Ni
-Server → Client: HDR, SAr1, KEr, Nr, [CERTREQ]
-```
-
-**Phase 2: IKE_AUTH**
-```
-Client → Server: HDR, SK {IDi, [CERT,] [CERTREQ,] [IDr,] AUTH, SAi2, TSi, TSr}
-Server → Client: HDR, SK {IDr, [CERT,] AUTH, SAr2, TSi, TSr}
-```
-
-### CHILD_SA / ESP-Tunnel
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    ESP-Header                           │
-├─────────────┬─────────────────┬─────────────────────────┤
-│ SPI         │ Sequence Number │ Initialization Vector   │
-│ (4 Bytes)   │ (4 Bytes)       │ (16 Bytes bei AES)      │
-├─────────────┴─────────────────┴─────────────────────────┤
-│                                                         │
-│            Verschlüsselter Payload                      │
-│         (Original IP-Paket + L2TP-Daten)                │
-│              AES-256-CBC Verschlüsselung                │
-│                                                         │
-├─────────────────────────────────────────────────────────┤
-│                ESP-Trailer                              │
-├─────────────┬───────────────────────────────────────────┤
-│ Padding     │ Next Header    │ HMAC-SHA-256 Hash        │
-│ (Variable)  │ (1 Byte)       │ (32 Bytes)               │
-└─────────────┴────────────────┴──────────────────────────┘
-```
-
-### ESP-Paketstruktur im Detail
-
-| **Feld** | **Größe** | **Beschreibung** |
-|----------|-----------|------------------|
-| **SPI** | 4 Bytes | Identifiziert die SA |
-| **Sequenznummer** | 4 Bytes | Schutz vor Replay-Angriffen |
-| **IV** | 16 Bytes (AES) | Initialisierungsvektor |
-| **Nutzdaten** | Variabel | Verschlüsselte Daten |
-| **Padding** | 0-255 Bytes | Blockgrößen-Anpassung |
-| **Pad Length** | 1 Byte | Länge des Paddings |
-| **Next Header** | 1 Byte | Protokoll der Nutzdaten |
-| **ICV** | Variabel | Integrity Check Value |
-
-### L2TP-Session Integration
-
-1. **IKE-SA etabliert** → Sichere Kontrollebene für IPsec
-2. **CHILD_SA/ESP** → Datenverschlüsselung und -integrität  
-3. **L2TP-Tunnel** → Session-ID für PPP-Transport
-4. **PPP-Sitzung** → Benutzerauthentifizierung und IP-Zuweisung
-5. **Rekeying** → Neue Schlüssel ohne Sitzungsunterbrechung
-
-### PPP (Point-to-Point Protocol) Details
-
-> **Standard:** RFC 1661 (PPP), RFC 1334 (PAP), RFC 1994 (CHAP)
-
-**PPP-Phasen:**
-1. **Link Establishment** → LCP (Link Control Protocol)
-2. **Authentifizierung** → PAP, CHAP, EAP
-3. **Network-Layer Protocol** → IPCP (IP Control Protocol)
-
-**PPP-Frame-Struktur:**
-```
-┌─────┬─────┬─────┬─────────┬─────┬────────┐
-│ Flag│Addr │Ctrl │Protocol │Data │  FCS   │
-│0x7E │0xFF │0x03 │2 Bytes  │     │2 Bytes │
-└─────┴─────┴─────┴─────────┴─────┴────────┘
-```
-
-**Tipp:** L2TP läuft transparent über den etablierten IPsec-Tunnel
+## Bestandteile von IPsec-VPNs
+- **Interoperabilität** zwischen Systemen  
+- **Kryptografischer Schutz** der Daten  
+- **Zugangskontrolle** & **Integrität**  
+- **Authentifizierung** von Absendern  
+- **Verschlüsselung** der Übertragung  
+- **Schlüsselmanagement** via IKE/Zertifikate  
 
 ---
-
-## Diffie-Hellman-Gruppen
-
-> **Definition:** Mathematische Grundlage für sicheren Schlüsselaustausch ohne vorherigen gemeinsamen Schlüssel
-
-> **Standard:** RFC 3526 (MODP Groups), RFC 7919 (FFDHE Groups)
-
-### DH-Gruppen Parameter
-
-| **Gruppe** | **Modulus-Größe** | **Generator** | **Sicherheitslevel** | **Verwendung** |
-|------------|-------------------|---------------|---------------------|----------------|
-| **MODP-2048** | 2048 Bit | 2 | ~112 Bit | IKEv2 Standard |
-| **MODP-3072** | 3072 Bit | 2 | ~128 Bit | Erhöhte Sicherheit |
-| **MODP-4096** | 4096 Bit | 2 | ~150 Bit | Maximale Sicherheit |
-
-### Elliptic Curve DH-Gruppen
-
-| **Gruppe** | **Schlüssellänge** | **Sicherheit** | **Performance** |
-|------------|-------------------|----------------|-----------------|
-| **secp256r1** | 256 Bit | 128 Bit | Hoch |
-| **secp384r1** | 384 Bit | 192 Bit | Mittel |
-| **secp521r1** | 521 Bit | 256 Bit | Niedrig |
-
-### DH-Schlüsselaustausch Schritt-für-Schritt
-
-| **Schritt** | **Client** | **Server** | **Übertragung** | **Berechnung** |
-|-------------|------------|------------|-----------------|----------------|
-| **1. Private Schlüssel** | `a` (zufällig) | `b` (zufällig) | - | Geheim halten |
-| **2. Öffentliche Werte** | `A = g^a mod p` | `B = g^b mod p` | `A ↔ B` | Öffentlich |
-| **3. Gemeinsames Geheimnis** | `S = B^a mod p` | `S = A^b mod p` | - | Identisch |
-| **4. Schlüsselableitung** | `HMAC(S, Info)` | `HMAC(S, Info)` | - | AES + HMAC |
-
-### Mathematische Grundlage
-
-**Generator-Eigenschaft:**
-Ein Element g ist Generator modulo p, wenn:
-```
-{g^1 mod p, g^2 mod p, ..., g^(p-1) mod p} = {1, 2, ..., p-1}
-```
-
-### Perfect Forward Secrecy (PFS)
-
-```
-Standard Rekeying (ohne PFS):          PFS Rekeying:
-                                      
-┌─────────────┐                       ┌─────────────┐
-│ Master Key  │ ────────────────────→ │ Neuer DH-   │
-│ (langfristig)│                      │ Austausch   │
-└─────────────┘                       │ (ephemeral) │
-       │                              └─────────────┘
-       ▼                                     │
-┌─────────────┐                             ▼
-│ Session Key │                       ┌─────────────┐
-│ (abgeleitet)│                       │ Session Key │
-└─────────────┘                       │(unabhängig)│
-                                      └─────────────┘
-```
-
-**PFS-Vorteile:**
-- Kompromittierung langfristiger Schlüssel gefährdet keine vergangenen Sitzungen
-- Jede Session hat einzigartige Schlüssel
-- Erhöhte Sicherheit gegen Massenüberwachung
-
-> **Wichtig:** PFS stellt sicher, dass kompromittierte Langzeitschlüssel keine Entschlüsselung alter Sitzungen ermöglichen
+## Einsatz-Szenarien
+- **Gateway-zu-Gateway**: Netze verbinden  
+- **Host-zu-Gateway**: Remote-Zugriff  
+- **Host-zu-Host**: Direktverbindungen  
 
 ---
-
-## SSL / TLS Integration
-
-> **Definition/Zweck:** Anwendungsebenen-Sicherheit für HTTP, SMTP, IMAP und weitere Protokolle mit speziellem Fokus auf Browser-Server-Kommunikation
-
-> **Standard:** RFC 8446 (TLS 1.3), RFC 5246 (TLS 1.2)
-
-### TLS 1.3 Handshake (Browser → Server)
-
-```
-Browser                               Webserver
-   │                                      │
-   │──── ClientHello ───────────────────→ │
-   │     • Cipher Suites                  │
-   │     • ECDHE Key Share                │
-   │     • Client Random                  │
-   │     • SNI (Server Name)              │
-   │                                      │
-   │ ←── ServerHello ────────────────────  │
-   │     • Gewählte Cipher Suite          │
-   │     • ECDHE Key Share                │
-   │     • Server Random                  │
-   │                                      │
-   │ ←── EncryptedExtensions ────────────  │
-   │ ←── Certificate (X.509) ─────────────  │
-   │ ←── CertificateVerify ───────────────  │
-   │ ←── Finished ────────────────────────  │
-   │                                      │
-   │──── Finished ──────────────────────→ │
-   │                                      │
-   │════ Application Data (HTTPS) ═══════ │
-```
-
-### Detaillierter TLS 1.3 Handshake
-
-**ClientHello Nachricht:**
-```yaml
-client_hello:
-  version: TLS 1.3 (0x0304)
-  random: 32 Bytes Zufallsdaten
-  cipher_suites: 
-    - TLS_AES_256_GCM_SHA384
-    - TLS_CHACHA20_POLY1305_SHA256
-    - TLS_AES_128_GCM_SHA256
-  extensions:
-    - supported_versions: TLS 1.3
-    - key_share: Client-öffentlicher-Schlüssel
-    - signature_algorithms: ed25519, rsa_pss_rsae_sha256
-```
-
-**Schlüsselberechnung TLS 1.3:**
-```
-Early Secret = HKDF-Extract(salt=0, ikm=0)
-Handshake Secret = HKDF-Extract(
-    salt=Derive-Secret(Early Secret, "derived"),
-    ikm=ECDHE Shared Secret
-)
-Master Secret = HKDF-Extract(
-    salt=Derive-Secret(Handshake Secret, "derived"), 
-    ikm=0
-)
-```
-
-### Beispielhafte Cipher Suites
-
-| **Cipher Suite** | **Verschlüsselung** | **Integrität** | **Key Exchange** | **Performance** |
-|------------------|---------------------|----------------|------------------|-----------------|
-| `TLS_AES_256_GCM_SHA384` | AES-256-GCM | SHA-384 | ECDHE/DHE | Hoch |
-| `TLS_CHACHA20_POLY1305_SHA256` | ChaCha20 | Poly1305 | ECDHE/DHE | Sehr hoch |
-| `TLS_AES_128_GCM_SHA256` | AES-128-GCM | SHA-256 | ECDHE/DHE | Sehr hoch |
-
-### X.509 Zertifikatsstruktur
-
-```asn.1
-Certificate ::= SEQUENCE {
-    tbsCertificate       TBSCertificate,
-    signatureAlgorithm   AlgorithmIdentifier,
-    signatureValue       BIT STRING
-}
-
-TBSCertificate ::= SEQUENCE {
-    version         [0] EXPLICIT Version DEFAULT v1,
-    serialNumber         CertificateSerialNumber,
-    signature            AlgorithmIdentifier,
-    issuer               Name,
-    validity             Validity,
-    subject              Name,
-    subjectPublicKeyInfo SubjectPublicKeyInfo,
-    extensions      [3] EXPLICIT Extensions OPTIONAL
-}
-```
-
-### Elliptic-Curve-Gruppen
-
-| **EC-Gruppe** | **Schlüssellänge** | **Sicherheitslevel** | **Performance** | **Browser-Support** |
-|---------------|-------------------|---------------------|-----------------|-------------------|
-| **X25519** | 255 Bit | ~128 Bit | Sehr hoch | Universal |
-| **secp256r1** | 256 Bit | ~128 Bit | Hoch | Universal |
-| **secp384r1** | 384 Bit | ~192 Bit | Mittel | Universal |
-| **secp521r1** | 521 Bit | ~256 Bit | Niedrig | Eingeschränkt |
-
-### TLS Rekeying-Mechanismen
-
-#### KeyUpdate Message
-```
-Client/Server ──→ KeyUpdate (request_update)
-              ←── KeyUpdate (update_not_requested)
-              ═══ Neue Application Keys aktiv
-```
-
-#### Session Resumption
-- **Session Tickets** → Server-gesteuerte Wiederaufnahme
-- **PSK (Pre-Shared Keys)** → Client-gesteuerte Wiederaufnahme
-- **0-RTT (Zero Round-Trip Time)** → Schnellere Verbindungswiederherstellung
-
-### OCSP (Online Certificate Status Protocol)
-
-**Ablauf:**
-```
-Client ──→ OCSP Request (Zertifikat-Serial)
-       ←── OCSP Response (good/revoked/unknown)
-```
-
-**OCSP Stapling:**
-Server sendet OCSP-Antwort direkt im TLS-Handshake mit, vermeidet zusätzliche Abfragen.
-
-### IPsec vs. TLS Detailvergleich
-
-| **Merkmal** | **IPsec (L2TP)** | **TLS/SSL** | **Bemerkung** |
-|-------------|-------------------|-------------|---------------|
-| **Netzwerkebene** | Layer 3 (IP) | Layer 4+ (TCP/UDP) | IPsec transparent für Apps |
-| **Authentifizierung** | IKEv2, PSK, X.509 | X.509 Zertifikate | Beide X.509-fähig |
-| **Schlüsselvereinbarung** | DH, optional PFS | DH/ECDHE, PFS Standard | TLS 1.3 immer PFS |
-| **Verschlüsselung** | AES-ESP, ChaCha20 | AES-GCM, ChaCha20 | Ähnliche Algorithmen |
-| **Integrität** | HMAC-SHA-256 | HMAC oder AEAD | AEAD effizienter |
-| **Tunneling** | L2TP über ESP | TLS über TCP | Verschiedene Ansätze |
-| **Rekeying** | IKEv2 CHILD_SA | KeyUpdate/Renegotiation | Beide unterstützen PFS |
-| **NAT-Traversal** | NAT-T erforderlich | Transparent | TLS einfacher bei NAT |
-| **Implementierung** | Kernel/OS-Ebene | Anwendungsebene | Verschiedene Integration |
-
-### Doppelte Sicherheit: HTTPS über IPsec
-
-```
-┌─────────────────────────────────────────────┐
-│              Browser                        │ ← Benutzerebene
-├─────────────────────────────────────────────┤
-│         TLS/HTTPS Verschlüsselung           │ ← Anwendungsschutz
-├─────────────────────────────────────────────┤
-│              TCP/IP Stack                   │ ← Transportebene
-├─────────────────────────────────────────────┤
-│           IPsec ESP-Tunnel                  │ ← Netzwerkschutz
-├─────────────────────────────────────────────┤
-│            L2TP/PPP-Sitzung                 │ ← VPN-Sitzung
-├─────────────────────────────────────────────┤
-│         Physische Netzwerkebene             │ ← Übertragung
-└─────────────────────────────────────────────┘
-```
-
-**Vorteile der Kombination:**
-1. **Netzwerksicherheit** → IPsec schützt gesamte Kommunikation
-2. **Anwendungssicherheit** → TLS schützt spezifische Daten
-3. **Redundanz** → Mehrere Sicherheitsebenen
-4. **Flexibilität** → Unterschiedliche Sicherheitsanforderungen pro Ebene
-
-> **Vorteil:** Redundante Sicherheit durch Kombination von Netzwerk- und Anwendungsebenen-Verschlüsselung
+## Protokolle und Komponenten
+- **Security Association (SA)**: Parameter für Authentifizierung, Algorithmen, Schlüssel  
+- **Authentication Header (AH)**: Integrität & Authentizität  
+- **Encapsulating Security Payload (ESP)**: Verschlüsselung & Authentifizierung  
+- **IKE/IKEv2**: Automatisches Schlüsselmanagement  
 
 ---
+## NAT-Herausforderungen
+- **Problem**: NAT stört IPsec-Pakete  
+- **Lösungen**:  
+  - **Passthrough**: Nur ein Client  
+  - **NAT-Traversal (NAT-T)**: ESP in UDP (Port 4500)  
 
-## Zusammenfassung der Schichten
-
-> **Definition/Zweck:** Übersicht über die verschiedenen Sicherheitsebenen und deren spezifische Funktionen im Protokollstack
-
-| **Schicht** | **Protokoll** | **Hauptfunktion** | **Schlüsselverwaltung** | **Schutzbereich** |
-|-------------|---------------|-------------------|------------------------|-------------------|
-| **Layer 3** | IPsec ESP | Verschlüsselung, Integrität, Authentication | IKEv2 SA | Alle IP-Pakete |
-| **Layer 2** | PPP | Benutzer-Auth, IP-Zuweisung, Multi-Protokoll | PAP/CHAP/EAP | PPP-Sitzung |
-| **Layer 2 Tunneling** | L2TP | PPP-Transport über IP-Netze | Session-ID | L2TP-Tunnel |
-| **Layer 4+** | TLS/SSL | Anwendungsspezifische Verschlüsselung | ECDHE/DH | TLS-Session |
-| **Management** | IKEv2/TLS Handshake | SA-Aufbau, Zertifikate, Rekeying | DH/ECDHE | Kontrollebene |
-
-### Sicherheitsebenen-Hierarchie
-
-```
-┌─────────────────────────────────────────────────────┐
-│                Anwendungsebene                      │
-│              TLS/HTTPS Verschlüsselung              │ ← End-to-End Security
-│           AES-GCM, ChaCha20, X.509 Certs            │
-├─────────────────────────────────────────────────────┤
-│                 Transportebene                      │
-│                  TCP/UDP Ports                      │ ← Port-basierte Services
-├─────────────────────────────────────────────────────┤
-│                 Netzwerkebene                       │
-│              IPsec ESP-Verschlüsselung              │ ← Network-Level Security
-│           AES-ESP, HMAC-SHA, IKEv2 SAs              │
-├─────────────────────────────────────────────────────┤
-│                 Sitzungsebene                       │
-│                L2TP/PPP-Sitzung                     │ ← VPN Session Management
-│              Session-ID, PAP/CHAP Auth              │
-├─────────────────────────────────────────────────────┤
-│              Datenverbindungsebene                  │
-│                Ethernet, WiFi, etc.                 │ ← Physical Transport
-└─────────────────────────────────────────────────────┘
-```
-
-### Kryptografische Algorithmen im Überblick
-
-**Verschlüsselung:**
-- **AES-256** → Standard für hohe Sicherheit
-- **ChaCha20** → Schnelle Alternative zu AES
-- **AES-GCM** → Authenticated Encryption
-- **AES-CBC** → Klassischer Modus mit HMAC
-
-**Integrität:**
-- **HMAC-SHA-256** → Standard für Nachrichtenauthentifizierung
-- **Poly1305** → Schnelle Alternative zu HMAC
-- **AEAD** → Kombinierte Verschlüsselung und Authentifizierung
-
-**Schlüsselaustausch:**
-- **ECDHE** → Elliptic Curve Diffie-Hellman Ephemeral
-- **DHE** → Klassischer Diffie-Hellman
-- **RSA** → Für Authentifizierung, nicht für Schlüsselaustausch
+### VPN-Aufbau mit NAT-Traversal
+Schritt 1 → Verfahren ermitteln  
+Schritt 2 → NAT-System erkennen  
+Schritt 3 → Keep-Alive aktivieren  
+Schritt 4 → IKE-Aushandlung  
+Schritt 5 → Verfahren festlegen  
+Schritt 6 → Schlüssel austauschen  
+→ **VPN-Verbindung aktiv**
 
 ---
+## Tunneling
+- **Einkapselung von Paketen** für inkompatible Netze  
+- Ermöglicht z. B. **IPv6 über IPv4**  
+- Grundlage für **VPN-Tunnel**  
 
-## Textbasiertes Protokoll-Diagramm
-
-> **Definition/Zweck:** Vollständiger Protokollablauf von der IKE-Initialisierung bis zum verschlüsselten HTTPS-Datenverkehr
-
-```
-Client (Browser)                         Server/Gateway
-        │                                        │
-        │── IKE_SA_INIT ─────────────────────────→│
-        │   DH-Gruppe: MODP-2048                 │ [DH-Berechnung]
-        │   g^a mod p (Client Key Share)         │ Server: g^b mod p
-        │                                        │
-        │←─ IKE_SA_INIT ──────────────────────────│
-        │   g^b mod p (Server Key Share)         │
-        │   Cipher Suite: AES-256 + HMAC-SHA-256 │
-        │                                        │
-        │── Gemeinsames Geheimnis: S = B^a mod p = A^b mod p
-        │                                        │
-        │── IKE_AUTH ────────────────────────────→│
-        │   X.509 Zertifikat/PSK                 │ [Authentifizierung]
-        │   HMAC(S, Client-Auth-Data)            │ Zertifikat prüfen
-        │                                        │
-        │←─ IKE_AUTH ─────────────────────────────│
-        │   X.509 Server-Zertifikat              │
-        │   HMAC(S, Server-Auth-Data)            │
-        │                                        │
-        │── CHILD_SA CREATE_CHILD_SA ───────────→│
-        │   ESP-Parameter: SPI=0x2001            │ [SA-Ableitung]
-        │   AES-256-CBC + HMAC-SHA-256           │ Tunnel-Mode
-        │                                        │
-        │←─ CHILD_SA Bestätigung ─────────────────│
-        │   ESP-SPI bestätigt                    │
-        │                                        │
-        │═══════ ESP/IPsec Tunnel etabliert ═════│
-        │                                        │
-        │── L2TP Start-Control-Connection ──────→│
-        │   über ESP-verschlüsselten Tunnel      │ [L2TP-Setup]
-        │                                        │
-        │←─ L2TP Start-Control-Connection-Reply ─│
-        │   Session-ID: 0x1234 zugewiesen        │
-        │                                        │
-        │── L2TP Incoming-Call-Request ─────────→│
-        │                                        │
-        │←─ L2TP Incoming-Call-Reply ────────────│
-        │                                        │
-        │── PPP LCP Configuration ──────────────→│
-        │   über L2TP/IPsec-Tunnel               │ [PPP-Setup]
-        │                                        │
-        │── PPP Authentication (PAP/CHAP) ──────→│
-        │   Username/Password                    │ [User-Auth]
-        │                                        │
-        │←─ PPP Auth-ACK + IPCP ─────────────────│
-        │   IP-Adresse: 10.0.0.100 zugewiesen   │
-        │                                        │
-        │═══ VPN-Tunnel vollständig aktiv ══════│
-        │                                        │
-        │── Optional: Rekeying ──────────────────→│
-        │   Neue DH-Keys bei PFS                 │ [Key-Update]
-        │                                        │
-        │←─ Neue IKE/CHILD_SA Schlüssel ─────────│
-        │                                        │
-        │── TLS 1.3 ClientHello ────────────────→│
-        │   über etablierten VPN-Tunnel          │ [TLS-Handshake]
-        │   Cipher Suites:                       │
-        │   • TLS_AES_256_GCM_SHA384             │
-        │   • TLS_CHACHA20_POLY1305_SHA256       │ [Browser-Context]
-        │   ECDHE Key Share: X25519              │
-        │   SNI: example.com                     │
-        │                                        │
-        │←─ TLS 1.3 ServerHello ─────────────────│
-        │   Gewählt: TLS_AES_256_GCM_SHA384      │
-        │   ECDHE Key Share: X25519              │
-        │   X.509 Server-Zertifikat              │
-        │                                        │
-        │── TLS Key Exchange abgeschlossen ─────→│
-        │   ECDHE gemeinsames Geheimnis          │ [Key-Derivation]
-        │                                        │
-        │── TLS Finished ───────────────────────→│
-        │   HMAC über Handshake-Messages         │
-        │                                        │
-        │←─ TLS Finished ────────────────────────│
-        │   Server HMAC-Verifikation             │
-        │                                        │
-        │═══ HTTPS-Datenverkehr verschlüsselt ══│
-        │═══ über TLS über L2TP/IPsec-Tunnel ═══│
-        │                                        │
-        │── HTTP GET /index.html ───────────────→│
-        │   verschlüsselt mit AES-256-GCM        │ [Application Data]
-        │                                        │
-        │←─ HTTP 200 OK + HTML-Content ─────────│
-        │   verschlüsselt über doppelte Tunnel   │
-```
-
-### Detaillierte Zeitabläufe
-
-**IKEv2 Verbindungsaufbau:**
-```
-0ms     : IKE_SA_INIT gestartet
-50ms    : IKE_SA_INIT Antwort
-100ms   : IKE_AUTH gestartet  
-150ms   : IKE_AUTH abgeschlossen
-200ms   : CHILD_SA etabliert
-```
-
-**TLS Handshake über VPN:**
-```
-200ms   : TLS ClientHello
-250ms   : TLS ServerHello + Zertifikat
-300ms   : TLS Key Exchange
-350ms   : TLS Finished
-400ms   : Verschlüsselter Datenverkehr
-```
-
-### End-to-End Datenfluss
-
-```
-Browser-Request (HTTPS)
-          │
-          ▼
-┌─────────────────┐
-│ TLS Encryption  │ ← AES-256-GCM (Application Layer)
-│ AES-256-GCM     │
-└─────────────────┘
-          │
-          ▼
-┌─────────────────┐
-│  TCP Segment    │ ← Transport Layer
-│  Port 443       │
-└─────────────────┘
-          │
-          ▼
-┌─────────────────┐
-│   IP Packet     │ ← Network Layer
-│ Src: 10.0.0.100 │
-│ Dst: Web-Server │
-└─────────────────┘
-          │
-          ▼
-┌─────────────────┐
-│  L2TP Frame     │ ← L2TP Tunneling
-│ Session-ID: 0x… │
-└─────────────────┘
-          │
-          ▼
-┌─────────────────┐
-│ PPP Frame       │ ← PPP Encapsulation
-│   IP Payload    │
-└─────────────────┘
-          │
-          ▼
-┌─────────────────┐
-│ ESP Encryption  │ ← IPsec Network Security 
-│ AES-256-ESP     │   SPI: 0x2001
-│ HMAC-SHA-256    │
-└─────────────────┘
-          │
-          ▼
-      Internet
-```
-
-### Fehlerbehandlung und Recovery
-
-**Connection Timeout:**
-- **IKEv2** → Dead Peer Detection (DPD)
-- **TLS** → Heartbeat Extension
-- **TCP** → Keep-Alive Pakete
-
-**Rekeying-Fehler:**
-- Fallback auf alte SA
-- Neue Handshake-Initiierung
-- Graceful Degradation
-
-> **Sicherheitshinweis:** Diese Architektur bietet durch die Kombination von IPsec (Netzwerkebene) und TLS (Anwendungsebene) redundante Sicherheit mit verschiedenen kryptographischen Schlüsseln und Algorithmen
+### Protokolle
+- **GRE**: Routing-Kapselung  
+- **IP-in-IP**: IP über IP  
+- **SSH-Tunnel**: Anwendungsebene  
+- **PPTP, SSTP, L2TP, VXLAN**: Weitere Standards  
 
 ---
+## TLS / SSL
+- **Standard für Websicherheit (HTTPS)**  
+- **Funktionen**: Authentifikation, Vertraulichkeit, Integrität  
 
-## Anhang: Kryptografische Grundlagen
+### Schichten
+- Zwischen Transport- & Anwendungsschicht  
+- **Record Layer**: Fragmentierung, HMAC, Verschlüsselung  
+- **Handshake**: Sicherheitsparameter aushandeln  
 
-> **Definition/Zweck:** Fundamentale kryptografische Konzepte und mathematische Grundlagen der verwendeten Algorithmen
-
-### Hash-Funktionen
-
-**SHA-256 Eigenschaften:**
-
-| **Parameter** | **Wert** | **Beschreibung** |
-|---------------|----------|------------------|
-| **Ausgabelänge** | 256 Bit (32 Byte) | Feste Hashgröße |
-| **Blockgröße** | 512 Bit | Interne Verarbeitung |
-| **Runden** | 64 | Kompressionsiterationen |
-| **Kollisionsresistenz** | 2¹²⁸ Operationen | Theoretische Sicherheit |
-
-**HMAC (Hash-based Message Authentication Code):**
-```
-HMAC(K, m) = H((K ⊕ opad) || H((K ⊕ ipad) || m))
-
-Wobei:
-- K = Schlüssel
-- m = Nachricht
-- opad = 0x5c5c...5c (äußeres Padding)
-- ipad = 0x3636...36 (inneres Padding)
-- H = Hash-Funktion (SHA-256)
-```
-
-### Verschlüsselungsmodi
-
-**AES-CBC (Cipher Block Chaining):**
-```
-Verschlüsselung: C_i = E_K(P_i ⊕ C_{i-1})
-Entschlüsselung: P_i = D_K(C_i) ⊕ C_{i-1}
-
-Wobei C_0 = IV (Initialization Vector)
-```
-
-**AES-GCM (Galois/Counter Mode):**
-- **Verschlüsselung** → CTR-Modus mit Zähler
-- **Authentifizierung** → GHASH-Funktion über GF(2¹²⁸)
-- **Parallelisierbar** → Hohe Performance
-- **AEAD** → Authenticated Encryption with Associated Data
-
-```
-GCM-Struktur:
-┌─────────────┬─────────────┬─────────────┐
-│ Nonce (96)  │ Counter (32)│ Auth Tag    │
-│             │             │ (128 Bit)   │
-└─────────────┴─────────────┴─────────────┘
-```
-
-### Zertifikatsvalidierung
-
-**Zertifikatskette:**
-```
-┌─────────────────┐
-│ End Entity Cert │ ← Webserver-Zertifikat
-└─────────────────┘
-          │
-          ▼ (signiert von)
-┌─────────────────┐
-│ Intermediate CA │ ← Zwischenzertifikat
-└─────────────────┘
-          │
-          ▼ (signiert von)
-┌─────────────────┐
-│    Root CA      │ ← Vertrauensanker
-│ (selbst-signiert)│   (im Browser-Store)
-└─────────────────┘
-```
-
-**Validierungsschritte:**
-
-1. **Signaturprüfung** → RSA/ECDSA-Verifikation
-2. **Gültigkeitszeitraum** → Not Before/Not After
-3. **Zertifikatssperrung** → CRL/OCSP-Check
-4. **Policy-Konformität** → Extended Validation (EV)
-5. **Hostname-Verifikation** → CN/SAN-Match
-
-### Elliptic Curve Kryptographie
-
-**Kurvengleichung (Weierstrass-Form):**
-```
-y² = x³ + ax + b (mod p)
-
-Für secp256r1:
-- p = 2²⁵⁶ - 2²²⁴ + 2¹⁹² + 2⁹⁶ - 1
-- a = -3
-- b = 0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b
-```
-
-**Punktoperationen:**
-- **Punktaddition** → P + Q = R
-- **Skalarmultiplikation** → k·P (k-mal P addieren)
-- **Neutrales Element** → Punkt im Unendlichen
-
-### Quantum-Resistance Überlegungen
-
-**Shor-Algorithmus Bedrohung:**
-
-| **Algorithmus** | **Quantenresistenz** | **Empfohlene Alternative** |
-|-----------------|---------------------|---------------------------|
-| **RSA** | Nicht resistent | Lattice-basierte Verfahren |
-| **ECDH/ECDSA** | Nicht resistent | Isogenie-basierte Kurven |
-| **AES-256** | Reduziert auf AES-128 | AES-256 bleibt sicher |
-| **SHA-256** | Grover-Algorithmus | SHA-256 bleibt praktisch sicher |
-
-**Post-Quantum Kryptographie:**
-- **NIST-Standardisierung** → Kyber (KEM), Dilithium (Signatur)
-- **Hybrid-Ansätze** → Klassische + Post-Quantum
-- **Migration-Strategie** → Schrittweise Einführung
+### TLS 1.3 Neuerungen
+- **Perfect Forward Secrecy**  
+- **1-RTT-Handshake** (schneller)  
+- **0-RTT-Resumption**  
+- **Wenige Cipher Suites** (5 sichere)  
+- **Authenticated Encryption**  
 
 ---
+## Verschlüsselungsverfahren
+### Symmetrisch
+- **Ein Schlüssel** für beide Richtungen  
+- **Vorteil**: Schnell  
+- **Nachteil**: Schlüsselverteilung schwierig  
+- **Beispiele**: DES (alt), AES (Standard)  
+
+### Asymmetrisch
+- **Public/Private Key**  
+- **Vorteil**: Einfacher Schlüsselaustausch  
+- **Nachteil**: Langsam  
+- **Beispiele**: RSA, Diffie-Hellman  
+
+### Hybride Verschlüsselung
+Schritt 1 → Daten symmetrisch verschlüsseln  
+Schritt 2 → Schlüssel asymmetrisch übertragen  
+Schritt 3 → Empfänger entschlüsselt Schlüssel  
+Schritt 4 → Daten entschlüsseln  
+
+---
+## Digitale Zertifikate
+- **Echtheitsnachweis** einer Zertifizierungsstelle (CA)  
+- Enthalten: Inhaber, CA, Gültigkeit, Seriennummer, Schlüssel, Signatur  
+- **Digitale Signatur**: Hash + privater Schlüssel der CA  
+- **Einsatz**: HTTPS, E-Mail, Software-Signaturen  
+
+---
+## Vergleich
+| Merkmal       | IPsec (Netzwerkebene) | TLS (Transport-/App-Ebene) |
+|---------------|------------------------|----------------------------|
+| Schutz        | Gesamter IP-Traffic    | Einzelne Anwendungen       |
+| Einsatz       | Site-to-Site, VPN      | Web (HTTPS), Apps          |
+| Overhead      | Höher                  | Optimiert                  |
+
+---
+## Wichtige Begriffe
+- **Security Association (SA)**: Vereinbarung über Algorithmen & Schlüssel  
+- **IKE/IKEv2**: Schlüsselmanagement-Protokoll  
+- **ESP**: Verschlüsselung & Integritätsschutz  
+- **Perfect Forward Secrecy (PFS)**: Schlüssel unabhängig voneinander  
+
+---
+## Prozess-Flow: VPN-Aufbau
+Client → IKE-Aushandlung → SA-Erstellung → Schlüsselgenerierung → ESP-Datenübertragung → **Gesicherte Verbindung**
