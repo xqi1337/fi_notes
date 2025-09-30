@@ -1,0 +1,274 @@
+---
+title: ' RAID-Systeme'
+description: 'Redundante Speichersysteme für Datensicherheit und Performance'
+tags: ['IT','RAID', 'Speichertechnologien', 'Netzwerk']
+---
+---
+
+## RAID (Redundant Array of Independent Disks)
+
+> **Definition:** Technologie zur Kombination mehrerer Festplatten für Datensicherheit, Performance und Kapazität
+
+### Vorteile
+
+- **Ausfallsicherheit**: Schutz vor Festplattenfehlern
+- **Leistungssteigerung**: Schnellere Lese-/Schreibgeschwindigkeiten
+- **Datenverfügbarkeit**: Redundante Speicherung
+
+### RAID-Implementierungen
+
+| Typ | Vorteile | Nachteile |
+|-----|----------|-----------|
+| **Hardware-RAID** | Höhere Performance, einfache Migration | Höhere Kosten, Controller-Abhängigkeit |
+| **Software-RAID** | Geringere Kosten, Flexibilität | Hohe CPU-Last, geringere Performance |
+| **Hybrid-RAID** | Flexibilität, moderate Kosten | Kombinierte Nachteile |
+
+---
+
+## RAID-Level
+
+### RAID 0 - Striping
+
+```
+┌─────────┐   ┌─────────┐
+│ Disk 1  │   │ Disk 2  │
+│ Block A │   │ Block B │
+│ Block C │   │ Block D │
+└─────────┘   └─────────┘
+```
+
+- **Mindestanzahl**: 2 Festplatten
+- **Blockgröße**: i.d.R. 64 kByte
+- **Kapazität**: `n × Festplattengröße` (100%)
+
+**Vorteile:**
+- Maximale Geschwindigkeit
+- Volle Kapazitätsnutzung
+
+**Nachteile:**
+- Keine Redundanz
+- Hohe Ausfallwahrscheinlichkeit
+
+**Beispiel:**
+```
+2 × 1 TB = 2 TB nutzbar
+```
+
+---
+
+### RAID 1 - Mirroring
+
+```
+┌─────────┐   ┌─────────┐
+│ Disk 1  │ → │ Disk 2  │
+│ Block A │   │ Block A │
+│ Block B │   │ Block B │
+└─────────┘   └─────────┘
+```
+
+- **Mindestanzahl**: 2 Festplatten
+- **Kapazität**: `(n / 2) × Festplattengröße` (50%)
+
+**Vorteile:**
+- Hohe Datensicherheit
+- Ein Ausfall tolerierbar
+- Höhere Lesegeschwindigkeit möglich
+
+**Nachteile:**
+- 50% Kapazitätsverlust
+- Hohe Kosten
+
+**Beispiel:**
+```
+2 × 1 TB = 1 TB nutzbar
+```
+
+---
+
+### RAID 5 - Striping mit Parität
+
+```
+┌─────────┐   ┌─────────┐   ┌─────────┐
+│ Disk 1  │   │ Disk 2  │   │ Disk 3  │
+│ Block A │   │ Block B │   │ Parity  │
+│ Block C │   │ Parity  │   │ Block D │
+│ Parity  │   │ Block E │   │ Block F │
+└─────────┘   └─────────┘   └─────────┘
+```
+
+- **Mindestanzahl**: 3 Festplatten
+- **Technik**: XOR-Verknüpfung für Parität
+- **Kapazität**: `(n - 1) × Festplattengröße`
+
+**Vorteile:**
+- Gute Balance Performance/Redundanz
+- Optimale Speichernutzung
+
+**Nachteile:**
+- Langsamere Schreibvorgänge
+- Paritätsberechnung belastet System
+
+**Beispiel:**
+```
+3 × 1 TB = 2 TB nutzbar
+```
+
+---
+
+### RAID 6 - Doppelte Parität
+
+- **Mindestanzahl**: 4 Festplatten
+- **Kapazität**: `(n - 2) × Festplattengröße`
+
+**Vorteile:**
+- Zwei Ausfälle tolerierbar
+- Höhere Ausfallsicherheit
+
+**Nachteile:**
+- Geringere Schreibperformance
+- Mehr Overhead
+
+**Beispiel:**
+```
+4 × 1 TB = 2 TB nutzbar
+```
+
+---
+
+### RAID 10 - Mirror + Stripe
+
+```
+┌─────────┐   ┌─────────┐
+│ Disk 1  │ → │ Disk 2  │  (Mirror)
+│ Block A │   │ Block A │
+└─────────┘   └─────────┘
+     ↓             ↓
+┌─────────┐   ┌─────────┐
+│ Disk 3  │ → │ Disk 4  │  (Mirror)
+│ Block B │   │ Block B │
+└─────────┘   └─────────┘
+```
+
+- **Mindestanzahl**: 4 Festplatten
+- **Kapazität**: 50%
+
+**Vorteile:**
+- Höchste Performance mit Redundanz
+- Mehrere Ausfälle möglich
+
+**Nachteile:**
+- Hohe Kosten
+- 50% Kapazitätsverlust
+
+---
+
+### JBOD (Just a Bunch of Disks)
+
+- Keine RAID-Konfiguration
+- Festplatten einzeln nutzbar
+- Keine Redundanz oder Performance-Vorteil
+
+---
+
+## Redundanzkonzepte
+
+### Hotspare
+
+> **Definition:** Ungenutzte Festplatte im Standby für automatischen Ersatz
+
+**Ablauf:**
+```
+Festplattenausfall → Hotspare aktiviert → Rebuild startet → System wiederhergestellt
+```
+
+**Vorteile:**
+- Automatischer Wechsel
+- Minimale Ausfallzeit
+
+**Nachteile:**
+- Zusätzliche Hardware-Kosten
+- Keine Datennutzung im Standby
+
+---
+
+### Hotplug
+
+- Festplatten im laufenden Betrieb tauschbar
+- Kein System-Neustart nötig
+
+---
+
+### Cold-Standby
+
+> **Definition:** Reserve-Festplatte außerhalb des Systems
+
+**Vorteile:**
+- Kostengünstiger
+- Flexible Nutzung
+
+**Nachteile:**
+- Manuelle Intervention nötig
+- Längere Ausfallzeiten
+- Datenverlust-Risiko
+
+---
+
+## Speicherungstechniken
+
+### Mirroring
+- Identische Kopie auf zweiter Festplatte
+- Verwendung in RAID 1, RAID 10
+
+### Striping
+- Datenverteilung über mehrere Festplatten
+- Verwendung in RAID 0, RAID 5, RAID 6
+
+### Parity
+- XOR-Berechnung zur Wiederherstellung
+- Verwendung in RAID 5, RAID 6
+
+---
+
+## RAID-Level Übersicht
+
+| RAID-Level | Min. Disks | Kapazität | Redundanz | Einsatz |
+|------------|------------|-----------|-----------|---------|
+| **RAID 0** | 2 | 100% | ❌ | Maximale Geschwindigkeit |
+| **RAID 1** | 2 | 50% | ✅ (1 Disk) | Datensicherheit |
+| **RAID 5** | 3 | (n-1) | ✅ (1 Disk) | Allround-Lösung |
+| **RAID 6** | 4 | (n-2) | ✅ (2 Disks) | Enterprise-Systeme |
+| **RAID 10** | 4 | 50% | ✅ (mehrere) | Performance + Sicherheit |
+| **JBOD** | 1+ | 100% | ❌ | Einfache Speicherung |
+
+---
+
+## Formeln zur Kapazitätsberechnung
+
+**RAID 0:**
+```
+Kapazität = Anzahl Festplatten × Festplattengröße
+```
+
+**RAID 1:**
+```
+Kapazität = (Anzahl Festplatten / 2) × Festplattengröße
+```
+
+**RAID 5:**
+```
+Kapazität = (Anzahl Festplatten - 1) × Festplattengröße
+```
+
+**RAID 6:**
+```
+Kapazität = (Anzahl Festplatten - 2) × Festplattengröße
+```
+
+**RAID 10:**
+```
+Kapazität = (Anzahl Festplatten / 2) × Festplattengröße
+```
+
+> **Tipp:** Größe richtet sich immer nach der kleinsten Festplatte im Array
+
+---
