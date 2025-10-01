@@ -37,7 +37,7 @@ tags: ['IT', 'RAID', 'Speichertechnologien', 'Netzwerk']
 ```
 
 - **Mindestanzahl**: 2 Festplatten
-- **Blockgröße**: i.d.R. 64 kByte
+- **Blockgröße**: i.d.R. 64 KiB
 - **Kapazität**: `n × Festplattengröße` (100%)
 
 **Vorteile:**
@@ -50,7 +50,7 @@ tags: ['IT', 'RAID', 'Speichertechnologien', 'Netzwerk']
 
 **Beispiel:**
 ```
-2 × 1 TB = 2 TB nutzbar
+2 × 1 TiB = 2 TiB nutzbar
 ```
 
 ---
@@ -79,7 +79,7 @@ tags: ['IT', 'RAID', 'Speichertechnologien', 'Netzwerk']
 
 **Beispiel:**
 ```
-2 × 1 TB = 1 TB nutzbar
+2 × 1 TiB = 1 TiB nutzbar
 ```
 
 ---
@@ -109,12 +109,20 @@ tags: ['IT', 'RAID', 'Speichertechnologien', 'Netzwerk']
 
 **Beispiel:**
 ```
-3 × 1 TB = 2 TB nutzbar
+3 × 1 TiB = 2 TiB nutzbar
 ```
 
 ---
 
 ### RAID 6 - Doppelte Parität
+
+```
+┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐
+│ Disk 1  │   │ Disk 2  │   │ Disk 3  │   │ Disk 4  │
+│ Block A │   │ Block B │   │ Parity1 │   │ Parity2 │
+│ Block C │   │ Parity1 │   │ Parity2 │   │ Block D │
+└─────────┘   └─────────┘   └─────────┘   └─────────┘
+```
 
 - **Mindestanzahl**: 4 Festplatten
 - **Kapazität**: `(n - 2) × Festplattengröße`
@@ -129,12 +137,12 @@ tags: ['IT', 'RAID', 'Speichertechnologien', 'Netzwerk']
 
 **Beispiel:**
 ```
-4 × 1 TB = 2 TB nutzbar
+4 × 1 TiB = 2 TiB nutzbar
 ```
 
 ---
 
-### RAID 10 - Mirror + Stripe
+### RAID 10 (1+0) - Mirror + Stripe
 
 ```
 ┌─────────┐   ┌─────────┐
@@ -149,7 +157,7 @@ tags: ['IT', 'RAID', 'Speichertechnologien', 'Netzwerk']
 ```
 
 - **Mindestanzahl**: 4 Festplatten
-- **Kapazität**: 50%
+- **Kapazität**: `(n / 2) × FK` (50%)
 
 **Vorteile:**
 - Höchste Performance mit Redundanz
@@ -159,13 +167,268 @@ tags: ['IT', 'RAID', 'Speichertechnologien', 'Netzwerk']
 - Hohe Kosten
 - 50% Kapazitätsverlust
 
+**Beispiel:**
+```
+4 × 3 TiB = (4 / 2) × 3 TiB = 6 TiB nutzbar
+```
+
+---
+
+### RAID 01 (0+1) - Stripe + Mirror
+
+```
+┌─────────┐   ┌─────────┐
+│ Disk 1  │   │ Disk 2  │  (Stripe)
+│ Block A │   │ Block B │
+│ Block C │   │ Block D │
+└─────────┘   └─────────┘
+     ↓             ↓
+     Mirror (gespiegelt)
+     ↓             ↓
+┌─────────┐   ┌─────────┐
+│ Disk 3  │   │ Disk 4  │
+│ Block A │   │ Block B │
+│ Block C │   │ Block D │
+└─────────┘   └─────────┘
+```
+
+- **Mindestanzahl**: 4 Festplatten
+- **Kapazität**: `(n / 2) × FK` (50%)
+
+**Vorteile:**
+- Hohe Performance durch Striping
+- Datensicherheit durch Mirroring
+- Einfacher als RAID 10
+
+**Nachteile:**
+- Weniger fehlertolerant als RAID 10
+- Bei Ausfall einer Stripe-Gruppe: gesamtes Array gefährdet
+- 50% Kapazitätsverlust
+
+**Unterschied zu RAID 10:**
+- RAID 10: Mirror zuerst, dann Stripe (besser bei Ausfällen)
+- RAID 01: Stripe zuerst, dann Mirror (schlechter bei Ausfällen)
+
+**Beispiel:**
+```
+4 × 3 TiB = (4 / 2) × 3 TiB = 6 TiB nutzbar
+```
+
+---
+
+### RAID 15 (1+5) - Mirror über RAID 5
+
+```
+RAID 5 Gruppe 1                     RAID 5 Gruppe 2
+┌─────────┬─────────┬─────────┐  ┌─────────┬─────────┬─────────┐
+│ Disk 1  │ Disk 2  │ Disk 3  │  │ Disk 4  │ Disk 5  │ Disk 6  │
+│ Block A │ Block B │ Parity  │  │ Block A │ Block B │ Parity  │
+│ Block C │ Parity  │ Block D │  │ Block C │ Parity  │ Block D │
+└─────────┴─────────┴─────────┘  └─────────┴─────────┴─────────┘
+                      Mirror (gespiegelt)
+```
+
+- **Mindestanzahl**: 6 Festplatten
+- **Kapazität**: `((n / 2) - 1) × FK`
+
+**Vorteile:**
+- Höhere Ausfallsicherheit als RAID 5 oder RAID 50
+- Mirror-Redundanz zusätzlich zur Parität
+- Ein kompletter RAID-5-Ausfall tolerierbar
+
+**Nachteile:**
+- Höhere Kosten als RAID 5
+- Komplexere Verwaltung
+- Nur 33% Kapazitätsnutzung bei 6 Disks
+
+**Beispiel:**
+```
+6 × 3 TiB = ((6 / 2) - 1) × 3 TiB = 6 TiB nutzbar
+```
+
+---
+
+### RAID 16 (1+6) - Mirror über RAID 6
+
+```
+RAID 6 Gruppe 1                              RAID 6 Gruppe 2
+┌─────────┬─────────┬─────────┬─────────┐  ┌─────────┬─────────┬─────────┬─────────┐
+│ Disk 1  │ Disk 2  │ Disk 3  │ Disk 4  │  │ Disk 5  │ Disk 6  │ Disk 7  │ Disk 8  │
+│ Block A │ Block B │ Parity1 │ Parity2 │  │ Block A │ Block B │ Parity1 │ Parity2 │
+└─────────┴─────────┴─────────┴─────────┘  └─────────┴─────────┴─────────┴─────────┘
+                    Mirror (gespiegelt)
+```
+
+- **Mindestanzahl**: 8 Festplatten
+- **Kapazität**: `((n / 2) - 2) × FK`
+
+**Vorteile:**
+- Maximale Ausfallsicherheit
+- Mehrere Ausfälle tolerierbar
+- Ein kompletter RAID-6-Ausfall tolerierbar
+
+**Nachteile:**
+- Sehr hohe Kosten
+- Hoher Overhead
+- Nur 25% Kapazitätsnutzung bei 8 Disks
+
+**Beispiel:**
+```
+8 × 3 TiB = ((8 / 2) - 2) × 3 TiB = 6 TiB nutzbar
+```
+
+---
+
+### RAID 50 (5+0) - Stripe über RAID 5
+
+```
+RAID 5 Gruppe 1                    RAID 5 Gruppe 2
+┌─────────┬─────────┬─────────┐  ┌─────────┬─────────┬─────────┐
+│ Disk 1  │ Disk 2  │ Disk 3  │  │ Disk 4  │ Disk 5  │ Disk 6  │
+│ Block A │ Block C │ Parity  │  │ Block B │ Block D │ Parity  │
+└─────────┴─────────┴─────────┘  └─────────┴─────────┴─────────┘
+                     Stripe (verteilt)
+```
+
+- **Mindestanzahl**: 6 Festplatten
+- **Kapazität**: `(n - 2) × FK` bei k=2
+
+**Vorteile:**
+- Höhere Performance als RAID 5
+- Ein Ausfall pro Gruppe tolerierbar
+- Bessere Skalierbarkeit
+
+**Nachteile:**
+- Komplexere Konfiguration
+- Rebuild belastet beide Gruppen
+
+**Beispiel:**
+```
+6 × 3 TiB = (6 - 2) × 3 TiB = 12 TiB nutzbar
+```
+
+---
+
+### RAID 51 (5+1) - Mirror von RAID 5-Gruppen
+
+```
+     Mirror Gruppe 1                Mirror Gruppe 2
+┌─────────┬─────────┬─────────┐  ┌─────────┬─────────┬─────────┐
+│ Disk 1  │ Disk 2  │ Disk 3  │  │ Disk 4  │ Disk 5  │ Disk 6  │
+│ (RAID 5)│ (RAID 5)│ (RAID 5)│  │ (RAID 5)│ (RAID 5)│ (RAID 5)│
+└─────────┴─────────┴─────────┘  └─────────┴─────────┴─────────┘
+                    Mirror (gespiegelt)
+```
+
+- **Mindestanzahl**: 6 Festplatten
+- **Kapazität**: `((n / 2) - 1) × FK`
+
+**Vorteile:**
+- Höhere Performance durch Striping
+- Mirror-Redundanz zusätzlich zur Parität
+- Kombination aus RAID 5 Effizienz und RAID 1 Sicherheit
+
+**Nachteile:**
+- Komplexe Konfiguration
+- Höhere Kosten
+- Rebuild belastet System stark
+
+> **Hinweis:** RAID 51 ist identisch mit RAID 15 in der Kapazitätsberechnung, unterscheidet sich aber in der Implementierungsreihenfolge.
+
+**Beispiel:**
+```
+6 × 3 TiB = ((6 / 2) - 1) × 3 TiB = 6 TiB nutzbar
+```
+
+---
+
+### RAID 60 (6+0) - Stripe über RAID 6
+
+```
+RAID 6 Gruppe 1                               RAID 6 Gruppe 2
+┌─────────┬─────────┬─────────┬─────────┐  ┌─────────┬─────────┬─────────┬─────────┐
+│ Disk 1  │ Disk 2  │ Disk 3  │ Disk 4  │  │ Disk 5  │ Disk 6  │ Disk 7  │ Disk 8  │
+│ Block A │ Block C │ Parity1 │ Parity2 │  │ Block B │ Block D │ Parity1 │ Parity2 │
+└─────────┴─────────┴─────────┴─────────┘  └─────────┴─────────┴─────────┴─────────┘
+                                    Stripe (verteilt)
+```
+
+- **Mindestanzahl**: 8 Festplatten
+- **Kapazität**: `(n - 4) × FK` bei k=2
+
+**Vorteile:**
+- Höchste Ausfallsicherheit
+- Zwei Ausfälle pro Gruppe tolerierbar
+- Hohe Performance
+
+**Nachteile:**
+- Sehr hohe Kosten
+- Hoher Paritäts-Overhead
+
+**Beispiel:**
+```
+8 × 3 TiB = (8 - 4) × 3 TiB = 12 TiB nutzbar
+```
+
+---
+
+### RAID 61 (6+1) - Mirror von RAID 6-Gruppen
+
+```
+     Mirror Gruppe 1                             Mirror Gruppe 2
+┌─────────┬─────────┬─────────┬─────────┐  ┌─────────┬─────────┬─────────┬─────────┐
+│ Disk 1  │ Disk 2  │ Disk 3  │ Disk 4  │  │ Disk 5  │ Disk 6  │ Disk 7  │ Disk 8  │
+│ (RAID 6)│ (RAID 6)│ (RAID 6)│ (RAID 6)│  │ (RAID 6)│ (RAID 6)│ (RAID 6)│ (RAID 6)│
+└─────────┴─────────┴─────────┴─────────┘  └─────────┴─────────┴─────────┴─────────┘
+                                  Mirror (gespiegelt)
+```
+
+- **Mindestanzahl**: 8 Festplatten
+- **Kapazität**: `((n / 2) - 2) × FK`
+
+**Vorteile:**
+- Maximale Ausfallsicherheit
+- Höhere Performance durch Striping
+- Zwei Ausfälle pro Gruppe + Mirror tolerierbar
+
+**Nachteile:**
+- Sehr hohe Kosten
+- Komplexeste Verwaltung
+- Hoher Paritäts- und Mirror-Overhead
+
+**Hinweis:** RAID 61 ist identisch mit RAID 16 in der Kapazitätsberechnung, unterscheidet sich aber in der Implementierungsreihenfolge.
+
+**Beispiel:**
+```
+8 × 3 TiB = ((8 / 2) - 2) × 3 TiB = 6 TiB nutzbar
+```
+
 ---
 
 ### JBOD (Just a Bunch of Disks)
 
+```
+┌────────────┐   ┌────────────┐   ┌────────────┐
+│ Disk 1     │   │ Disk 2     │   │ Disk 3     │
+│ 1 TB       │   │ 2 TB       │   │ 3 TB       │
+│ unabhängig │   │ unabhängig │   │ unabhängig │
+└────────────┘   └────────────┘   └────────────┘
+     ↓                 ↓                ↓
+             Gesamt: 6 TB verfügbar
+```
+
 - Keine RAID-Konfiguration
-- Festplatten einzeln nutzbar
-- Keine Redundanz oder Performance-Vorteil
+- Jede Festplatte einzeln nutzbar
+- Unterschiedliche Größen möglich
+
+**Vorteil:** 
+- Einfache Verwaltung
+- 100% Kapazitätsnutzung
+- Keine Größenbeschränkungen
+
+**Nachteil:** 
+- Keine Redundanz oder Leistungssteigerung
+- Bei Ausfall: Datenverlust auf betroffener Disk
 
 ---
 
@@ -194,6 +457,7 @@ Festplattenausfall → Hotspare aktiviert → Rebuild startet → System wiederh
 
 - Festplatten im laufenden Betrieb tauschbar
 - Kein System-Neustart nötig
+- Hot-Swap-Fähigkeit erforderlich
 
 ---
 
@@ -212,15 +476,16 @@ Festplattenausfall → Hotspare aktiviert → Rebuild startet → System wiederh
 
 ---
 
-## Speicherungstechniken
+## Speicherungstechniken in RAID-Systemen
 
 ### Mirroring
 - Identische Kopie auf zweiter Festplatte
-- Verwendung in RAID 1, RAID 10
+- Verwendung in RAID 1, RAID 10, RAID 01
 
-### Striping
+
+### Striping 
 - Datenverteilung über mehrere Festplatten
-- Verwendung in RAID 0, RAID 5, RAID 6
+- Verwendung in RAID 0, RAID 5, RAID 6, RAID 10, RAID 50, RAID 60
 
 ### Parity
 - XOR-Berechnung zur Wiederherstellung
@@ -241,7 +506,9 @@ Festplattenausfall → Hotspare aktiviert → Rebuild startet → System wiederh
 | **RAID 15** | 6 | ((n/2)-1) | ✅ (1 Mirror + 1 Disk/Gruppe) | Hohe Verfügbarkeit |
 | **RAID 16** | 8 | ((n/2)-2) | ✅ (1 Mirror + 2 Disks/Gruppe) | Kritische Enterprise-Systeme |
 | **RAID 50** | 6 | (n-2) | ✅ (1 Disk/Gruppe) | Große Datenmengen + Sicherheit |
+| **RAID 51** | 6 | ((n/2)-1) | ✅ (1 Mirror + 1 Disk/Gruppe) | Hohe Performance + Verfügbarkeit |
 | **RAID 60** | 8 | (n-4) | ✅ (2 Disks/Gruppe) | Höchste Ausfallsicherheit |
+| **RAID 61** | 8 | ((n/2)-2) | ✅ (1 Mirror + 2 Disks/Gruppe) | Maximale Ausfallsicherheit |
 | **JBOD** | 1+ | 100% | ❌ | Einfache Speicherung |
 
 ---
@@ -252,8 +519,8 @@ Festplattenausfall → Hotspare aktiviert → Rebuild startet → System wiederh
 - **NK** = Nettokapazität
 - **FA** = Festplattenanzahl
 - **FK** = Festplattenkapazität (kleinste Festplatte)
-- **k** = Anzahl RAID-Gruppen
-- **g** = Gruppengröße (FA / k)
+- **k**  = Anzahl RAID-Gruppen
+- **g**  = Gruppengröße (FA / k)
 
 ### Basis RAID-Level
 
@@ -307,11 +574,23 @@ NK = (FA - 2) × FK
 ```
 *Bei k=2 Gruppen: NK = k × (g - 1) × FK*
 
+**RAID 51 (5+1):**
+```
+NK = ((FA / 2) - 1) × FK
+```
+*Mirror + Stripe von RAID-5-Gruppen*
+
 **RAID 60 (6+0):**
 ```
 NK = (FA - 4) × FK
 ```
 *Bei k=2 Gruppen: NK = k × (g - 2) × FK*
+
+**RAID 61 (6+1):**
+```
+NK = ((FA / 2) - 2) × FK
+```
+*Mirror + Stripe von RAID-6-Gruppen*
 
 > **Tipp:** Größe richtet sich immer nach der kleinsten Festplatte im Array
 
@@ -332,7 +611,9 @@ NK = (FA - 4) × FK
 | **RAID 1+5** | 6 | 3 TiB | 18 TiB | `NK = ((FA / 2) - 1) × FK` | **6 TiB** |
 | **RAID 1+6** | 10 | 3 TiB | 30 TiB | `NK = ((FA / 2) - 2) × FK` | **9 TiB** |
 | **RAID 5+0** | 12 | 3 TiB | 36 TiB | `NK = (FA - 2) × FK` | **30 TiB** |
+| **RAID 5+1** | 6 | 3 TiB | 18 TiB | `NK = ((FA / 2) - 1) × FK` | **6 TiB** |
 | **RAID 6+0** | 8 | 3 TiB | 24 TiB | `NK = (FA - 4) × FK` | **12 TiB** |
+| **RAID 6+1** | 10 | 3 TiB | 30 TiB | `NK = ((FA / 2) - 2) × FK` | **9 TiB** |
 
 **Erklärung kombinierte RAIDs:**
 - **RAID 1+5**: Zwei RAID-5-Gruppen werden gespiegelt → `g = FA/2`, NK einer Gruppe = `(g - 1) × FK`
@@ -355,13 +636,16 @@ NK = (FA - 4) × FK
 | **RAID 15 (1+5)** | **6** | 2 RAID-5-Gruppen à mindestens 3 Platten gespiegelt (2×3) |
 | **RAID 16 (1+6)** | **8** | 2 RAID-6-Gruppen à mindestens 4 Platten gespiegelt (2×4) |
 | **RAID 50 (5+0)** | **6** | Mindestens 2 RAID-5-Gruppen à 3 Platten im Stripe (2×3) |
+| **RAID 51 (5+1)** | **6** | 2 Mirror-Gruppen mit je 3 RAID-5-Platten (2×3) |
 | **RAID 60 (6+0)** | **8** | Mindestens 2 RAID-6-Gruppen à 4 Platten im Stripe (2×4) |
+| **RAID 61 (6+1)** | **8** | 2 Mirror-Gruppen mit je 4 RAID-6-Platten (2×4) |
 
 > **Hinweis:** Bei kombinierten RAID-Leveln werden mindestens 2 Gruppen benötigt. Weitere Festplatten können hinzugefügt werden, sollten aber die Gruppenstruktur beibehalten.
 
 ---
 
 ## Speichertechnologien nach RAID-Level
+
 
 | RAID-Level | Striping | Mirroring | Single Parity | Double Parity |
 |------------|----------|-----------|---------------|---------------|
@@ -370,11 +654,26 @@ NK = (FA - 4) × FK
 | **RAID 5** | ✅ | ❌ | ✅ | ❌ |
 | **RAID 6** | ✅ | ❌ | ❌ | ✅ |
 | **RAID 10** | ✅ | ✅ | ❌ | ❌ |
+| **RAID 01** | ✅ | ✅ | ❌ | ❌ |
+| **RAID 15** | ❌ | ✅ | ✅ | ❌ |
+| **RAID 16** | ❌ | ✅ | ❌ | ✅ |
+| **RAID 50** | ✅ | ❌ | ✅ | ❌ |
+| **RAID 51** | ✅ | ✅ | ✅ | ❌ |
+| **RAID 60** | ✅ | ❌ | ❌ | ✅ |
+| **RAID 61** | ✅ | ✅ | ❌ | ✅ |
+
 
 **Erklärung:**
 - **Striping**: Datenverteilung über mehrere Festplatten
 - **Mirroring**: Datenspiegelung auf mehrere Festplatten
-- **Single Parity**: Eine Paritätsinformation für Wiederherstellung
-- **Double Parity**: Zwei Paritätsinformationen für höhere Sicherheit
+- **Parity**: Prüfsumme zur Datenrekonstruktion
+- **Array**: Verbund mehrerer Festplatten in einem RAID-System
+- **Block**: Kleinste Dateneinheit beim Striping
+- **Controller**: Hardware oder Software zur RAID-Verwaltung
+- **Degraded Mode**: Betriebszustand nach Festplattenausfall
+- **Hot-Swap**: Austausch im laufenden Betrieb
+- **Hotspare**: Standby-Festplatte für automatischen Ersatz
+- **Rebuild**: Wiederherstellung nach Festplattenausfall
+- **Redundanz**: Mehrfachspeicherung für Ausfallsicherheit
 
 ---
