@@ -1,0 +1,129 @@
+---
+title: 'Cloud Computing Grundlagen'
+description: 'Einführung in Cloud Computing mit Definitionen, Servicemodellen, Bereitstellungsmodellen und Abgrenzung zum klassischen IT-Outsourcing.'
+tags: ['cloud', 'computing', 'iaas', 'paas', 'saas', 'virtualisierung', 'netzwerk', 'it-sicherheit']
+---
+
+# Cloud Computing Grundlagen
+
+## Was ist Cloud Computing?
+
+> **Definition (NIST):**  
+> Cloud Computing ist ein Modell, das es erlaubt, bei Bedarf, jederzeit und überall bequem über ein Netz auf einen geteilten Pool von konfigurierbaren Rechnerressourcen (z. B. Netze, Server, Speichersysteme, Anwendungen und Dienste) zuzugreifen, die schnell und mit minimalem Managementaufwand oder geringer Serviceprovider-Interaktion zur Verfügung gestellt werden können.
+
+Diese Definition wird auch von der **ENISA (European Network and Information Security Agency)** genutzt und beschreibt die Vision einer flexiblen, skalierbaren und serviceorientierten IT-Infrastruktur.
+
+---
+
+## Fünf Kerneigenschaften laut NIST
+
+1. **On-Demand Self Service** – Ressourcen (z. B. Rechenleistung, Storage) werden automatisch ohne Interaktion mit dem Service Provider bereitgestellt.  
+2. **Broad Network Access** – Services sind über Standardnetzwerke erreichbar und nicht an bestimmte Clients gebunden.  
+3. **Resource Pooling** – Gemeinsame Ressourcennutzung im Multi-Tenant-Modell. Speicherort kann vertraglich festgelegt werden.  
+4. **Rapid Elasticity** – Ressourcen können schnell und elastisch skaliert werden. Aus Nutzersicht erscheinen sie unendlich.  
+5. **Measured Services** – Nutzung wird gemessen, überwacht und nach Verbrauch abgerechnet.
+
+---
+
+## Erweiterte Eigenschaften laut CSA
+
+> **Definition (Cloud Security Alliance):**  
+> Cloud Computing basiert auf einer serviceorientierten Architektur (SOA) und zeichnet sich durch Mandantenfähigkeit, Elastizität und nutzungsabhängige Abrechnung aus.
+
+Weitere Eigenschaften:
+- **Serviceorientierte Architektur (SOA)** mit REST-APIs  
+- **Mandantenfähigkeit (Multi-Tenancy)** – mehrere Kunden teilen sich Ressourcen  
+- **Pay-per-Use-Modell** oder Flatrate-basierte Abrechnung  
+
+---
+
+## Begriffsdefinition (BSI)
+
+> **Definition (BSI):**  
+> Cloud Computing bezeichnet das dynamisch an den Bedarf angepasste Anbieten, Nutzen und Abrechnen von IT-Dienstleistungen über ein Netz. Angebot und Nutzung erfolgen ausschließlich über definierte Schnittstellen und Protokolle.
+
+Umfasst das gesamte Spektrum der IT: **Infrastruktur, Plattformen und Software.**
+
+---
+
+## Bereitstellungsmodelle (Deployment Models)
+
+| Modell | Beschreibung | Betreiber / Nutzer | Typische Verwendung |
+|--------|---------------|--------------------|---------------------|
+| **Private Cloud** | Infrastruktur nur für eine Institution | Intern oder externer Dienstleister | Unternehmen, Behörden |
+| **Public Cloud** | Services für Öffentlichkeit oder große Nutzergruppen | Externer Anbieter | AWS, Azure, Google Cloud |
+| **Community Cloud** | Gemeinsame Nutzung durch Institutionen mit ähnlichen Interessen | Eine Institution oder Dritter | Forschung, Bildung |
+| **Hybrid Cloud** | Kombination mehrerer Clouds mit standardisierten Schnittstellen | Mischbetrieb | Unternehmen mit Multi-Cloud-Strategie |
+
+> **Hinweis:** Weitere Varianten wie *Virtual Private Cloud (VPC)* kombinieren Private- und Public-Cloud-Ansätze.
+
+---
+
+## Servicemodelle im Cloud Computing
+
+### 1. Infrastructure as a Service (IaaS)
+- Bereitstellung von Rechenleistung, Speicher und Netzwerkinfrastruktur  
+- Kunde verwaltet Betriebssystem und Anwendungen selbst  
+- Beispiele: AWS EC2, Google Compute Engine, Microsoft Azure VM  
+
+**Beispielhafte Kontrolle:**
+```
+Kunde kontrolliert: Betriebssystem, Anwendungen, Daten
+Provider kontrolliert: Hardware, Netzwerk, Virtualisierung
+```
+
+### 2. Platform as a Service (PaaS)
+- Komplette Entwicklungs- und Laufzeitumgebung als Service  
+- Zugriff auf Plattformdienste wie Datenbanken, APIs, Authentifizierung  
+- Keine Kontrolle über darunterliegende Infrastruktur  
+
+**Beispiele:** Google App Engine, Heroku, Azure App Service  
+
+### 3. Software as a Service (SaaS)
+- Bereitstellung von kompletten Anwendungen über das Internet  
+- Nutzer greift über Webbrowser oder API zu  
+- Keine Installation oder Wartung erforderlich  
+
+**Beispiele:** Microsoft 365, Salesforce, Google Workspace  
+
+> **Erweiterte Modelle:** Security as a Service, Backup as a Service, Business Process as a Service (BPaaS) – zusammengefasst als **XaaS (Anything as a Service).**
+
+---
+
+## Sicherheitsaspekte und Verantwortlichkeiten
+
+| Modell | Verantwortung des Kunden | Verantwortung des Providers |
+|--------|---------------------------|-----------------------------|
+| **IaaS** | OS, Anwendungen, Daten, Sicherheit | Hardware, Netzwerk |
+| **PaaS** | Anwendungen, Daten | Plattform, Laufzeitumgebung |
+| **SaaS** | Nutzungsrichtlinien, Daten | Alles darunter (App, OS, Hardware) |
+
+---
+
+## Abgrenzung zu klassischem IT-Outsourcing
+
+| Merkmal | Klassisches Outsourcing | Cloud Computing |
+|----------|--------------------------|-----------------|
+| **Architektur** | Single Tenant | Multi Tenant |
+| **Verträge** | Langfristig, individuell | Dynamisch, flexibel |
+| **Skalierung** | Manuell | Automatisch / elastisch |
+| **Verwaltung** | Durch Dienstleister | Über Web-Interface durch Nutzer |
+| **Ressourcennutzung** | Exklusiv | Geteilt |
+| **Abrechnung** | Pauschal | Nutzungsbasiert (Pay-per-Use) |
+
+> **Kernunterschied:** Cloud Computing ermöglicht dynamische, skalierbare Nutzung geteilter Ressourcen – IT-Outsourcing dagegen statische, exklusive Ressourcenbereitstellung.
+
+---
+
+## Fazit & Best Practices
+
+- Wähle das passende **Servicemodell (IaaS, PaaS, SaaS)** nach Bedarf und Sicherheitsanforderung.  
+- Prüfe **Compliance** und **Datenschutzrichtlinien** des Cloud-Providers.  
+- Implementiere **Sicherheitsmaßnahmen** wie Verschlüsselung, Identity Management und Monitoring.  
+- Plane eine **Multi-Cloud- oder Hybrid-Strategie**, um Abhängigkeiten zu vermeiden.  
+- Nutze **automatisiertes Skalieren und Kostenkontrolle**, um Effizienz zu maximieren.
+
+> **Zusammenfassung:**  
+> Cloud Computing bietet Flexibilität, Skalierbarkeit und Effizienz – setzt jedoch verantwortungsvolles Management und Sicherheitsbewusstsein voraus.
+
+---
