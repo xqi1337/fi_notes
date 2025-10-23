@@ -1,0 +1,119 @@
+---
+title: 'USV (Unterbrechungsfreie Stromversorgung)'
+description: 'Übersicht über Aufbau, Arten und Berechnungsgrundlagen von USV-Systemen mit Beispielen zur Leistungsberechnung und Schutzmechanismen.'
+tags: ['usv', 'stromversorgung', 'netzwerk', 'elektronik', 'hardware', 'sicherheit', 'spannung', 'leistung', 'pf', 'stromausfall']
+---
+
+# USV (Unterbrechungsfreie Stromversorgung)
+
+## Definition
+
+> **USV (Unterbrechungsfreie Stromversorgung)** ist ein Gerät, das bei einem Stromausfall die Energieversorgung für eine begrenzte Zeit aufrechterhält.  
+> Dadurch können Systeme sicher heruntergefahren oder Übergänge zu Notstromaggregaten unterbrechungsfrei gewährleistet werden.
+
+---
+
+## Arten von USV-Systemen
+
+| Typ | Bezeichnung | Eigenschaften | Schutzumfang | Wirkungsgrad | Anwendungsbereich |
+|------|--------------|----------------|----------------|----------------|-------------------|
+| **VFD** | Voltage and Frequency Dependent<br>*(Offline-USV)* | Akku übernimmt Stromversorgung nur bei Ausfall | Schützt nur bei **Totalausfall** | ~95 % | Einzelne Systeme, Kleinstverbraucher |
+| **VI** | Voltage Independent<br>*(Line-Interactive-USV)* | Automatische Spannungsanpassung bei Schwankungen | Schutz vor **Totalausfall und Spannungsschwankungen**, nicht gegen Frequenzen | 95–98 % | Einzelne Systeme, Netzwerke *(nicht für hochsensible Anwendungen!)* |
+| **VFI** | Voltage and Frequency Independent<br>*(Online-USV)* | Ständiger Stromfluss über Akku (Dauerbetrieb) | Schützt vor **Totalausfall, Schwankungen und Frequenzabweichungen** | ~90 % | Server, Rechenzentren, Datenbanken |
+
+---
+
+## Funktionsweise & Schutzmechanismen
+
+> Eine USV schützt angeschlossene Geräte vor Stromausfällen, Spannungsspitzen und Frequenzschwankungen.  
+> Durch eingebaute **Überspannungsschutzgeräte (SPDs)** werden gefährliche Spannungsspitzen abgeleitet und die Netzspannung auf ein sicheres Niveau begrenzt.
+
+### Zusätzliche Schutzfunktionen
+- **Spannungsregelung:** konstante Ausgangsspannung trotz Netzschwankungen  
+- **Filterung:** Reduzierung elektrischer Störungen  
+- **Erdung:** Sicherheit gegen Überspannung durch korrekte Installation  
+- **Alarmierung:** Signale bei Batterieausfall oder Überlast  
+
+> **Hinweis:** Installation und Erdung sollten von Fachpersonal durchgeführt werden, um maximale Sicherheit und Zuverlässigkeit zu gewährleisten.
+
+---
+
+## Berechnung der USV-Leistung
+
+> Zur Dimensionierung einer USV werden **Scheinleistung (S)**, **Wirkleistung (P)** und der **Leistungsfaktor (cos φ)** berücksichtigt.
+
+### Formeln
+
+```
+S = U × I
+P = S × cosφ
+```
+
+**Parameter:**
+- U = Nennspannung (Volt)
+- I = Nennstrom (Ampere)
+- cosφ = Leistungsfaktor (0–1)
+
+---
+
+## Beispielrechnung
+
+**Gegeben:**
+- Nennspannung: 230 V  
+- Nennstrom: 10 A  
+- Leistungsfaktor: 0,8  
+
+**Berechnung:**
+```
+1. Scheinleistung (S):
+   S = U × I = 230 V × 10 A = 2300 VA
+
+2. Wirkleistung (P):
+   P = S × cosφ = 2300 VA × 0,8 = 1840 W
+```
+
+**Ergebnis:**  
+Die USV liefert eine maximale **Scheinleistung von 2300 VA** und eine **Wirkleistung von 1840 W**.  
+Damit kann sie Geräte mit einer Gesamtleistung von bis zu **1,84 kW** zuverlässig versorgen.
+
+---
+
+## Hinweise zur Dimensionierung
+
+> Eine USV sollte immer **20–30 % Leistungsreserve** besitzen, um Lastspitzen oder Alterung der Batterien auszugleichen.
+
+### Praktische Tipps
+- Gesamtlast aller Geräte in Watt addieren  
+- Umrechnen in VA (durch cosφ teilen)  
+- Nächstgrößere USV-Leistungsklasse wählen  
+- Batteriekapazität an gewünschte Überbrückungszeit anpassen  
+
+---
+
+## Vergleich der USV-Typen
+
+| Kriterium | VFD (Offline) | VI (Line-Interactive) | VFI (Online) |
+|------------|---------------|------------------------|---------------|
+| **Schutzart** | Nur Totalausfall | Spannung + Ausfall | Spannung + Frequenz + Ausfall |
+| **Schaltzeit** | Kurz (ms) | Kurz | Keine |
+| **Wirkungsgrad** | Hoch (95 %) | Sehr hoch (98 %) | Niedriger (90 %) |
+| **Wärmeentwicklung** | Gering | Mittel | Hoch |
+| **Kosten** | Niedrig | Mittel | Hoch |
+| **Ideal für** | PCs, kleine Systeme | Netzwerke, Arbeitsplätze | Server, kritische Infrastruktur |
+
+---
+
+## Fazit & Best Practices
+
+> **Fazit:** Die Auswahl einer geeigneten USV hängt von Schutzbedarf, Energieanforderung und Systemkritikalität ab.
+
+### Best Practices
+- Verwende **VFI-Systeme** bei Servern und Datenbanken  
+- Achte auf **regelmäßige Wartung und Batterietests**  
+- Plane eine **Leistungsreserve von mindestens 20 %** ein  
+- Prüfe Erdung und Anschluss durch qualifiziertes Fachpersonal  
+- Dokumentiere **Wartungsintervalle und Austauschzyklen**
+
+---
+
+**Tags:** #usv #stromversorgung #elektronik #leistung #netzwerk #hardware #stromausfall #sicherheit
