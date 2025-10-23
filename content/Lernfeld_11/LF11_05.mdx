@@ -1,0 +1,152 @@
+---
+title: Speichernetze - Grundlagen, Techniken und Vergleich
+description: Überblick über Speichernetze, ihre Anforderungen sowie die verschiedenen Netzwerkspeichertechniken DAS, NAS und SAN im Vergleich.
+tags: [speichernetze, nas, san, das, speichertechnologien, it-infrastruktur]
+---
+
+# Speichernetze
+
+## Anforderungen an Speichernetze
+
+> Wichtige Aspekte von Speichernetzen sind der unbegrenzte Zugriff der Hosts auf alle Massenspeicher, die gemeinsame zentrale Nutzung von leistungsfähigen Speichersystemen, der Lastaustausch zwischen verfügbaren Sicherungsgeräten, die zentrale Geräteüberwachung und -Konfiguration, die Erhöhung der verwaltbaren Datenmenge, die ständige Verfügbarkeit aller Daten und die geringe Belastung der lokalen Netze.
+
+### Kernanforderungen
+
+- **Hohe Verfügbarkeit**: Speichernetzwerke müssen immer verfügbar sein, selbst bei Serverausfällen
+- **Ausfallsicherheit**: Robuste Architektur mit Redundanz
+- **Skalierbarkeit**: Flexible Erweiterbarkeit der Kapazitäten
+- **Performance**: Geringe Latenz und hohe Durchsatzraten
+
+### Auswahlkriterien
+
+| Kriterium | Beschreibung |
+|-----------|-------------|
+| Kapazität und Skalierbarkeit | Erweiterbarkeit der Speicherkapazität |
+| Leistung | Durchsatz und Latenz |
+| Verfügbarkeit | Ausfallsicherheit und Redundanz |
+| Datenschutz und Replikation | Sicherung und Datenverteilung |
+| Kosten | Anschaffung und Betrieb |
+
+---
+
+## Netzwerkspeichertechniken
+
+### 1. Direct Attached Storage (DAS)
+
+> Bezeichnet an einen einzelnen Server/Rechner angeschlossene Festplatten, die sich in einem separaten Gehäuse befinden.
+
+#### Technische Merkmale
+- **Schnittstellen**: SCSI, SAS, ATA/ATAPI, FireWire, eSATA, USB mit UAS
+- **Verbindung**: Punkt-zu-Punkt-Verbindungen
+- **Protokolle**: Blockorientierte Übertragungsprotokolle
+
+```ascii
++-------------+      +-----------+
+|   Server    |------| DAS Array |
++-------------+      +-----------+
+```
+
+#### Nachteile
+- Nur an einen Host gebunden
+- Höherer Verwaltungsaufwand bei mehreren Systemen
+- Eingeschränkte Skalierbarkeit
+
+---
+
+### 2. Network Attached Storage (NAS)
+
+> Bezeichnet einfach zu verwaltende Dateiserver, die direkt am Netzwerk angeschlossen werden und autonom arbeiten.
+
+#### Technische Merkmale
+- **Autonomer Betrieb**: Kein dedizierter PC/Server benötigt
+- **Protokolle**: 
+  - Dateibasiert: SMB/CIFS, NFS
+  - Blockbasiert: iSCSI, FCoE
+
+```ascii
++-----------+      +------------+      +-----------+
+| Client 1  |------|            |------| Client 2  |
++-----------+      |  Netzwerk  |      +-----------+
+                   |            |
++-----------+      |            |      +-----------+
+| Client 3  |------|            |------| NAS System|
++-----------+      +------------+      +-----------+
+```
+
+#### Vorteile
+- Geringerer Energieverbrauch
+- Plattformübergreifende Nutzung in heterogenen Umgebungen
+- Höhere Datensicherheit durch RAID
+- Höhere Übertragungsgeschwindigkeit
+- Entlastung der Standardsysteme
+
+---
+
+### 3. Storage Area Network (SAN)
+
+> Bezeichnet ein Netzwerk zur Anbindung von Festplattensubsystemen (Disk-Array) und Tape-Libraries an Server-Systeme.
+
+#### Technische Merkmale
+- **Datenzugriff**: Blockbasiert
+- **Einsatzgebiet**: Serielle, kontinuierliche Hochgeschwindigkeitsübertragungen großer Datenmengen
+- **Technologien**:
+  - Fibre Channel (hochverfügbare Installationen)
+  - IP-basiert (KMU aus Kostengründen)
+
+```ascii
++-----------+      +------------+      +--------------+
+| Server 1  |------|            |------| Disk-Array 1 |
++-----------+      |            |      +--------------+
+                   |    SAN     |
++-----------+      |  Fabric    |      +--------------+
+| Server 2  |------|            |------| Tape-Library |
++-----------+      |            |      +--------------+
+                   +------------+      +--------------+
+                                       | Disk-Array 2 |
+                                       +--------------+
+```
+
+#### Protokolle
+- SCSI über Fibre Channel oder iSCSI
+- Alternative: RSIO, InfiniBand
+
+#### Vorteile
+- Hohe Geschwindigkeit (bis zu 1,6 GB/s mit Fibre Channel)
+- Keine Belastung des Clientnetzwerkes
+- Disaster-Toleranz durch redundante Systeme
+- RAID-Funktionalität
+
+---
+
+## Vergleich der Speichertechnologien
+
+| Aspekt | DAS | NAS | SAN |
+|--------|-----|-----|-----|
+| **Zugriffsart** | Blockbasiert | Dateibasiert | Blockbasiert |
+| **Skalierbarkeit** | Gering | Mittel | Hoch |
+| **Kosten** | Niedrig | Mittel | Hoch |
+| **Verwaltung** | Einfach | Einfach | Komplex |
+| **Performance** | Hoch | Mittel | Sehr hoch |
+| **Einsatzgebiet** | Einzel-Server | File-Sharing | Unternehmenskritisch |
+
+## Best Practices und Empfehlungen
+
+### Auswahlkriterien in der Praxis
+```
+Wenn (kleines Büro || Heimnetzwerk) dann NAS
+Wenn (Einzelserver || spezielle Anwendung) dann DAS  
+Wenn (Unternehmen  || Hochverfügbarkeit benötigt) dann SAN
+```
+
+### Tipps für die Implementierung
+1. **Beginne mit den Anforderungen**: Definiere klar Performance-, Kapazitäts- und Verfügbarkeitsanforderungen
+2. **Plan Redundanz ein**: Kritische Systeme immer redundant auslegen
+3. **Berücksichtige Wachstum**: Wähle skalierbare Lösungen
+4. **Kosten vs. Nutzen**: Abwägung zwischen Performance-Anforderungen und Budget
+
+### Fazit
+- **DAS**: Ideal für einfache, direkte Server-Anbindungen
+- **NAS**: Perfekt für File-Sharing und kleine bis mittlere Umgebungen
+- **SAN**: Optimal für unternehmenskritische, hochverfügbare Anwendungen
+
+> Die Wahl der richtigen Speichertechnologie hängt maßgeblich von den spezifischen Anforderungen an Performance, Skalierbarkeit und Verfügbarkeit ab.
